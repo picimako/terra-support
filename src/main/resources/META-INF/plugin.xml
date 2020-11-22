@@ -1,0 +1,71 @@
+<!--https://jetbrains.org/intellij/sdk/docs/basics/plugin_structure/dynamic_plugins.html-->
+<idea-plugin require-restart="true">
+    <name>Terra Support</name>
+    <id>terra.support</id>
+    <version>0.1.0</version>
+    <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
+
+    <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
+    <idea-version since-build="202"/>
+
+    <description>Adds dev and test support for Cerner's various Terra libraries.</description>
+
+    <!-- See https://jetbrains.org/intellij/sdk/docs/products/webstorm.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>JavaScript</depends>
+    <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
+    <!-- https://jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_dependencies.html -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Code inspections -->
+        <!-- Terra WDIO -->
+        <localInspection id="terraDescribeViewports" language="JavaScript"
+                         displayName="Terra.describeViewports validations"
+                         groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsInspection"/>
+        <localInspection id="terraDescribeViewportsBlocking" language="JavaScript"
+                         displayName="Terra.describeViewports blocking validations"
+                         groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsBlockingInspection"/>
+        <localInspection id="nestedDescribeViewportsNotAllowed" language="JavaScript"
+                         displayName="Nested Terra.describeViewports blocks"
+                         groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.inspection.describeviewports.NestedTerraDescribeViewportsBlocksNotAllowedInspection"/>
+
+        <localInspection id="terraElementValidationIsPreferredOverScreenshot" language="JavaScript"
+                         displayName="Terra element over screenshot validation"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="false" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.inspection.screenshot.TerraElementValidationIsPreferredOverScreenshotInspection"/>
+        <localInspection id="screenshotMismatchTolerance" language="JavaScript"
+                         displayName="Screenshot misMatchTolerance is above threshold"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceInspection"/>
+        <localInspection id="screenshotMismatchToleranceBlocking" language="JavaScript"
+                         displayName="Screenshot misMatchTolerance blocking validations"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceBlockingInspection"/>
+
+        <!-- Terra wdio tool window -->
+        <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"
+                    factoryClass="com.picimako.terra.wdio.toolwindow.TerraWdioToolWindowFactory"/>
+
+        <!-- Documentation -->
+        <documentationProvider
+                implementation="com.picimako.terra.documentation.TerraDescribeViewportsDocumentationProvider"/>
+        <lang.documentationProvider order="first" language="JavaScript"
+                                    implementationClass="com.picimako.terra.documentation.TerraUIComponentDocumentationUrlProvider"/>
+        <lang.documentationProvider order="first" language="JavaScript"
+                                    implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>
+
+        <fileEditorProvider
+                implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
+        <fileEditorProvider
+                implementation="com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsFileEditorProvider"/>
+
+        <!-- Services -->
+        <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
+        <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
+    </extensions>
+
+    <change-notes><![CDATA[	Change notes will be filled by gradle build ]]></change-notes>
+</idea-plugin>

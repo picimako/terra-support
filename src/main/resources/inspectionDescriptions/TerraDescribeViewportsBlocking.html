@@ -1,0 +1,28 @@
+<html>
+<body>
+<b>Empty viewports / no viewports specified:
+</b>
+<p>
+    This inspection reports problems when the viewports array has no viewport defined, or all the viewports are blank,
+    as in either empty, or contain only whitespaces.
+
+    You need to define either one or more viewports to have the test cases run properly, or remove the
+    <code>Terra.describeViewports</code> block to run the tests on a single default viewport.
+</p>
+<b>Not supported viewports:
+</b>
+<p>
+    Terra has support for six distinct viewports/breakpoints. In ascending order by their widths, they are: tiny, small,
+    medium, large, huge, enormous.
+    You can find more details about them in <a
+        href="https://engineering.cerner.com/terra-ui/components/terra-breakpoints/breakpoints/about#breakpoints">Cerner's
+    Terra Breakpoints documentation</a>.
+</p>
+<b>Viewports defined as a non-array-type argument:
+</b>
+<p>
+    The viewports argument of <code>Terra.describeViewports</code> accepts an array only, so any other type of value will be
+    reported by this check.
+</p>
+</body>
+</html>

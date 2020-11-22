@@ -1,0 +1,33 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+import com.intellij.codeInspection.ProblemsHolder;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * .
+ */
+public class ${NAME}Inspection extends TerraWdioInspectionBase {
+
+    private static final String MESSAGE = "INSERT INSPECTION MESSAGE HERE";
+
+    @Override
+    public @NotNull
+    String getShortName() {
+        return "${NAME}";
+    }
+
+    @Override
+    public @NotNull
+    PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+        return new PsiElementVisitor() {
+            @Override
+            public void visitElement(@NotNull PsiElement element) {
+                super.visitElement(element);
+
+
+            }
+        };
+    }
+}

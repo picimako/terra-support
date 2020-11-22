@@ -1,0 +1,3589 @@
+{
+  "components": [
+    {
+      "componentName": "ActionFooter",
+      "properties": [
+        {
+          "importPath": "terra-action-footer",
+          "relativeUrl": "/terra-action-footer/action-footer/standard"
+        }
+      ]
+    },
+    {
+      "componentName": "ActionHeader",
+      "properties": [
+        {
+          "importPath": "terra-action-header",
+          "relativeUrl": "/terra-action-header/action-header/action-header"
+        }
+      ]
+    },
+    {
+      "componentName": "ActiveBreakpointContext",
+      "properties": [
+        {
+          "importPath": "terra-breakpoints",
+          "relativeUrl": "/terra-breakpoints/breakpoints/about"
+        }
+      ]
+    },
+    {
+      "componentName": "ActiveBreakpointContext.Consumer",
+      "properties": [
+        {
+          "importPath": "terra-breakpoints",
+          "relativeUrl": "/terra-breakpoints/breakpoints/about"
+        }
+      ]
+    },
+    {
+      "componentName": "ActiveBreakpointProvider",
+      "properties": [
+        {
+          "importPath": "terra-breakpoints",
+          "relativeUrl": "/terra-breakpoints/breakpoints/about"
+        }
+      ]
+    },
+    {
+      "componentName": "Aggregator",
+      "properties": [
+        {
+          "importPath": "terra-aggregator",
+          "relativeUrl": "/terra-aggregator/aggregator/aggregator"
+        }
+      ]
+    },
+    {
+      "componentName": "Alert",
+      "properties": [
+        {
+          "importPath": "terra-alert",
+          "relativeUrl": "/terra-alert/alert/alert"
+        }
+      ]
+    },
+    {
+      "componentName": "Application",
+      "properties": [
+        {
+          "importPath": "terra-application",
+          "relativeUrl": "/terra-application-navigation/application-navigation/about"
+        }
+      ]
+    },
+    {
+      "componentName": "ApplicationNavigation",
+      "properties": [
+        {
+          "importPath": "terra-application-navigation",
+          "relativeUrl": "/terra-application-navigation/application-navigation/about"
+        }
+      ]
+    },
+    {
+      "componentName": "Arrange",
+      "properties": [
+        {
+          "importPath": "terra-arrange",
+          "relativeUrl": "/terra-arrange/arrange/arrange"
+        }
+      ]
+    },
+    {
+      "componentName": "Avatar",
+      "properties": [
+        {
+          "importPath": "terra-avatar",
+          "relativeUrl": "/terra-avatar/avatar/avatar"
+        }
+      ]
+    },
+    {
+      "componentName": "Badge",
+      "properties": [
+        {
+          "importPath": "terra-badge",
+          "relativeUrl": "/terra-badge/badge/badge"
+        }
+      ]
+    },
+    {
+      "componentName": "Base",
+      "properties": [
+        {
+          "importPath": "terra-base",
+          "relativeUrl": "/terra-base/base/base"
+        }
+      ]
+    },
+    {
+      "componentName": "BlockActionFooter",
+      "properties": [
+        {
+          "importPath": "terra-action-footer/lib/BlockActionFooter",
+          "relativeUrl": "/terra-action-footer/action-footer/block"
+        }
+      ]
+    },
+    {
+      "componentName": "Body",
+      "properties": [
+        {
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "BrandFooter",
+      "properties": [
+        {
+          "importPath": "terra-brand-footer",
+          "relativeUrl": "/terra-brand-footer/brand-footer/brand-footer"
+        }
+      ]
+    },
+    {
+      "componentName": "Button",
+      "properties": [
+        {
+          "importPath": "terra-button",
+          "relativeUrl": "/terra-button/button/button"
+        }
+      ]
+    },
+    {
+      "componentName": "ButtonGroup",
+      "properties": [
+        {
+          "importPath": "terra-button-group",
+          "relativeUrl": "/terra-button-group/button-group/button-group"
+        }
+      ]
+    },
+    {
+      "componentName": "CalendarFilter",
+      "properties": [
+        {
+          "importPath": "terra-date-picker/lib/CalendarFilter",
+          "relativeUrl": "/terra-date-picker/date-picker/calendar-filter"
+        }
+      ]
+    },
+    {
+      "componentName": "Card",
+      "properties": [
+        {
+          "importPath": "terra-card",
+          "relativeUrl": "/terra-card/card/card"
+        }
+      ]
+    },
+    {
+      "componentName": "Cell",
+      "properties": [
+        {
+          "family": "Cell Grid",
+          "importPath": "terra-cell-grid",
+          "relativeUrl": "/terra-cell-grid/cell-grid/cell-grid"
+        },
+        {
+          "family": "Html Table",
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "CellGrid",
+      "properties": [
+        {
+          "importPath": "terra-cell-grid",
+          "relativeUrl": "/terra-cell-grid/cell-grid/cell-grid"
+        }
+      ]
+    },
+    {
+      "componentName": "CenteredActionFooter",
+      "properties": [
+        {
+          "importPath": "terra-action-footer/lib/CenteredActionFooter",
+          "relativeUrl": "/terra-action-footer/action-footer/centered"
+        }
+      ]
+    },
+    {
+      "componentName": "Checkbox",
+      "properties": [
+        {
+          "importPath": "terra-form-checkbox",
+          "relativeUrl": "/terra-form-checkbox/form-checkbox/checkbox"
+        }
+      ]
+    },
+    {
+      "componentName": "CheckboxField",
+      "properties": [
+        {
+          "importPath": "terra-form-checkbox/lib/CheckboxField",
+          "relativeUrl": "/terra-form-checkbox/form-checkbox/checkbox-field"
+        }
+      ]
+    },
+    {
+      "componentName": "ClinicalResult",
+      "properties": [
+        {
+          "importPath": "terra-clinical-result",
+          "relativeUrl": "/terra-clinical-result/clinical-result/clinical-result"
+        }
+      ]
+    },
+    {
+      "componentName": "ClinicalResultBloodPressure",
+      "properties": [
+        {
+          "importPath": "terra-clinical-result/lib/index",
+          "relativeUrl": "/terra-clinical-result/clinical-result/clinical-result-blood-pressure"
+        }
+      ]
+    },
+    {
+      "componentName": "CollapsibleMenuView",
+      "properties": [
+        {
+          "importPath": "terra-collapsible-menu-view",
+          "relativeUrl": "/terra-collapsible-menu-view/collapsible-menu-view/collapsible-menu-view"
+        }
+      ]
+    },
+    {
+      "componentName": "Combobox",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/Combobox",
+          "relativeUrl": "/terra-form-select/form-select/combobox"
+        }
+      ]
+    },
+    {
+      "componentName": "ComboboxField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/ComboboxField",
+          "relativeUrl": "/terra-form-select/form-select/combobox-field"
+        }
+      ]
+    },
+    {
+      "componentName": "ContentContainer",
+      "properties": [
+        {
+          "importPath": "terra-content-container",
+          "relativeUrl": "/terra-content-container/content-container/content-container"
+        }
+      ]
+    },
+    {
+      "componentName": "ControlledPaginator",
+      "properties": [
+        {
+          "importPath": "terra-paginator/lib/ControlledPaginator",
+          "relativeUrl": "/terra-paginator/paginator/paginator-controlled"
+        }
+      ]
+    },
+    {
+      "componentName": "ControlledProgressivePaginator",
+      "properties": [
+        {
+          "importPath": "terra-paginator/lib/ControlledProgressivePaginator",
+          "relativeUrl": "/terra-paginator/paginator/progressive-paginator-controlled"
+        }
+      ]
+    },
+    {
+      "componentName": "DataGrid",
+      "properties": [
+        {
+          "importPath": "terra-clinical-data-grid",
+          "relativeUrl": "/terra-clinical-data-grid/clinical-data-grid/clinical-data-grid"
+        }
+      ]
+    },
+    {
+      "componentName": "DateInput",
+      "properties": [
+        {
+          "importPath": "terra-date-input",
+          "relativeUrl": "/terra-date-input/date-input/date-input"
+        }
+      ]
+    },
+    {
+      "componentName": "DateInputField",
+      "properties": [
+        {
+          "importPath": "terra-date-input/lib/DateInputField",
+          "relativeUrl": "/terra-date-input/date-input/date-input-field"
+        }
+      ]
+    },
+    {
+      "componentName": "DatePicker",
+      "properties": [
+        {
+          "importPath": "terra-date-picker",
+          "relativeUrl": "/terra-date-picker/date-picker/date-picker"
+        }
+      ]
+    },
+    {
+      "componentName": "DatePickerField",
+      "properties": [
+        {
+          "importPath": "terra-date-picker",
+          "relativeUrl": "/terra-date-picker/date-picker/date-picker-field"
+        }
+      ]
+    },
+    {
+      "componentName": "DateTimePicker",
+      "properties": [
+        {
+          "importPath": "terra-date-time-picker",
+          "relativeUrl": "/terra-date-time-picker/date-time-picker/date-time-picker"
+        }
+      ]
+    },
+    {
+      "componentName": "DemographicsBanner",
+      "properties": [
+        {
+          "importPath": "terra-demographics-banner",
+          "relativeUrl": "/terra-demographics-banner/demographics-banner/demographics-banner"
+        }
+      ]
+    },
+    {
+      "componentName": "DetailView",
+      "properties": [
+        {
+          "importPath": "terra-clinical-detail-view",
+          "relativeUrl": "/terra-clinical-detail-view/clinical-detail-view/clinical-detail-view"
+        }
+      ]
+    },
+    {
+      "componentName": "DisclosureManager",
+      "properties": [
+        {
+          "importPath": "terra-disclosure-manager",
+          "relativeUrl": "/terra-disclosure-manager/disclosure-manager/about"
+        }
+      ]
+    },
+    {
+      "componentName": "DisclosureManagerHeaderAdapter",
+      "properties": [
+        {
+          "importPath": "terra-disclosure-manager",
+          "relativeUrl": "/terra-disclosure-manager/disclosure-manager/disclosing-content-with-a-header"
+        }
+      ]
+    },
+    {
+      "componentName": "Divider",
+      "properties": [
+        {
+          "importPath": "terra-divider",
+          "relativeUrl": "/terra-divider/divider/divider"
+        }
+      ]
+    },
+    {
+      "componentName": "DropdownButton",
+      "properties": [
+        {
+          "importPath": "terra-dropdown-button",
+          "relativeUrl": "/terra-dropdown-button/dropdown-button/dropdown-button"
+        }
+      ]
+    },
+    {
+      "componentName": "DynamicGrid",
+      "properties": [
+        {
+          "importPath": "terra-dynamic-grid",
+          "relativeUrl": "/terra-dynamic-grid/dynamic-grid/dynamic-grid"
+        }
+      ]
+    },
+    {
+      "componentName": "EmbeddedContentConsumer",
+      "properties": [
+        {
+          "importPath": "terra-embedded-content-consumer",
+          "relativeUrl": "/terra-embedded-content-consumer/embedded-content-consumer/embedded-content-consumer"
+        }
+      ]
+    },
+    {
+      "componentName": "Facility",
+      "properties": [
+        {
+          "importPath": "terra-avatar",
+          "relativeUrl": "/terra-avatar/avatar/facility"
+        }
+      ]
+    },
+    {
+      "componentName": "Field",
+      "properties": [
+        {
+          "importPath": "terra-form-field",
+          "relativeUrl": "/terra-form-field/form-field/form-field"
+        }
+      ]
+    },
+    {
+      "componentName": "Fieldset",
+      "properties": [
+        {
+          "importPath": "terra-form-fieldset/lib/Fieldset",
+          "relativeUrl": "/terra-form-fieldset/form-fieldset/form-fieldset"
+        }
+      ]
+    },
+    {
+      "componentName": "FlowsheetResultCell",
+      "properties": [
+        {
+          "importPath": "terra-clinical-result/lib/index",
+          "relativeUrl": "/terra-clinical-result/clinical-result/flowsheet-result-cell"
+        }
+      ]
+    },
+    {
+      "componentName": "Generic",
+      "properties": [
+        {
+          "importPath": "terra-avatar",
+          "relativeUrl": "/terra-avatar/avatar/generic"
+        }
+      ]
+    },
+    {
+      "componentName": "Grid",
+      "properties": [
+        {
+          "importPath": "terra-grid",
+          "relativeUrl": "/terra-grid/grid/grid"
+        }
+      ]
+    },
+    {
+      "componentName": "Grid.Column",
+      "properties": [
+        {
+          "importPath": "terra-grid",
+          "relativeUrl": "/terra-grid/grid/grid"
+        }
+      ]
+    },
+    {
+      "componentName": "Grid.Row",
+      "properties": [
+        {
+          "importPath": "terra-grid",
+          "relativeUrl": "/terra-grid/grid/grid"
+        }
+      ]
+    },
+    {
+      "componentName": "Header",
+      "properties": [
+        {
+          "family": "Clinical Header",
+          "importPath": "terra-clinical-header",
+          "relativeUrl": "/terra-clinical-header/clinical-header/clinical-header"
+        },
+        {
+          "family": "Html Table",
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "HeaderCell",
+      "properties": [
+        {
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "Heading",
+      "properties": [
+        {
+          "importPath": "terra-heading",
+          "relativeUrl": "/terra-heading/heading/heading"
+        }
+      ]
+    },
+    {
+      "componentName": "Hookshot",
+      "properties": [
+        {
+          "importPath": "terra-hookshot",
+          "relativeUrl": "/terra-hookshot/hookshot/hookshot"
+        }
+      ]
+    },
+    {
+      "componentName": "Hyperlink",
+      "properties": [
+        {
+          "importPath": "terra-hyperlink",
+          "relativeUrl": "/terra-hyperlink/hyperlink/hyperlink"
+        }
+      ]
+    },
+    {
+      "componentName": "I18nProvider",
+      "properties": [
+        {
+          "importPath": "terra-i18n",
+          "relativeUrl": "/terra-i-18-n/i-18-n/i-18-n"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAbnormal",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAbnormal",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAdd",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAdd",
+          "relativeUrl": "/terra-icon/icon/icon"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAddPerson",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAddPerson",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAlert",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAlert",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAllergy",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAllergy",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAnalytics",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAnalytics",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAnnouncement",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAnnouncement",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconArchive",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconArchive",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAttachment",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAttachment",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAudio",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAudio",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAutoText",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAutoText",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAvailable",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAvailable",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconAway",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconAway",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBedAssigned",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBedAssigned",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBedRequested",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBedRequested",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBluetooth",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBluetooth",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBookmark",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBookmark",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBriefcase",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBriefcase",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconBusy",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconBusy",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCalculator",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCalculator",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCalendar",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCalendar",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCamera",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCamera",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCancel",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCancel",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCaretDown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCaretDown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCaretLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCaretLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCaretRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCaretRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCaretUp",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCaretUp",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCatalogueNumber",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCatalogueNumber",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCaution",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCaution",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCeMarking",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCeMarking",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChecklist",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChecklist",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCheckmark",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCheckmark",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChevron",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChevron",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChevronDown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChevronDown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChevronLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChevronLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChevronRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChevronRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconChevronUp",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconChevronUp",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCircleLinesSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCircleLinesSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCircleSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCircleSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCircleSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCircleSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconClear",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconClear",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconClipboard",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconClipboard",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconClock",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconClock",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconClose",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconClose",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCollapseRow",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCollapseRow",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconComment",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconComment",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCommit",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCommit",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconComplete",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconComplete",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCompose",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCompose",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconConsultInstructionsForUse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconConsultInstructionsForUse",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCritical",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCritical",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconCriticalInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconCriticalInverse",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDateOfManufacture",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDateOfManufacture",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDevice",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDevice",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDeviceAlert",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDeviceAlert",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDeviceCheck",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDeviceCheck",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDiamond",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDiamond",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDiamondSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDiamondSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDiamondSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDiamondSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDischargeComingDue",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDischargeComingDue",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDischargeComplete",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDischargeComplete",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDischargeOverDue",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDischargeOverDu",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDoNotDisturb",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDoNotDisturb",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDocumentPlus",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDocumentPlus",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDocuments",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDocuments",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDoorOpen",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDoorOpen",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDoubleChevronLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDoubleChevronLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDoubleChevronRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDoubleChevronRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDownload",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDownload",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDrugDrug",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDrugDrug",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDue",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDue",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconDueSoon",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconDueSoon",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconEcRep",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconEcRep",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconEdit",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconEdit",
+          "relativeUrl": "/terra-icon/icon/icon"
+        }
+      ]
+    },
+    {
+      "componentName": "IconEllipses",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconEllipses",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconEnvelope",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconEnvelope",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconEnvelopeFill",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconEnvelopeFill",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconError",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconError",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconErrorDark",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconErrorDark",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExclamation",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExclamation",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExpandLess",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExpandLess",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExpandMore",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExpandMore",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExpandRow",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExpandRow",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExtensions",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExtensions",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconExternalLink",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconExternalLink",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFeatured",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFeatured",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFeaturedOff",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFeaturedOff",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFeaturedOutline",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFeaturedOutline",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFeaturedOutlineYellow",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFeaturedOutlineYellow",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFirst",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFirst",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFitHeight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFitHeight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFitScale",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFitScale",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFitWidth",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFitWidth",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFlag",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFlag",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFlipHorizontal",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFlipHorizontal",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFlipVertical",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFlipVertical",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFlowsheet",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFlowsheet",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFolder",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFolder",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconForward",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconForward",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconFunnel",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconFunnel",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconGapChecking",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconGapChecking",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconGlasses",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconGlasses",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconGroup",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconGroup",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHalfRating",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHalfRating",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHelp",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHelp",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHelpInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHelpInvers",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHide",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHide",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHigh",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHigh",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHighInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHighInverse",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHighPriority",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHighPriority",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHold",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHold",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHospital",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHospital",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconHouse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconHouse",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconIPass",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconIPass",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconImage",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconImage",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconImplant",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconImplant",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconIncomingCall",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconIncomingCall",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconIncomplete",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconIncomplete",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconIncompleteInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconIncompleteInverse",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconInformation",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconInformation",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconInformationInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconInformationInverse",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconItalicI",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconItalicI",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconKeyboard",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconKeyboard",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconKnurling",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconKnurling",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLast",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLast",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLeftPane",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLeftPane",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLightbulb",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLightbulb",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLink",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLink",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconList",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconList",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLocationPin",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLocationPin",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLookback",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLookback",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLow",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLow",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconLowRisk",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconLowRisk",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconManufacturer",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconManufacturer",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMax",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMax",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMaximize",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMaximize",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaFastForward",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaFastForward",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaPause",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaPause",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaPlay",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaPlay",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaRecord",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaRecord",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaRewind",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaRewind",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMediaStop",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMediaStop",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMenu",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMenu",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMerge",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMerge",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMicrophone",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMicrophone",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMicrophoneDisabled",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMicrophoneDisabled",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMin",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMin",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMinimize",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMinimize",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMinus",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMinus",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconMissedCall",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconMissedCall",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconModerate",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconModerate",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconModified",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconModified",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNext",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNext",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNoRisk",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNoRisk",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNoSignal",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNoSignal",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNotMet",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNotMet",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNotification",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNotification",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNotificationDisabled",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNotificationDisabled",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconNotificationOff",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconNotificationOff",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconOutOfNetwork",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconOutOfNetwork",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconOutgoingCall",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconOutgoingCall",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconOverDue",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconOverDue",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPadlock",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPadlock",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPager",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPager",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPanelLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPanelLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPanelRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPanelRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPaperFolded",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPaperFolded",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPaperPencil",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPaperPencil",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPartiallyMet",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPartiallyMet",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPatientSearch",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPatientSearch",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPending",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPending",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPerson",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPerson",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPersonDoor",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPersonDoor",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPersonHospital",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPersonHospital",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPersonnelPerson",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPersonnelPerson",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPharmacyReject",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPharmacyReject",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPharmacyReview",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPharmacyReview",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPharmacyVerification",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPharmacyVerification",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPhone",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPhone",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPhoneDown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPhoneDown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPill",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPill",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPinDiagonal",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPinDiagonal",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPinDown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPinDown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPlusSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPlusSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPlusSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPlusSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPrevious",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPrevious",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconPrinter",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconPrinter",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconProjects",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconProjects",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconProtocol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconProtocol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconProvider",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconProvider",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconQuestion",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconQuestion",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconQuestionOutline",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconQuestionOutline",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRectangleSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRectangleSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRectangleSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRectangleSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRecurringEvent",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRecurringEvent",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRedo",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRedo",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRefresh",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRefresh",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRefusedSlot",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRefusedSlot",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconReply",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconReply",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconReplyAll",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconReplyAll",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRequired",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRequired",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRollup",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRollup",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRotateLeft",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRotateLeft",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconRotateRight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconRotateRight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSave",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSave",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconScheduled",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconScheduled",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconScratchPad",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconScratchPad",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSearch",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSearch",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSecondaryProvider",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSecondaryProvider",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSend",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSend",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSeparate",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSeparate",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSettings",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSettings",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSharedSchedules",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSharedSchedules",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSimulation",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSimulation",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSortAscending",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSortAscending",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSortDescending",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSortDescending",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSpinner",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSpinner",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSquareSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSquareSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSquareSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSquareSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconStartPresenting",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconStartPresenting",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconStopPresenting",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconStopPresenting",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSuccess",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSuccess",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSuccessInverse",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSuccessInverse",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconSwap",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconSwap",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTable",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTable",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTag",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTag",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTeardropSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTeardropSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTeardropSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTeardropSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTeardropUpSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTeardropUpSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTeardropUpSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTeardropUpSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconThinDiamondSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconThinDiamondSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconThinDiamondSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconThinDiamondSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTile",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTile",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTrash",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTrash",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTreemap",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTreemap",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTriangleDownSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTriangleDownSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTriangleDownSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTriangleDownSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTriangleSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTriangleSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTriangleSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTriangleSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconTrophy",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconTrophy",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnavailable",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnavailable",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUndo",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUndo",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnexpected",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnexpected",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnknown",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnknown",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnlock",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnlock",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnread",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnread",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUnspecified",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUnspecified",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUp",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUp",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUpload",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUpload",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconUsers",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconUsers",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconVideoCamera",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconVideoCamera",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconVideoCameraDisabled",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconVideoCameraDisabled",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconVisualization",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconVisualization",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconWarning",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconWarning",
+          "relativeUrl": "/terra-icon/icon/static"
+        }
+      ]
+    },
+    {
+      "componentName": "IconXSymbol",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconXSymbol",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconXSymbolLight",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconXSymbolLight",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconZoomIn",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconZoomIn",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "IconZoomOut",
+      "properties": [
+        {
+          "importPath": "terra-icon/lib/icon/IconZoomOut",
+          "relativeUrl": "/terra-icon/icon/themeable"
+        }
+      ]
+    },
+    {
+      "componentName": "Image",
+      "properties": [
+        {
+          "importPath": "terra-image",
+          "relativeUrl": "/terra-image/image/image"
+        }
+      ]
+    },
+    {
+      "componentName": "InfiniteList",
+      "properties": [
+        {
+          "importPath": "terra-infinite-list",
+          "relativeUrl": "/terra-infinite-list/infinite-list/infinite-list"
+        }
+      ]
+    },
+    {
+      "componentName": "Input",
+      "properties": [
+        {
+          "importPath": "terra-form-input",
+          "relativeUrl": "/terra-form-input/form-input/input"
+        }
+      ]
+    },
+    {
+      "componentName": "InputField",
+      "properties": [
+        {
+          "importPath": "terra-form-input/lib/InputField",
+          "relativeUrl": "/terra-form-input/form-input/input-field"
+        }
+      ]
+    },
+    {
+      "componentName": "Item",
+      "properties": [
+        {
+          "family": "Dropdown Button",
+          "importPath": "terra-dropdown-button",
+          "relativeUrl": "/terra-dropdown-button/dropdown-button/dropdown-button"
+        },
+        {
+          "family": "List",
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list-item"
+        }
+      ]
+    },
+    {
+      "componentName": "ItemCollection",
+      "properties": [
+        {
+          "importPath": "terra-clinical-item-collection",
+          "relativeUrl": "/terra-clinical-item-collection/clinical-item-collection/clinical-item-collection"
+        }
+      ]
+    },
+    {
+      "componentName": "ItemDisplay",
+      "properties": [
+        {
+          "importPath": "terra-clinical-item-display",
+          "relativeUrl": "/terra-clinical-item-display/clinical-item-display/clinical-item-display"
+        }
+      ]
+    },
+    {
+      "componentName": "ItemView",
+      "properties": [
+        {
+          "importPath": "terra-clinical-item-view",
+          "relativeUrl": "/terra-clinical-item-view/clinical-item-view/clinical-item-view"
+        }
+      ]
+    },
+    {
+      "componentName": "LabelValueView",
+      "properties": [
+        {
+          "importPath": "terra-clinical-label-value-view",
+          "relativeUrl": "/terra-clinical-label-value-view/clinical-label-value-view/clinical-label-value-view"
+        }
+      ]
+    },
+    {
+      "componentName": "List",
+      "properties": [
+        {
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list"
+        }
+      ]
+    },
+    {
+      "componentName": "LoadingOverlay",
+      "properties": [
+        {
+          "importPath": "terra-overlay/lib/LoadingOverlay",
+          "relativeUrl": "/terra-overlay/overlay/overlay"
+        }
+      ]
+    },
+    {
+      "componentName": "Markdown",
+      "properties": [
+        {
+          "importPath": "terra-markdown",
+          "relativeUrl": "/terra-markdown/markdown/markdown"
+        }
+      ]
+    },
+    {
+      "componentName": "Menu",
+      "properties": [
+        {
+          "importPath": "terra-menu",
+          "relativeUrl": "/terra-menu/menu/menu"
+        }
+      ]
+    },
+    {
+      "componentName": "ModalManager",
+      "properties": [
+        {
+          "importPath": "terra-modal-manager",
+          "relativeUrl": "/terra-modal-manager/modal-manager/about"
+        }
+      ]
+    },
+    {
+      "componentName": "MultiSelect",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/MultiSelect",
+          "relativeUrl": "/terra-form-select/form-select/multi-select"
+        }
+      ]
+    },
+    {
+      "componentName": "MultiSelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/MultiSelectField",
+          "relativeUrl": "/terra-form-select/form-select/multi-select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "NativeSelect",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/native-select/NativeSelect",
+          "relativeUrl": "/terra-form-select/form-select/native-select"
+        }
+      ]
+    },
+    {
+      "componentName": "NativeSelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/native-select/NativeSelectField",
+          "relativeUrl": "/terra-form-select/form-select/native-select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "NavigationPrompt",
+      "properties": [
+        {
+          "importPath": "terra-navigation-prompt",
+          "relativeUrl": "/terra-navigation-prompt/navigation-prompt/about"
+        }
+      ]
+    },
+    {
+      "componentName": "NavigationPromptCheckpoint",
+      "properties": [
+        {
+          "importPath": "terra-navigation-prompt",
+          "relativeUrl": "/terra-navigation-prompt/navigation-prompt/about"
+        }
+      ]
+    },
+    {
+      "componentName": "NotificationDialog",
+      "properties": [
+        {
+          "importPath": "terra-notification-dialog",
+          "relativeUrl": "/terra-notification-dialog/notification-dialog/notification-dialog"
+        }
+      ]
+    },
+    {
+      "componentName": "NotificationDialogVariants",
+      "properties": [
+        {
+          "importPath": "terra-notification-dialog",
+          "relativeUrl": "/terra-notification-dialog/notification-dialog/notification-dialog"
+        }
+      ]
+    },
+    {
+      "componentName": "OnsetPicker",
+      "properties": [
+        {
+          "importPath": "terra-clinical-onset-picker",
+          "relativeUrl": "/terra-clinical-onset-picker/clinical-onset-picker/clinical-onset-picker"
+        }
+      ]
+    },
+    {
+      "componentName": "Overlay",
+      "properties": [
+        {
+          "importPath": "terra-overlay",
+          "relativeUrl": "/terra-overlay/overlay/overlay"
+        }
+      ]
+    },
+    {
+      "componentName": "OverlayContainer",
+      "properties": [
+        {
+          "importPath": "terra-overlay/lib/OverlayContainer",
+          "relativeUrl": "/terra-overlay/overlay/overlay"
+        }
+      ]
+    },
+    {
+      "componentName": "Paginator",
+      "properties": [
+        {
+          "importPath": "terra-paginator",
+          "relativeUrl": "/terra-paginator/paginator/paginator"
+        }
+      ]
+    },
+    {
+      "componentName": "Popup",
+      "properties": [
+        {
+          "importPath": "terra-popup",
+          "relativeUrl": "/terra-popup/popup/popup"
+        }
+      ]
+    },
+    {
+      "componentName": "ProfileImage",
+      "properties": [
+        {
+          "importPath": "terra-profile-image",
+          "relativeUrl": "/terra-profile-image/profile-image/profile-image"
+        }
+      ]
+    },
+    {
+      "componentName": "ProgressBar",
+      "properties": [
+        {
+          "importPath": "terra-progress-bar",
+          "relativeUrl": "/terra-progress-bar/progress-bar/progress-bar"
+        }
+      ]
+    },
+    {
+      "componentName": "ProgressivePaginator",
+      "properties": [
+        {
+          "importPath": "terra-paginator/lib/ProgressivePaginator",
+          "relativeUrl": "/terra-paginator/paginator/progressive-paginator"
+        }
+      ]
+    },
+    {
+      "componentName": "Radio",
+      "properties": [
+        {
+          "importPath": "terra-form-radio",
+          "relativeUrl": "/terra-form-radio/form-radio/radio"
+        }
+      ]
+    },
+    {
+      "componentName": "RadioField",
+      "properties": [
+        {
+          "importPath": "terra-form-radio/lib/RadioField",
+          "relativeUrl": "/terra-form-radio/form-radio/radio-field"
+        }
+      ]
+    },
+    {
+      "componentName": "Region",
+      "properties": [
+        {
+          "importPath": "terra-dynamic-grid",
+          "relativeUrl": "/terra-dynamic-grid/dynamic-grid/dynamic-grid"
+        }
+      ]
+    },
+    {
+      "componentName": "ResponsiveElement",
+      "properties": [
+        {
+          "importPath": "terra-responsive-element",
+          "relativeUrl": "/terra-responsive-element/responsive-element/responsive-element"
+        }
+      ]
+    },
+    {
+      "componentName": "ResultNameHeaderCell",
+      "properties": [
+        {
+          "importPath": "terra-clinical-result/lib/index",
+          "relativeUrl": "/terra-clinical-result/clinical-result/result-name-header-cell"
+        }
+      ]
+    },
+    {
+      "componentName": "ResultTimeHeaderCell",
+      "properties": [
+        {
+          "importPath": "terra-clinical-result/lib/index",
+          "relativeUrl": "/terra-clinical-result/clinical-result/result-time-header-cell"
+        }
+      ]
+    },
+    {
+      "componentName": "Row",
+      "properties": [
+        {
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "Scroll",
+      "properties": [
+        {
+          "importPath": "terra-scroll",
+          "relativeUrl": "/terra-scroll/scroll/scroll"
+        }
+      ]
+    },
+    {
+      "componentName": "SearchField",
+      "properties": [
+        {
+          "importPath": "terra-search-field",
+          "relativeUrl": "/terra-search-field/search-field/search-field"
+        }
+      ]
+    },
+    {
+      "componentName": "SearchSelect",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/SearchSelect",
+          "relativeUrl": "/terra-form-select/form-select/search-select"
+        }
+      ]
+    },
+    {
+      "componentName": "SearchSelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/SearchSelectField",
+          "relativeUrl": "/terra-form-select/form-select/search-select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "Section",
+      "properties": [
+        {
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list-section"
+        }
+      ]
+    },
+    {
+      "componentName": "SectionHeader",
+      "properties": [
+        {
+          "family": "List",
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list-section-header"
+        },
+        {
+          "family": "Section Header",
+          "importPath": "terra-section-header",
+          "relativeUrl": "/terra-section-header/section-header/section-header"
+        }
+      ]
+    },
+    {
+      "componentName": "Select",
+      "properties": [
+        {
+          "importPath": "terra-form-select",
+          "relativeUrl": "/terra-form-select/form-select/select"
+        }
+      ]
+    },
+    {
+      "componentName": "SelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/SelectField",
+          "relativeUrl": "/terra-form-select/form-select/select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "ShowHide",
+      "properties": [
+        {
+          "importPath": "terra-show-hide",
+          "relativeUrl": "/terra-show-hide/show-hide/show-hide"
+        }
+      ]
+    },
+    {
+      "componentName": "Signature",
+      "properties": [
+        {
+          "importPath": "terra-signature",
+          "relativeUrl": "/terra-signature/signature/signature"
+        }
+      ]
+    },
+    {
+      "componentName": "SingleSelect",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/SingleSelect",
+          "relativeUrl": "/terra-form-select/form-select/single-select"
+        }
+      ]
+    },
+    {
+      "componentName": "SingleSelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/SingleSelectField",
+          "relativeUrl": "/terra-form-select/form-select/single-select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "SlideGroup",
+      "properties": [
+        {
+          "importPath": "terra-slide-group",
+          "relativeUrl": "/terra-slide-group/slide-group/slide-group"
+        }
+      ]
+    },
+    {
+      "componentName": "SlidePanel",
+      "properties": [
+        {
+          "importPath": "terra-slide-panel",
+          "relativeUrl": "/terra-slide-panel/slide-panel/slide-panel"
+        }
+      ]
+    },
+    {
+      "componentName": "SlidePanelManager",
+      "properties": [
+        {
+          "importPath": "terra-slide-panel-manager",
+          "relativeUrl": "/terra-slide-panel-manager/slide-panel-manager/slide-panel-manager"
+        }
+      ]
+    },
+    {
+      "componentName": "Spacer",
+      "properties": [
+        {
+          "importPath": "terra-spacer",
+          "relativeUrl": "/terra-spacer/spacer/spacer"
+        }
+      ]
+    },
+    {
+      "componentName": "SplitButton",
+      "properties": [
+        {
+          "importPath": "terra-dropdown-button",
+          "relativeUrl": "/terra-dropdown-button/dropdown-button/dropdown-button"
+        }
+      ]
+    },
+    {
+      "componentName": "Status",
+      "properties": [
+        {
+          "importPath": "terra-status",
+          "relativeUrl": "/terra-status/status/status"
+        }
+      ]
+    },
+    {
+      "componentName": "StatusView",
+      "properties": [
+        {
+          "importPath": "terra-status-view",
+          "relativeUrl": "/terra-status-view/status-view/status-view"
+        }
+      ]
+    },
+    {
+      "componentName": "Subsection",
+      "properties": [
+        {
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list-subsection"
+        }
+      ]
+    },
+    {
+      "componentName": "SubsectionHeader",
+      "properties": [
+        {
+          "importPath": "terra-list/lib/index",
+          "relativeUrl": "/terra-list/list/list-subsection-header"
+        }
+      ]
+    },
+    {
+      "componentName": "Table",
+      "properties": [
+        {
+          "family": "Html Table",
+          "importPath": "terra-html-table",
+          "relativeUrl": "/terra-html-table/html-table/table"
+        },
+        {
+          "family": "Table",
+          "importPath": "terra-table",
+          "relativeUrl": "/terra-table/table/table"
+        }
+      ]
+    },
+    {
+      "componentName": "Tabs",
+      "properties": [
+        {
+          "importPath": "terra-tabs",
+          "relativeUrl": "/terra-tabs/tabs/tabs"
+        }
+      ]
+    },
+    {
+      "componentName": "Tag",
+      "properties": [
+        {
+          "importPath": "terra-tag",
+          "relativeUrl": "/terra-tag/tag/tag"
+        }
+      ]
+    },
+    {
+      "componentName": "TagSelect",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/TagSelect",
+          "relativeUrl": "/terra-form-select/form-select/tag-select"
+        }
+      ]
+    },
+    {
+      "componentName": "TagSelectField",
+      "properties": [
+        {
+          "importPath": "terra-form-select/lib/TagSelectField",
+          "relativeUrl": "/terra-form-select/form-select/tag-select-field"
+        }
+      ]
+    },
+    {
+      "componentName": "Text",
+      "properties": [
+        {
+          "importPath": "terra-text",
+          "relativeUrl": "/terra-text/text/text"
+        }
+      ]
+    },
+    {
+      "componentName": "Textarea",
+      "properties": [
+        {
+          "importPath": "terra-form-textarea",
+          "relativeUrl": "/terra-form-textarea/form-textarea/textarea"
+        }
+      ]
+    },
+    {
+      "componentName": "TextareaField",
+      "properties": [
+        {
+          "importPath": "terra-form-textarea/lib/TextareaField",
+          "relativeUrl": "/terra-form-textarea/form-textarea/textarea-field"
+        }
+      ]
+    },
+    {
+      "componentName": "ThemeProvider",
+      "properties": [
+        {
+          "importPath": "terra-theme-provider",
+          "relativeUrl": "/terra-theme-provider/theme-provider/theme-provider"
+        }
+      ]
+    },
+    {
+      "componentName": "TimeInput",
+      "properties": [
+        {
+          "importPath": "terra-time-input",
+          "relativeUrl": "/terra-time-input/time-input/time-input"
+        }
+      ]
+    },
+    {
+      "componentName": "Toggle",
+      "properties": [
+        {
+          "importPath": "terra-toggle/lib/Toggle",
+          "relativeUrl": "/terra-toggle/toggle/toggle"
+        }
+      ]
+    },
+    {
+      "componentName": "ToggleButton",
+      "properties": [
+        {
+          "importPath": "terra-toggle-button",
+          "relativeUrl": "/terra-toggle-button/toggle-button/toggle-button"
+        }
+      ]
+    },
+    {
+      "componentName": "ToggleSectionHeader",
+      "properties": [
+        {
+          "importPath": "terra-toggle-section-header",
+          "relativeUrl": "/terra-toggle-section-header/toggle-section-header/toggle-section-header"
+        }
+      ]
+    },
+    {
+      "componentName": "Toolbar",
+      "properties": [
+        {
+          "importPath": "terra-toolbar",
+          "relativeUrl": "/terra-toolbar/toolbar/toolbar"
+        }
+      ]
+    },
+    {
+      "componentName": "VisuallyHiddenText",
+      "properties": [
+        {
+          "importPath": "terra-visually-hidden-text",
+          "relativeUrl": "/terra-visually-hidden-text/visually-hidden-text/visually-hidden-text"
+        }
+      ]
+    }
+  ]
+}

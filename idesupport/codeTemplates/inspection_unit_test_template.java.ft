@@ -1,0 +1,22 @@
+import com.intellij.codeInspection.InspectionProfileEntry;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Unit test for {@link ${CLASS_NAME}}.
+ */
+public class ${NAME} extends TerraInspectionBaseTestCase {
+
+    @Override
+    protected String getTestDataPath() {
+        return BASE_PATH + "/INSERT_FOLDER_PATH_HERE";
+    }
+
+    @Override
+    protected @Nullable InspectionProfileEntry getInspection() {
+        return new ${CLASS_NAME}();
+    }
+
+    public void testINSERT_FILE_NAME_HERE() {
+        doJsTest();
+    }
+}
