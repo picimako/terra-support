@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Provides utility methods and properties for Terra WDIO test related features.
  */
-public final class TerraWdioInspectionUtil {
+public final class TerraWdioPsiUtil {
 
     public static final String TERRA_DESCRIBE_VIEWPORTS = "Terra.describeViewports";
     public static final String TERRA_VALIDATES_SCREENSHOT = "Terra.validates.screenshot";
@@ -59,6 +59,9 @@ public final class TerraWdioInspectionUtil {
      * The items in the list are in ascending order by their widths.
      */
     public static final List<String> SUPPORTED_TERRA_VIEWPORTS = List.of("tiny", "small", "medium", "large", "huge", "enormous");
+
+    public static final Set<String> SCREENSHOT_VALIDATION_NAMES = Set.of(TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT,
+        TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT);
 
 
     /**
@@ -120,7 +123,7 @@ public final class TerraWdioInspectionUtil {
         return false;
     }
 
-    private TerraWdioInspectionUtil() {
+    private TerraWdioPsiUtil() {
         //Utility class
     }
 }

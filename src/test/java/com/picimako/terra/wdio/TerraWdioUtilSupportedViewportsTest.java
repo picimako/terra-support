@@ -27,7 +27,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Unit test for {@link TerraWdioInspectionUtil}.
+ * Unit test for {@link TerraWdioPsiUtil}.
  */
 @RunWith(Parameterized.class)
 public class TerraWdioUtilSupportedViewportsTest {
@@ -44,6 +44,6 @@ public class TerraWdioUtilSupportedViewportsTest {
 
     @Test
     public void shouldSupportViewport() {
-        assertThat(TerraWdioInspectionUtil.isSupportedViewport(viewport)).isTrue();
+        assertThat(TerraWdioPsiUtil.isSupportedViewport(viewport)).isTrue();
     }
 }

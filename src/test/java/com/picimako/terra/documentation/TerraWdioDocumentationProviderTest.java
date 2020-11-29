@@ -32,7 +32,7 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import com.picimako.terra.FileTypePreconditionsUtil;
-import com.picimako.terra.wdio.TerraWdioInspectionUtil;
+import com.picimako.terra.wdio.TerraWdioPsiUtil;
 
 /**
  * Unit test for {@link TerraWdioDocumentationProvider}.
@@ -56,10 +56,10 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
 
     public void testReturnNoDocumentationWhenOriginalElementIsNotTerraWdio() {
         PsiElement originalElement = mock(PsiElement.class);
-        try (MockedStatic<TerraWdioInspectionUtil> importUtil = Mockito.mockStatic(TerraWdioInspectionUtil.class);
+        try (MockedStatic<TerraWdioPsiUtil> importUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
              MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class)) {
             fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
-            importUtil.when(() -> TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(false);
+            importUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(false);
 
             assertThat(provider.generateDoc(null, originalElement)).isNull();
         }
@@ -71,11 +71,11 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
         PsiElement originalElement = mockOriginalElement();
         when(service.getDocs()).thenReturn(setupProperties());
 
-        try (MockedStatic<TerraWdioInspectionUtil> terraUtil = Mockito.mockStatic(TerraWdioInspectionUtil.class);
+        try (MockedStatic<TerraWdioPsiUtil> terraUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
              MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class);
              MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
             fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
-            terraUtil.when(() -> TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
+            terraUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
             serviceManager.when(() -> ServiceManager.getService(TerraWdioDocumentationService.class)).thenReturn(service);
 
             assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
@@ -91,11 +91,11 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
         PsiElement originalElement = mockOriginalElement();
         setProviderDocumentation(setupProperties());
 
-        try (MockedStatic<TerraWdioInspectionUtil> terraUtil = Mockito.mockStatic(TerraWdioInspectionUtil.class);
+        try (MockedStatic<TerraWdioPsiUtil> terraUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
              MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class);
              MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
             fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
-            terraUtil.when(() -> TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
+            terraUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
 
             assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
 

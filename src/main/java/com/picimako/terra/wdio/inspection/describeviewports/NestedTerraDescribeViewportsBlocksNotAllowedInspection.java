@@ -17,7 +17,7 @@
 package com.picimako.terra.wdio.inspection.describeviewports;
 
 import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.getMethodExpressionOf;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.getMethodExpressionOf;
 
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;

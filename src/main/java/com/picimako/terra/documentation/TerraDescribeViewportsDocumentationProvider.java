@@ -27,8 +27,8 @@ import static com.intellij.lang.documentation.DocumentationMarkup.SECTION_HEADER
 import static com.intellij.lang.documentation.DocumentationMarkup.SECTION_SEPARATOR;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_DESCRIBE_VIEWPORTS;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.isSupportedViewport;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 
 import java.util.Map;
 
