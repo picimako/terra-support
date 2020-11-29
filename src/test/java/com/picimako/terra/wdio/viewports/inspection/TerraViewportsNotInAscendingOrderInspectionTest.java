@@ -14,25 +14,33 @@
  * limitations under the License.
  */
 
+package com.picimako.terra.wdio.viewports.inspection;
+
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+
 /**
- * Unit test for {@link ${CLASS_NAME}}.
+ * Unit test for {@link TerraDescribeViewportsInspection}.
  */
-public class ${NAME} extends TerraInspectionBaseTestCase {
+public class TerraViewportsNotInAscendingOrderInspectionTest extends TerraInspectionBaseTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return BASE_PATH + "/INSERT_FOLDER_PATH_HERE";
+        return BASE_PATH + "/wdio/describeviewports";
     }
 
     @Override
-    protected @Nullable InspectionProfileEntry getInspection() {
-        return new ${CLASS_NAME}();
+    @Nullable
+    protected InspectionProfileEntry getInspection() {
+        final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
+        inspection.reportDuplicateViewports = false;
+        return inspection;
     }
 
-    public void testINSERT_FILE_NAME_HERE() {
-        doJsTest();
+    public void testTerraViewportsNotInAscendingOrder() {
+        doWdioSpecTest();
     }
+
 }
