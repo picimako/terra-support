@@ -17,8 +17,6 @@
 package com.picimako.terra.wdio.screenshot;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
