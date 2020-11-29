@@ -62,10 +62,13 @@
         <fileEditorProvider
                 implementation="com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsFileEditorProvider"/>
 
+        <!-- References -->
+        <psi.referenceContributor
+                language="JavaScript"
+                implementation="com.picimako.terra.wdio.screenshot.TerraScreenshotReferenceContributor"/>
+
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
     </extensions>
-
-    <change-notes><![CDATA[	Change notes will be filled by gradle build ]]></change-notes>
 </idea-plugin>

@@ -17,13 +17,13 @@
 package com.picimako.terra.wdio.inspection;
 
 import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_DESCRIBE_VIEWPORTS;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_IT_MATCHES_SCREENSHOT;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_IT_VALIDATES_ELEMENT;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_VALIDATES_ELEMENT;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.TERRA_VALIDATES_SCREENSHOT;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.getMethodExpressionOf;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.hasText;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_MATCHES_SCREENSHOT;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_VALIDATES_ELEMENT;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_VALIDATES_ELEMENT;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_VALIDATES_SCREENSHOT;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.getMethodExpressionOf;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.hasText;
 
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.lang.javascript.psi.JSCallExpression;

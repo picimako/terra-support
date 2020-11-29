@@ -7,6 +7,7 @@ when working with Cerner's various Terra libraries.
 
 - [Tools and utilities](#tools-and-utilities)
     - [Code inspections](#code-inspections)
+    - [References](#references)
     - [Quick Documentations](#quick-documentations)
     - [Terra wdio tool window](#terra-wdio-tool-window)
 - [Plugin contribution guide](#plugin-contribution-guide)
@@ -19,7 +20,7 @@ There are a handful of code inspections available for validating different aspec
 
 The inspections listed below are enabled by default, unless stated otherwise.
 
-For the high-level types of inspections, see the [Contribution guide](/CONTRIBUTE.md#Implementing inspections).
+For the high-level types of inspections, see the [Contribution guide](/CONTRIBUTE.md#implementing-inspections).
 
 #### Incorrect viewport value(s) in Terra.describeViewports blocks
 
@@ -238,6 +239,50 @@ Terra.validates.element('test case', { misMatchTolerance: false });
 ```
 
 Implementation class: `com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceBlockingInspection`
+
+### References
+
+#### Screenshots
+
+Invoking one of the "Go to declaration" shortcuts on the first, String parameter of screenshot validation function calls, you can navigate to the
+`reference` version of the referenced image, or images when there are multiple ones with the same name but different contexts.
+
+**Example:**
+
+The code snippet below will reference the screenshot(s) named `terra_screenshot[with_extra_-_plus_info-].png`:
+
+```js
+describe('outer describe', () => {
+    describe('terra screenshot', () => {
+        Terra.it.matchesScreenshot('with extra | plus info?', { selector: '#selector' });
+    });
+});
+```
+
+while the snippet below will reference `terra_screenshot-[with_extra_--plus_info].png`:
+
+```js
+Terra.describeViewports('viewports', ['medium'], () => {
+    describe('terra screenshot?', () => {
+        it ('test case', () => {
+            Terra.validates.element('with extra <> plus info');
+        });
+    });
+});
+```
+
+A set of characters are replaced, so that characters reserved by operating systems will not be used in file names:
+- any whitespace and the dot (.) character is replaced with an underscore (_)
+- ?, <, >, /, |, *, :, +, " characters are replace with a hyphen (-) 
+
+For the following calls, there will be no reference added, since there is no element (the name parameter) to add the reference to:
+
+```js
+Terra.validates.screenshot({ selector: '#root'});
+Terra.validates.element({ selector: '#root' });
+Terra.it.matchesScreenshot({ selector: '#root' });
+Terra.it.validatesElement({ selector: '#root' });
+```
 
 ### Quick Documentations
 
@@ -459,6 +504,7 @@ and it portrays a moon which orbits a planet, which orbits a "cold star".
 
 Images for test data are from [Unsplash.com](https://unsplash.com/) from the following artists:
 - [Carter Baran](https://unsplash.com/photos/W7sVwg3EEjA)
+- [Emre Gencer](https://unsplash.com/photos/NZMeJsrMC8U)
 
 ## Licencing
 

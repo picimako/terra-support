@@ -35,7 +35,7 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     }
 
     public void testReturnVirtualFileForProjectWdioRoot() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage.png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
 
         VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(getProject());
 
@@ -47,35 +47,35 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     }
 
     public void testGetDiffImageForLatestImage() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/testimage.png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/testimage.png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/testimage[default].png");
         VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(getProject());
         TerraWdioFolders.setWdioTestRootPath(wdioRoot.getPath());
-        VirtualFile latest = FilenameIndex.getVirtualFilesByName(getProject(), "testimage.png", GlobalSearchScope.projectScope(getProject()))
+        VirtualFile latest = FilenameIndex.getVirtualFilesByName(getProject(), "testimage[default].png", GlobalSearchScope.projectScope(getProject()))
             .stream()
-            .filter(image -> image.getPath().endsWith("latest/en/chrome_huge/some-spec/testimage.png"))
+            .filter(image -> image.getPath().endsWith("latest/en/chrome_huge/some-spec/testimage[default].png"))
             .findFirst()
             .get();
 
         VirtualFile diffImage = TerraWdioFolders.diffImageForLatest(getProject(), latest);
 
-        runAssertions(diffImage, "/diff/en/chrome_huge/some-spec/testimage.png");
+        runAssertions(diffImage, "/diff/en/chrome_huge/some-spec/testimage[default].png");
     }
 
     public void testGetLatestImageForReferenceImage() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/testimage.png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage.png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
         VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(getProject());
         TerraWdioFolders.setWdioTestRootPath(wdioRoot.getPath());
-        VirtualFile latest = FilenameIndex.getVirtualFilesByName(getProject(), "testimage.png", GlobalSearchScope.projectScope(getProject()))
+        VirtualFile latest = FilenameIndex.getVirtualFilesByName(getProject(), "testimage[default].png", GlobalSearchScope.projectScope(getProject()))
             .stream()
-            .filter(image -> image.getPath().endsWith("reference/en/chrome_huge/some-spec/testimage.png"))
+            .filter(image -> image.getPath().endsWith("reference/en/chrome_huge/some-spec/testimage[default].png"))
             .findFirst()
             .get();
 
         VirtualFile latestImage = TerraWdioFolders.latestImageForReference(getProject(), latest);
 
-        runAssertions(latestImage, "/latest/en/chrome_huge/some-spec/testimage.png");
+        runAssertions(latestImage, "/latest/en/chrome_huge/some-spec/testimage[default].png");
     }
 
     private void runAssertions(VirtualFile file, String path) {

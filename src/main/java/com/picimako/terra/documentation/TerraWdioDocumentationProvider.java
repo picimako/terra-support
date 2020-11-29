@@ -19,7 +19,7 @@ package com.picimako.terra.documentation;
 import static com.intellij.lang.documentation.DocumentationMarkup.CONTENT_END;
 import static com.intellij.lang.documentation.DocumentationMarkup.CONTENT_START;
 import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isAnyOfTerraWdioFunctions;
 import static java.util.stream.Collectors.joining;
 
 import java.util.Arrays;

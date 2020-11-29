@@ -27,15 +27,15 @@ import com.intellij.psi.PsiElement;
 import org.junit.Test;
 
 /**
- * Unit test for {@link TerraWdioInspectionUtil}.
+ * Unit test for {@link TerraWdioPsiUtil}.
  */
-public class TerraWdioUtilTest {
+public class TerraWdioPsiUtilTest {
 
     //isSupportedViewport
 
     @Test
     public void shouldNotSupportViewport() {
-        assertThat(TerraWdioInspectionUtil.isSupportedViewport("somenotsupported")).isFalse();
+        assertThat(TerraWdioPsiUtil.isSupportedViewport("somenotsupported")).isFalse();
     }
 
     //getMethodExpressionOf
@@ -48,7 +48,7 @@ public class TerraWdioUtilTest {
         JSExpression methodExpression = mock(JSExpression.class);
         when(jsCallExpression.getMethodExpression()).thenReturn(methodExpression);
 
-        assertThat(TerraWdioInspectionUtil.getMethodExpressionOf(psiElement)).isSameAs(methodExpression);
+        assertThat(TerraWdioPsiUtil.getMethodExpressionOf(psiElement)).isSameAs(methodExpression);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class TerraWdioUtilTest {
         JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
         when(psiElement.getExpression()).thenReturn(null);
 
-        assertThat(TerraWdioInspectionUtil.getMethodExpressionOf(psiElement)).isNull();
+        assertThat(TerraWdioPsiUtil.getMethodExpressionOf(psiElement)).isNull();
     }
 
     //isAnyOfTerraWdioFunctions
@@ -68,7 +68,7 @@ public class TerraWdioUtilTest {
         when(psiElement.getParent()).thenReturn(parent);
         when(parent.getText()).thenReturn("Terra.validates.element");
 
-        assertThat(TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(psiElement)).isTrue();
+        assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isTrue();
     }
 
     @Test
@@ -78,14 +78,14 @@ public class TerraWdioUtilTest {
         when(psiElement.getParent()).thenReturn(parent);
         when(parent.getText()).thenReturn("browser.pause");
 
-        assertThat(TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
+        assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
     }
 
     @Test
     public void shouldNotBeATerraWdioFunctionIfThereIsNoParent() {
         PsiElement psiElement = mock(PsiElement.class);
 
-        assertThat(TerraWdioInspectionUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
+        assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
     }
 
     //hasText
@@ -94,21 +94,21 @@ public class TerraWdioUtilTest {
     public void shouldHaveText() {
         JSExpressionStatement psiElement = mockGetMethodExpressionOf("Terra.validates.screenshot");
 
-        assertThat(TerraWdioInspectionUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isTrue();
+        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isTrue();
     }
 
     @Test
     public void shouldNotHaveTextWhenThereNoDesiredTextIsMatched() {
         JSExpressionStatement psiElement = mockGetMethodExpressionOf("browser.pause");
 
-        assertThat(TerraWdioInspectionUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isFalse();
+        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isFalse();
     }
 
     @Test
     public void shouldNotHaveTextWhenNoDesiredTextIsSpecified() {
         PsiElement psiElement = mock(PsiElement.class);
 
-        assertThat(TerraWdioInspectionUtil.hasText(psiElement)).isFalse();
+        assertThat(TerraWdioPsiUtil.hasText(psiElement)).isFalse();
     }
 
     @Test
@@ -117,7 +117,7 @@ public class TerraWdioUtilTest {
         JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
         when(psiElement.getExpression()).thenReturn(null);
 
-        assertThat(TerraWdioInspectionUtil.hasText(psiElement, "Terra.validates.screenshot")).isFalse();
+        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.screenshot")).isFalse();
     }
 
     private JSExpressionStatement mockGetMethodExpressionOf(String methodExpressionText) {

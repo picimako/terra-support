@@ -19,7 +19,7 @@ package com.picimako.terra.wdio.inspection.describeviewports;
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
 import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
-import static com.picimako.terra.wdio.TerraWdioInspectionUtil.isSupportedViewport;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.toList;
 
@@ -43,7 +43,7 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.psi.js.JSLiteralExpressionUtil;
-import com.picimako.terra.wdio.TerraWdioInspectionUtil;
+import com.picimako.terra.wdio.TerraWdioPsiUtil;
 import com.picimako.terra.wdio.inspection.TerraWdioInspectionBase;
 
 /**
@@ -142,7 +142,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     private void checkForViewportsNotInAscendingOrder(@NotNull JSExpression viewportList, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportViewportsNotInAscendingOrder) {
             //This check ignores zero and one-length arrays, and arrays containing blank item(s)
-            if (viewports.length > 1 && Arrays.stream(viewports).allMatch(TerraWdioInspectionUtil::isSupportedViewport)) {
+            if (viewports.length > 1 && Arrays.stream(viewports).allMatch(TerraWdioPsiUtil::isSupportedViewport)) {
                 final List<String> actualViewports = Arrays.stream(viewports).map(JSLiteralExpressionUtil::getStringValue).collect(toList());
                 //This check takes advantage of the fact that the supported viewports, when they are listed in ascending order
                 //by their widths, are in descending order alphabetically.
