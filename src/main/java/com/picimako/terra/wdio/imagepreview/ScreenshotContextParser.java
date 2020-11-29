@@ -25,8 +25,17 @@ import org.jetbrains.annotations.NotNull;
  * A screenshot context includes the locale, the browser and viewport a particular screenshot is created for.
  */
 public final class ScreenshotContextParser {
-    public static final String CONTEXT_SEPARATOR = " | ";
+    public static final String DEFAULT_CONTEXT_SEPARATOR = " | ";
     public static final String PATH_DELIMITER = "/";
+    private final String contextSeparator;
+
+    public ScreenshotContextParser() {
+        this.contextSeparator = DEFAULT_CONTEXT_SEPARATOR;
+    }
+
+    public ScreenshotContextParser(@NotNull String contextSeparator) {
+        this.contextSeparator = contextSeparator;
+    }
 
     /**
      * Parses the argument path and returns the locale, browser and viewport parts from it in the following format: {@code locale | browser | viewport}.
@@ -43,6 +52,6 @@ public final class ScreenshotContextParser {
         String relativePath = virtualFilePath.contains(DIFF_RELATIVE_PATH) ? DIFF_RELATIVE_PATH : REFERENCE_RELATIVE_PATH;
         String relativeToSnapshots = virtualFilePath.substring(virtualFilePath.lastIndexOf(relativePath) + relativePath.length() + 1);
         String[] split = relativeToSnapshots.split(PATH_DELIMITER);
-        return split[0] + CONTEXT_SEPARATOR + split[1].replace("_", CONTEXT_SEPARATOR);
+        return split[0] + contextSeparator + split[1].replace("_", contextSeparator);
     }
 }
