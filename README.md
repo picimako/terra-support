@@ -39,7 +39,7 @@ Terra.describeViewports('', ['gigantic'], () => {
 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsBlockingInspection`
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection`
 
 **FUTURE PLANS:**
 - Handle viewport values when the array is defined in a separate const.
@@ -67,7 +67,7 @@ Terra.describeViewports('', ['tiny', 'enormous', 'medium', 'large', 'huge', 'sma
 **FUTURE PLANS:**
 - This could also have a quick fix to put them into correct order.
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsInspection`
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection`
 
 #### Duplicate viewport values in Terra.describeViewports blocks
 
@@ -89,7 +89,7 @@ even more it may be used to run test cases multiple times for the same viewport(
 
 So, the first `Terra.describeViewports` block in the example above will actually run the selected test cases for the *small* viewport twice.
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsInspection`
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection`
 
 #### Blank viewports argument array in Terra.describeViewports blocks
 
@@ -109,7 +109,7 @@ Terra.describeViewports('', ['', '  ', ''], () => {
 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsBlockingInspection`
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection`
 
 #### Non-array-type viewports argument value in Terra.describeViewports blocks
 
@@ -128,7 +128,7 @@ Terra.describeViewports('', false, () => {
 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.TerraDescribeViewportsBlockingInspection` 
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection` 
 
 #### Nested Terra.describeViewports blocks
 
@@ -157,7 +157,7 @@ Terra.describeViewports('Top level', ['tiny', 'large'], () => {
 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.describeviewports.NestedTerraDescribeViewportsBlocksNotAllowedInspection`
+Implementation class: `com.picimako.terra.wdio.viewports.inspection.NestedTerraDescribeViewportsBlocksNotAllowedInspection`
 
 #### Terra element validation is preferred over screenshot validation
 
@@ -189,7 +189,7 @@ Terra.describeViewports('Test', ['large', 'huge'], () => {
 **FUTURE PLANS:**
 - update this to provide a Quick Fix too
 
-Implementation class: `com.picimako.terra.wdio.inspection.screenshot.TerraElementValidationIsPreferredOverScreenshotInspection`
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.TerraElementValidationIsPreferredOverScreenshotInspection`
 
 #### misMatchTolerance value is above a predefined threshold
 
@@ -208,7 +208,7 @@ Terra.validates.element({ misMatchTolerance: 23 });
 Terra.validates.element({ misMatchTolerance: 181 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceInspection`
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection`
 
 #### misMatchTolerance has negative value or a value greater than 100
 
@@ -221,7 +221,7 @@ Terra.validates.element({ misMatchTolerance: -4 });
 Terra.validates.element({ misMatchTolerance: 153 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceBlockingInspection`
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection`
 
 #### misMatchTolerance has a non-numeric value defined
 
@@ -238,7 +238,7 @@ Terra.validates.element('test case', { misMatchTolerance: { } });
 Terra.validates.element('test case', { misMatchTolerance: false });
 ```
 
-Implementation class: `com.picimako.terra.wdio.inspection.screenshot.ScreenshotMismatchToleranceBlockingInspection`
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection`
 
 ### References
 

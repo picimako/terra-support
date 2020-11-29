@@ -14,25 +14,31 @@
  * limitations under the License.
  */
 
+package com.picimako.terra.wdio.screenshot.inspection;
+
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+
 /**
- * Unit test for {@link ${CLASS_NAME}}.
+ * Unit test for {@link ScreenshotMismatchToleranceInspection}.
  */
-public class ${NAME} extends TerraInspectionBaseTestCase {
+public class ScreenshotMismatchToleranceAboveThresholdInspectionTest extends TerraInspectionBaseTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return BASE_PATH + "/INSERT_FOLDER_PATH_HERE";
+        return BASE_PATH + "/wdio/screenshot";
     }
 
     @Override
-    protected @Nullable InspectionProfileEntry getInspection() {
-        return new ${CLASS_NAME}();
+    @Nullable
+    protected InspectionProfileEntry getInspection() {
+        return new ScreenshotMismatchToleranceInspection();
     }
 
-    public void testINSERT_FILE_NAME_HERE() {
-        doJsTest();
+    public void testMismatchToleranceAboveThreshold() {
+        doWdioSpecTest();
     }
 }
+    
