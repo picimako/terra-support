@@ -52,8 +52,12 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
      * When this method is called in a unit test method, the unit test method's name must not include the {@code -spec}
      * postfix, otherwise the platform won't find it.
      */
+    protected void doWdioSpecTest(String path) {
+        doCustomFileTest(path, ".js", null, "-spec");
+    }
+
     protected void doWdioSpecTest() {
-        doCustomFileTest(".js", null, "-spec");
+        doCustomFileTest("", ".js", null, "-spec");
     }
 
 //    /**
@@ -62,11 +66,11 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
 //     * This method is based on {@link LightJavaInspectionTestCase#doTest()}.
 //     */
 //    protected void doJsTest() {
-//        doCustomFileTest(".js");
+//        doCustomFileTest("", ".js", null);
 //    }
 
 //    protected void doJsTest(@NotNull InspectionProfileEntry inspection) {
-//        doCustomFileTest(".js", inspection);
+//        doCustomFileTest("", ".js", inspection);
 //    }
 
     /**
@@ -82,10 +86,10 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
      * @param extension the file extension to use for retrieving the test data file
      * @param postfixes any file name postfix to take into account during test data retrieval
      */
-    private void doCustomFileTest(@NotNull String extension, @Nullable InspectionProfileEntry inspection, @NotNull String... postfixes) {
+    private void doCustomFileTest(String path, @NotNull String extension, @Nullable InspectionProfileEntry inspection, @NotNull String... postfixes) {
         final String testDataFileName = postfixes.length == 1
-            ? getTestName(false) + postfixes[0] + extension
-            : getTestName(false) + extension;
+            ? path + getTestName(false) + postfixes[0] + extension
+            : path + getTestName(false) + extension;
         myFixture.enableInspections(inspection == null ? getInspection() : inspection);
         myFixture.configureByFile(testDataFileName);
         myFixture.testHighlighting(true, false, false);

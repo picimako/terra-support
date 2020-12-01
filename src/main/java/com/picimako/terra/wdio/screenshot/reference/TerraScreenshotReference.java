@@ -18,6 +18,7 @@ package com.picimako.terra.wdio.screenshot.reference;
 
 import java.util.Arrays;
 
+import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
@@ -26,12 +27,11 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.ResolveResult;
-import com.intellij.psi.search.FilenameIndex;
-import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
+import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
 
 /**
  * A reference implementation for Terra screenshots. The reference is for placing it on screenshot validation calls
@@ -45,7 +45,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  */
 public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
-    private final TerraScreenshotNameResolver screenshotNameResolver = new TerraScreenshotNameResolver();
+    private final TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector();
 
     /**
      * The text range of the reference will be the String literal without the surrounding apostrophes and double-quote characters.
@@ -57,12 +57,9 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
     @Override
     public @NotNull ResolveResult[] multiResolve(boolean incompleteCode) {
         if (!incompleteCode) {
-            Project project = myElement.getProject();
-            PsiFile[] screenshotsForName = FilenameIndex.getFilesByName(project,
-                screenshotNameResolver.resolveName(myElement),
-                GlobalSearchScope.projectScope(project));
+            PsiFile[] screenshotsForName = screenshotCollector.collectFor((JSLiteralExpression) myElement);
             //TODO: idea: reorder the suggestions based on locale, browser and viewport to get a consistently ordered list
-            return screenshotsForName.length > 0 ? createResultItemsFor(screenshotsForName, project) : ResolveResult.EMPTY_ARRAY;
+            return screenshotsForName.length > 0 ? createResultItemsFor(screenshotsForName, myElement.getProject()) : ResolveResult.EMPTY_ARRAY;
         }
         return ResolveResult.EMPTY_ARRAY;
     }

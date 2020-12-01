@@ -44,6 +44,10 @@
                          displayName="Screenshot misMatchTolerance blocking validations"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection"/>
+        <localInspection id="missingScreenshot" language="JavaScript"
+                         displayName="Referenced screenshot is missing"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection"/>
 
         <!-- Terra wdio tool window -->
         <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"
@@ -70,5 +74,6 @@
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
+
     </extensions>
 </idea-plugin>
