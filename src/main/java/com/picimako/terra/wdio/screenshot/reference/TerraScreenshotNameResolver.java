@@ -42,7 +42,7 @@ import com.intellij.psi.util.PsiTreeUtil;
  * <p>
  * The name resolution will not happen when the parent describe or describeViewports block's name parameter is missing.
  */
-class TerraScreenshotNameResolver {
+public class TerraScreenshotNameResolver {
 
     /**
      * The regular expression for the character replacement can be found in
@@ -65,12 +65,20 @@ class TerraScreenshotNameResolver {
      * @param element the JS literal expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    String resolveName(PsiElement element) {
+    public String resolveName(PsiElement element) {
+        return resolve(element, JsonPsiUtil.stripQuotes(element.getText()));
+    }
+
+    public String resolveDefaultName(PsiElement element) {
+        return resolve(element, "default");
+    }
+
+    private String resolve(PsiElement element, String partialName) {
         PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, new DescribeOrViewportsBlockCondition());
         if (parentDescribeCall != null) {
             String describeBlockName = JSPsiUtil.getFirstArgumentAsString(((JSCallExpression) parentDescribeCall).getArgumentList());
             if (describeBlockName != null) {
-                return normalize(describeBlockName + "[" + JsonPsiUtil.stripQuotes(element.getText()) + "]") + ".png";
+                return normalize(describeBlockName + "[" + partialName + "]") + ".png";
             }
         }
         return "";

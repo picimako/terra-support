@@ -42,5 +42,4 @@ public class TerraViewportsNotInAscendingOrderInspectionTest extends TerraInspec
     public void testTerraViewportsNotInAscendingOrder() {
         doWdioSpecTest();
     }
-
 }

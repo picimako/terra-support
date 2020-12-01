@@ -240,6 +240,36 @@ Terra.validates.element('test case', { misMatchTolerance: false });
 
 Implementation class: `com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection`
 
+#### Missing screenshots
+
+When no image, referenced by `Terra.it` and `Terra.validates` calls, exists for any context (locale, browser, viewport),
+this inspection marks either the name parameter of such calls, or if they are missing (and the default value `default` is used),
+then marks the function calls name element.
+
+**Example:**
+
+In the following snippet the String literal `'screenshot'` will be marked 
+
+```js
+Terra.describeViewports('viewports', ['medium'], () => {
+    describe('terra', () => {
+        Terra.it.validatesElement('screenshot', { selector: '#selector' });
+    });
+});
+```
+
+while in the next one, it is the `Terra.it.validatesElement` part that gets marked:
+
+```js
+Terra.describeViewports('viewports', ['medium'], () => {
+    describe('terra', () => {
+        Terra.it.validatesElement({ selector: '#selector' });
+    });
+});
+```
+
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection` 
+
 ### References
 
 #### Screenshots
