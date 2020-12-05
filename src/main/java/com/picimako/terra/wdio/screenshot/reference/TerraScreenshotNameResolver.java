@@ -48,8 +48,9 @@ public class TerraScreenshotNameResolver {
      * The regular expression for the character replacement can be found in
      * <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js">terra-toolkit-boneyard//visualRegressionConf.js</a>
      */
-    private static final String DELIMITERS_TO_REPLACE = "\\s+|\\.";
+    private static final String DELIMITERS_TO_REPLACE = "\\s+|\\.|\\+";
     private static final String CHARACTERS_TO_REPLACE = "[?<>/|*:+\"]";
+    public static final String DESCRIBE_BLOCK_PATTERN = "describe|describe\\.only|describe\\.skip";
 
     /**
      * Resolves the name of the screenshot referenced by the argument PSI element. The argument element must be the first, name parameter
@@ -78,7 +79,7 @@ public class TerraScreenshotNameResolver {
         if (parentDescribeCall != null) {
             String describeBlockName = JSPsiUtil.getFirstArgumentAsString(((JSCallExpression) parentDescribeCall).getArgumentList());
             if (describeBlockName != null) {
-                return normalize(describeBlockName + "[" + partialName + "]") + ".png";
+                return normalize(describeBlockName.trim() + "[" + partialName.trim() + "]") + ".png";
             }
         }
         return "";
@@ -104,7 +105,7 @@ public class TerraScreenshotNameResolver {
             if (psiElement instanceof JSCallExpression) {
                 JSExpression methodExpression = ((JSCallExpression) psiElement).getMethodExpression();
                 return methodExpression != null
-                    && ("describe".equals(methodExpression.getText()) || TERRA_DESCRIBE_VIEWPORTS.equals(methodExpression.getText()));
+                    && (methodExpression.getText().matches(DESCRIBE_BLOCK_PATTERN) || TERRA_DESCRIBE_VIEWPORTS.equals(methodExpression.getText()));
             }
             return false;
         }

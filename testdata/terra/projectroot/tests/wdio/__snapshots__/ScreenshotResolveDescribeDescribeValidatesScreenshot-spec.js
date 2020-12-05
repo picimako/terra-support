@@ -15,7 +15,7 @@
  */
 
 describe('outer describe', () => {
-    describe('terra? screenshot<>', () => {
+    describe.only('terra? screenshot<>', () => {
         it('Test case', () => {
             Terra.validates.screenshot(<caret>'with/ |replaced*.:characters+"', { selector: '#selector' });
         });

@@ -163,11 +163,7 @@ Implementation class: `com.picimako.terra.wdio.viewports.inspection.NestedTerraD
 
 This inspection reports problems where either a `Terra.validates.screenshot()` or a `Terra.it.matchesScreenshot()` call is used.
 
-It is partially based on the official [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
-which states that
-> It is preferred to use Terra.it.validatesElement(). Terra.should.matchScreenshot() may eventually be deprecated.
-
-and based also on that some projects might want to/have to incorporate accessibility features in their products taking them into account as early as the
+This is based on that some projects might want to/have to incorporate accessibility features in their products taking them into account as early as the
 UX design phase. This helps to make sure accessibility issues are caught during automated testing.
     
 **Example:**
@@ -242,9 +238,9 @@ Implementation class: `com.picimako.terra.wdio.screenshot.inspection.ScreenshotM
 
 #### Missing screenshots
 
-When no image, referenced by `Terra.it` and `Terra.validates` calls, exists for any context (locale, browser, viewport),
+When an image, referenced by `Terra.it` and `Terra.validates` calls, doesn't exist for any context (locale, browser, viewport),
 this inspection marks either the name parameter of such calls, or if they are missing (and the default value `default` is used),
-then marks the function calls name element.
+then marks the function call's name element.
 
 **Example:**
 

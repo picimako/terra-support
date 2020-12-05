@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-Terra.describeViewports('terra? screenshot<>', ['medium'], () => {
+Terra.describeViewports('  terra? screenshot<>  ', ['medium'], () => {
     it('Test case', () => {
-        Terra.validates.screenshot(<caret>'with/ |replaced*.:characters+"', { selector: '#selector' });
+        Terra.validates.screenshot(<caret>'  with/ |replaced*.:characters+"  ', { selector: '#selector' });
     });
 });
