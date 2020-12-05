@@ -15,7 +15,7 @@
  */
 
 Terra.describeViewports('viewports', ['medium'], () => {
-    describe('terra? screenshot<>', () => {
+    describe.skip('terra? screenshot<>', () => {
         Terra.it.validatesElement(<caret>'with/ |replaced*.:characters+"', { selector: '#selector' });
     });
 });

@@ -31,8 +31,8 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
 
     private static final Set<String> RESOLVED_FILE_PATHS = Set.of(
-        "/src/tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png",
-        "/src/tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png"
+        "/src/tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png",
+        "/src/tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"
     );
     private static final Set<String> LOCATION_STRINGS = Set.of("en/chrome/huge", "en/chrome/medium");
 
@@ -133,10 +133,10 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
     }
 
     private void configureMultipleReferenceScreenshots() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters--].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
     }
 
     private String getPath(ResolveResult resolveResult) {
