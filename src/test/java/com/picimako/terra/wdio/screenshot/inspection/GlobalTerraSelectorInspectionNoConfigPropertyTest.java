@@ -24,11 +24,11 @@ import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
 /**
  * Unit test for {@link GlobalTerraSelectorInspection}.
  */
-public class GlobalTerraSelectorInspectionTest extends TerraInspectionBaseTestCase {
+public class GlobalTerraSelectorInspectionNoConfigPropertyTest extends TerraInspectionBaseTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return "testdata/terra/projectroot/";
+        return "testdata/terra/projectroot2/";
     }
 
     @Override
@@ -36,12 +36,8 @@ public class GlobalTerraSelectorInspectionTest extends TerraInspectionBaseTestCa
         return new GlobalTerraSelectorInspection();
     }
 
-    public void testGlobalSelector() {
+    public void testNoGlobalSelectorInWdioConfig() {
         myFixture.copyFileToProject("wdio.conf.js");
-        doWdioSpecTest("globalTerraSelectorSpecs/");
-    }
-
-    public void testGlobalSelectorNoWdioConfig() {
-        doWdioSpecTest("globalTerraSelectorSpecs/");
+        doWdioSpecTest();
     }
 }
