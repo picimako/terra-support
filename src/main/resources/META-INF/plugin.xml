@@ -48,6 +48,10 @@
                          displayName="Referenced screenshot is missing"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection"/>
+        <localInspection id="globalTerraSelector" language="JavaScript"
+                         displayName="Screenshot selector matches global selector"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorInspection"/>
 
         <!-- Terra wdio tool window -->
         <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"

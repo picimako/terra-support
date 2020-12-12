@@ -93,7 +93,7 @@ public final class TerraWdioPsiUtil {
      */
     @Nullable
     public static JSExpression getMethodExpressionOf(@NotNull PsiElement element) {
-        final JSCallExpression jsCallExpression = getCallExpression(element);
+        JSCallExpression jsCallExpression = getCallExpression(element);
         return jsCallExpression != null ? jsCallExpression.getMethodExpression() : null;
     }
 
@@ -117,7 +117,7 @@ public final class TerraWdioPsiUtil {
      */
     public static boolean hasText(@NotNull PsiElement element, String... desiredTexts) {
         if (desiredTexts.length > 0) {
-            final JSExpression methodExpression = getMethodExpressionOf(element);
+            JSExpression methodExpression = getMethodExpressionOf(element);
             return methodExpression != null && Arrays.stream(desiredTexts).anyMatch(text -> text.equals(methodExpression.getText()));
         }
         return false;
