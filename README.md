@@ -264,7 +264,36 @@ Terra.describeViewports('viewports', ['medium'], () => {
 });
 ```
 
-Implementation class: `com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection` 
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection`
+
+#### Screenshot selector matches Terra global selector
+
+The terra-toolkit provides various config option for wdio test execution that can be defined in the project's wdio.conf.js.
+One of these properties is `terra.selector` in which a global/default CSS selector can be specified, after which during
+screenshot capturing this value is used by default when no CSS selector is specified explicitly.
+
+Given the following `wdio.conf.js`:
+
+```js
+const wdioConf = require('./config/wdio/wdio.conf');
+const config = {
+    ...wdioConf.config,
+    terra: {
+        selector: '#global-selector',
+    },
+};
+exports.config = config;
+```
+
+In a wdio spec file the following selectors are going to be used:
+
+```js
+Terra.validates.element('an element', { selector: '#selector' }); // #selector
+
+Terra.validates.element('an element'); // #global-selector
+```
+
+Implementation class: `com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorInspection`
 
 ### References
 

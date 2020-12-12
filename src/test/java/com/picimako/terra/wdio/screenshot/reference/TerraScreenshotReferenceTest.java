@@ -129,7 +129,7 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
     }
 
     private void configureSpecFile(String fileName) {
-        myFixture.configureByFile("tests/wdio/__snapshots__/" + fileName);
+        myFixture.configureByFile("screenshotReferenceSpecs/" + fileName);
     }
 
     private void configureMultipleReferenceScreenshots() {
