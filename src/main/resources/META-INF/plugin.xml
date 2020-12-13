@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
