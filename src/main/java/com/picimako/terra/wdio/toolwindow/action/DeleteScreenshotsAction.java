@@ -39,6 +39,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  * An action to delete screenshot files via the Terra wdio tool window.
  * <p>
  * It deletes all available screenshots for the name the user selected in the tool window.
+ *
+ * @since 0.1.0
  */
 public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 

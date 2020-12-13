@@ -43,6 +43,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  * An action to rename screenshot files via the Terra wdio tool window.
  * <p>
  * It renames all available screenshots for the name the user selected in the tool window.
+ *
+ * @since 0.1.0
  */
 public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 

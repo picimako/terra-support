@@ -48,6 +48,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  * <p>
  * NOTE: it might happen that the bold marking of a screenshot node (that it has diff image), and the status of this menu action
  * are not consistent. It can happen in cases when the diff and/or latest folders are modified manually.
+ *
+ * @since 0.1.0
  */
 public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindowAction {
 

@@ -43,6 +43,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  *  {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_ENABLED}.
  *
  * @see TerraWdioToolWindowPanel
+ * @since 0.1.0
  */
 public class TerraWdioToolWindowFactory implements ToolWindowFactory {
 

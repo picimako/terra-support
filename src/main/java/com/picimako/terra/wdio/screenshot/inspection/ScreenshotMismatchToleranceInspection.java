@@ -39,6 +39,8 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * Reports problems regarding the {@code misMatchTolerance} property of screenshot validation function parameters.
  * <p>
  * The validations in this inspection all report problems that would not block test execution.
+ *
+ * @since 0.1.0
  */
 public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBase {
 

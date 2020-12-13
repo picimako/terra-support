@@ -33,6 +33,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 
 /**
  * An action to open a special Terra screenshot view for displaying diff screenshots, via the Terra wdio tool window.
+ *
+ * @since 0.1.0
  */
 public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 

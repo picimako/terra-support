@@ -39,6 +39,8 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * In case the name parameter is not specified, the default value {@code default} is used for the screenshot lookup.
  * <p>
  * For screenshot name resolution see {@link com.picimako.terra.wdio.screenshot.reference.TerraScreenshotNameResolver}.
+ *
+ * @since 0.2.0
  */
 public class MissingScreenshotInspection extends TerraWdioInspectionBase {
 

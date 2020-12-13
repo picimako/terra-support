@@ -42,6 +42,8 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * <p>
  * NOTE: If there will be demand for showing latest and diff images as well in the suggestion list,
  * it may be implemented later, based on that demand.
+ *
+ * @since 0.2.0
  */
 public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 

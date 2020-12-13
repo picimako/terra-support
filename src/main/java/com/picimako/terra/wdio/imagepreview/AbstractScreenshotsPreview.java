@@ -44,6 +44,8 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  * <p>
  * If, for some reason, no image can be display in the editor, a message saying {@code There is no screenshot available to display.}
  * is shown instead. See {@link #getComponent()}.
+ *
+ * @since 0.1.0
  */
 public abstract class AbstractScreenshotsPreview implements FileEditor {
 

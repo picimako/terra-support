@@ -31,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
  * in the Terra wdio tool window.
  *
  * @see DiffScreenshotsUIProvider
+ * @since 0.1.0
  */
 public final class DiffScreenshotsPreview extends AbstractScreenshotsPreview {
     public static final String EDITOR_TYPE_ID = "Terra.Diff.Image.Preview";

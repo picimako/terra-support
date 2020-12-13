@@ -30,6 +30,8 @@ import org.jetbrains.annotations.Nullable;
  * in the Terra wdio tool window.
  * <p>
  * For the list of displayed actions please see {@link #getChildren(AnActionEvent)}.
+ *
+ * @since 0.1.0
  */
 public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
 
