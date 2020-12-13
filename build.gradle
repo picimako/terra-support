@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '0.4.26'
+    id 'org.jetbrains.intellij' version '0.6.5'
 }
 
 java {
@@ -34,10 +34,10 @@ wrapper {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.4.6'
-    testImplementation('org.mockito:mockito-inline:3.4.6') //for using static method mocking
+    testCompile group: 'junit', name: 'junit', version: '4.13.1'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
+    testImplementation('org.mockito:mockito-inline:3.6.28') //for using static method mocking
 }
 
 patchPluginXml {
