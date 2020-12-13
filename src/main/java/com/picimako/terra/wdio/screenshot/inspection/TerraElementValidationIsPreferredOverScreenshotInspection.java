@@ -30,6 +30,8 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * Highlights {@code Terra.validates.screenshot()} and {@code Terra.it.matchesScreenshot()} calls because their
  * corresponding {@code Terra.validates.element()} and {@code Terra.it.validatesElement()} calls are preferred, due
  * to potential future deprecation and removal of {@code Terra.should.matchScreenshot()}.
+ *
+ * @since 0.1.0
  */
 public class TerraElementValidationIsPreferredOverScreenshotInspection extends TerraWdioInspectionBase {
 

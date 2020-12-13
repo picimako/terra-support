@@ -28,6 +28,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 
 /**
  * Provides easier implementation of, and a somewhat updated API for performing Terra wdio tool window actions.
+ *
+ * @since 0.1.0
  */
 public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
 

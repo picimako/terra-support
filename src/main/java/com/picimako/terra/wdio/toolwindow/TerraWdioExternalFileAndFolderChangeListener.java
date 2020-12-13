@@ -53,6 +53,8 @@ import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestActio
  *     <li>Additionally, update the tree only when the tool window is being opened. This of course needs handling of what if the tool
  *      window doesn't get closed. In that case it may need to be closed and opened manually, which is not ideal.</li>
  * </ul>
+ *
+ * @since 0.1.0
  */
 public class TerraWdioExternalFileAndFolderChangeListener implements BulkFileListener {
 

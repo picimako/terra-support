@@ -41,6 +41,8 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Generates Quick Documentation content for viewport values specified in {@code Terra.describeViewports} arguments.
+ *
+ * @since 0.1.0
  */
 public final class TerraDescribeViewportsDocumentationProvider implements DocumentationProvider {
 

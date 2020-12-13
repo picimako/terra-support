@@ -39,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
  * is shown instead.
  *
  * @see ReferenceToLatestScreenshotsUIProvider
+ * @since 0.1.0
  */
 public class ReferenceToLatestScreenshotsPreview extends AbstractScreenshotsPreview {
 

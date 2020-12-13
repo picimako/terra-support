@@ -44,6 +44,8 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * Thus, the documentation URLs are loaded only when the Quick Documentation popup is first triggered, and each further trigger of it
  * will retrieve the data from the already loaded, underlying service-provided object.
+ *
+ * @since 0.1.0
  */
 public class TerraWdioDocumentationProvider extends JavaScriptDocumentationProvider {
 

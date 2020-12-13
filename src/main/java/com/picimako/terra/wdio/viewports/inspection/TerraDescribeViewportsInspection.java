@@ -52,6 +52,8 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * The validations in this inspection all report problems that would not block test execution.
  * <p>
  * See the <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md">Terra Webdriver.io Utility Developer's Guide</a>
+ *
+ * @since 0.1.0
  */
 public final class TerraDescribeViewportsInspection extends TerraWdioInspectionBase {
 

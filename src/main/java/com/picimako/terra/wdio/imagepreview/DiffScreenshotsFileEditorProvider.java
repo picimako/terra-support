@@ -33,6 +33,8 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * The editor is displayed only when the file being opened is an image, and it is located within one of the {@code diff}
  * folders among the Terra wdio resources.
+ *
+ * @since 0.1.0
  */
 public class DiffScreenshotsFileEditorProvider implements FileEditorProvider {
 

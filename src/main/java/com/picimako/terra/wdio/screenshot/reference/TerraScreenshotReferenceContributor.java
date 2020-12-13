@@ -42,6 +42,8 @@ import org.jetbrains.annotations.NotNull;
  * The first, name parameter, of Terra screenshot validation calls, is optional (in that case the default value
  * {@code default} is generated into the name by Terra), so when it is missing, there is no element to create the reference for,
  * thus that case is not yet supported.
+ *
+ * @since 0.2.0
  */
 public class TerraScreenshotReferenceContributor extends PsiReferenceContributor {
 

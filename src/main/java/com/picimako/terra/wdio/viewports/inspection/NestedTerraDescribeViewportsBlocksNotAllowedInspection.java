@@ -29,6 +29,8 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
  * Reports {@code Terra.describeViewports} blocks that are not top-level ones.
+ *
+ * @since 0.1.0
  */
 public class NestedTerraDescribeViewportsBlocksNotAllowedInspection extends TerraWdioInspectionBase {
 

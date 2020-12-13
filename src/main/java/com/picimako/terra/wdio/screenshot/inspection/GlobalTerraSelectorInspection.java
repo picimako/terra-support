@@ -42,6 +42,8 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * Wdio Utility Configuration Setup</a>
  * <p>
  * TODO: Potential support for `` strings
+ *
+ * @since 0.2.0
  */
 public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
 
