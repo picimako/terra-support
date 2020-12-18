@@ -28,6 +28,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.imagepreview.DiffScreenshotsPreview;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 
@@ -38,10 +39,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
  */
 public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    private static final String SHOW_DIFFS_TITLE = "Show Diffs";
-
     public ShowDiffScreenshotsAction(@NotNull Project project) {
-        super(SHOW_DIFFS_TITLE, project);
+        super(TerraBundle.toolWindow("show.diff.title"), project);
         setShortcutSet(CommonShortcuts.getDiff());
     }
 

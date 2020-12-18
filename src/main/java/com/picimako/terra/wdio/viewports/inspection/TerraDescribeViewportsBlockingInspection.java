@@ -36,6 +36,7 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.psi.js.JSArgumentUtil;
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -48,10 +49,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * @since 0.1.0
  */
 public final class TerraDescribeViewportsBlockingInspection extends TerraWdioInspectionBase {
-
-    private static final String THIS_VIEWPORT_IS_NOT_SUPPORTED_BY_TERRA_MESSAGE = "This viewport is not supported by Terra.";
-    private static final String THERE_IS_NO_ACTUAL_VIEWPORT_SPECIFIED_MESSAGE = "There is no actual viewport specified.";
-    private static final String NON_ARRAY_VIEWPORTS_NOT_ALLOWED_MESSAGE = "Non-array-type values are not allowed for the viewports argument.";
 
     @SuppressWarnings("PublicField")
     public boolean reportEmptyViewports = true;
@@ -94,7 +91,7 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
                                 checkForEmptyViewportsArgument(viewportList, viewports, holder);
                                 checkForNotSupportedViewports(viewports, holder);
                             } else if (reportNonArrayViewports) {
-                                holder.registerProblem(viewportList, NON_ARRAY_VIEWPORTS_NOT_ALLOWED_MESSAGE);
+                                holder.registerProblem(viewportList, TerraBundle.inspection("non.array.viewports.not.allowed"));
                             }
                         }
                     });
@@ -109,7 +106,7 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
     private void checkForEmptyViewportsArgument(@NotNull JSExpression viewportList, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportEmptyViewports) {
             if (viewports.length == 0 || Arrays.stream(viewports).allMatch(vp -> isBlank(getStringValue(vp)))) {
-                holder.registerProblem(viewportList, THERE_IS_NO_ACTUAL_VIEWPORT_SPECIFIED_MESSAGE);
+                holder.registerProblem(viewportList, TerraBundle.inspection("no.actual.viewport.specified"));
             }
         }
     }
@@ -122,7 +119,7 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
         if (reportNotSupportedViewports) {
             for (JSExpression viewport : viewports) {
                 if (!isSupportedViewport(viewport)) {
-                    holder.registerProblem(viewport, THIS_VIEWPORT_IS_NOT_SUPPORTED_BY_TERRA_MESSAGE, ProblemHighlightType.ERROR);
+                    holder.registerProblem(viewport, TerraBundle.inspection("viewport.not.supported"), ProblemHighlightType.ERROR);
                 }
             }
         }

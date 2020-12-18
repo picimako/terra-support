@@ -50,6 +50,8 @@ public final class TerraWdioPsiUtil {
     public static final String TERRA_VALIDATES = "Terra.validates";
     public static final String TERRA_IT = "Terra.it";
 
+    public static final String MISMATCH_TOLERANCE = "misMatchTolerance";
+
     private static final Set<String> TERRA_FUNCTIONS = Set.of(TERRA_DESCRIBE_VIEWPORTS, TERRA_VIEWPORTS, TERRA_HIDE_INPUT_CARET,
             TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_IT_IS_ACCESSIBLE,
             TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT, TERRA_VALIDATES_ACCESSIBILITY,

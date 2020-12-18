@@ -25,6 +25,7 @@ import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -33,8 +34,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * @since 0.1.0
  */
 public class NestedTerraDescribeViewportsBlocksNotAllowedInspection extends TerraWdioInspectionBase {
-
-    private static final String NESTED_BLOCKS_ARE_NOT_ALLOWED_MESSAGE = "Nested Terra.describeViewports blocks are not allowed.";
 
     @Override
     public @NotNull String getShortName() {
@@ -51,7 +50,7 @@ public class NestedTerraDescribeViewportsBlocksNotAllowedInspection extends Terr
 
                 if (isInWdioSpecFile(node) && isNestedTerraDescribeViewportsBlock(node)) {
                     //At this point getMethodExpressionOf() should not return null because it has been validated in isNestedTerraDescribeViewportsBlock().
-                    holder.registerProblem(getMethodExpressionOf(node), NESTED_BLOCKS_ARE_NOT_ALLOWED_MESSAGE);
+                    holder.registerProblem(getMethodExpressionOf(node), TerraBundle.inspection("nested.viewports.blocks.not.allowed"));
                 }
             }
         };

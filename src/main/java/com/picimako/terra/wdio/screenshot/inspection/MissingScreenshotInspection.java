@@ -29,6 +29,7 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
 
@@ -43,9 +44,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * @since 0.2.0
  */
 public class MissingScreenshotInspection extends TerraWdioInspectionBase {
-
-    private static final String NO_SCREENSHOTS_EXISTS_MESSAGE = "No reference screenshot exists for any context, for the name specified.";
-    private static final String NO_SCREENSHOTS_EXISTS_FOR_DEFAULT_MESSAGE = "No reference screenshot exists for any context, for the default name.";
 
     private final TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector();
 
@@ -67,12 +65,12 @@ public class MissingScreenshotInspection extends TerraWdioInspectionBase {
                         JSLiteralExpression nameExpr = JSPsiUtil.getFirstArgumentAsStringLiteral(((JSCallExpression) callExpression).getArgumentList());
                         if (nameExpr != null) {
                             if (screenshotCollector.collectFor(nameExpr).length == 0) {
-                                holder.registerProblem(nameExpr, NO_SCREENSHOTS_EXISTS_MESSAGE, ProblemHighlightType.ERROR);
+                                holder.registerProblem(nameExpr, TerraBundle.inspection("no.screenshot.exists"), ProblemHighlightType.ERROR);
                             }
                         } else {
                             JSExpression methodExpression = ((JSCallExpression) callExpression).getMethodExpression();
                             if (methodExpression != null && screenshotCollector.collectForDefault(methodExpression).length == 0)
-                                holder.registerProblem(methodExpression, NO_SCREENSHOTS_EXISTS_FOR_DEFAULT_MESSAGE, ProblemHighlightType.ERROR);
+                                holder.registerProblem(methodExpression, TerraBundle.inspection("no.screenshot.exists.for.default"), ProblemHighlightType.ERROR);
                         }
                     }
                 }

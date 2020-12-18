@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.MISMATCH_TOLERANCE;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -30,6 +31,7 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -41,9 +43,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  */
 public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInspectionBase {
 
-    private static final String MISMATCH_TOLERANCE_IS_NOT_NUMERIC_VALUE_MESSAGE = "The misMatchTolerance property accepts only numeric value between 0 and 100.";
-    private static final String MISMATCH_TOLERANCE_OUTSIDE_OF_RANGE_MESSAGE = "The mismatch tolerance should be a number between 0 and 100.";
-    private static final String MISMATCH_TOLERANCE = "misMatchTolerance";
     private static final String NEGATIVE_OPERATION_SIGN = "JS:MINUS";
 
     @SuppressWarnings("PublicField")
@@ -95,7 +94,7 @@ public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInsp
 
     private void registerProblemForNonNumericPropertyValue(JSExpression propertyValue, @NotNull ProblemsHolder holder) {
         if (reportMismatchToleranceIsNonNumeric) {
-            holder.registerProblem(propertyValue, MISMATCH_TOLERANCE_IS_NOT_NUMERIC_VALUE_MESSAGE);
+            holder.registerProblem(propertyValue, TerraBundle.inspection("mismatch.tolerance.not.numeric.value"));
         }
     }
 
@@ -114,12 +113,12 @@ public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInsp
             JSExpression literal = property.getValue();
             if (literal instanceof JSLiteralExpression) {
                 if (isGreaterThanMaxAllowedValue(((JSLiteralExpression) literal).getValue())) {
-                    holder.registerProblem(literal, MISMATCH_TOLERANCE_OUTSIDE_OF_RANGE_MESSAGE);
+                    holder.registerProblem(literal, TerraBundle.inspection("mismatch.tolerance.outside.of.range"));
                 }
             } else if (literal instanceof JSPrefixExpression) {
                 IElementType operationSign = ((JSPrefixExpression) literal).getOperationSign();
                 if (operationSign != null && NEGATIVE_OPERATION_SIGN.equals(operationSign.toString())) {
-                    holder.registerProblem(literal, MISMATCH_TOLERANCE_OUTSIDE_OF_RANGE_MESSAGE);
+                    holder.registerProblem(literal, TerraBundle.inspection("mismatch.tolerance.outside.of.range"));
                 }
             }
         }

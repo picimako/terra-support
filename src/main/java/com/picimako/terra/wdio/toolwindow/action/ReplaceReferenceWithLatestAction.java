@@ -36,6 +36,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioFolders;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
@@ -53,11 +54,6 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  */
 public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindowAction {
 
-    private static final String REPLACE_TITLE = "Replace Reference With Latest";
-    private static final String COULD_NOT_REPLACE_SCREENSHOTS_MESSAGE = "Could not completely replace the following screenshots. "
-        + "Please check your Version Control System for their current status:\n\n";
-    private static final String ERROR_DURING_REPLACEMENT_TITLE = "Error During Replacement";
-
     /**
      * Creates a ReplaceReferenceWithLatestAction instance.
      * <p>
@@ -66,7 +62,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
      * @param project the project
      */
     public ReplaceReferenceWithLatestAction(@NotNull Project project) {
-        super(REPLACE_TITLE, project);
+        super(TerraBundle.toolWindow("replace.reference"), project);
         AnAction action = ActionManager.getInstance().getAction(IdeActions.ACTION_REPLACE);
         setShortcutSet(action.getShortcutSet());
     }
@@ -123,8 +119,8 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
                 tree.updateUI();
             } else {
                 Messages.showWarningDialog(project,
-                    COULD_NOT_REPLACE_SCREENSHOTS_MESSAGE + String.join("\n", erroredFilePaths),
-                    ERROR_DURING_REPLACEMENT_TITLE);
+                    TerraBundle.toolWindow("replace.reference.could.not.replace.screenshots") + String.join("\n", erroredFilePaths),
+                    TerraBundle.toolWindow("replace.reference.error.during.replacement"));
             }
         }
     }

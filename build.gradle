@@ -21,7 +21,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 intellij {
-    version '2020.2'
+    version '2020.3'
     //'java' is necessary to have runtime access to some classes like classes for unit testing
     plugins = ['JavaScript', 'java']
     pluginName 'Terra Support'
