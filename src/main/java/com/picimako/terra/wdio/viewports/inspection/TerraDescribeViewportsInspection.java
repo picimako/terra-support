@@ -43,6 +43,7 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.psi.js.JSLiteralExpressionUtil;
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioPsiUtil;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
@@ -56,9 +57,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * @since 0.1.0
  */
 public final class TerraDescribeViewportsInspection extends TerraWdioInspectionBase {
-
-    private static final String DUPLICATE_VIEWPORT_MESSAGE = "There are duplicate viewport values in this block.";
-    private static final String VIEWPORTS_ARE_NOT_IN_ASCENDING_ORDER_MESSAGE = "Viewports are not in ascending order by their widths.";
 
     @SuppressWarnings("PublicField")
     public boolean reportDuplicateViewports = true;
@@ -123,7 +121,9 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
                             //The reason the 'describeViewports' function name is highlighted in this case is to provide a clearer way of reporting this problem
                             //when the argument list already has issues reported.
                             //noinspection ConstantConditions
-                            holder.registerProblem(getDescribeViewportsFunctionNameElement(terraDescribeViewports), DUPLICATE_VIEWPORT_MESSAGE, ProblemHighlightType.WARNING);
+                            holder.registerProblem(getDescribeViewportsFunctionNameElement(terraDescribeViewports),
+                                TerraBundle.inspection("duplicate.viewports"),
+                                ProblemHighlightType.WARNING);
                             break;
                         } else {
                             processedViewports.add(vpLiteral);
@@ -149,7 +149,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
                 //This check takes advantage of the fact that the supported viewports, when they are listed in ascending order
                 //by their widths, are in descending order alphabetically.
                 if (!actualViewports.equals(reverseSort(actualViewports))) {
-                    holder.registerProblem(viewportList, VIEWPORTS_ARE_NOT_IN_ASCENDING_ORDER_MESSAGE, ProblemHighlightType.WARNING);
+                    holder.registerProblem(viewportList, TerraBundle.inspection("viewports.not.in.ascending.order"), ProblemHighlightType.WARNING);
                 }
             }
         }

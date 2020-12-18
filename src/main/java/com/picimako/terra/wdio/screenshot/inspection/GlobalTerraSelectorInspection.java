@@ -29,6 +29,7 @@ import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -47,8 +48,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  */
 public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
 
-    private static final String MATCHES_GLOBAL_SELECTOR_MESSAGE =
-        "This selector matches the global selector defined in wdio.conf.js. It may be removed from here.";
     private final GlobalTerraSelectorRetriever globalSelectorRetriever = new GlobalTerraSelectorRetriever();
 
     @Override
@@ -69,7 +68,7 @@ public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
                         String screenshotSelector = getStringLiteralValue(selectorProperty.getValue());
                         if (Objects.equals(screenshotSelector, globalSelectorRetriever.getSelector(holder.getProject()))) {
                             //At this point selectorProperty.getValue() has already been validated for null value
-                            holder.registerProblem(selectorProperty.getValue(), MATCHES_GLOBAL_SELECTOR_MESSAGE);
+                            holder.registerProblem(selectorProperty.getValue(), TerraBundle.inspection("matches.global.selector"));
                         }
                     }
                 }

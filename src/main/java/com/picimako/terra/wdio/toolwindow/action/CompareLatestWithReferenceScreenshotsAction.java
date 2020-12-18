@@ -27,6 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsPreview;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 
@@ -37,10 +38,8 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
  */
 public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    private static final String COMPARE_LATESTS_WITH_REFERENCES_TITLE = "Compare Latests With References";
-
     public CompareLatestWithReferenceScreenshotsAction(@NotNull Project project) {
-        super(COMPARE_LATESTS_WITH_REFERENCES_TITLE, project);
+        super(TerraBundle.toolWindow("compare.latests.with.references"), project);
     }
 
     /**

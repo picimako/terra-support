@@ -24,6 +24,7 @@ import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -34,9 +35,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * @since 0.1.0
  */
 public class TerraElementValidationIsPreferredOverScreenshotInspection extends TerraWdioInspectionBase {
-
-    private static final String TERRA_IT_VALIDATES_ELEMENT_MESSAGE = "Using validatesElement() is preferred over matchesScreenshot().";
-    private static final String TERRA_VALIDATES_ELEMENT_MESSAGE = "Using element() is preferred over screenshot().";
 
     @Override
     @NotNull
@@ -55,9 +53,9 @@ public class TerraElementValidationIsPreferredOverScreenshotInspection extends T
 
                 if (isInWdioSpecFile(node)) {
                     if (isTerraItMatchesScreenshotExpression(node)) {
-                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TERRA_IT_VALIDATES_ELEMENT_MESSAGE);
+                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validateselement.preferred"));
                     } else if (isTerraValidatesScreenshotExpression(node)) {
-                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TERRA_VALIDATES_ELEMENT_MESSAGE);
+                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validates.element.preferred"));
                     }
                 }
             }

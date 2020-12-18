@@ -21,7 +21,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 intellij {
-    version '2020.2'
+    version '2020.3'
     //'java' is necessary to have runtime access to some classes like classes for unit testing
     plugins = ['JavaScript', 'java']
     pluginName 'Terra Support'
@@ -45,14 +45,16 @@ patchPluginXml {
     pluginDescription(file(terraPluginDescription).text)
 }
 
-//test {
-    //systemProperty 'idea.home.path', '<absolute path to locally cloned intellij-community GitHub repository>'
-//}
+test {
+    //systemProperty '<absolute path to locally cloned intellij-community GitHub repository>'
+    systemProperty 'idea.home.path', 'c:\\Git\\intellij-community\\'
+}
 
-//runIde {
+runIde {
     //https://jetbrains.org/intellij/sdk/docs/products/dev_alternate_products.html#configuring-pluginxml
-    //ideDirectory '<absolute path to WebStorm/IntelliJ Ultimate installation>'
-//}
+    //ideDirectory '<absolute path to WebStorm installation>'
+    ideDirectory 'C:\\Program Files\\JetBrains\\WebStorm 2020.2.3\\'
+}
 
 //publishPlugin {
 //    token <IntelliJ publish token>

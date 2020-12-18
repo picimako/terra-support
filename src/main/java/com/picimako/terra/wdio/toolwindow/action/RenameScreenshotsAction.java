@@ -34,6 +34,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
@@ -48,14 +49,6 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  */
 public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    private static final String RENAME_SCREENSHOTS_TITLE = "Rename Screenshots";
-    private static final String PROVIDE_NEW_NAME_MESSAGE = "Please provide a new name for the screenshot:\n- should be non-blank";
-    private static final String COULD_NOT_RENAME_SCREENSHOTS_MESSAGE = "Could not rename the following screenshots:\n\n";
-    private static final String ERROR_DURING_RENAME_TITLE = "Error During Screenshot Rename";
-    private static final String NON_WRITABLE_FILES_MESSAGE = "One or more screenshot files for this name are not writable.\n"
-        + "Please check them, until then, the renaming process cannot proceed.";
-    private static final String NON_WRITABLE_FILES_TITLE = "Non-Writable Files Found";
-
     /**
      * Creates a RenameScreenshotsAction instance.
      * <p>
@@ -64,7 +57,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      * @param project the project
      */
     public RenameScreenshotsAction(@NotNull Project project) {
-        super(RENAME_SCREENSHOTS_TITLE, project);
+        super(TerraBundle.toolWindow("rename.screenshots"), project);
         setShortcutSet(CommonShortcuts.getRename());
     }
 
@@ -141,10 +134,13 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                     tree.updateUI();
                     if (!erroredFilePaths.isEmpty()) {
                         Messages.showWarningDialog(project,
-                            COULD_NOT_RENAME_SCREENSHOTS_MESSAGE + String.join("\n", erroredFilePaths), ERROR_DURING_RENAME_TITLE);
+                            TerraBundle.toolWindow("rename.could.not.rename.screenshots") + String.join("\n", erroredFilePaths),
+                            TerraBundle.toolWindow("rename.error.during.rename"));
                     }
                 } else {
-                    Messages.showWarningDialog(project, NON_WRITABLE_FILES_MESSAGE, NON_WRITABLE_FILES_TITLE);
+                    Messages.showWarningDialog(project,
+                        TerraBundle.toolWindow("rename.non.writable.files.description"),
+                        TerraBundle.toolWindow("rename.non.writable.files.title"));
                 }
             }
         }
@@ -168,7 +164,8 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     private String askUserForNewFileName(String originalFileName, String extension) {
         String originalFileNameWithoutExt = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
         String newFileName = Messages.showInputDialog(project,
-            PROVIDE_NEW_NAME_MESSAGE, RENAME_SCREENSHOTS_TITLE, null, originalFileName,
+            TerraBundle.toolWindow("rename.provide.new.name"),
+            TerraBundle.toolWindow("rename.screenshots"), null, originalFileName,
             new InputValidator() {
                 @Override
                 public boolean checkInput(String inputString) {

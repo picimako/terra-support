@@ -31,6 +31,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
@@ -44,11 +45,6 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  */
 public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    private static final String DELETE_SCREENSHOTS_TITLE = "Delete Screenshots";
-    private static final String ARE_YOU_SURE_MESSAGE = "Are you sure you want to delete all screenshots with this name?";
-    private static final String ERROR_DURING_DELETION_TITLE = "Error During Screenshot Deletion";
-    private static final String COULD_NOT_DELETE_SCREENSHOTS_MESSAGE = "Could not delete the following screenshots:\n\n";
-
     /**
      * Creates a DeleteScreenshotsAction instance.
      * <p>
@@ -57,7 +53,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      * @param project the project
      */
     public DeleteScreenshotsAction(@NotNull Project project) {
-        super(DELETE_SCREENSHOTS_TITLE, project);
+        super(TerraBundle.toolWindow("delete.screenshots"), project);
         setShortcutSet(CommonShortcuts.getDelete());
     }
 
@@ -104,15 +100,18 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                     tree.updateUI();
                 } else {
                     Messages.showWarningDialog(project,
-                        COULD_NOT_DELETE_SCREENSHOTS_MESSAGE + String.join("\n", erroredFilePaths),
-                        ERROR_DURING_DELETION_TITLE);
+                        TerraBundle.toolWindow("delete.could.not.delete.screenshots") + String.join("\n", erroredFilePaths),
+                        TerraBundle.toolWindow("delete.error.during.deletion"));
                 }
             }
         }
     }
 
     private boolean isUserSureToDeleteTheScreenshots() {
-        return Messages.showYesNoDialog(project, ARE_YOU_SURE_MESSAGE, DELETE_SCREENSHOTS_TITLE, Messages.getQuestionIcon()) == YES;
+        return Messages.showYesNoDialog(project,
+            TerraBundle.toolWindow("delete.are.you.sure"),
+            TerraBundle.toolWindow("delete.screenshots"),
+            Messages.getQuestionIcon()) == YES;
     }
 
     /**

@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.MISMATCH_TOLERANCE;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -33,6 +34,7 @@ import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
@@ -44,8 +46,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  */
 public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBase {
 
-    private static final String MISMATCH_TOLERANCE_ABOVE_THRESHOLD_MESSAGE = "The mismatch tolerance is above the max threshold (%s)";
-    private static final String MISMATCH_TOLERANCE = "misMatchTolerance";
     private static final double DEFAULT_THRESHOLD = 0.5;
 
     @SuppressWarnings("PublicField")
@@ -112,7 +112,7 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
      */
     private void checkForMismatchToleranceAboveThreshold(JSLiteralExpression literal, @NotNull ProblemsHolder holder) {
         if (isMismatchToleranceAboveThreshold(literal.getValue())) {
-            holder.registerProblem(literal, String.format(MISMATCH_TOLERANCE_ABOVE_THRESHOLD_MESSAGE, maxThreshold));
+            holder.registerProblem(literal, String.format(TerraBundle.inspection("mismatch.tolerance.above.threshold"), maxThreshold));
         }
     }
 
