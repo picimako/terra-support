@@ -55,7 +55,7 @@ public class TerraElementValidationIsPreferredOverScreenshotInspection extends T
                     if (isTerraItMatchesScreenshotExpression(node)) {
                         holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validateselement.preferred"));
                     } else if (isTerraValidatesScreenshotExpression(node)) {
-                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validates.element.preferred"));
+                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("validates.element.preferred"));
                     }
                 }
             }
