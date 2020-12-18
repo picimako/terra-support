@@ -46,12 +46,12 @@ patchPluginXml {
 }
 
 //test {
-    //systemProperty '<absolute path to locally cloned intellij-community GitHub repository>'
+    //systemProperty 'idea.home.path', '<absolute path to locally cloned intellij-community GitHub repository>'
 //}
 
 //runIde {
     //https://jetbrains.org/intellij/sdk/docs/products/dev_alternate_products.html#configuring-pluginxml
-    //ideDirectory '<absolute path to WebStorm installation>'
+    //ideDirectory '<absolute path to WebStorm/IntelliJ Ultimate installation>'
 //}
 
 //publishPlugin {
