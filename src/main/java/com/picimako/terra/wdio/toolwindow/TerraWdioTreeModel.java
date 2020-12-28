@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.toolwindow;
 
 import static com.picimako.terra.wdio.TerraWdioFolders.collectSpecFoldersInside;
+import static com.picimako.terra.wdio.TerraWdioFolders.specFolderIdentifier;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asSpec;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isSpec;
@@ -121,8 +122,6 @@ public class TerraWdioTreeModel implements TreeModel {
     public void buildTree() {
         VirtualFile wdioFolder = TerraWdioFolders.projectWdioRoot(project);
         if (wdioFolder != null) {
-            wdioFolder.refresh(false, true);
-            List<VirtualFile> filesAndFoldersInWdioRoot = VfsUtil.collectChildrenRecursively(wdioFolder);
             if (data == null) {
                 data = new TerraWdioTreeModelDataRoot("Wdio Resources");
             } else {
@@ -131,6 +130,8 @@ public class TerraWdioTreeModel implements TreeModel {
             rootDisposable = Disposer.newDisposable();
             Disposer.register(rootDisposable, data);
 
+            wdioFolder.refresh(false, true);
+            List<VirtualFile> filesAndFoldersInWdioRoot = VfsUtil.collectChildrenRecursively(wdioFolder);
             collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.REFERENCE, AbstractTerraWdioTreeNode::addReference);
             collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.DIFF, (node, vf) -> asScreenshot(node).addDiff(vf));
             collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.LATEST, (node, vf) -> asScreenshot(node).addLatest(vf));
@@ -146,7 +147,7 @@ public class TerraWdioTreeModel implements TreeModel {
             .forEach(folder -> {
                 @NotNull VirtualFile[] screenshots = VfsUtil.getChildren(folder);
                 data.getSpecs().stream()
-                    .filter(spec -> spec.getDisplayName().equals(folder.getName())) //to make sure that the UI tree will contain a single node for a given spec name
+                    .filter(spec -> spec.getDisplayName().equals(specFolderIdentifier(folder, project))) //to make sure that the UI tree will contain a single node for a given spec name
                     .findFirst()
                     .ifPresentOrElse(specNode -> { //If the given spec folder (specNode) has already been added
                             populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
@@ -154,7 +155,7 @@ public class TerraWdioTreeModel implements TreeModel {
                         //If a given spec folder hasn't been added
                         () -> {
                             if (existsAfterRefresh(folder)) {
-                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(folder.getName());
+                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(specFolderIdentifier(folder, project));
                                 populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
                                 data.getSpecs().add(specNode);
                                 Disposer.register(data, specNode);

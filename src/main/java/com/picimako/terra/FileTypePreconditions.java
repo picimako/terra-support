@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * nor {@link LocalInspectionTool} don't provide a way to filter the execution of inspection classes by file name
  * or pattern.
  */
-public final class FileTypePreconditionsUtil {
+public final class FileTypePreconditions {
 
     private static final String NON_TEST_JSX_PATTERN = ".*(?<!\\.test)\\.jsx$";
     private static final String SPEC_FILE_POSTFIX = "-spec.js";
@@ -56,7 +56,7 @@ public final class FileTypePreconditionsUtil {
         return element.getContainingFile().getName().endsWith(SPEC_FILE_POSTFIX);
     }
 
-    private FileTypePreconditionsUtil() {
+    private FileTypePreconditions() {
         //Utility class
     }
 }

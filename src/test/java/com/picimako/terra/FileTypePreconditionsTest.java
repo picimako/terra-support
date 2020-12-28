@@ -25,9 +25,9 @@ import com.intellij.psi.PsiFile;
 import org.junit.Test;
 
 /**
- * Unit test for {@link FileTypePreconditionsUtil}.
+ * Unit test for {@link FileTypePreconditions}.
  */
-public class FileTypePreconditionsUtilTest {
+public class FileTypePreconditionsTest {
 
     //isInWdioSpecFile
 
@@ -35,14 +35,14 @@ public class FileTypePreconditionsUtilTest {
     public void shouldBeInWdioSpecFile() {
         PsiElement psiElement = mockPsiElement("some-spec.js");
 
-        assertThat(FileTypePreconditionsUtil.isInWdioSpecFile(psiElement)).isTrue();
+        assertThat(FileTypePreconditions.isInWdioSpecFile(psiElement)).isTrue();
     }
 
     @Test
     public void shouldNotBeInWdioSpecFile() {
         PsiElement psiElement = mockPsiElement("some-test.js");
 
-        assertThat(FileTypePreconditionsUtil.isInWdioSpecFile(psiElement)).isFalse();
+        assertThat(FileTypePreconditions.isInWdioSpecFile(psiElement)).isFalse();
     }
 
     //isInAppJsxFile
@@ -51,14 +51,14 @@ public class FileTypePreconditionsUtilTest {
     public void shouldBeInNonTestJsxFile() {
         PsiElement psiElement = mockPsiElement("some-component.jsx");
 
-        assertThat(FileTypePreconditionsUtil.isInAppJsxFile(psiElement)).isTrue();
+        assertThat(FileTypePreconditions.isInAppJsxFile(psiElement)).isTrue();
     }
 
     @Test
     public void shouldNotBeInNonTestJsxFile() {
         PsiElement psiElement = mockPsiElement("some-component.test.js");
 
-        assertThat(FileTypePreconditionsUtil.isInAppJsxFile(psiElement)).isFalse();
+        assertThat(FileTypePreconditions.isInAppJsxFile(psiElement)).isFalse();
     }
 
     private PsiElement mockPsiElement(String fileName) {

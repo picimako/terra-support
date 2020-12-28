@@ -16,7 +16,7 @@
 
 package com.picimako.terra.wdio.viewports.inspection;
 
-import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static org.apache.commons.lang3.StringUtils.isBlank;

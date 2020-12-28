@@ -17,7 +17,6 @@
 package com.picimako.terra.resources;
 
 import com.intellij.DynamicBundle;
-import com.intellij.openapi.util.NlsActions;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
