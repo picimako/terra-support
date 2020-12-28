@@ -16,7 +16,8 @@
 
 package com.picimako.terra.wdio;
 
-import java.util.Arrays;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +41,10 @@ public final class TerraWdioFolders {
     /**
      * The set of pre-defined wdio test roots. If a project happens to use a different root, there are two ways to support it.
      * Either rename that folder to one of the pre-defined ones here, or add that folder to this set of roots, but the first option is preferred.
+     * <p>
+     * Public since v0.3.0.
      */
-    private static final Set<String> WDIO_TEST_ROOT_NAMES = Set.of("test", "tests");
+    public static final Set<String> WDIO_TEST_ROOT_NAMES = Set.of("test", "tests");
 
     public static final String SNAPSHOTS = "__snapshots__";
     public static final String REFERENCE = "reference";
@@ -62,22 +65,60 @@ public final class TerraWdioFolders {
      */
     @Nullable
     public static VirtualFile projectWdioRoot(Project project) {
+        return getTestRoot(project, "wdio");
+    }
+
+    /**
+     * Gets the VirtualFile representing the test root folder for the provided name in the project,
+     * or null if there is no recognizable tests root.
+     *
+     * @param project the current project
+     * @return the virtual file for the desired test root folder, or null if none is recognized
+     * @since 0.3.0
+     */
+    @Nullable
+    public static VirtualFile getTestRoot(Project project, String testFolderName) {
         final VirtualFile projectDirectory = ProjectUtil.guessProjectDir(project);
         if (projectDirectory != null && projectDirectory.exists()) {
             return WDIO_TEST_ROOT_NAMES.stream()
-                    .map(projectDirectory::findChild)
-                    .filter(Objects::nonNull)
-                    .map(testDir -> testDir.findChild("wdio"))
-                    .filter(Objects::nonNull)
-                    .findFirst()
-                    .orElse(null);
+                .map(projectDirectory::findChild)
+                .filter(Objects::nonNull)
+                .map(testDir -> testDir.findChild(testFolderName))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
         }
         return null;
     }
 
     /**
-     * Collect spec folders within the provided Terra wdio test root, and within that inside the provided {@code imageType} folder
-     * (diff, latest or reference), and return it as a {@link Stream} for further manipulation.
+     * Gets the relative path of the wdio test root folder within the project root.
+     *
+     * @param project the current project
+     * @return the relative path of the wdio test root
+     * @since 0.3.0
+     */
+    public static String wdioRootRelativePath(@NotNull Project project) {
+        return getRelativePathToProjectDir(project, projectWdioRoot(project));
+    }
+
+    /**
+     * Gets the relative path of the test root folder within the project root.
+     *
+     * @param project  the current project
+     * @param testRoot the test root
+     * @return the relative path of test root
+     * @since 0.3.0
+     */
+    public static String getRelativePathToProjectDir(@NotNull Project project, @NotNull VirtualFile testRoot) {
+        return VfsUtil.getRelativePath(testRoot, ProjectUtil.guessProjectDir(project));
+    }
+
+    /**
+     * Collects spec folders from the provided set of files and folders (ideally the ones from the Terra wdio test root).
+     * <p>
+     * The collection happens based on the {@code imageType} argument (diff, latest or reference),
+     * then it returns the found items as a {@link Stream} for further manipulation.
      *
      * @param imageType                 the image type folder to collect the spec folders from
      * @param filesAndFoldersInWdioRoot the list of files and folders inside the wdio test root
@@ -86,12 +127,44 @@ public final class TerraWdioFolders {
     @NotNull
     public static Stream<VirtualFile> collectSpecFoldersInside(@NotNull String imageType, @NotNull List<VirtualFile> filesAndFoldersInWdioRoot) {
         return filesAndFoldersInWdioRoot.stream()
-                .filter(item -> TerraWdioFolders.SNAPSHOTS.equals(item.getName())) //this should result in only one folder
-                .flatMap(snapshots -> Arrays.stream(VfsUtil.getChildren(snapshots))) //diff, latest, reference
-                .filter(type -> imageType.equals(type.getName())) //reference or latest or diff
-                .flatMap(reference -> Arrays.stream(VfsUtil.getChildren(reference))) //en, en-US, es, ...
-                .flatMap(locale -> Arrays.stream(VfsUtil.getChildren(locale))) //chrome_enormous, chrome_tiny, ...
-                .flatMap(browserViewport -> Arrays.stream(VfsUtil.getChildren(browserViewport))); //spec file folders
+            .filter(VirtualFile::isDirectory)
+            .filter(dir -> dir.getName().endsWith("-spec"))
+            .filter(dir -> imageType.equals(dir.getParent().getParent().getParent().getName()));
+    }
+
+    /**
+     * Gets the value that identifies a spec folder within a {@code __snapshots__} folder.
+     * <p>
+     * The identifier is the spec folder's name concatenated to the relative path from the wdio test root.
+     * So in case of the spec folder at
+     * <pre>
+     * tests/wdio/nested/folder/__snapshots__/en/chrome_huge/some-spec
+     * </pre>
+     * the identifier will be
+     * <pre>
+     * nested/folder/some-spec
+     * </pre>
+     * In case there is no nested folder, e.g.
+     * <pre>
+     * tests/wdio/__snapshots__/en/chrome_huge/some-spec
+     * </pre>
+     * the result will be
+     * <pre>
+     * some-spec
+     * </pre>
+     * <p>
+     * This is designed primarily for the Terra Wdio tool window, so that nested spec folder and files can be displayed
+     * properly in their separate nodes.
+     *
+     * @param folder  the spec folder to get the identifier of
+     * @param project the current project
+     * @return the value identifying the folder
+     * @since 0.3.0
+     */
+    public static String specFolderIdentifier(VirtualFile folder, Project project) {
+        String wdioRootPath = wdioRootRelativePath(project);
+        String path = folder.getPath();
+        return path.substring(path.indexOf(wdioRootPath) + wdioRootPath.length() + 1, path.indexOf("/" + SNAPSHOTS) + 1) + folder.getName();
     }
 
     /**
@@ -130,13 +203,29 @@ public final class TerraWdioFolders {
 
     /**
      * Gets whether the argument virtual file is located inside a {@code reference} folder.
+     * <p>
+     * If it's enough to check the path of the file because a check somewhere else already makes sure that the file
+     * is in the wdio test files, you can use {@link #isReferenceScreenshot(VirtualFile)}.
      *
      * @param file    the file to check the location of
      * @param project the project
      * @return true is the file is located inside a reference folder, false otherwise
      */
     public static boolean isReferenceScreenshot(VirtualFile file, @NotNull Project project) {
-        return isInWdioFiles(file, project) && file.getPath().contains(REFERENCE_RELATIVE_PATH);
+        return isInWdioFiles(file, project) && isReferenceScreenshot(file);
+    }
+
+    /**
+     * Gets whether the argument virtual file is located inside a {@code reference} folder.
+     * <p>
+     * If it's also needed to validate whether the file is actually within the wdio test files, please use
+     * {@link #isReferenceScreenshot(VirtualFile, Project)} instead.
+     *
+     * @param file the file to check the location of
+     * @return
+     */
+    public static boolean isReferenceScreenshot(VirtualFile file) {
+        return file.getPath().contains(REFERENCE_RELATIVE_PATH);
     }
 
     /**
@@ -174,9 +263,9 @@ public final class TerraWdioFolders {
     private static VirtualFile getMatchingImageForName(String name, String desiredPath, Project project) {
         Collection<VirtualFile> images = FilenameIndex.getVirtualFilesByName(project, name, GlobalSearchScope.projectScope(project));
         return images.stream()
-                .filter(image -> image.getPath().equals(desiredPath))
-                .findFirst()
-                .orElse(null);
+            .filter(image -> image.getPath().equals(desiredPath))
+            .findFirst()
+            .orElse(null);
     }
 
     public static String referencePath() {

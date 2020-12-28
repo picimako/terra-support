@@ -16,7 +16,7 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
-import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;

@@ -35,27 +35,36 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class TerraWdioPsiUtil {
 
-    public static final String TERRA_DESCRIBE_VIEWPORTS = "Terra.describeViewports";
+    //Validation calls
     public static final String TERRA_VALIDATES_SCREENSHOT = "Terra.validates.screenshot";
     public static final String TERRA_VALIDATES_ELEMENT = "Terra.validates.element";
     public static final String TERRA_IT_MATCHES_SCREENSHOT = "Terra.it.matchesScreenshot";
     public static final String TERRA_IT_VALIDATES_ELEMENT = "Terra.it.validatesElement";
-
-    public static final String TERRA_HIDE_INPUT_CARET = "Terra.hideInputCaret";
-    public static final String TERRA_VIEWPORTS = "Terra.viewports";
     public static final String TERRA_IT_IS_ACCESSIBLE = "Terra.it.isAccessible";
     public static final String TERRA_VALIDATES_ACCESSIBILITY = "Terra.validates.accessibility";
 
+    //Viewports
+    public static final String TERRA_DESCRIBE_VIEWPORTS = "Terra.describeViewports";
+    public static final String TERRA_VIEWPORTS = "Terra.viewports";
+
+    //Other utilities
+    public static final String TERRA_HIDE_INPUT_CARET = "Terra.hideInputCaret";
+
+    //Partial Terra names
     public static final String TERRA = "Terra";
     public static final String TERRA_VALIDATES = "Terra.validates";
     public static final String TERRA_IT = "Terra.it";
 
+    //Validation properties
     public static final String MISMATCH_TOLERANCE = "misMatchTolerance";
 
+    //Spec files
+    public static final String WDIO_SPEC_FILE_NAME_PATTERN = ".*-spec.jsx?$";
+
     private static final Set<String> TERRA_FUNCTIONS = Set.of(TERRA_DESCRIBE_VIEWPORTS, TERRA_VIEWPORTS, TERRA_HIDE_INPUT_CARET,
-            TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_IT_IS_ACCESSIBLE,
-            TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT, TERRA_VALIDATES_ACCESSIBILITY,
-            TERRA, TERRA_VALIDATES, TERRA_IT);
+        TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_IT_IS_ACCESSIBLE,
+        TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT, TERRA_VALIDATES_ACCESSIBILITY,
+        TERRA, TERRA_VALIDATES, TERRA_IT);
 
     /**
      * The items in the list are in ascending order by their widths.

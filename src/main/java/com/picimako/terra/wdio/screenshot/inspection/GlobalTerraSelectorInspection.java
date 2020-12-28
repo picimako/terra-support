@@ -17,7 +17,7 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getStringLiteralValue;
-import static com.picimako.terra.FileTypePreconditionsUtil.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.wdio.WdioConfUtil.SELECTOR_PROPERTY_NAME;
 
 import java.util.Objects;

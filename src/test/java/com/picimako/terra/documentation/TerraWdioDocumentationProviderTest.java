@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
-import com.picimako.terra.FileTypePreconditionsUtil;
+import com.picimako.terra.FileTypePreconditions;
 import com.picimako.terra.wdio.TerraWdioPsiUtil;
 
 /**
@@ -47,8 +47,8 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
 
     public void testReturnNoDocumentationWhenContainingFileIsNotASpecFile() {
         PsiElement originalElement = mock(PsiElement.class);
-        try (MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(false);
+        try (MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class)) {
+            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(false);
 
             assertThat(provider.generateDoc(null, originalElement)).isNull();
         }
@@ -57,8 +57,8 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
     public void testReturnNoDocumentationWhenOriginalElementIsNotTerraWdio() {
         PsiElement originalElement = mock(PsiElement.class);
         try (MockedStatic<TerraWdioPsiUtil> importUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
-             MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
+             MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class)) {
+            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(true);
             importUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(false);
 
             assertThat(provider.generateDoc(null, originalElement)).isNull();
@@ -72,9 +72,9 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
         when(service.getDocs()).thenReturn(setupProperties());
 
         try (MockedStatic<TerraWdioPsiUtil> terraUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
-             MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class);
+             MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class);
              MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
+            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(true);
             terraUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
             serviceManager.when(() -> ServiceManager.getService(TerraWdioDocumentationService.class)).thenReturn(service);
 
@@ -92,9 +92,9 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
         setProviderDocumentation(setupProperties());
 
         try (MockedStatic<TerraWdioPsiUtil> terraUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
-             MockedStatic<FileTypePreconditionsUtil> fileTypeUtil = Mockito.mockStatic(FileTypePreconditionsUtil.class);
+             MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class);
              MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditionsUtil.isInWdioSpecFile(originalElement)).thenReturn(true);
+            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(true);
             terraUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
 
             assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
