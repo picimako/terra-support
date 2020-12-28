@@ -98,7 +98,7 @@ public final class TerraWdioFolders {
      * @return the relative path of the wdio test root
      * @since 0.3.0
      */
-    public static String wdioRootRelativePath(Project project) {
+    public static String wdioRootRelativePath(@NotNull Project project) {
         return getRelativePathToProjectDir(project, projectWdioRoot(project));
     }
 
@@ -110,8 +110,8 @@ public final class TerraWdioFolders {
      * @return the relative path of test root
      * @since 0.3.0
      */
-    public static String getRelativePathToProjectDir(Project project, VirtualFile testRoot) {
-        return VfsUtil.getRelativePath(requireNonNull(testRoot), requireNonNull(ProjectUtil.guessProjectDir(project)));
+    public static String getRelativePathToProjectDir(@NotNull Project project, @NotNull VirtualFile testRoot) {
+        return VfsUtil.getRelativePath(testRoot, ProjectUtil.guessProjectDir(project));
     }
 
     /**
