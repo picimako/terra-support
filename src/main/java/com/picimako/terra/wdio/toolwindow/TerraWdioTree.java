@@ -52,7 +52,7 @@ public class TerraWdioTree extends JTree {
      *
      * @return the parent spec node
      */
-    public TerraWdioTreeSpecNode getParentSpec() {
+    public TerraWdioTreeSpecNode getParentSpecOfSelected() {
         return asSpec(getSelectionPath().getParentPath().getLastPathComponent());
     }
 

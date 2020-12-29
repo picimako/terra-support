@@ -98,7 +98,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                 //Delete the screenshot node from the tree model, and update the UI,
                 //so that the changes are reflected in the tool window, otherwise show message dialog that deletion was not successful.
                 if (erroredFilePaths.isEmpty()) {
-                    TerraWdioTreeSpecNode parentSpec = tree.getParentSpec();
+                    TerraWdioTreeSpecNode parentSpec = tree.getParentSpecOfSelected();
                     parentSpec.getScreenshots().remove(selectedScreenshotNode);
 
                     //If there is no screenshot node left under the parent spec node after the deletion, then remove the spec node as well. Fixes #19.
