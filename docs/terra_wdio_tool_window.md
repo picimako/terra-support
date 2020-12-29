@@ -44,6 +44,10 @@ like this (having `tests/wdio` as the base folder):
                  - <result-report-name>.json
              - <spec-file-name>-spec.js
              - <another-spec-file-name>-spec.js
+             - <nestedfolder>
+                - <nested>-spec.js
+                - __snapshots__
+                    - <screenshot folder structure>
 ```
 
 and creates a new structure, so that users can have an overview of what specs and screenshots are available in the project, and can handle multiple specs and screenshots with a single command,
@@ -56,6 +60,8 @@ as bulk operations:
          - <screenshot_2>.png
      - <another spec file name>
          - <screenshot_3>.png
+     - <nestedfolder>/<nested>-spec
+         - <screenshots>
 ```
 
 When building this tree view, the logic behind also takes into account when spec JS files are in single or multiple subfolders under the base test path.
@@ -94,9 +100,12 @@ There are three node types in the tool window
   and that it provides statistics about the overall project from wdio perspective.
 - **Spec node**: for each spec JS file in the project, it displays a folder node for the spec folders with the same name.
   Under the hood, it stores the references for each spec folder in the project for the name, from each `__snapshots__/reference` folders.
-- **Screenshot node**: screenshots are displayed within the spec folders. For each screenshot file in the project, it displays a screenshot node.
+- **Screenshot node**: screenshots are displayed within the spec folders. For each screenshot file name in the project, it displays a screenshot node.
   Under the hood it keeps track of screenshots of the same name from each `__snapshots__/diff`, `__snapshots__/latest` and `__snapshots__/reference` folders,
   regardless of what locale and browser_viewport folders they are in.
+  
+  It might happen that a screenshot node is display with a 0 statistics count. That can happen when there is no reference image for that name (the 0 count)
+  but there is at least one diff and/or latest screenshot for it.
 
 ### Highlighting nodes
 

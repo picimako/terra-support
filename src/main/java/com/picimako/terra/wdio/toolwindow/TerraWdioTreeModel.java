@@ -69,6 +69,10 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  *                  - result-&lt;browser>-&lt;application-name>.json
  *              - &lt;spec-file-name>-spec.js
  *              - &lt;another-spec-file-name>-spec.js
+ *              - &lt;nestedfolder>
+ *                 - &lt;nested>-spec.js
+ *                 - __snapshots__
+ *                     - &lt;screenshot folder structure>
  * </pre>
  * and creates a new, accumulated view for the Terra wdio tool window, so that users can handle multiple specs and screenshots with bulk commands:
  * <pre>
@@ -78,6 +82,8 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  *          - &lt;screenshot_2>.png
  *      - &lt;another spec file name>
  *          - &lt;screenshot_3>.png
+ *      - &lt;nestedfolder>/&lt;nested>-spec
+ *          - &lt;screenshots>
  * </pre>
  * This model also supports when spec JS files are in single or multiple subfolders within the base test path.
  * They are collected in the same way into this model.
