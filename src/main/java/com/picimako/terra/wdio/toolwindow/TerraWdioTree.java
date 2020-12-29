@@ -16,8 +16,12 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
+import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asSpec;
+
+import java.util.Enumeration;
 import javax.swing.*;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -39,5 +43,45 @@ public class TerraWdioTree extends JTree {
         setCellRenderer(new TerraWdioTreeCellRenderer());
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         setExpandsSelectedPaths(true);
+    }
+
+    /**
+     * Gets the parent node of the currently selected node as spec.
+     * <p>
+     * Call this only when you are sure that the currently selected node is a screenshot node.
+     *
+     * @return the parent spec node
+     */
+    public TerraWdioTreeSpecNode getParentSpecOfSelected() {
+        return asSpec(getSelectionPath().getParentPath().getLastPathComponent());
+    }
+
+    /**
+     * Gets the root node of this tree.
+     *
+     * @return the root node
+     */
+    public TerraWdioTreeModelDataRoot getRoot() {
+        return (TerraWdioTreeModelDataRoot) getModel().getRoot();
+    }
+
+    /**
+     * Gets all expanded nodes of this tree, the expanded descendants of the root node.
+     *
+     * @return the expanded nodes
+     */
+    public Enumeration<TreePath> getAllExpandedNodes() {
+        return getExpandedDescendants(new TreePath(getRoot()));
+    }
+
+    /**
+     * Restores the expansion state of nodes to a previous state (the argument expanded nodes).
+     *
+     * @param expandedNodes the previous state of nodes
+     */
+    public void restoreExpansionStateFrom(Enumeration<TreePath> expandedNodes) {
+        while (expandedNodes.hasMoreElements()) {
+            expandPath(expandedNodes.nextElement());
+        }
     }
 }
