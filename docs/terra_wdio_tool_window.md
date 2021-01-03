@@ -177,5 +177,7 @@ there is at least one unused screenshot within those particular specs.
 
 ![unused_screenshots](../assets/terra_wdio_tool_window_unused_screenshots.PNG)
 
-**NOTE**: Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,
+**NOTES**:
+- Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,
 and it will require less resources to due to the lack of constant project analysis.
+- This feature is available only in IntelliJ build 202.5103.13 and later.
