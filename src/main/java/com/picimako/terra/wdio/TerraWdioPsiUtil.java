@@ -84,6 +84,7 @@ public final class TerraWdioPsiUtil {
     public static boolean isSupportedViewport(JSExpression viewport) {
         return isJSStringLiteral(viewport) && isSupportedViewport(getStringValue(viewport));
     }
+
     /**
      * Gets whether the argument viewport is supported by terra.
      *
@@ -122,7 +123,7 @@ public final class TerraWdioPsiUtil {
     /**
      * Gets whether the element's underlying method expression has any of the text provided in the {@code desiredTexts} argument.
      *
-     * @param element the element to check the text of
+     * @param element      the element to check the text of
      * @param desiredTexts the acceptable collection of texts
      * @return true if there is at least one desired text, and the element has text of any of the provided texts, false otherwise
      */
@@ -132,6 +133,18 @@ public final class TerraWdioPsiUtil {
             return methodExpression != null && Arrays.stream(desiredTexts).anyMatch(text -> text.equals(methodExpression.getText()));
         }
         return false;
+    }
+
+    /**
+     * Gets whether the argument expression is a screenshot validation call.
+     * TODO: unit test
+     *
+     * @param expression the expression to validate
+     * @return true is the expression is a screenshot validation, false otherwise
+     * @see #SCREENSHOT_VALIDATION_NAMES
+     */
+    public static boolean isScreenshotValidationCall(@Nullable JSExpression expression) {
+        return expression != null && SCREENSHOT_VALIDATION_NAMES.contains(expression.getText());
     }
 
     private TerraWdioPsiUtil() {

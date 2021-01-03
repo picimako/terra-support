@@ -18,6 +18,7 @@ package com.picimako.terra.wdio.toolwindow;
 
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asSpec;
+import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isSpec;
 
 import java.awt.*;
@@ -25,6 +26,8 @@ import java.util.function.Supplier;
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import com.intellij.icons.AllIcons;
+import com.intellij.ui.JBColor;
 import com.intellij.util.PlatformIcons;
 import icons.ImagesIcons;
 
@@ -32,9 +35,9 @@ import icons.ImagesIcons;
  * Tree cell rendered that configures each entry in the tree with an icon (at the left) and the name of the node (at the right).
  * <p>
  * The root node and specs are configured with a folder icon, while screenshots are customized with an image file icon.
- *
+ * <p>
  * TODO: displaying/hiding the stats in the Terra wdio tool window could also be controlled by an IDE Settings property, e.g.
- *  *  {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_STATS_ENABLED}.
+ * {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_STATS_ENABLED}.
  */
 public class TerraWdioTreeCellRenderer extends DefaultTreeCellRenderer {
 
@@ -58,22 +61,22 @@ public class TerraWdioTreeCellRenderer extends DefaultTreeCellRenderer {
             setIcon(PlatformIcons.FOLDER_ICON);
             setFont(getFont().deriveFont(Font.PLAIN));
         } else if (isSpec(value)) {
-            setIcon(PlatformIcons.FOLDER_ICON);
-            potentiallyMarkAsDiff(() -> asSpec(value).getScreenshots().stream().anyMatch(TerraWdioTreeScreenshotNode::hasDiff));
-        } else {
-            setIcon(ImagesIcons.ImagesFileType);
-            potentiallyMarkAsDiff(() -> asScreenshot(value).hasDiff());
+            potentiallyMarkAsDiff(asSpec(value).getScreenshots().stream().anyMatch(TerraWdioTreeScreenshotNode::hasDiff));
+            markAsUnusedOrDefault(asSpec(value).getScreenshots().stream().anyMatch(TerraWdioTreeScreenshotNode::isUnused), PlatformIcons.FOLDER_ICON);
+        } else if (isScreenshot(value)) {
+            potentiallyMarkAsDiff(asScreenshot(value).hasDiff());
+            markAsUnusedOrDefault(asScreenshot(value).isUnused(), ImagesIcons.ImagesFileType);
         }
         setText(value.toString());
 
         return this;
     }
 
-    private void potentiallyMarkAsDiff(Supplier<Boolean> hasDiff) {
-        if (hasDiff.get()) {
-            setFont(getFont().deriveFont(Font.BOLD));
-        } else {
-            setFont(getFont().deriveFont(Font.PLAIN));
-        }
+    private void potentiallyMarkAsDiff(boolean hasDiff) {
+        setFont(getFont().deriveFont(hasDiff ? Font.BOLD : Font.PLAIN));
+    }
+
+    private void markAsUnusedOrDefault(boolean isOrHasUnused, Icon defaultIcon) {
+        setIcon(isOrHasUnused ? AllIcons.RunConfigurations.TestError : defaultIcon);
     }
 }

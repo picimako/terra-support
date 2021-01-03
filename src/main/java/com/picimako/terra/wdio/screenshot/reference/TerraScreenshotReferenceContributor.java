@@ -17,11 +17,10 @@
 package com.picimako.terra.wdio.screenshot.reference;
 
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.SCREENSHOT_VALIDATION_NAMES;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
-import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.util.Condition;
 import com.intellij.patterns.PlatformPatterns;
@@ -75,10 +74,6 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
         public boolean value(PsiElement psiElement) {
             return psiElement instanceof JSCallExpression
                 && isScreenshotValidationCall(((JSCallExpression) psiElement).getMethodExpression());
-        }
-
-        private boolean isScreenshotValidationCall(JSExpression expression) {
-            return expression != null && SCREENSHOT_VALIDATION_NAMES.contains(expression.getText());
         }
     }
 }

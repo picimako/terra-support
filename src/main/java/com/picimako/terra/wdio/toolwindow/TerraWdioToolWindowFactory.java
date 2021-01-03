@@ -16,7 +16,16 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
+import static java.util.Collections.singletonList;
+import static java.util.Objects.requireNonNull;
+
+import java.util.Collections;
+import java.util.List;
+import javax.swing.*;
+
+import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.BuildNumber;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -24,6 +33,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
@@ -42,17 +52,24 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  * TODO: the availability of this tool window could also be controlled by an IDE Settings property, e.g.
  *  {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_ENABLED}.
  *
- * @see TerraWdioToolWindowPanel
+ * @see TerraWdioScreenshotsPanel
  * @since 0.1.0
  */
 public class TerraWdioToolWindowFactory implements ToolWindowFactory {
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        TerraWdioScreenshotsPanel screenshotsPanel = new TerraWdioScreenshotsPanel(project);
+        addTab(toolWindow, screenshotsPanel);
+        if (isSetTitleActionSupported()) {
+            toolWindow.setTitleActions(singletonList(new FindUnusedScreenshotsAction(screenshotsPanel.getTree())));
+        }
+    }
+
+    private void addTab(ToolWindow toolWindow, JComponent component) {
         ContentManager contentManager = toolWindow.getContentManager();
-        TerraWdioToolWindowPanel panel = new TerraWdioToolWindowPanel(project);
-        Content content = contentManager.getFactory().createContent(panel, null, true);
-        toolWindow.getContentManager().addContent(content);
+        Content content = contentManager.getFactory().createContent(component, null, true);
+        contentManager.addContent(content);
     }
 
     @Override
@@ -66,5 +83,9 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
             }
         }
         return shouldBeAvailable;
+    }
+
+    private boolean isSetTitleActionSupported() {
+        return ApplicationInfo.getInstance().getBuild().compareTo(requireNonNull(BuildNumber.fromString("202.5103.13"))) >= 0;
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.screenshot.reference;
+package com.picimako.terra.wdio.screenshot;
 
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 
@@ -22,9 +22,12 @@ import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
+import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This class, based on a Terra screenshot validation call's name argument, resolves the name of the actual screenshot
@@ -53,7 +56,7 @@ public class TerraScreenshotNameResolver {
     public static final String DESCRIBE_BLOCK_PATTERN = "describe|describe\\.only|describe\\.skip";
 
     /**
-     * Resolves the name of the screenshot referenced by the argument PSI element. The argument element must be the first, name parameter
+     * Resolves the name of the screenshot referenced by the argument JS literal expression. The argument element must be the first, name parameter
      * of one of the screenshot validation calls:
      * <ul>
      *     <li>Terra.validates.screenshot</li>
@@ -61,19 +64,45 @@ public class TerraScreenshotNameResolver {
      *     <li>Terra.it.matchesScreenshot</li>
      *     <li>Terra.it.validatesElement</li>
      * </ul>
-     * Name resolution cannot happen when the parent {@code describe} or {@code Terra.describeViewports} block's name is missing.
+     * Name resolution with this method cannot happen when the parent {@code describe} or {@code Terra.describeViewports} block's name is missing.
      *
      * @param element the JS literal expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    public String resolveName(PsiElement element) {
+    @NotNull
+    public String resolveName(JSLiteralExpression element) {
         return resolve(element, JsonPsiUtil.stripQuotes(element.getText()));
     }
 
-    public String resolveDefaultName(PsiElement element) {
-        return resolve(element, "default");
+    /**
+     * Resolves the name of the screenshot referenced by the argument method expression representing the method name part of
+     * of one of the screenshot validation calls.
+     * <p>
+     * This method is designed for the case when there is no name parameter specified in the screenshot validation calls,
+     * so that the terra library defaults to the value {@code default} for that part of the name.
+     *
+     * @param methodExpression the method expression on which the resolution takes place
+     * @return the resolved image name, or an empty string if the resolution couldn't happen
+     */
+    @NotNull
+    public String resolveDefaultName(JSExpression methodExpression) {
+        return resolve(methodExpression, "default");
     }
 
+    /**
+     * If the first name argument is specified, then it resolves the screenshot name based on that, otherwise resolves
+     * the name by the method expression of the same JS call.
+     *
+     * @param firstNameArgument the first, name parameter of a validation call
+     * @param methodExpression  the method expression of the validation call
+     * @return the resolved name
+     */
+    @NotNull
+    public String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression) {
+        return firstNameArgument != null ? resolveName(firstNameArgument) : resolveDefaultName(methodExpression);
+    }
+
+    @NotNull
     private String resolve(PsiElement element, String partialName) {
         PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, new DescribeOrViewportsBlockCondition());
         if (parentDescribeCall != null) {

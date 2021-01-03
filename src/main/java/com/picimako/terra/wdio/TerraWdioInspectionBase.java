@@ -159,7 +159,7 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
      * @return the element corresponding to the function name
      */
     @Nullable
-    protected PsiElement getTerraValidationFunctionNameElement(PsiElement element) {
+    protected PsiElement getTerraValidationFunctionNameElement(JSExpressionStatement element) {
         return getFunctionNameElement(getMethodExpressionOf(element));
     }
 

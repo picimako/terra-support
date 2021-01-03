@@ -46,13 +46,13 @@ import com.picimako.terra.wdio.toolwindow.event.ToolWindowPopupMenuInvoker;
  * This panel, based on a particular project's folder structure, can collect and display specs and screenshot from various
  * pre-defined wdio test root folders. For the pre-defined set of roots see {@link com.picimako.terra.wdio.TerraWdioFolders}.
  */
-public class TerraWdioToolWindowPanel extends JPanel {
+public class TerraWdioScreenshotsPanel extends JPanel {
 
     private static final String SCREENSHOT_ACTIONS_GROUP = "terra.wdio.toolwindow.ScreenshotActionsGroup";
     private final Project project;
     private TerraWdioTree tree;
 
-    public TerraWdioToolWindowPanel(Project project) {
+    public TerraWdioScreenshotsPanel(Project project) {
         this.project = project;
         buildGUI();
         project.getMessageBus().connect().subscribe(VirtualFileManager.VFS_CHANGES, new TerraWdioExternalFileAndFolderChangeListener(tree, project));
@@ -66,6 +66,10 @@ public class TerraWdioToolWindowPanel extends JPanel {
         tree = new TerraWdioTree(new TerraWdioTreeModel(project));
         registerActionsAndListenersForTree();
         add(new JBScrollPane(tree));
+    }
+
+    public TerraWdioTree getTree() {
+        return tree;
     }
 
     /**
