@@ -22,12 +22,10 @@ import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isSpec;
 
 import java.awt.*;
-import java.util.function.Supplier;
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import com.intellij.icons.AllIcons;
-import com.intellij.ui.JBColor;
 import com.intellij.util.PlatformIcons;
 import icons.ImagesIcons;
 

@@ -36,7 +36,7 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
 
 /**
  * A reference implementation for Terra screenshots. The reference is for placing it on screenshot validation calls
- * (see the javadoc of {@link TerraScreenshotNameResolver#resolveName(PsiElement)} and it's class-level documentation).
+ * (see the javadoc of {@link TerraScreenshotNameResolver#resolveName(JSLiteralExpression)} and it's class-level documentation).
  * <p>
  * Although file search based on the image's name would return the latest and diff versions of images, the list is filtered,
  * so that only the reference ones are returned for now.

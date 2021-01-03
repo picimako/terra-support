@@ -19,8 +19,6 @@ package com.picimako.terra.wdio.toolwindow;
 import static java.util.Collections.singletonList;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
-import java.util.List;
 import javax.swing.*;
 
 import com.intellij.openapi.application.ApplicationInfo;
@@ -33,7 +31,6 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**

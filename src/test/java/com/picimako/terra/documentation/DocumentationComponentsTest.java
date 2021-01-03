@@ -77,7 +77,7 @@ public class DocumentationComponentsTest {
         assertThat(component).isNotNull();
         assertThat(component.componentName).isEqualTo("ActionHeader");
         assertThat(component.properties).hasSize(1);
-        assertThat(component.properties[0]).isEqualToComparingFieldByField(properties);
+        assertThat(component.properties[0]).usingRecursiveComparison().isEqualTo(properties);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class DocumentationComponentsTest {
         assertThat(component.properties).hasSize(1);
 
         ComponentProperties properties = component.findPropertiesByImportPath("terra-action-footer");
-        assertThat(properties).isEqualToComparingFieldByField(property);
+        assertThat(properties).usingRecursiveComparison().isEqualTo(property);
     }
 
     @Test
@@ -105,10 +105,10 @@ public class DocumentationComponentsTest {
         assertThat(component.properties).hasSize(2);
 
         ComponentProperties properties1 = component.findPropertiesByImportPath("terra-dropdown-button");
-        assertThat(properties1).isEqualToComparingFieldByField(property1);
+        assertThat(properties1).usingRecursiveComparison().isEqualTo(property1);
 
         ComponentProperties properties2 = component.findPropertiesByImportPath("terra-list/lib/index");
-        assertThat(properties2).isEqualToComparingFieldByField(property2);
+        assertThat(properties2).usingRecursiveComparison().isEqualTo(property2);
     }
 
     private ComponentProperties createProperties(String family, String importPath, String relativeUrl) {

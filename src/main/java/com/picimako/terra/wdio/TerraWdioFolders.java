@@ -258,7 +258,7 @@ public final class TerraWdioFolders {
      * {@link #isReferenceScreenshot(VirtualFile, Project)} instead.
      *
      * @param file the file to check the location of
-     * @return
+     * @return true is the file is located inside a reference folder, false otherwise
      */
     public static boolean isReferenceScreenshot(VirtualFile file) {
         return file.getPath().contains(REFERENCE_RELATIVE_PATH);
