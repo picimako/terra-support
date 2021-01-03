@@ -18,21 +18,20 @@ package com.picimako.terra.wdio;
 
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 /**
  * Unit test for {@link TerraWdioFolders}.
@@ -184,6 +183,43 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
 
     public void testNotInWdioFilesWhenNoWdioRootExists() {
         assertThat(TerraWdioFolders.isInWdioFiles(null, getProject())).isFalse();
+    }
+
+    //collectSpecFiles
+
+    public void testCollectSpecFiles() {
+        myFixture.copyFileToProject("tests/wdio/nameResolution/resolveName-spec.js");
+        myFixture.copyFileToProject("tests/wdio/nameResolution/resolveNameNoParentDescribe-spec.js");
+        myFixture.copyFileToProject("tests/wdio/nameResolution/resolveNameNoParentDescribeName-spec.js");
+        myFixture.copyFileToProject("tests/wdio/nested/anEmpty-spec.js");
+        myFixture.copyFileToProject("tests/wdio/nested/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+
+        List<PsiFile> specFiles = new ArrayList<>();
+        PsiDirectory projectRoot = PsiManager.getInstance(getProject()).findDirectory(ProjectUtil.guessProjectDir(getProject()));
+        TerraWdioFolders.collectSpecFiles(projectRoot, specFiles);
+
+        List<String> specFilePaths = specFiles.stream().map(file -> file.getVirtualFile().getPath()).collect(toList());
+
+        assertThat(specFilePaths).containsExactlyInAnyOrder("/src/tests/wdio/nameResolution/resolveName-spec.js",
+            "/src/tests/wdio/nameResolution/resolveNameNoParentDescribe-spec.js",
+            "/src/tests/wdio/nameResolution/resolveNameNoParentDescribeName-spec.js",
+            "/src/tests/wdio/nested/anEmpty-spec.js");
+    }
+
+    //isSnapshotsDirectory
+
+    public void testIsSnapshotDirectory() {
+        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/testimage[default].png");
+        PsiDirectory snapshots = PsiManager.getInstance(getProject())
+            .findDirectory(TerraWdioFolders.projectWdioRoot(getProject()).findChild("__snapshots__"));
+
+        assertThat(TerraWdioFolders.isSnapshotsDirectory(snapshots)).isTrue();
+    }
+
+    public void testIsNotSnapshotDirectory() {
+        PsiDirectory projectRoot = PsiManager.getInstance(getProject()).findDirectory(ProjectUtil.guessProjectDir(getProject()));
+
+        assertThat(TerraWdioFolders.isSnapshotsDirectory(projectRoot)).isFalse();
     }
 
     // isDiffScreenshot

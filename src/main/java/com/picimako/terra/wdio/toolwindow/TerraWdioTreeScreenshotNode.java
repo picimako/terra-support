@@ -29,6 +29,7 @@ public class TerraWdioTreeScreenshotNode extends AbstractTerraWdioTreeNode {
 
     protected final List<VirtualFile> diffs = new ArrayList<>();
     protected final List<VirtualFile> latests = new ArrayList<>();
+    protected boolean unused = false;
 
     public TerraWdioTreeScreenshotNode(@NotNull String displayName) {
         super(displayName);
@@ -66,6 +67,14 @@ public class TerraWdioTreeScreenshotNode extends AbstractTerraWdioTreeNode {
      */
     public boolean hasDiff() {
         return !diffs.isEmpty();
+    }
+
+    public boolean isUnused() {
+        return unused;
+    }
+
+    public void setUnused(boolean unused) {
+        this.unused = unused;
     }
 
     @Override

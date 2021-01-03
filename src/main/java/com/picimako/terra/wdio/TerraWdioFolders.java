@@ -16,7 +16,7 @@
 
 package com.picimako.terra.wdio;
 
-import static java.util.Objects.requireNonNull;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.WDIO_SPEC_FILE_NAME_PATTERN;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +28,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
@@ -115,10 +118,8 @@ public final class TerraWdioFolders {
     }
 
     /**
-     * Collects spec folders from the provided set of files and folders (ideally the ones from the Terra wdio test root).
-     * <p>
-     * The collection happens based on the {@code imageType} argument (diff, latest or reference),
-     * then it returns the found items as a {@link Stream} for further manipulation.
+     * Collect spec folders within the provided Terra wdio test root, and within that inside the provided {@code imageType} folder
+     * (diff, latest or reference), and return it as a {@link Stream} for further manipulation.
      *
      * @param imageType                 the image type folder to collect the spec folders from
      * @param filesAndFoldersInWdioRoot the list of files and folders inside the wdio test root
@@ -180,6 +181,41 @@ public final class TerraWdioFolders {
     }
 
     /**
+     * Collects all spec files from the given directory to the argument list.
+     * <p>
+     * It also takes into account that embedded spec files and screenshots may be present too.
+     * <p>
+     * __snapshots__ folders are excluded because they are not supposed to contain spec files, only screenshots.
+     *
+     * @param directory the directory to collect the spec files in
+     * @param specFiles the collection to store the found files in
+     * @since 0.3.0
+     */
+    public static void collectSpecFiles(PsiDirectory directory, List<PsiFile> specFiles) {
+        for (PsiElement element : directory.getChildren()) {
+            if (element instanceof PsiFile) {
+                String fileName = ((PsiFile) element).getName();
+                if (fileName.matches(WDIO_SPEC_FILE_NAME_PATTERN)) {
+                    specFiles.add((PsiFile) element);
+                }
+            } else if (element instanceof PsiDirectory && !isSnapshotsDirectory(((PsiDirectory) element))) {
+                collectSpecFiles((PsiDirectory) element, specFiles);
+            }
+        }
+    }
+
+    /**
+     * Gets whether the argument directory is a __snapshots__ folder.
+     *
+     * @param directory the directory to validate the name of
+     * @return true if the directory is a snapshots one, false otherwise
+     * @since 0.3.0
+     */
+    public static boolean isSnapshotsDirectory(PsiDirectory directory) {
+        return SNAPSHOTS.equals(directory.getName());
+    }
+
+    /**
      * Gets whether the argument virtual file is located inside a {@code diff} folder.
      *
      * @param file    the file to check the location of
@@ -222,7 +258,7 @@ public final class TerraWdioFolders {
      * {@link #isReferenceScreenshot(VirtualFile, Project)} instead.
      *
      * @param file the file to check the location of
-     * @return
+     * @return true is the file is located inside a reference folder, false otherwise
      */
     public static boolean isReferenceScreenshot(VirtualFile file) {
         return file.getPath().contains(REFERENCE_RELATIVE_PATH);

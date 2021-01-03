@@ -30,7 +30,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
-import com.picimako.terra.wdio.screenshot.reference.TerraScreenshotNameResolver;
 
 /**
  * Collects screenshots based on various expressions.

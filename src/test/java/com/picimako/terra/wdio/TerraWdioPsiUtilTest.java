@@ -92,14 +92,14 @@ public class TerraWdioPsiUtilTest {
 
     @Test
     public void shouldHaveText() {
-        JSExpressionStatement psiElement = mockGetMethodExpressionOf("Terra.validates.screenshot");
+        JSExpressionStatement psiElement = mockExpressionStatementFor("Terra.validates.screenshot");
 
         assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isTrue();
     }
 
     @Test
     public void shouldNotHaveTextWhenThereNoDesiredTextIsMatched() {
-        JSExpressionStatement psiElement = mockGetMethodExpressionOf("browser.pause");
+        JSExpressionStatement psiElement = mockExpressionStatementFor("browser.pause");
 
         assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isFalse();
     }
@@ -120,7 +120,30 @@ public class TerraWdioPsiUtilTest {
         assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.screenshot")).isFalse();
     }
 
-    private JSExpressionStatement mockGetMethodExpressionOf(String methodExpressionText) {
+    //isScreenshotValidationCall
+
+    @Test
+    public void shouldBeScreenshotValidationCall() {
+        JSExpression methodExpression = mock(JSExpression.class);
+        when(methodExpression.getText()).thenReturn("Terra.validates.screenshot");
+
+        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(methodExpression)).isTrue();
+    }
+
+    @Test
+    public void shouldNotBeScreenshotValidationCallForNullExpression() {
+        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(null)).isFalse();
+    }
+
+    @Test
+    public void shouldNotBeScreenshotValidationCall() {
+        JSExpression methodExpression = mock(JSExpression.class);
+        when(methodExpression.getText()).thenReturn("Terra.validates.accessibility");
+
+        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(methodExpression)).isFalse();
+    }
+
+    private JSExpressionStatement mockExpressionStatementFor(String methodExpressionText) {
         //Mocks TerraWdioUtil#getMethodExpressionOf
         JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
         JSCallExpression jsCallExpression = mock(JSCallExpression.class);

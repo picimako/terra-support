@@ -6,11 +6,12 @@ which is a great plugin, so if you are working with VSCode and Terra testing, ma
 This tool window collects the wdio spec files and screenshots in the project, and provides a more convenient aggregate view of them,
 with additional actions for bulk operations to be applied on those files and folders.
 
-NOTE: currently it doesn't support when multiple projects are opened in the same application window in the same workspace.
+**NOTE**: currently it doesn't support when multiple projects are opened in the same application window in the same workspace.
 
 | Implementation package | Introduced in |
 |---|---|
 | [`com.picimako.terra.wdio.toolwindow`](../src/main/java/com/picimako/terra/wdio/toolwindow) | v0.1.0 |
+| [`FindUnusedScreenshotsAction`](../src/main/java/com/picimako/terra/wdio/toolwindow/FindUnusedScreenshotsAction.java) | v0.3.0 |
 
 ## Aggregate view
 
@@ -162,3 +163,21 @@ Both previews also show the screenshot context (locale, browser, viewport) above
 **Terra: Reference/Latest Preview**
 
 ![reference_latest_preview](../assets/terra_reference_latest_preview.PNG)
+
+## Analyzing project for unused screenshots
+
+During the lifetime of a project it may happen that test implementations are changed or cleaned up but related screenshots are forgot
+to be updated or removed.
+
+In the header section of the tool window you can find an **Analyze** action (green play icon) which analyzes the current project and
+marks screenshots that are not referenced by any terra wdio test implementation.  This is an on-demand action run only when a user triggers it manually.
+
+Marking nodes means a red exclamation mark icon put in front of screenshot nodes and their containing spec nodes as well to signal that
+there is at least one unused screenshot within those particular specs.
+
+![unused_screenshots](../assets/terra_wdio_tool_window_unused_screenshots.PNG)
+
+**NOTES**:
+- Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,
+and it will require less resources to due to the lack of constant project analysis.
+- This feature is available only in IntelliJ build 202.5103.13 and later.

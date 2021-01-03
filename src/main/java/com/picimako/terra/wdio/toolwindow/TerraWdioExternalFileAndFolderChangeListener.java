@@ -44,7 +44,7 @@ import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestActio
  * See <a href="https://jetbrains.org/intellij/sdk/docs/basics/virtual_file_system.html">Intellij Dev Guide: Virtual File System</a>
  * for virtual file system related information.
  * <p>
- * See {@link TerraWdioToolWindowPanel#TerraWdioToolWindowPanel(Project)} for subscribing to the related topic.
+ * See {@link TerraWdioScreenshotsPanel#TerraWdioScreenshotsPanel(Project)} for subscribing to the related topic.
  * <p>
  * TODO:
  * <b>Possible improvement option:</b>
