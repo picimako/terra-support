@@ -1,7 +1,21 @@
-<h4>0.2.0</h4>
+<h4>0.3.0</h4>
+<b>New</b>
 <ul>
-    <li>Added references between Terra.it/Terra.validates calls and screenshots</li>
-    <li>Added inspection for missing screenshots in Terra.validates/Terra.it calls</li>
-    <li>Added inspection to check whether the global Terra selector is used in Terra.validates/Terra.it calls</li>
+    <li>Added support for handling nested spec files and screenshots as part of
+        <ul>
+            <li>the Terra Wdio tool window</li>
+            <li>the missing screenshot inspection</li>
+            <li>screenshot references in Terra.it and Terra.validates calls</li>
+        </ul>
+    </li>
+    <li>Added an action to the Terra Wdio tool window to analyze the project and report screenshots
+        that are not referenced anywhere in tests
+    </li>
 </ul>
-<h4>0.1.0 - Initial release</h4>
+
+<b>Bugfix</b>
+<ul>
+    <li>Fixed the problem where after deleting the last screenshot node in the Terra Wdio tool window,
+        the spec node still remained
+    </li>
+</ul>
