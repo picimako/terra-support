@@ -20,6 +20,7 @@ import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
@@ -60,10 +61,13 @@ public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWd
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            VirtualFile fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getLatests().get(0);
-            FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
-            fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
-            fileEditorManager.setSelectedEditor(fileToOpen, ReferenceToLatestScreenshotsPreview.EDITOR_TYPE_ID);
+            List<VirtualFile> latests = asScreenshot(tree.getLastSelectedPathComponent()).getLatests();
+            if (!latests.isEmpty()) {
+                VirtualFile fileToOpen = latests.get(0);
+                FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
+                fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
+                fileEditorManager.setSelectedEditor(fileToOpen, ReferenceToLatestScreenshotsPreview.EDITOR_TYPE_ID);
+            }
         }
     }
 
@@ -73,7 +77,7 @@ public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWd
     }
 
     /**
-     * Checks whether the argument keyevent's keycode corresponds to the ENTER button, essentially checking whether
+     * Checks whether the argument key event's keycode corresponds to the ENTER button, essentially checking whether
      * the user hit ENTER.
      */
     public static boolean isCompareLatestsWithReferencesShortcutKey(KeyEvent e) {
