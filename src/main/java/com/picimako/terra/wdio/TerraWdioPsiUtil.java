@@ -137,7 +137,6 @@ public final class TerraWdioPsiUtil {
 
     /**
      * Gets whether the argument expression is a screenshot validation call.
-     * TODO: unit test
      *
      * @param expression the expression to validate
      * @return true is the expression is a screenshot validation, false otherwise
