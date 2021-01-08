@@ -136,6 +136,8 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                         Messages.showWarningDialog(project,
                             TerraBundle.toolWindow("rename.could.not.rename.screenshots") + String.join("\n", erroredFilePaths),
                             TerraBundle.toolWindow("rename.error.during.rename"));
+                    } else {
+                        tree.getSelectionModel().clearSelection(); //Fixes #24
                     }
                 } else {
                     Messages.showWarningDialog(project,
