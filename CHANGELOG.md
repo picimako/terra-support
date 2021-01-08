@@ -1,5 +1,13 @@
 # Changelog
 
+### v0.3.1
+
+#### BUGFIX
+- [#28](https://github.com/picimako/terra-support/issues/28): Fixed the problem when double-clicking on a screenshot node in the Terra Wdio tool window
+  that had no latest version of that screenshot present, it resulted in an `IndexOutOfBoundsException`.
+- [#24](https://github.com/picimako/terra-support/issues/24): Fixed the problem that hitting Enter in the screenshot rename dialog also opened the editor
+  for the selected screenshot. 
+
 ### v0.3.0
 
 #### NEW

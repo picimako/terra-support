@@ -1,21 +1,12 @@
-<h4>0.3.0</h4>
-<b>New</b>
-<ul>
-    <li>Added support for handling nested spec files and screenshots as part of
-        <ul>
-            <li>the Terra Wdio tool window</li>
-            <li>the missing screenshot inspection</li>
-            <li>screenshot references in Terra.it and Terra.validates calls</li>
-        </ul>
-    </li>
-    <li>Added an action to the Terra Wdio tool window to analyze the project and report screenshots
-        that are not referenced anywhere in tests
-    </li>
-</ul>
-
+<h4>0.3.1</h4>
 <b>Bugfix</b>
 <ul>
-    <li>Fixed the problem where after deleting the last screenshot node in the Terra Wdio tool window,
-        the spec node still remained
+    <li>Fixed the problem when double-clicking on a screenshot node in the Terra Wdio tool window
+        that had no latest version of that screenshot present, it resulted in an
+        <code>IndexOutOfBoundsException</code>.
+    </li>
+    <li>
+        Fixed the problem that hitting enter in the screenshot rename dialog also opened the editor for the selected
+        screenshot.
     </li>
 </ul>
