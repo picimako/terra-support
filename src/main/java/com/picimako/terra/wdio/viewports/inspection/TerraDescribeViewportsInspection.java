@@ -85,7 +85,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) { //FIXME: runs into each Terra.describeViewports twice
+                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) {
                     JSCallExpression terraDescribeViewports = getCallExpression(node);
                     if (terraDescribeViewports != null) {
                         JSArgumentList argumentList = terraDescribeViewports.getArgumentList();
@@ -111,24 +111,21 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
      * During validation it takes into account only the terra-supported viewport values.
      */
     private void checkForDuplicateViewports(JSCallExpression terraDescribeViewports, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
-        if (reportDuplicateViewports) {
-            if (viewports.length > 1) { //This check ignores zero and one-length arrays
-                final Set<String> processedViewports = new HashSet<>();
-                for (JSExpression viewport : viewports) {
-                    final String vpLiteral = getStringValue(viewport);
-                    if (isSupportedViewport(vpLiteral)) {
-                        if (processedViewports.contains(vpLiteral)) {
-                            //The reason the 'describeViewports' function name is highlighted in this case is to provide a clearer way of reporting this problem
-                            //when the argument list already has issues reported.
-                            //noinspection ConstantConditions
-                            holder.registerProblem(getDescribeViewportsFunctionNameElement(terraDescribeViewports),
-                                TerraBundle.inspection("duplicate.viewports"),
-                                ProblemHighlightType.WARNING);
-                            break;
-                        } else {
-                            processedViewports.add(vpLiteral);
-                        }
+        if (reportDuplicateViewports && viewports.length > 1) {
+            final Set<String> processedViewports = new HashSet<>();
+            for (JSExpression viewport : viewports) {
+                String vpLiteral = getStringValue(viewport);
+                if (isSupportedViewport(vpLiteral)) {
+                    if (processedViewports.contains(vpLiteral)) {
+                        //The reason the 'describeViewports' function name is highlighted in this case is to provide a clearer way of reporting this problem
+                        //when the argument list already has issues reported.
+                        //noinspection ConstantConditions
+                        holder.registerProblem(getDescribeViewportsFunctionNameElement(terraDescribeViewports),
+                            TerraBundle.inspection("duplicate.viewports"),
+                            ProblemHighlightType.WARNING);
+                        return;
                     }
+                    processedViewports.add(vpLiteral);
                 }
             }
         }
