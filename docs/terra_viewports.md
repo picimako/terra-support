@@ -142,6 +142,29 @@ Terra.describeViewports('Top level', ['tiny', 'large'], () => {
 |---|---|
 | [`NestedTerraDescribeViewportsBlocksNotAllowedInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/NestedTerraDescribeViewportsBlocksNotAllowedInspection.java) | v0.1.0 |
 
+### Duplicate Terra.describeViewports blocks
+
+Since tests are organized into different blocks (`Terra.describeViewports`, `describe`, `it`, etc.) it may happen that within the same file there are multiple `Terra.describeViewports`
+that are specified with the same set of viewport values. In this case it is probable that those blocks can be merged and all their test cases be handled under the same single
+`describeViewports` block.
+
+Neither the name parameter of the `describeViewports` block, nor the order of the viewport values are taken into account, so in the below example the first and the last blocks will be reported.
+
+```javascript
+Terra.describeViewports('Test', ['tiny', 'small'], () => { // This is reported.
+});
+
+Terra.describeViewports('Test', ['tiny','small','huge'], () => {
+});
+
+Terra.describeViewports('Another Test', ['small','tiny',], () => { // This is also reported.
+});
+```
+
+| Implementation class | Introduced in |
+|---|---|
+| [`DuplicateDescribeViewportsBlockInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/DuplicateDescribeViewportsBlockInspection.java) | v0.4.0 |
+
 ## Quick Documentations
 
 Each viewport String value (only the supported viewports) within `Terra.describeViewports` argument list is extended with Quick Documentation, providing

@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>0.3.1</version>
+    <version>0.4.0-SNAPSHOT</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
 
@@ -19,7 +19,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Code inspections -->
-        <!-- Terra WDIO -->
+        <!-- Viewports -->
         <localInspection id="terraDescribeViewports" language="JavaScript"
                          displayName="Terra.describeViewports validations"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
@@ -32,7 +32,12 @@
                          displayName="Nested Terra.describeViewports blocks"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.viewports.inspection.NestedTerraDescribeViewportsBlocksNotAllowedInspection"/>
+        <localInspection id="duplicateDescribeViewportsBlock" language="JavaScript"
+                         displayName="Duplicate Terra.describeViewports blocks"
+                         groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.viewports.inspection.DuplicateDescribeViewportsBlockInspection"/>
 
+        <!-- Screenshot validation -->
         <localInspection id="terraElementValidationIsPreferredOverScreenshot" language="JavaScript"
                          displayName="Terra element over screenshot validation"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="false" level="WARNING"
@@ -66,6 +71,7 @@
         <lang.documentationProvider order="first" language="JavaScript"
                                     implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>
 
+        <!-- File editors -->
         <fileEditorProvider
                 implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
         <fileEditorProvider

@@ -19,16 +19,22 @@ package com.picimako.terra.wdio;
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
+import static java.util.stream.Collectors.toSet;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import com.intellij.lang.javascript.psi.JSArgumentList;
+import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
+import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.picimako.terra.psi.js.JSLiteralExpressionUtil;
 
 /**
  * Provides utility methods and properties for Terra WDIO test related features.
@@ -93,6 +99,42 @@ public final class TerraWdioPsiUtil {
      */
     public static boolean isSupportedViewport(String viewport) {
         return SUPPORTED_TERRA_VIEWPORTS.contains(viewport);
+    }
+
+    /**
+     * Retrieves the viewports values from the argument {@code Terra.describeViewports} block.
+     *
+     * @param describeViewports the element representing the describeViewports block
+     * @return the viewport expression as an array
+     * @since 0.4.0
+     */
+    @NotNull
+    public static JSExpression[] getViewports(JSExpressionStatement describeViewports) {
+        JSCallExpression terraDescribeViewports = getCallExpression(describeViewports);
+        if (terraDescribeViewports != null) {
+            JSArgumentList argumentList = terraDescribeViewports.getArgumentList();
+            if (argumentList != null && argumentList.getArguments().length > 1) {
+                JSExpression viewportList = argumentList.getArguments()[1];
+                if (viewportList instanceof JSArrayLiteralExpression) {
+                    return ((JSArrayLiteralExpression) viewportList).getExpressions();
+                }
+            }
+        }
+        return JSExpression.EMPTY_ARRAY;
+    }
+
+    /**
+     * Retrieves the viewports values from the argument {@code Terra.describeViewports} block as Strings.
+     *
+     * @param describeViewports the element representing the describeViewports block
+     * @return the set of viewport String values
+     * @since 0.4.0
+     */
+    @NotNull
+    public static Set<String> getViewportsSet(PsiElement describeViewports) {
+        return Arrays.stream(getViewports((JSExpressionStatement) describeViewports))
+            .map(JSLiteralExpressionUtil::getStringValue)
+            .collect(toSet());
     }
 
     /**
