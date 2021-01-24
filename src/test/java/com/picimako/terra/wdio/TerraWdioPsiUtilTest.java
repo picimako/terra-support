@@ -124,10 +124,12 @@ public class TerraWdioPsiUtilTest {
 
     @Test
     public void shouldBeScreenshotValidationCall() {
+        JSCallExpression callExpression = mock(JSCallExpression.class);
         JSExpression methodExpression = mock(JSExpression.class);
+        when(callExpression.getMethodExpression()).thenReturn(methodExpression);
         when(methodExpression.getText()).thenReturn("Terra.validates.screenshot");
 
-        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(methodExpression)).isTrue();
+        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(callExpression)).isTrue();
     }
 
     @Test
@@ -137,10 +139,12 @@ public class TerraWdioPsiUtilTest {
 
     @Test
     public void shouldNotBeScreenshotValidationCall() {
+        JSCallExpression callExpression = mock(JSCallExpression.class);
         JSExpression methodExpression = mock(JSExpression.class);
+        when(callExpression.getMethodExpression()).thenReturn(methodExpression);
         when(methodExpression.getText()).thenReturn("Terra.validates.accessibility");
 
-        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(methodExpression)).isFalse();
+        assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(callExpression)).isFalse();
     }
 
     private JSExpressionStatement mockExpressionStatementFor(String methodExpressionText) {
