@@ -184,8 +184,12 @@ public final class TerraWdioPsiUtil {
      * @return true is the expression is a screenshot validation, false otherwise
      * @see #SCREENSHOT_VALIDATION_NAMES
      */
-    public static boolean isScreenshotValidationCall(@Nullable JSExpression expression) {
-        return expression != null && SCREENSHOT_VALIDATION_NAMES.contains(expression.getText());
+    public static boolean isScreenshotValidationCall(@Nullable JSCallExpression expression) {
+        if (expression != null) {
+            JSExpression methodExpression = expression.getMethodExpression();
+            return methodExpression != null && SCREENSHOT_VALIDATION_NAMES.contains(methodExpression.getText());
+        }
+        return false;
     }
 
     private TerraWdioPsiUtil() {

@@ -82,6 +82,11 @@
                 language="JavaScript"
                 implementation="com.picimako.terra.wdio.screenshot.reference.TerraScreenshotReferenceContributor"/>
 
+
+        <!-- Line markers -->
+        <codeInsight.lineMarkerProvider language="JavaScript"
+                                        implementationClass="com.picimako.terra.wdio.screenshot.gutter.TerraScreenshotValidationLineMarkerProvider"/>
+
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->

@@ -214,3 +214,26 @@ When there are multiple documentations e.g. for `validatesElement()` that includ
 | Implementation class | Introduced in |
 |---|---|
 | [`TerraWdioDocumentationProvider`](../src/main/java/com/picimako/terra/documentation/TerraWdioDocumentationProvider.java) | v0.1.0 |
+
+## Line markers / Gutter icons
+
+To complement the logic provided by the Terra screenshot reference contributor, and to provide visual clues about where in a spec file
+screenshot validations are actually present, there are line markers added for each Terra screenshot validation call.
+
+Line markers are added for calls with or without a name parameter present, however references to the screenshots
+are added only when the call references a "default" screenshot (with no name parameter). This way the screenshot
+references added to those name parameters are complemented with this logic.
+
+**Default screenshot**
+
+![default screenshot](../assets/terra-wdio-default-screenshot-line-marker.png)
+
+**Missing default screenshot**
+
+In case the call references a non-existent screenshot, the line marker is not added.
+
+![missing default screenshot](../assets/terra-wdio-missing-default-screenshot-line-marker.png)
+
+**Non-default screenshot**
+
+![non-default screenshot](../assets/terra-wdio-non-default-screenshot-line-marker.png)

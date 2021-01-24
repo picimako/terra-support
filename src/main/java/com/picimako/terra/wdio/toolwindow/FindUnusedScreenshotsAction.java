@@ -83,10 +83,9 @@ final class FindUnusedScreenshotsAction extends AnAction {
 
         for (PsiFile specFile : specFiles) {
             PsiTreeUtil.processElements(specFile, JSCallExpression.class, element -> {
-                JSExpression methodExpression = element.getMethodExpression();
-                if (isScreenshotValidationCall(methodExpression)) {
+                if (isScreenshotValidationCall(element)) {
                     JSLiteralExpression firstNameArgument = getFirstArgumentAsStringLiteral(element.getArgumentList());
-                    screenshotNames.remove(resolver.resolveWithFallback(firstNameArgument, methodExpression));
+                    screenshotNames.remove(resolver.resolveWithFallback(firstNameArgument, element.getMethodExpression()));
                 }
                 return !screenshotNames.isEmpty();
             });

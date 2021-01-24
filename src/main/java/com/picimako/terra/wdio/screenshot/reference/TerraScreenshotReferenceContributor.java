@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio.screenshot.reference;
 
+import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsStringLiteral;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
@@ -55,7 +56,7 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
                     if (isJSStringLiteral(element)) {
                         PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, new ScreenshotValidationCallCondition());
                         if (parentDescribeCall != null) {
-                            JSLiteralExpression describeBlockName = JSPsiUtil.getFirstArgumentAsStringLiteral(((JSCallExpression) parentDescribeCall).getArgumentList());
+                            JSLiteralExpression describeBlockName = getFirstArgumentAsStringLiteral(((JSCallExpression) parentDescribeCall).getArgumentList());
                             if (describeBlockName == element) {
                                 return new PsiReference[]{new TerraScreenshotReference(element)};
                             }
@@ -73,7 +74,7 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
         @Override
         public boolean value(PsiElement psiElement) {
             return psiElement instanceof JSCallExpression
-                && isScreenshotValidationCall(((JSCallExpression) psiElement).getMethodExpression());
+                && isScreenshotValidationCall((JSCallExpression) psiElement);
         }
     }
 }
