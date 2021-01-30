@@ -16,14 +16,16 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
+import static com.picimako.terra.wdio.TerraWdioFolders.collectSpecFiles;
 import static com.picimako.terra.wdio.TerraWdioFolders.collectSpecFoldersInside;
+import static com.picimako.terra.wdio.TerraWdioFolders.projectWdioRoot;
 import static com.picimako.terra.wdio.TerraWdioFolders.specFolderIdentifier;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asSpec;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isSpec;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -35,10 +37,11 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
 
-/**
+/**ew
  * A model object for backing the {@link TerraWdioTree} UI component.
  * <p>
  * It maps the original folder structure of Terra wdio files, like this (having {@code tests/wdio} as the base folder):
@@ -77,7 +80,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  * and creates a new, accumulated view for the Terra wdio tool window, so that users can handle multiple specs and screenshots with bulk commands:
  * <pre>
  * - Wdio Resources                  <- This is the root node in the tree, which is permanent. It cannot be modified or removed.
- *      - &lt;spec file name>           <- A folder node referencing all spec folders with the same name.
+ *      - &lt;spec file name>           <- A folder node referencing all spec folders and the related spec file with the same name.
  *          - &lt;screenshot_1>.png     <- A screenshot node referencing all screenshot files with the same name.
  *          - &lt;screenshot_2>.png
  *      - &lt;another spec file name>
@@ -126,7 +129,7 @@ public class TerraWdioTreeModel implements TreeModel {
      * for alteration.
      */
     public void buildTree() {
-        VirtualFile wdioFolder = TerraWdioFolders.projectWdioRoot(project);
+        VirtualFile wdioFolder = projectWdioRoot(project);
         if (wdioFolder != null) {
             if (data == null) {
                 data = new TerraWdioTreeModelDataRoot("Wdio Resources");
@@ -138,31 +141,42 @@ public class TerraWdioTreeModel implements TreeModel {
 
             wdioFolder.refresh(false, true);
             List<VirtualFile> filesAndFoldersInWdioRoot = VfsUtil.collectChildrenRecursively(wdioFolder);
-            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.REFERENCE, AbstractTerraWdioTreeNode::addReference);
-            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.DIFF, (node, vf) -> asScreenshot(node).addDiff(vf));
-            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, TerraWdioFolders.LATEST, (node, vf) -> asScreenshot(node).addLatest(vf));
+            Set<VirtualFile> specFiles = collectSpecFiles(filesAndFoldersInWdioRoot);
+            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, specFiles, TerraWdioFolders.REFERENCE, AbstractTerraWdioTreeNode::addReference);
+            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, specFiles, TerraWdioFolders.DIFF, (node, vf) -> asScreenshot(node).addDiff(vf));
+            collectSpecsAndScreenshots(filesAndFoldersInWdioRoot, specFiles, TerraWdioFolders.LATEST, (node, vf) -> asScreenshot(node).addLatest(vf));
 
             data.getSpecs().forEach(TerraWdioTreeSpecNode::reorderScreenshotsAlphabeticallyByDisplayName);
         }
     }
 
 
-    private void collectSpecsAndScreenshots(@NotNull List<VirtualFile> filesAndFoldersInWdioRoot, @NotNull String imageType, @NotNull VirtualFileToNodeAdder virtualFileToNodeAdder) {
+    private void collectSpecsAndScreenshots(@NotNull List<VirtualFile> filesAndFoldersInWdioRoot, Set<VirtualFile> specFiles,
+                                            @NotNull String imageType, @NotNull VirtualFileToNodeAdder virtualFileToNodeAdder) {
+        String wdioRootPath = projectWdioRoot(project).getPath();
         //This will have duplicate folders by name, but they are different folders
         collectSpecFoldersInside(imageType, filesAndFoldersInWdioRoot)
             .forEach(folder -> {
-                @NotNull VirtualFile[] screenshots = VfsUtil.getChildren(folder);
+                VirtualFile[] screenshots = VfsUtil.getChildren(folder);
+                String folderIdentifier = specFolderIdentifier(folder, project);
                 data.getSpecs().stream()
-                    .filter(spec -> spec.getDisplayName().equals(specFolderIdentifier(folder, project))) //to make sure that the UI tree will contain a single node for a given spec name
+                    .filter(spec -> spec.getDisplayName().equals(folderIdentifier)) //to make sure that the UI tree will contain a single node for a given spec name
                     .findFirst()
-                    .ifPresentOrElse(specNode -> { //If the given spec folder (specNode) has already been added
-                            populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
-                        },
+                    //If the given spec folder (specNode) has already been added
+                    .ifPresentOrElse(specNode -> populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType),
                         //If a given spec folder hasn't been added
                         () -> {
                             if (existsAfterRefresh(folder)) {
-                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(specFolderIdentifier(folder, project));
+                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(folderIdentifier);
                                 populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
+
+                                //Adds the spec file that belongs to the spec node. This is necessary for the "Navigate to Usage" screenshot action.
+                                specFiles.stream()
+                                    //This makes sure that in case of multiple spec files with the same name in different folders, the correct file is selected and added.
+                                    .filter(specFile -> specFile.getPath().substring(0, specFile.getPath().lastIndexOf(".")).equals(wdioRootPath + "/" + folderIdentifier))
+                                    .findFirst()
+                                    .ifPresent(specNode::setSpecFile);
+
                                 data.getSpecs().add(specNode);
                                 Disposer.register(data, specNode);
                             }
@@ -177,30 +191,31 @@ public class TerraWdioTreeModel implements TreeModel {
         if (TerraWdioFolders.REFERENCE.equals(imageType)) {
             virtualFileToNodeAdder.accept(specNode, folder);
         }
-        Arrays.stream(screenshots)
-            .forEach(screenshot -> {
-                if (existsAfterRefresh(screenshot)) {
-                    specNode.findScreenshotNodeByName(screenshot.getName())
-                        .ifPresentOrElse(s -> { //If a screenshot node(s) has already been added with a given name
-                                virtualFileToNodeAdder.accept(s, screenshot);
-                            },
-                            //If a screenshot node hasn't been added
-                            () -> {
-                                TerraWdioTreeScreenshotNode newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName());
-                                virtualFileToNodeAdder.accept(newScreenshotNode, screenshot);
-                                specNode.addScreenshot(newScreenshotNode);
-                                Disposer.register(specNode, newScreenshotNode);
-                            });
-                }
-            });
+        for (VirtualFile screenshot : screenshots) {
+            if (existsAfterRefresh(screenshot)) {
+                specNode.findScreenshotNodeByName(screenshot.getName())
+                    //If one or more screenshot node have already been added with a given name
+                    .ifPresentOrElse(s -> virtualFileToNodeAdder.accept(s, screenshot),
+                        //If a screenshot node hasn't been added
+                        () -> {
+                            TerraWdioTreeScreenshotNode newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName());
+                            virtualFileToNodeAdder.accept(newScreenshotNode, screenshot);
+                            specNode.addScreenshot(newScreenshotNode);
+                            Disposer.register(specNode, newScreenshotNode);
+                        });
+            }
+        }
     }
 
     /**
      * Refreshes the argument virtual file and returns whether it still exists or not.
      */
-    private boolean existsAfterRefresh(VirtualFile virtualFile) {
-        virtualFile.refresh(false, virtualFile.isDirectory());
-        return virtualFile.exists();
+    public static boolean existsAfterRefresh(@Nullable VirtualFile virtualFile) {
+        if (virtualFile != null) {
+            virtualFile.refresh(false, virtualFile.isDirectory());
+            return virtualFile.exists();
+        }
+        return false;
     }
 
     // The methods below are responsible for building the actual tree model from the backing model data.

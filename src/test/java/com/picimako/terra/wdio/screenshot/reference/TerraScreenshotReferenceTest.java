@@ -25,6 +25,8 @@ import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.ResolveResult;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.wdio.TerraWdioFolders;
+
 /**
  * Unit test for {@link TerraScreenshotReference}.
  */
@@ -39,6 +41,12 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
     @Override
     protected String getTestDataPath() {
         return "testdata/terra/projectroot";
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        TerraWdioFolders.clearWdioRootCache();
     }
 
     public void testReferencesForTerraDescribeViewportsAndValidatesScreenshot() {

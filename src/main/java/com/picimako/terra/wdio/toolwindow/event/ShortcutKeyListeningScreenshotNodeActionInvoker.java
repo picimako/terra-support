@@ -29,6 +29,7 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.action.AbstractTerraWdioToolWindowAction;
 import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction;
+import com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction;
 import com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction;
 import com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction;
@@ -44,6 +45,7 @@ public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAd
         RenameScreenshotsAction::isRenameScreenshotsShortcutKey, RenameScreenshotsAction::new,
         DeleteScreenshotsAction::isDeleteScreenshotsShortcutKey, DeleteScreenshotsAction::new,
         ReplaceReferenceWithLatestAction::isReplaceScreenshotsShortcutKey, ReplaceReferenceWithLatestAction::new,
+        NavigateToScreenshotUsageAction::isNavigateToUsageShortcutKey, NavigateToScreenshotUsageAction::new,
         CompareLatestWithReferenceScreenshotsAction::isCompareLatestsWithReferencesShortcutKey, CompareLatestWithReferenceScreenshotsAction::new,
         ShowDiffScreenshotsAction::isShowDiffsShortcutKey, ShowDiffScreenshotsAction::new
     );
@@ -57,7 +59,7 @@ public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAd
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         ACTIONS.keySet().stream()
             .filter(isShortcut -> isShortcut.test(e))
             .findFirst()

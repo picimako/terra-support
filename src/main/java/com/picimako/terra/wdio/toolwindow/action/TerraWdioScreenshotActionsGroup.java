@@ -50,6 +50,9 @@ public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
                 new RenameScreenshotsAction(project),
                 new ReplaceReferenceWithLatestAction(project),
                 Separator.getInstance(),
+                //Navigation actions
+                new NavigateToScreenshotUsageAction(project),
+                Separator.getInstance(),
                 //Comparison actions
                 new CompareLatestWithReferenceScreenshotsAction(project),
                 new ShowDiffScreenshotsAction(project)};

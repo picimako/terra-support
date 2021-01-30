@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a spec file/folder in the tree displayed in the Terra wdio tool window.
@@ -36,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
 public class TerraWdioTreeSpecNode extends AbstractTerraWdioTreeNode {
 
     private final List<TerraWdioTreeScreenshotNode> screenshots = new ArrayList<>();
+    private VirtualFile specFile;
 
     public TerraWdioTreeSpecNode(@NotNull String displayName) {
         super(displayName);
@@ -67,6 +70,15 @@ public class TerraWdioTreeSpecNode extends AbstractTerraWdioTreeNode {
      */
     public TerraWdioTreeScreenshotNode getScreenshot(int index) {
         return screenshots.get(index);
+    }
+
+    @Nullable
+    public VirtualFile getSpecFile() {
+        return specFile;
+    }
+
+    public void setSpecFile(VirtualFile specFile) {
+        this.specFile = specFile;
     }
 
     /**

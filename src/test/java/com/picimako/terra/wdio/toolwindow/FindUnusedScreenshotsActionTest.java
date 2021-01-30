@@ -21,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.intellij.testFramework.TestActionEvent;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.wdio.TerraWdioFolders;
+
 /**
  * Unit test for {@link FindUnusedScreenshotsAction}.
  */
@@ -29,6 +31,12 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
     @Override
     protected String getTestDataPath() {
         return "testdata/terra/projectroot";
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        TerraWdioFolders.clearWdioRootCache();
     }
 
     public void testMarksScreenshotsUnused() {
