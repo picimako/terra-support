@@ -1,12 +1,10 @@
-<h4>0.3.1</h4>
-<b>Bugfix</b>
+<h4>0.4.0</h4>
+<b>New</b>
 <ul>
-    <li>Fixed the problem when double-clicking on a screenshot node in the Terra Wdio tool window
-        that had no latest version of that screenshot present, it resulted in an
-        <code>IndexOutOfBoundsException</code>.
-    </li>
-    <li>
-        Fixed the problem that hitting enter in the screenshot rename dialog also opened the editor for the selected
-        screenshot.
-    </li>
+    <li>Added partial support for TypeScript (.ts) spec files.</li>
+    <li>Added inspection to report Terra.describeViewports blocks with the same set of viewport values within the same file.</li>
+    <li>Added gutter icons / line markers for screenshot validation calls in wdio spec files. Image references are added only
+        to default-screenshot icons because non-default ones are referenced via the Terra calls' name parameters.</li>
+    <li>Added the **Navigate to Usage** action to the wdio tool window, so that users can jump to the code section
+        where the screenshot's validation happens.</li>
 </ul>

@@ -1,5 +1,15 @@
 # Changelog
 
+### v0.4.0
+
+#### NEW
+- [#30](https://github.com/picimako/terra-support/issues/30): Added partial support for TypeScript (.ts) spec files.
+- [#31](https://github.com/picimako/terra-support/issues/31): Added inspection to report Terra.describeViewports blocks with the same set of viewport values within the same file. 
+- [#26](https://github.com/picimako/terra-support/issues/26): Added gutter icons / line markers for screenshot validation calls in wdio spec files. Image references are added only
+  to default-screenshot icons because non-default ones are referenced via the Terra calls' name parameters. 
+- [#25](https://github.com/picimako/terra-support/issues/25): Added the **Navigate to Usage** action to the wdio tool window, so that users can jump to the code section
+  where the screenshot's validation happens. 
+
 ### v0.3.1
 
 #### BUGFIX
