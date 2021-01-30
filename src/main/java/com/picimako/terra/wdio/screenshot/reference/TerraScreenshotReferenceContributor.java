@@ -20,7 +20,6 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgument
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
-import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.util.Condition;

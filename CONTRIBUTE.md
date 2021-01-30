@@ -77,6 +77,11 @@ Test data for inspection unit tests can be found under the `testdata` root direc
 Since test data files may contain additional XML elements for marking elements for expected highlighting (e.g. `<error descr=""></error>` and other severity level test tags),
 including these elements will mark the file with an ERROR that it is invalid. You can ignore that, highlight testing will run regardless of that. 
 
+## Troubleshooting
+
+Since the wdio root folder value is cached in `TerraWdioFolders` it can cause unit test failures, so if you suspect that test cases might be affected by the wdio root set in other unit tests,
+make sure to call `TerraWdioFolders.clearWdioRootCache()` before it/them.
+
 ## Helper code snippets
 
 The following snippets might be helpful when generating/reorganizing data for `com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService`.

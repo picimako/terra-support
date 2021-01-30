@@ -148,7 +148,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
     }
 
     /**
-     * Gets whether the argument key event corresponds to this actions shortcut key.
+     * Gets whether the argument key event corresponds to this action's shortcut key.
      *
      * @param e the key event
      * @return true if the key event is this action's shortcut, false otherwise

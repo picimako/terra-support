@@ -17,13 +17,10 @@
 package com.picimako.terra.wdio.toolwindow;
 
 import static java.util.Collections.singletonList;
-import static java.util.Objects.requireNonNull;
 
 import javax.swing.*;
 
-import com.intellij.openapi.application.ApplicationInfo;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.BuildNumber;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -31,6 +28,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.BuildNumberHelper;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
@@ -83,6 +81,6 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
     }
 
     private boolean isSetTitleActionSupported() {
-        return ApplicationInfo.getInstance().getBuild().compareTo(requireNonNull(BuildNumber.fromString("202.5103.13"))) >= 0;
+        return BuildNumberHelper.isIDEBuildNumberSameOrNewerThan("202.5103.13");
     }
 }
