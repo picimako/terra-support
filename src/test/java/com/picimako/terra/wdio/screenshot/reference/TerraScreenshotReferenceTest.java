@@ -43,12 +43,6 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
         return "testdata/terra/projectroot";
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        TerraWdioFolders.clearWdioRootCache();
-    }
-
     public void testReferencesForTerraDescribeViewportsAndValidatesScreenshot() {
         validateReferencesForSourceFile("ScreenshotResolveTerraDescribeViewportsValidatesScreenshot-spec.js");
     }

@@ -33,12 +33,6 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         return "testdata/terra/projectroot";
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        TerraWdioFolders.clearWdioRootCache();
-    }
-
     public void testMarksScreenshotsUnused() {
         myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
         myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");

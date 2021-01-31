@@ -44,13 +44,6 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
         return "testdata/terra/projectroot";
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        //This is necessary to avoid test cases interfering with each other due to the cache value
-        TerraWdioFolders.clearWdioRootCache();
-    }
-
     // projectWdioRoot
 
     public void testReturnVirtualFileForProjectWdioRoot() {

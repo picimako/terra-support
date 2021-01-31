@@ -27,7 +27,6 @@ import java.util.stream.Stream;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
-import com.intellij.openapi.util.ModificationTracker;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
@@ -35,12 +34,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.CachedValue;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.TestOnly;
 
 /**
  * Folder and path handling for the Terra wdio related folders.
@@ -64,7 +59,6 @@ public final class TerraWdioFolders {
     private static final String LATEST_RELATIVE_PATH = "/" + SNAPSHOTS + "/" + LATEST;
 
     private static String wdioTestRootPath;
-    private static CachedValue<VirtualFile> cachedWdioRoot;
 
     /**
      * Gets the VirtualFile representing the wdio tests root folder in the project, or null if there is no recognizable
@@ -77,10 +71,7 @@ public final class TerraWdioFolders {
      */
     @Nullable
     public static VirtualFile projectWdioRoot(Project project) {
-        if (cachedWdioRoot == null) {
-            cachedWdioRoot = CachedValuesManager.getManager(project).createCachedValue(() -> new CachedValueProvider.Result<>(getTestRoot(project, "wdio"), ModificationTracker.NEVER_CHANGED));
-        }
-        return cachedWdioRoot.getValue();
+        return getTestRoot(project, "wdio");
     }
 
     /**
@@ -343,14 +334,6 @@ public final class TerraWdioFolders {
 
     public static void setWdioTestRootPath(String path) {
         wdioTestRootPath = path;
-    }
-
-    /**
-     * Should be called only from test code.
-     */
-    @TestOnly
-    public static void clearWdioRootCache() {
-        cachedWdioRoot = null;
     }
 
     private TerraWdioFolders() {
