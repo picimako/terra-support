@@ -177,6 +177,24 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
         assertThat(id).isEqualTo("nested/folder/some-spec");
     }
 
+    // specFileIdentifier
+
+    public void testSpecFileIdentifierFolderNoNestedFolder() {
+        VirtualFile specFile = myFixture.copyFileToProject("tests/wdio/FindUnusedScreenshot-spec.js");
+
+        String id = TerraWdioFolders.specFileIdentifier(specFile, getProject());
+
+        assertThat(id).isEqualTo("FindUnusedScreenshot-spec");
+    }
+
+    public void testSpecFileIdentifierFolderOneLevelNestedFolder() {
+        VirtualFile specFile = myFixture.copyFileToProject("tests/wdio/nested/anEmpty-spec.js");
+
+        String id = TerraWdioFolders.specFileIdentifier(specFile, getProject());
+
+        assertThat(id).isEqualTo("nested/anEmpty-spec");
+    }
+
     // isInWdioFiles
 
     public void testInWdioFilesDirectly() {

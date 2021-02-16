@@ -21,8 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.intellij.testFramework.TestActionEvent;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
-import com.picimako.terra.wdio.TerraWdioFolders;
-
 /**
  * Unit test for {@link FindUnusedScreenshotsAction}.
  */
@@ -34,13 +32,14 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
     }
 
     public void testMarksScreenshotsUnused() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
 
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra_screenshot[single].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/used[default].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/unused[default].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/FindUnusedScreenshot-spec/used[fromlatest].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/FindUnusedScreenshot-spec/unused[fromlatest].png"));
+        myFixture.copyFileToProject(diff("/en/chrome_huge/FindUnusedScreenshot-spec/used[fromdiff].png"));
+        myFixture.copyFileToProject(diff("/en/chrome_huge/FindUnusedScreenshot-spec/unused[fromdiff].png"));
 
         myFixture.copyFileToProject("tests/wdio/FindUnusedScreenshot-spec.js");
 
@@ -48,14 +47,36 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree);
 
-        TerraWdioTreeModelDataRoot root = (TerraWdioTreeModelDataRoot) treeModel.getRoot();
-        TerraWdioTreeSpecNode spec = root.getSpecs().get(0);
-        assertThat(spec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
+        TerraWdioTreeSpecNode nonRelatedSomeSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
+
+        TerraWdioTreeSpecNode relatedFindUnusedScreenshotSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(1);
+        assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(new TestActionEvent());
 
-        assertThat(spec.findScreenshotNodeByName("terra-_screenshot--[with-_-replaced-_-characters_-].png").get().isUnused()).isFalse();
-        assertThat(spec.findScreenshotNodeByName("terra_screenshot[single].png").get().isUnused()).isTrue();
-        assertThat(spec.findScreenshotNodeByName("testimage[default].png").get().isUnused()).isTrue();
+        //This validates that having a screenshot validation in code for this screenshot name in another spec
+        //and not having an image with this name for that other spec, doesn't mark this image as unused, since it might be used by
+        //its own spec file.
+        assertThat(nonRelatedSomeSpec.findScreenshotNodeByName("terra-_screenshot--[with-_-replaced-_-characters_-].png").get().isUnused()).isTrue();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[default].png").get().isUnused()).isFalse();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[default].png").get().isUnused()).isTrue();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromlatest].png").get().isUnused()).isFalse();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[fromlatest].png").get().isUnused()).isTrue();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromdiff].png").get().isUnused()).isFalse();
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[fromdiff].png").get().isUnused()).isTrue();
+
+    }
+
+    private String reference(String path) {
+        return "tests/wdio/__snapshots__/reference" + path;
+    }
+
+    private String diff(String path) {
+        return "tests/wdio/__snapshots__/diff" + path;
+    }
+
+    private String latest(String path) {
+        return "tests/wdio/__snapshots__/latest" + path;
     }
 }

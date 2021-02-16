@@ -18,4 +18,13 @@ describe('outer describe', () => {
     describe('terra- screenshot--', () => {
         Terra.it.matchesScreenshot('with-_-replaced-_-characters_-', { selector: '#selector' });
     });
+
+    describe('used', () => {
+        Terra.it.matchesScreenshot({ selector: '#selector' });
+    });
+
+    describe('used', () => {
+        Terra.it.matchesScreenshot('fromlatest', { selector: '#selector' });
+        Terra.it.matchesScreenshot('fromdiff', { selector: '#selector' });
+    });
 });
