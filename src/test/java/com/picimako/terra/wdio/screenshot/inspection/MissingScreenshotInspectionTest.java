@@ -16,6 +16,10 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.diff;
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.latest;
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
+
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,11 +41,12 @@ public class MissingScreenshotInspectionTest extends TerraInspectionBaseTestCase
     }
 
     public void testMissingScreenshots() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra_screenshot[single].png");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        myFixture.copyFileToProject(diff("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra_screenshot[single].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/testimage[default].png"));
         doWdioSpecTest("tests/wdio/");
     }
 }

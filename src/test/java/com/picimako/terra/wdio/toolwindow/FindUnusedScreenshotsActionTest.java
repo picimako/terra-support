@@ -16,6 +16,9 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.diff;
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.latest;
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.testFramework.TestActionEvent;
@@ -40,6 +43,7 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         myFixture.copyFileToProject(latest("/en/chrome_huge/FindUnusedScreenshot-spec/unused[fromlatest].png"));
         myFixture.copyFileToProject(diff("/en/chrome_huge/FindUnusedScreenshot-spec/used[fromdiff].png"));
         myFixture.copyFileToProject(diff("/en/chrome_huge/FindUnusedScreenshot-spec/unused[fromdiff].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/used[partialid].png"));
 
         myFixture.copyFileToProject("tests/wdio/FindUnusedScreenshot-spec.js");
 
@@ -65,18 +69,6 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[fromlatest].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromdiff].png").get().isUnused()).isFalse();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[fromdiff].png").get().isUnused()).isTrue();
-
-    }
-
-    private String reference(String path) {
-        return "tests/wdio/__snapshots__/reference" + path;
-    }
-
-    private String diff(String path) {
-        return "tests/wdio/__snapshots__/diff" + path;
-    }
-
-    private String latest(String path) {
-        return "tests/wdio/__snapshots__/latest" + path;
+        assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[partialid].png").get().isUnused()).isFalse();
     }
 }

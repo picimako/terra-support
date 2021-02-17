@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-describe('outer describe', () => {
-    describe('terra- screenshot--', () => {
-        Terra.it.matchesScreenshot('with-_-replaced-_-characters_-', { selector: '#selector' });
-    });
-
-    describe('used', () => {
-        Terra.it.matchesScreenshot({ selector: '#selector' });
-        Terra.it.matchesScreenshot('this is the [partialid]', { selector: '#selector' });
-    });
-
-    describe('used', () => {
-        Terra.it.matchesScreenshot('fromlatest', { selector: '#selector' });
-        Terra.it.matchesScreenshot('fromdiff', { selector: '#selector' });
+describe('terra screenshot', () => {
+    it('Test case', () => {
+        Terra.validates.element('i <caret>am [not ) single]', { selector: '#selector' });
     });
 });

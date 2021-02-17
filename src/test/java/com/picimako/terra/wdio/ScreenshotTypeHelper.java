@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-describe('outer describe', () => {
-    describe('terra- screenshot--', () => {
-        Terra.it.matchesScreenshot('with-_-replaced-_-characters_-', { selector: '#selector' });
-    });
+package com.picimako.terra.wdio;
 
-    describe('used', () => {
-        Terra.it.matchesScreenshot({ selector: '#selector' });
-        Terra.it.matchesScreenshot('this is the [partialid]', { selector: '#selector' });
-    });
+/**
+ * Utility class for building screenshot paths based on screenshot types.
+ */
+public final class ScreenshotTypeHelper {
 
-    describe('used', () => {
-        Terra.it.matchesScreenshot('fromlatest', { selector: '#selector' });
-        Terra.it.matchesScreenshot('fromdiff', { selector: '#selector' });
-    });
-});
+    public static String reference(String path) {
+        return "tests/wdio/__snapshots__/reference" + path;
+    }
+
+    public static String diff(String path) {
+        return "tests/wdio/__snapshots__/diff" + path;
+    }
+
+    public static String latest(String path) {
+        return "tests/wdio/__snapshots__/latest" + path;
+    }
+
+    private ScreenshotTypeHelper() {
+    }
+}
