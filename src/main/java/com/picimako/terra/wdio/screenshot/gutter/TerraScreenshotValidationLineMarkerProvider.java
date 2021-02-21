@@ -50,8 +50,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  */
 public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
-    private final TerraScreenshotCollector collector = new TerraScreenshotCollector();
-
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
         if (element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
@@ -60,7 +58,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
             if (nameArgument == null) {
                 JSExpression methodExpression = terraCallExpr.getMethodExpression();
                 if (methodExpression != null) {
-                    PsiElement[] screenshots = collector.collectForDefault(methodExpression);
+                    PsiElement[] screenshots = new TerraScreenshotCollector(element.getProject()).collectForDefault(methodExpression);
                     if (screenshots.length > 0) {
                         PsiElement leafElement = findLeafElement(terraCallExpr);
                         if (leafElement != null) {

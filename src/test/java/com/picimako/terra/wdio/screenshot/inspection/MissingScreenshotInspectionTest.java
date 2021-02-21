@@ -41,12 +41,12 @@ public class MissingScreenshotInspectionTest extends TerraInspectionBaseTestCase
     }
 
     public void testMissingScreenshots() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(latest("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra_screenshot[single].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/testimage[default].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
+        myFixture.copyFileToProject(diff("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[single].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/testimage[default].png"));
         doWdioSpecTest("tests/wdio/");
     }
 }

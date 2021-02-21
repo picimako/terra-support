@@ -166,6 +166,7 @@ public final class TerraWdioFolders {
      * @see #specFileIdentifier(VirtualFile, Project)
      * @since 0.3.0
      */
+    @NotNull
     public static String specFolderIdentifier(VirtualFile folder, Project project) {
         String wdioRootPath = wdioRootRelativePath(project);
         String path = folder.getPath();
@@ -202,6 +203,7 @@ public final class TerraWdioFolders {
      * @see #specFolderIdentifier(VirtualFile, Project)
      * @since 0.4.1
      */
+    @NotNull
     public static String specFileIdentifier(VirtualFile specFile, Project project) {
         String wdioRootPath = wdioRootRelativePath(project);
         String path = specFile.getPath();

@@ -17,8 +17,8 @@
 //no-highlight cases
 
 Terra.describeViewports('viewports', ['medium'], () => {
-    describe('terra? screenshot<>', () => {
-        Terra.it.validatesElement('with/ |replaced*.:characters+"', { selector: '#selector' });
+    describe('terra screenshot', () => {
+        Terra.it.validatesElement('nondefault', { selector: '#selector' });
     });
 });
 

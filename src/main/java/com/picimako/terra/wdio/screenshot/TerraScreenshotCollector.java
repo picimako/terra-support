@@ -17,13 +17,18 @@
 package com.picimako.terra.wdio.screenshot;
 
 import static com.picimako.terra.wdio.TerraWdioFolders.isReferenceScreenshot;
+import static com.picimako.terra.wdio.TerraWdioFolders.specFileIdentifier;
+import static com.picimako.terra.wdio.TerraWdioFolders.specFolderIdentifier;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
 
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiBinaryFile;
+import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -44,10 +49,18 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  *              another-spec.js
  *          some-spec.js
  * </pre>
+ * Screenshots are collected based on the referenced screenshots' names and also based on which spec file a
+ * screenshot validation call is implemented in. The latter one makes sure that related screenshots are returned only
+ * for the current spec file, and not for other specs, if there happens to be a screenshot with the same name for that too.
  */
 public class TerraScreenshotCollector {
 
     private final TerraScreenshotNameResolver screenshotNameResolver = new TerraScreenshotNameResolver();
+    private final Project project;
+
+    public TerraScreenshotCollector(Project project) {
+        this.project = project;
+    }
 
     /**
      * Collects screenshots from the current project based on the provided JS literal expression.
@@ -100,11 +113,25 @@ public class TerraScreenshotCollector {
      * @return the array of screenshots found
      */
     private PsiElement[] collect(PsiElement element, Supplier<String> nameSupplier) {
-        return PsiTreeUtil.collectElements(
-            element.getContainingFile().getParent().findSubdirectory(TerraWdioFolders.SNAPSHOTS),
-            e -> e instanceof PsiBinaryFile
-                && isReferenceScreenshot(((PsiBinaryFile) e).getVirtualFile())
-                && ((PsiBinaryFile) e).getName().equals(nameSupplier.get())
-        );
+        PsiDirectory specFileDirectory = element.getContainingFile().getParent();
+        if (specFileDirectory != null) {
+            PsiDirectory snapshotsDirectory = specFileDirectory.findSubdirectory(TerraWdioFolders.SNAPSHOTS);
+            if (snapshotsDirectory != null) {
+                String specFileId = specFileIdentifier(element.getContainingFile().getVirtualFile(), project);
+                return PsiTreeUtil.collectElements(snapshotsDirectory,
+                    e -> {
+                        if (e instanceof PsiBinaryFile) {
+                            VirtualFile screenshotFile = ((PsiBinaryFile) e).getVirtualFile();
+                            return isReferenceScreenshot(screenshotFile)
+                                && ((PsiBinaryFile) e).getName().equals(nameSupplier.get()) //matching based on expected screenshot name
+                                && specFolderIdentifier(screenshotFile.getParent(), project).equals(specFileId); //matching based on the containing spec file
+
+                        }
+                        return false;
+                    }
+                );
+            }
+        }
+        return PsiElement.EMPTY_ARRAY;
     }
 }

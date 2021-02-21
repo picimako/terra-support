@@ -16,6 +16,8 @@
 
 package com.picimako.terra.wdio.screenshot;
 
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.latest;
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
@@ -35,11 +37,11 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
     }
 
     public void testCollectBasedOnTerraNameParameter() {
-        configureSpecFile("ScreenshotResolveTerraDescribeViewportsValidatesScreenshot-spec.js");
+        configureSpecFile("CollectScreenshots-spec.js");
         configureScreenshots();
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        PsiElement[] results = new TerraScreenshotCollector().collectFor((JSLiteralExpression) element);
+        PsiElement[] results = new TerraScreenshotCollector(getProject()).collectFor((JSLiteralExpression) element);
 
         assertThat(results).hasSize(2);
         assertThat(((PsiFile) results[0]).getVirtualFile().getPath()).contains("__snapshots__/reference");
@@ -47,11 +49,11 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
     }
 
     public void testCollectBasedOnTerraNameParameterAsPsiFiles() {
-        configureSpecFile("ScreenshotResolveTerraDescribeViewportsValidatesScreenshot-spec.js");
+        configureSpecFile("CollectScreenshots-spec.js");
         configureScreenshots();
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        PsiElement[] results = new TerraScreenshotCollector().collectAsPsiFilesFor((JSLiteralExpression) element);
+        PsiElement[] results = new TerraScreenshotCollector(getProject()).collectAsPsiFilesFor((JSLiteralExpression) element);
 
         assertThat(results).hasSize(2);
         assertThat(((PsiFile) results[0]).getVirtualFile().getPath()).contains("__snapshots__/reference");
@@ -59,24 +61,31 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
     }
 
     public void testCollectBasedOnEmptyTerraNameParameter() {
-        configureSpecFile("ScreenshotResolveTerraDescribeViewportsValidatesScreenshotDefault-spec.js");
-        configureScreenshots();
+        configureSpecFile("CollectScreenshotsEmpty-spec.js");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshotsEmpty-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshotsEmpty-spec/terra_screenshot[default].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/CollectScreenshotsEmpty-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/CollectScreenshotsEmpty-spec/terra_screenshot[collect].png"));
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        PsiElement[] results = new TerraScreenshotCollector().collectForDefault((JSReferenceExpression) element);
+        PsiElement[] results = new TerraScreenshotCollector(getProject()).collectForDefault((JSReferenceExpression) element);
 
         assertThat(results).hasSize(1);
         assertThat(((PsiFile) results[0]).getVirtualFile().getPath()).contains("__snapshots__/reference");
     }
+
+    //Helper methods
 
     private void configureSpecFile(String fileName) {
         myFixture.configureByFile("tests/wdio/" + fileName);
     }
 
     private void configureScreenshots() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[default].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[default].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/CollectScreenshots-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(latest("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[collect].png"));
     }
 }

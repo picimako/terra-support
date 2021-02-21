@@ -47,7 +47,7 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     // projectWdioRoot
 
     public void testReturnVirtualFileForProjectWdioRoot() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
         VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(getProject());
 
@@ -61,7 +61,7 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     // getTestRoot
 
     public void testReturnTestRootDirectory() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
         assertThat(TerraWdioFolders.getTestRoot(getProject(), "wdio")).isNotNull();
     }
@@ -73,7 +73,7 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     // wdioRootRelativePath
 
     public void testReturnWdioRootRelativePath() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
         assertThat(TerraWdioFolders.wdioRootRelativePath(getProject())).isEqualTo("tests/wdio");
     }
@@ -81,9 +81,9 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
     // getRelativePathToProjectDir
 
     public void testReturnRelativePath() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
+        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
-        assertThat(TerraWdioFolders.getRelativePathToProjectDir(getProject(), ProjectUtil.guessProjectDir(getProject()))).isEqualTo("");
+        assertThat(TerraWdioFolders.getRelativePathToProjectDir(getProject(), TerraWdioFolders.projectWdioRoot(getProject()))).isEqualTo("tests/wdio");
     }
 
     // collectSpecFoldersInside

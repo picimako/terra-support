@@ -35,7 +35,7 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
     }
 
     public void testMarksScreenshotsUnused() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[collect].png"));
 
         myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/used[default].png"));
         myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/unused[default].png"));
@@ -62,7 +62,7 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         //This validates that having a screenshot validation in code for this screenshot name in another spec
         //and not having an image with this name for that other spec, doesn't mark this image as unused, since it might be used by
         //its own spec file.
-        assertThat(nonRelatedSomeSpec.findScreenshotNodeByName("terra-_screenshot--[with-_-replaced-_-characters_-].png").get().isUnused()).isTrue();
+        assertThat(nonRelatedSomeSpec.findScreenshotNodeByName("terra_screenshot[collect].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[default].png").get().isUnused()).isFalse();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[default].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromlatest].png").get().isUnused()).isFalse();
