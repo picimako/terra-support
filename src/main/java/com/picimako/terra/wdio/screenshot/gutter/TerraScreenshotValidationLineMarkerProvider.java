@@ -47,6 +47,8 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * <p>
  * In case the call references a non-existent screenshot, the line marker is not added.
  * Instead they will be marked by the {@link com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection}.
+ *
+ * @since 0.4.0
  */
 public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLineMarkerProvider {
 

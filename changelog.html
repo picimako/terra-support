@@ -1,10 +1,13 @@
-<h4>0.4.0</h4>
-<b>New</b>
+<h4>0.4.1</h4>
+<b>Enhancement</b>
 <ul>
-    <li>Added partial support for TypeScript (.ts) spec files.</li>
-    <li>Added inspection to report Terra.describeViewports blocks with the same set of viewport values within the same file.</li>
-    <li>Added gutter icons / line markers for screenshot validation calls in wdio spec files. Image references are added only
-        to default-screenshot icons because non-default ones are referenced via the Terra calls' name parameters.</li>
-    <li>Added the **Navigate to Usage** action to the wdio tool window, so that users can jump to the code section
-        where the screenshot's validation happens.</li>
+    <li>Extended the screenshot name resolution logic with test id handling based on <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js">terra-toolkit/visualRegressionConf.js</a></li>
+</ul>
+
+<b>Bugfix</b>
+<ul>
+    <li>Fixed the problem that the Find unused screenshot action in the tool window produced false positive results when
+        screenshots with the same name were present under multiple spec files.</li>
+    <li>Fixed the problem that collecting screenshots happened by name and not by name and spec file.
+        This returned false positive results during reference and gutter icon creation, and the missing screenshot inspection.</li>
 </ul>
