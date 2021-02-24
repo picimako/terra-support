@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio.screenshot.gutter;
 
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testAddsGutterIconForExistingDefaultScreenshots() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveTerraDescribeViewportsValidatesScreenshotDefault-spec.js");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[default].png");
+        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersDefault-spec.js");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotLineMarkersDefault-spec/terra_screenshot[default].png"));
 
         PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent(), JSCallExpression.class);
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
@@ -53,7 +54,7 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testDoesntAddGutterIconForNonExistentDefaultScreenshot() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveTerraDescribeViewportsValidatesScreenshotDefault-spec.js");
+        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersDefault-spec.js");
 
         PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent(), JSCallExpression.class);
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
@@ -64,9 +65,9 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testAddsEmptyGutterIconForNonDefaultScreenshots() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveDescribeDescribeItMatchesScreenshot-spec.js");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_medium/some-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png");
+        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersNonDefault-spec.js");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
 
         PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSCallExpression.class);
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();

@@ -18,6 +18,9 @@ package com.picimako.terra.wdio.screenshot;
 
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
@@ -31,19 +34,46 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * This class, based on a Terra screenshot validation call's name argument, resolves the name of the actual screenshot
- * that it references.
+ * that it references. This logic is based on
+ * <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js">visualRegressionConf.js</a>
+ * in the terra-toolkit project.
  * <p>
  * The name of the image is resolved using the following pattern:
  * <pre>
- * &lt;parent describe/Terra.describeViewport block's name argument normalized>[&lt;screenshot validation call name parameter>].png}
+ * &lt;parent describe/Terra.describeViewport block's name argument normalized>[&lt;screenshot validation name parameter>].png}
  * </pre>
  * The parent is always the immediate describe or describeViewports block, so in case of a nested structure it is always the most inner
  * one.
  * <p>
- * Since the name of the screenshot doesn't exactly the concatenation of two Strings, but it replace some characters, this is also
- * handled when building the name of the image. For the list of characters replace by underscore see {@link #CHARACTERS_TO_REPLACE}.
+ * Since the name of the screenshot doesn't exactly the concatenation of two Strings, but it replaces some characters, this is also
+ * handled when building the name of the image. For the list of characters replaced by underscore, see {@link #CHARACTERS_TO_REPLACE}.
  * <p>
  * The name resolution will not happen when the parent describe or describeViewports block's name parameter is missing.
+ * <p>
+ * There is a special logic to parse test ids from the validation calls' name parameter. In case of a test like
+ * <pre>
+ * describe('terra screenshot', () => {
+ *     it('Test case', () => {
+ *         Terra.validates.element('this is the [test id]', { selector: '#selector' });
+ *     });
+ * });
+ * </pre>
+ * the test id will be {@code test id}, while the built screenshot file name will be {@code terra_screenshot[test id].png},
+ * so not the full parameter value is used.
+ * <p>
+ * If there are multiple sections of the name parameter enclosed with [ and ], it is always the widest match that will be
+ * put into the resolved screenshot name.
+ * <p>
+ * However if the test id contains at least one ) character like, or the name parameter doesn't even have a portion enclosed
+ * by [ and ], the default logic takes place:
+ * <pre>
+ * describe('terra screenshot', () => {
+ *     it('Test case', () => {
+ *         Terra.validates.element('this is the [test ) id]', { selector: '#selector' });
+ *     });
+ * });
+ * </pre>
+ * the final screenshot name will be {@code terra_screenshot_[this_is_the_[test_)_id]].png}.
  */
 public class TerraScreenshotNameResolver {
 
@@ -53,6 +83,8 @@ public class TerraScreenshotNameResolver {
      */
     private static final String DELIMITERS_TO_REPLACE = "\\s+|\\.|\\+";
     private static final String CHARACTERS_TO_REPLACE = "[?<>/|*:+\"]";
+    private static final Pattern TEST_ID_PATTERN = Pattern.compile("\\[(?<testId>[^)]+)]");
+    private static final DescribeOrViewportsBlockCondition DESCRIBE_OR_VIEWPORTS_BLOCK_CONDITION = new DescribeOrViewportsBlockCondition();
     public static final String DESCRIBE_BLOCK_PATTERN = "describe|describe\\.only|describe\\.skip";
 
     /**
@@ -102,16 +134,20 @@ public class TerraScreenshotNameResolver {
         return firstNameArgument != null ? resolveName(firstNameArgument) : resolveDefaultName(methodExpression);
     }
 
-    @NotNull
     private String resolve(PsiElement element, String partialName) {
-        PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, new DescribeOrViewportsBlockCondition());
+        PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, DESCRIBE_OR_VIEWPORTS_BLOCK_CONDITION);
         if (parentDescribeCall != null) {
             String describeBlockName = JSPsiUtil.getFirstArgumentAsString(((JSCallExpression) parentDescribeCall).getArgumentList());
             if (describeBlockName != null) {
-                return normalize(describeBlockName.trim() + "[" + partialName.trim() + "]") + ".png";
+                return normalize(describeBlockName.trim() + "[" + parseTestId(partialName).trim() + "]") + ".png";
             }
         }
         return "";
+    }
+
+    private String parseTestId(String partialName) {
+        Matcher testIdMatcher = TEST_ID_PATTERN.matcher(partialName);
+        return testIdMatcher.find() ? testIdMatcher.group("testId") : partialName;
     }
 
     /**

@@ -48,13 +48,14 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  */
 public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
-    private final TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector();
+    private final TerraScreenshotCollector screenshotCollector;
 
     /**
      * The text range of the reference will be the String literal without the surrounding apostrophes and double-quote characters.
      */
     public TerraScreenshotReference(@NotNull PsiElement element) {
         super(element, TextRange.create(1, element.getTextRange().getLength() - 1), true);
+        screenshotCollector = new TerraScreenshotCollector(element.getProject());
     }
 
     @Override

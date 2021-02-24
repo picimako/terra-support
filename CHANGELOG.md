@@ -1,5 +1,16 @@
 # Changelog
 
+### v0.4.1
+
+#### ENHANCEMENT
+- [#40](https://github.com/picimako/terra-support/issues/40): Extended the screenshot name resolution logic with test id handling based on [terra-toolkit/visualRegressionConf.js](https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js)
+
+#### BUGFIX
+- [#41](https://github.com/picimako/terra-support/issues/41): Fixed the problem that the Find unused screenshot action in the tool window produced false positive results when
+screenshots with the same name were present under multiple spec files.
+- [#43](https://github.com/picimako/terra-support/issues/43): Fixed the problem that collecting screenshots happened by name and not by name and spec file. 
+  This returned false positive results during reference and gutter icon creation, and the missing screenshot inspection.  
+
 ### v0.4.0
 
 #### NEW

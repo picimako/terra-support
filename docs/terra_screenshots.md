@@ -167,11 +167,18 @@ describe('outer describe', () => {
 while the snippet below will reference `terra_screenshot-[with_extra_--plus_info].png`:
 
 ```js
-Terra.describeViewports('viewports', ['medium'], () => {
-    describe('terra screenshot?', () => {
-        it ('test case', () => {
-            Terra.validates.element('with extra <> plus info');
-        });
+describe('terra screenshot?', () => {
+    it ('test case', () => {
+        Terra.validates.element('with extra <> plus info');
+    });
+});
+```
+Test IDs are also supported, so the following snippet will reference `terra_screenshot[test_id].png`:
+
+```js
+describe('terra screenshot', () => {
+    it ('test case', () => {
+        Terra.validates.element('partial [test id]');
     });
 });
 ```
@@ -237,3 +244,7 @@ In case the call references a non-existent screenshot, the line marker is not ad
 **Non-default screenshot**
 
 ![non-default screenshot](../assets/terra-wdio-non-default-screenshot-line-marker.png)
+
+| Implementation class | Introduced in |
+|---|---|
+| [`TerraScreenshotValidationLineMarkerProvider`](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java) | v0.4.0 |

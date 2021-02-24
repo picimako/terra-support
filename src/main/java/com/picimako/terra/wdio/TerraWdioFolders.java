@@ -163,12 +163,51 @@ public final class TerraWdioFolders {
      * @param folder  the spec folder to get the identifier of
      * @param project the current project
      * @return the value identifying the folder
+     * @see #specFileIdentifier(VirtualFile, Project)
      * @since 0.3.0
      */
+    @NotNull
     public static String specFolderIdentifier(VirtualFile folder, Project project) {
         String wdioRootPath = wdioRootRelativePath(project);
         String path = folder.getPath();
         return path.substring(path.indexOf(wdioRootPath) + wdioRootPath.length() + 1, path.indexOf("/" + SNAPSHOTS) + 1) + folder.getName();
+    }
+
+    /**
+     * Gets the value that identifies a spec file.
+     * <p>
+     * The identifier is the spec file's name without the extension, concatenated to the relative path from the wdio test root.
+     * So in case of the spec file at
+     * <pre>
+     * tests/wdio/nested/folder/some-spec.js
+     * </pre>
+     * the identifier will be
+     * <pre>
+     * nested/folder/some-spec
+     * </pre>
+     * In case there is no nested folder, e.g.
+     * <pre>
+     * tests/wdio/some-spec.js
+     * </pre>
+     * the result will be
+     * <pre>
+     * some-spec
+     * </pre>
+     * <p>
+     * This is designed primarily for the Terra Wdio tool window, so that nested spec folder and files can be displayed
+     * properly in their separate nodes.
+     *
+     * @param specFile the spec file to get the identifier of
+     * @param project  the current project
+     * @return the value identifying the file
+     * @see #specFolderIdentifier(VirtualFile, Project)
+     * @since 0.4.1
+     */
+    @NotNull
+    public static String specFileIdentifier(VirtualFile specFile, Project project) {
+        String wdioRootPath = wdioRootRelativePath(project);
+        String path = specFile.getPath();
+        return path.substring(path.indexOf(wdioRootPath) + wdioRootPath.length() + 1, path.length() - specFile.getExtension().length() - 1);
     }
 
     /**

@@ -45,8 +45,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  */
 public class MissingScreenshotInspection extends TerraWdioInspectionBase {
 
-    private final TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector();
-
     @Override
     public @NotNull String getShortName() {
         return "MissingScreenshot";
@@ -62,6 +60,7 @@ public class MissingScreenshotInspection extends TerraWdioInspectionBase {
                 if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
                     JSExpression callExpression = node.getExpression();
                     if (callExpression instanceof JSCallExpression) {
+                        TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector(holder.getProject());
                         JSLiteralExpression nameExpr = JSPsiUtil.getFirstArgumentAsStringLiteral(((JSCallExpression) callExpression).getArgumentList());
                         if (nameExpr != null) {
                             if (screenshotCollector.collectFor(nameExpr).length == 0) {

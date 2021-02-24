@@ -17,8 +17,8 @@
 //no-highlight cases
 
 Terra.describeViewports('viewports', ['medium'], () => {
-    describe('terra? screenshot<>', () => {
-        Terra.it.validatesElement('with/ |replaced*.:characters+"', { selector: '#selector' });
+    describe('terra screenshot', () => {
+        Terra.it.validatesElement('nondefault', { selector: '#selector' });
     });
 });
 
@@ -28,10 +28,22 @@ describe('outer describe', () => {
     });
 });
 
+describe('outer describe', () => {
+    describe('testimage', () => {
+        Terra.it.matchesScreenshot('this is [default]');
+    });
+});
+
 //highlight cases
 
 Terra.describeViewports('terra', ['medium'], () => {
     it('Test case', () => {
         Terra.validates.element(<error descr="No reference screenshot exists for any context, for the name specified.">'some other name'</error>, { selector: '#selector' });
+    });
+});
+
+describe('another describe', () => {
+    describe('terra screenshot', () => {
+        Terra.it.matchesScreenshot(<error descr="No reference screenshot exists for any context, for the name specified.">'this is [def)ault]'</error>);
     });
 });
