@@ -19,6 +19,10 @@ describe('outer describe', () => {
         Terra.it.matchesScreenshot('with-_-replaced-_-characters_-', { selector: '#selector' });
     });
 
+    describe('terra screenshot', () => {
+        Terra.validates.element('collect');
+    });
+
     describe('used', () => {
         Terra.it.matchesScreenshot({ selector: '#selector' });
         Terra.it.matchesScreenshot('this is the [partialid]', { selector: '#selector' });

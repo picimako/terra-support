@@ -75,12 +75,12 @@ public class TerraScreenshotNameResolverTest extends BasePlatformTestCase {
 
     public void testResolveDefaultNameToEmptyStringIfNoParentDescribeCall() {
         JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameNoParentDescribe-spec.js");
-        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
     public void testResolveDefaultNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
         JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameNoParentDescribeName-spec.js");
-        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
     //resolveWithFallback

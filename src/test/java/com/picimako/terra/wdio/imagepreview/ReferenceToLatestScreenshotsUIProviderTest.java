@@ -17,27 +17,22 @@
 package com.picimako.terra.wdio.imagepreview;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Unit test for {@link ReferenceToLatestScreenshotsUIProvider}.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class ReferenceToLatestScreenshotsUIProviderTest {
-
-    @Mock
-    private Project project;
-    @Mock
-    private VirtualFile original;
 
     @Test
     public void shouldReturnNullWhenDiffHasNoLatestImage() {
+        Project project = mock(Project.class);
+        VirtualFile original = mock(VirtualFile.class);
+
         ReferenceToLatestScreenshotsUIProvider provider = new ReferenceToLatestScreenshotsUIProvider(project);
         assertThat(provider.getContent(new ScreenshotDiff(original))).isNull();
     }

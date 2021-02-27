@@ -115,22 +115,16 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
     //test id
 
     public void testScreenshotResolveDescribeValidatesElementTestId() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveDescribeValidatesElementTestId-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotResolveDescribeValidatesElementTestId-spec/terra_screenshot[single].png"));
-
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        TerraScreenshotPsiFile terraScreenshot = (TerraScreenshotPsiFile) element.getReferences()[0].resolve();
+        TerraScreenshotPsiFile terraScreenshot = configureTestIdOrSingleReferenceFiles("tests/wdio/ScreenshotResolveDescribeValidatesElementTestId-spec.js",
+            reference("/en/chrome_huge/ScreenshotResolveDescribeValidatesElementTestId-spec/terra_screenshot[single].png"));
 
         assertThat(terraScreenshot.getVirtualFile().getPath())
             .isEqualTo("/src/tests/wdio/__snapshots__/reference/en/chrome_huge/ScreenshotResolveDescribeValidatesElementTestId-spec/terra_screenshot[single].png");
     }
 
     public void testScreenshotResolveDescribeValidatesElementNoTestId() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveDescribeValidatesElementNoTestId-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotResolveDescribeValidatesElementNoTestId-spec/terra_screenshot[i_am_[not_)_single]].png"));
-
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        TerraScreenshotPsiFile terraScreenshot = (TerraScreenshotPsiFile) element.getReferences()[0].resolve();
+        TerraScreenshotPsiFile terraScreenshot = configureTestIdOrSingleReferenceFiles("tests/wdio/ScreenshotResolveDescribeValidatesElementNoTestId-spec.js",
+            reference("/en/chrome_huge/ScreenshotResolveDescribeValidatesElementNoTestId-spec/terra_screenshot[i_am_[not_)_single]].png"));
 
         assertThat(terraScreenshot.getVirtualFile().getPath())
             .isEqualTo("/src/tests/wdio/__snapshots__/reference/en/chrome_huge/ScreenshotResolveDescribeValidatesElementNoTestId-spec/terra_screenshot[i_am_[not_)_single]].png");
@@ -139,11 +133,8 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
     //single result
 
     public void testSingleReference() {
-        myFixture.configureByFile("tests/wdio/ScreenshotResolveSingleResult-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotResolveSingleResult-spec/terra_screenshot[single].png"));
-
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        TerraScreenshotPsiFile terraScreenshot = (TerraScreenshotPsiFile) element.getReferences()[0].resolve();
+        TerraScreenshotPsiFile terraScreenshot = configureTestIdOrSingleReferenceFiles("tests/wdio/ScreenshotResolveSingleResult-spec.js",
+            reference("/en/chrome_huge/ScreenshotResolveSingleResult-spec/terra_screenshot[single].png"));
 
         assertThat(terraScreenshot.getVirtualFile().getPath())
             .isEqualTo("/src/tests/wdio/__snapshots__/reference/en/chrome_huge/ScreenshotResolveSingleResult-spec/terra_screenshot[single].png");
@@ -180,5 +171,13 @@ public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
 
     private String getLocationString(ResolveResult resolveResult) {
         return ((TerraScreenshotPsiFile) resolveResult.getElement()).getPresentation().getLocationString();
+    }
+
+    private TerraScreenshotPsiFile configureTestIdOrSingleReferenceFiles(String specPath, String screenshotPath) {
+        myFixture.configureByFile(specPath);
+        myFixture.copyFileToProject(screenshotPath);
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+        return (TerraScreenshotPsiFile) element.getReferences()[0].resolve();
     }
 }

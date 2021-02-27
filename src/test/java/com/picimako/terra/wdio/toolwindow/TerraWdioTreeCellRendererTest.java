@@ -50,20 +50,14 @@ public class TerraWdioTreeCellRendererTest {
     public void shouldSetFontAndTextForModelDataRoot() {
         TerraWdioTreeModelDataRoot dataRoot = new TerraWdioTreeModelDataRoot("root");
 
-        JLabel component = (JLabel) renderer.getTreeCellRendererComponent(tree, dataRoot, false, false, false, 1, false);
-
-        assertThat(component.getFont()).isEqualTo(new Font("font", Font.PLAIN, 14));
-        assertThat(component.getText()).isEqualTo("root (0 specs, 0 screenshots)");
+        validateComponent(getComponent(tree, dataRoot), new Font("font", Font.PLAIN, 14), "root (0 specs, 0 screenshots)");
     }
 
     @Test
     public void shouldSetFontAndTextForSpecNode() {
         TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
 
-        JLabel component = (JLabel) renderer.getTreeCellRendererComponent(tree, spec, false, false, false, 1, false);
-
-        assertThat(component.getFont()).isEqualTo(new Font("font", Font.PLAIN, 14));
-        assertThat(component.getText()).isEqualTo("spec");
+        validateComponent(getComponent(tree, spec), new Font("font", Font.PLAIN, 14), "spec");
     }
 
     @Test
@@ -73,20 +67,14 @@ public class TerraWdioTreeCellRendererTest {
         screenshot.addDiff(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
 
-        JLabel component = (JLabel) renderer.getTreeCellRendererComponent(tree, spec, false, false, false, 1, false);
-
-        assertThat(component.getFont()).isEqualTo(new Font("font", Font.BOLD, 14));
-        assertThat(component.getText()).isEqualTo("spec (1)");
+        validateComponent(getComponent(tree, spec), new Font("font", Font.BOLD, 14), "spec (1)");
     }
 
     @Test
     public void shouldSetFontAndTextForScreenshotNode() {
         TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
 
-        JLabel component = (JLabel) renderer.getTreeCellRendererComponent(tree, screenshot, false, false, false, 1, false);
-
-        assertThat(component.getFont()).isEqualTo(new Font("font", Font.PLAIN, 14));
-        assertThat(component.getText()).isEqualTo("screenshot (0)");
+        validateComponent(getComponent(tree, screenshot), new Font("font", Font.PLAIN, 14), "screenshot (0)");
     }
 
     @Test
@@ -94,9 +82,15 @@ public class TerraWdioTreeCellRendererTest {
         TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
         screenshot.addDiff(mock(VirtualFile.class));
 
-        JLabel component = (JLabel) renderer.getTreeCellRendererComponent(tree, screenshot, false, false, false, 1, false);
+        validateComponent(getComponent(tree, screenshot), new Font("font", Font.BOLD, 14), "screenshot (0)");
+    }
 
-        assertThat(component.getFont()).isEqualTo(new Font("font", Font.BOLD, 14));
-        assertThat(component.getText()).isEqualTo("screenshot (0)");
+    private JLabel getComponent(JTree tree, TerraWdioTreeNode node) {
+        return (JLabel) renderer.getTreeCellRendererComponent(tree, node, false, false, false, 1, false);
+    }
+
+    private void validateComponent(JLabel component, Font font, String text) {
+        assertThat(component.getFont()).isEqualTo(font);
+        assertThat(component.getText()).isEqualTo(text);
     }
 }

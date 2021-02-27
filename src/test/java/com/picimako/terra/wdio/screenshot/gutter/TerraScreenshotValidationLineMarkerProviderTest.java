@@ -41,10 +41,8 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testAddsGutterIconForExistingDefaultScreenshots() {
-        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersDefault-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotLineMarkersDefault-spec/terra_screenshot[default].png"));
-
-        PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent(), JSCallExpression.class);
+        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false,
+            reference("/en/chrome_huge/ScreenshotLineMarkersDefault-spec/terra_screenshot[default].png"));
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
 
         provider.collectNavigationMarkers(element, collection);
@@ -54,9 +52,16 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testDoesntAddGutterIconForNonExistentDefaultScreenshot() {
-        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersDefault-spec.js");
+        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false);
+        List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
 
-        PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent(), JSCallExpression.class);
+        provider.collectNavigationMarkers(element, collection);
+
+        assertThat(collection).isEmpty();
+    }
+
+    public void testDoesntAddGutterIconForParentJSExpression() {
+        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", true);
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
 
         provider.collectNavigationMarkers(element, collection);
@@ -65,16 +70,23 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatfor
     }
 
     public void testAddsEmptyGutterIconForNonDefaultScreenshots() {
-        myFixture.configureByFile("tests/wdio/ScreenshotLineMarkersNonDefault-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
-
-        PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSCallExpression.class);
+        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersNonDefault-spec.js", false,
+            reference("/en/chrome_huge/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"),
+            reference("/en/chrome_medium/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
         List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
 
         provider.collectNavigationMarkers(element, collection);
 
         assertThat(collection).hasSize(1);
         assertThat(collection.get(0).getLineMarkerTooltip()).isEqualTo("Screenshot validation happens on this line");
+    }
+
+    private PsiElement configureFiles(String specPath, boolean getParent, String... screenshotPaths) {
+        myFixture.configureByFile(specPath);
+        for (String path : screenshotPaths) {
+            myFixture.copyFileToProject(path);
+        }
+        PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSCallExpression.class);
+        return getParent ? element.getParent() : element;
     }
 }

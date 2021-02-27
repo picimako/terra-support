@@ -35,8 +35,6 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
     }
 
     public void testMarksScreenshotsUnused() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[collect].png"));
-
         myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/used[default].png"));
         myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/unused[default].png"));
         myFixture.copyFileToProject(latest("/en/chrome_huge/FindUnusedScreenshot-spec/used[fromlatest].png"));
@@ -51,18 +49,11 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree);
 
-        TerraWdioTreeSpecNode nonRelatedSomeSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
-        assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
-
-        TerraWdioTreeSpecNode relatedFindUnusedScreenshotSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(1);
+        TerraWdioTreeSpecNode relatedFindUnusedScreenshotSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
         assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(new TestActionEvent());
 
-        //This validates that having a screenshot validation in code for this screenshot name in another spec
-        //and not having an image with this name for that other spec, doesn't mark this image as unused, since it might be used by
-        //its own spec file.
-        assertThat(nonRelatedSomeSpec.findScreenshotNodeByName("terra_screenshot[collect].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[default].png").get().isUnused()).isFalse();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[default].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromlatest].png").get().isUnused()).isFalse();
@@ -70,5 +61,25 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[fromdiff].png").get().isUnused()).isFalse();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[fromdiff].png").get().isUnused()).isTrue();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[partialid].png").get().isUnused()).isFalse();
+    }
+
+    public void testUnrelatedIsUnused() {
+        myFixture.copyFileToProject(reference("/en/chrome_huge/CollectScreenshots-spec/terra_screenshot[collect].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_huge/FindUnusedScreenshot-spec/used[default].png"));
+
+        myFixture.copyFileToProject("tests/wdio/FindUnusedScreenshot-spec.js");
+
+        TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
+        TerraWdioTree tree = new TerraWdioTree(treeModel);
+        FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree);
+
+        TerraWdioTreeSpecNode nonRelatedSomeSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
+
+        action.actionPerformed(new TestActionEvent());
+
+        //This is marked as unused because there is no spec file present that references this image
+        //Although FindUnusedScreenshot-spec has a validation for terra_screenshot[collect].png, it doesn't have an image for this spec
+        assertThat(nonRelatedSomeSpec.findScreenshotNodeByName("terra_screenshot[collect].png").get().isUnused()).isTrue();
     }
 }

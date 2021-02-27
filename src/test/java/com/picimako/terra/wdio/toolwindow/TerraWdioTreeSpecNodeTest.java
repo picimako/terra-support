@@ -35,15 +35,15 @@ public class TerraWdioTreeSpecNodeTest {
         specNode = new TerraWdioTreeSpecNode("spec node");
         screenshotNode1 = new TerraWdioTreeScreenshotNode("screenshot node 1");
         screenshotNode2 = new TerraWdioTreeScreenshotNode("node screenshot 2");
+
+        specNode.addScreenshot(screenshotNode1);
+        specNode.addScreenshot(screenshotNode2);
     }
 
     //addScreenshot(TerraWdioTreeScreenshotNode)
 
     @Test
     public void shouldAddScreenshot() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.getScreenshots()).containsExactly(screenshotNode1, screenshotNode2);
     }
 
@@ -51,9 +51,6 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldGetNthScreenshot() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.getScreenshot(0)).isSameAs(screenshotNode1);
         assertThat(specNode.getScreenshot(1)).isSameAs(screenshotNode2);
     }
@@ -62,17 +59,11 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldReturnFoundScreenshotByName() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.findScreenshotNodeByName("node screenshot 2")).containsSame(screenshotNode2);
     }
 
     @Test
     public void shouldReturnEmptyOptionalWhenScreenshotIsNotFoundByName() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.findScreenshotNodeByName("image 4")).isEmpty();
     }
 
@@ -80,17 +71,11 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldReturnTrueWhenHasScreenshotForName() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.hasScreenshotNodeForName("node screenshot 2")).isTrue();
     }
 
     @Test
     public void shouldReturnFalseWhenDoesntHaveScreenshotForName() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.hasScreenshotNodeForName("image 4")).isFalse();
     }
 
@@ -98,9 +83,6 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldReturnScreenshotCount() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode.screenshotCount()).isEqualTo(2);
     }
 
@@ -108,9 +90,6 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldReorderScreenshotsAlphabetically() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         specNode.reorderScreenshotsAlphabeticallyByDisplayName();
 
         assertThat(specNode.getScreenshots()).containsExactly(screenshotNode2, screenshotNode1);
@@ -120,14 +99,13 @@ public class TerraWdioTreeSpecNodeTest {
 
     @Test
     public void shouldReturnToStringWithoutScreenshotCount() {
+        specNode.getScreenshots().clear();
+
         assertThat(specNode).hasToString("spec node");
     }
 
     @Test
     public void shouldReturnToStringWithScreenshotCount() {
-        specNode.addScreenshot(screenshotNode1);
-        specNode.addScreenshot(screenshotNode2);
-
         assertThat(specNode).hasToString("spec node (2)");
     }
 }

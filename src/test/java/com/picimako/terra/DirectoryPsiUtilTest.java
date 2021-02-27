@@ -16,7 +16,6 @@
 
 package com.picimako.terra;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.psi.PsiDirectory;
@@ -32,25 +31,22 @@ public class DirectoryPsiUtilTest extends BasePlatformTestCase{
         return "testdata/terra/projectroot";
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
-    }
-
     public void testNotReturnDirectoryWhenDirectoryPathIsNull() {
+        myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
         PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), null);
 
         assertThat(tests).isNull();
     }
 
     public void testNotReturnDirectorySubDirectoryIsNull() {
+        myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
         PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), "tests/jest");
 
         assertThat(tests).isNull();
     }
 
     public void testReturnDirectoryForName() {
+        myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
         PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), "tests");
 
         assertThat(tests).isNotNull();
@@ -58,6 +54,7 @@ public class DirectoryPsiUtilTest extends BasePlatformTestCase{
     }
 
     public void testReturnDirectoryForPath() {
+        myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
         PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), "tests/wdio");
 
         assertThat(tests).isNotNull();

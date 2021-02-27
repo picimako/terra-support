@@ -60,19 +60,6 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
         doCustomFileTest("", ".js", null, "-spec");
     }
 
-//    /**
-//     * Configures the underlying virtual file system with the current test .js file and validates the highlighting.
-//     * <p>
-//     * This method is based on {@link LightJavaInspectionTestCase#doTest()}.
-//     */
-//    protected void doJsTest() {
-//        doCustomFileTest("", ".js", null);
-//    }
-
-//    protected void doJsTest(@NotNull InspectionProfileEntry inspection) {
-//        doCustomFileTest("", ".js", inspection);
-//    }
-
     /**
      * Loads a test data file into the virtual file system, corresponding to the unit test method's name, then executes
      * it and validates highlighting.

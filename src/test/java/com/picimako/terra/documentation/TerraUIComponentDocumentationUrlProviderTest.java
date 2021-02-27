@@ -42,22 +42,22 @@ import com.picimako.terra.psi.js.ES6ImportUtil;
 public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTestCase {
 
     private static final String DOCUMENTATION = "{\n" +
-            "  \"components\": [\n" +
-            "    {\n" +
-            "      \"componentName\": \"ResponsiveElement\",\n" +
-            "      \"properties\": [\n" +
-            "        {\n" +
-            "          \"importPath\": \"terra-responsive-element\",\n" +
-            "          \"relativeUrl\": \"/terra-responsive-element/responsive-element/responsive-element\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
+        "  \"components\": [\n" +
+        "    {\n" +
+        "      \"componentName\": \"ResponsiveElement\",\n" +
+        "      \"properties\": [\n" +
+        "        {\n" +
+        "          \"importPath\": \"terra-responsive-element\",\n" +
+        "          \"relativeUrl\": \"/terra-responsive-element/responsive-element/responsive-element\"\n" +
+        "        }\n" +
+        "      ]\n" +
+        "    }\n" +
+        "  ]\n" +
+        "}";
 
-    private static final String DOCUMENTATION_HTML ="<code>C:\\projects\\plugindev\\somefilename.js</code>" +
-            "<br>" +
-            "<a href=\"https://engineering.cerner.com/terra-ui/components/terra-responsive-element/responsive-element/responsive-element\">Terra documentation: ResponsiveElement</a>";
+    private static final String DOCUMENTATION_HTML = "<code>C:\\projects\\plugindev\\somefilename.js</code>" +
+        "<br>" +
+        "<a href=\"https://engineering.cerner.com/terra-ui/components/terra-responsive-element/responsive-element/responsive-element\">Terra documentation: ResponsiveElement</a>";
 
     private final TerraUIComponentDocumentationUrlProvider provider = new TerraUIComponentDocumentationUrlProvider();
 
@@ -115,8 +115,8 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
             documentationHtml = provider.generateDoc(element, originalElement);
 
             serviceManager.verify(
-                    times(1),
-                    () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class));
+                times(1),
+                () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class));
         }
 
         assertThat(documentationHtml).isEqualTo(DOCUMENTATION_HTML);
@@ -139,8 +139,8 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
             documentationHtml = provider.generateDoc(element, originalElement);
 
             serviceManager.verify(
-                    times(0),
-                    () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class)
+                times(0),
+                () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class)
             );
         }
         assertThat(documentationHtml).isEqualTo(DOCUMENTATION_HTML);
@@ -154,6 +154,6 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
 
     private void setProviderDocumentationComponents(DocumentationComponents components) {
         ReflectionUtil.setField(TerraUIComponentDocumentationUrlProvider.class, provider,
-                DocumentationComponents.class, "documentation", components);
+            DocumentationComponents.class, "documentation", components);
     }
 }
