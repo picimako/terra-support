@@ -248,3 +248,16 @@ In case the call references a non-existent screenshot, the line marker is not ad
 | Implementation class | Introduced in |
 |---|---|
 | [`TerraScreenshotValidationLineMarkerProvider`](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java) | v0.4.0 |
+
+## Navigation from screenshot to code
+
+An action called **Navigate to Screenshot Usage** is added to the Project View context menu of image files within `__snapshots__` folders.
+
+From end-user perspective it works the same way the [**Navigate to Usage**](../docs/terra_wdio_tool_window.md#actions) action works in the Terra wdio tool window,
+it is just an alternate location to jump to where a particular image is referenced from code.
+
+![navigate_to_screenshot_usage_action](../assets/terra-wdio-navigate-to-screenshot-usage-action.png)
+
+| Implementation class | Introduced in |
+|---|---|
+| [`NavigateToScreenshotUsageProjectViewAction`](../src/main/java/com/picimako/terra/wdio/projectview/action/NavigateToScreenshotUsageProjectViewAction.java) | v0.5.0 |

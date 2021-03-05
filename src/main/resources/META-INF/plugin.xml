@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>0.4.1</version>
+    <version>0.5.0-SNAPSHOT</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
 
@@ -92,4 +92,16 @@
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
 
     </extensions>
+
+    <actions>
+        <group id="ScreenshotUsageNavigation" text="Navigate to Screenshot Usage" compact="true">
+            <action id="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
+                    class="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
+                    text="Navigate to Screenshot Usage" description="Navigates to the Terra call validating this screenshot"
+                    icon="ImagesIcons.ImagesFileType">
+                <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
+            </action>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
+        </group>
+    </actions>
 </idea-plugin>

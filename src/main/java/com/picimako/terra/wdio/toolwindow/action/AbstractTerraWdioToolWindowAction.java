@@ -89,14 +89,6 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     * <p></p>
-     * <b>Replace reference with latest</b>
-     * <p>
-     * Disables this action when the application is still in dumb mode, and when the selected image has no corresponding image file
-     * under the latest folder.
-     */
     @Override
     public void update(@NotNull AnActionEvent e) {
         e.getPresentation().setEnabled(meetsPreconditions(getWdioTreeFrom(e)));

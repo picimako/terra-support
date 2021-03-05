@@ -51,6 +51,11 @@ public class TerraScreenshotNameResolverTest extends BasePlatformTestCase {
 
     //resolveName with partial test id
 
+    public void testDefaultScreenshotPartialNameWithTestId() {
+        JSLiteralExpression element = configureFileForJSLiteralExpression("tests/wdio/nameResolution/resolveDefaultNameWithTestId-spec.js");
+        assertThat(new TerraScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[default].png");
+    }
+
     public void testResolvePartialNameWithTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression("tests/wdio/nameResolution/resolveNameWithTestId-spec.js");
         assertThat(new TerraScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[test_id].png");
@@ -70,6 +75,11 @@ public class TerraScreenshotNameResolverTest extends BasePlatformTestCase {
 
     public void testResolveDefaultName() {
         JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultName-spec.js");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
+    }
+
+    public void testResolveDefaultNameForNonDefaultValidation() {
+        JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameForNonDefaultValidation-spec.js");
         assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
     }
 

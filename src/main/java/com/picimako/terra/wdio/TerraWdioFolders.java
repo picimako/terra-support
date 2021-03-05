@@ -211,7 +211,7 @@ public final class TerraWdioFolders {
     }
 
     /**
-     * Gets whether the argument file/folder is under the wdio test root (directly or indirectly) in the provided project.
+     * Gets whether the argument file is under the wdio test root (directly or indirectly) in the provided project.
      *
      * @param file    the file to check the location of
      * @param project the current project
@@ -220,6 +220,18 @@ public final class TerraWdioFolders {
     public static boolean isInWdioFiles(VirtualFile file, Project project) {
         final VirtualFile wdioRoot = projectWdioRoot(project);
         return wdioRoot != null && wdioRoot.equals(VfsUtil.getCommonAncestor(Set.of(wdioRoot, file)));
+    }
+
+    /**
+     * Gets whether the argument file/folder is under the __snapshots__ directory (directly or indirectly).
+     *
+     * @param file the file to check the location of
+     * @return true if the file is under __snapshots__ directory, false otherwise
+     *
+     * @since 0.5.0
+     */
+    public static boolean isInSnapshotsDirectory(@Nullable VirtualFile file) {
+        return file != null && file.getPath().contains(SNAPSHOTS);
     }
 
     /**

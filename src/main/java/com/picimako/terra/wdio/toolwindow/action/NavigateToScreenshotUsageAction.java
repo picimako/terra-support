@@ -16,29 +16,24 @@
 
 package com.picimako.terra.wdio.toolwindow.action;
 
-import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsStringLiteral;
-import static com.picimako.terra.BuildNumberHelper.isIDEBuildNumberSameOrNewerThan;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
+import static com.picimako.terra.wdio.ProblemDialogs.showNoSpecFileToNavigateToDialog;
+import static com.picimako.terra.wdio.ProblemDialogs.showNoValidationCallToNavigateToDialog;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
 import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 
-import com.intellij.lang.javascript.psi.JSCallExpression;
-import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
-import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
+import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModel;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
@@ -49,11 +44,12 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  * <p>
  * It handles navigation to both default and non-default Terra screenshot validation calls.
  *
+ * @see com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction
  * @since 0.4.0
  */
 public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindowAction {
 
-    private final TerraScreenshotNameResolver resolver = new TerraScreenshotNameResolver();
+    private final ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
 
     /**
      * Creates a NavigateToScreenshotUsageAction instance.
@@ -86,52 +82,18 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            String selectedScreenshotNodeName = asScreenshot(tree.getLastSelectedPathComponent()).getDisplayName();
             TerraWdioTreeSpecNode parentSpec = (TerraWdioTreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
             if (TerraWdioTreeModel.existsAfterRefresh(parentSpec.getSpecFile())) {
-                NavigationStatusHolder status = new NavigationStatusHolder();
                 PsiFile specPsiFile = PsiManager.getInstance(project).findFile(parentSpec.getSpecFile());
+                String selectedScreenshotNodeName = asScreenshot(tree.getLastSelectedPathComponent()).getDisplayName();
 
-                if (isIDEBuildNumberSameOrNewerThan("202.5103.13")) {
-                    PsiTreeUtil.processElements(specPsiFile, JSCallExpression.class, element -> !hasNavigatedToUsage(selectedScreenshotNodeName, element, status));
-                } else {
-                    PsiTreeUtil.processElements(specPsiFile, element -> {
-                        if (element instanceof JSCallExpression) {
-                            return !hasNavigatedToUsage(selectedScreenshotNodeName, (JSCallExpression) element, status);
-                        }
-                        return true;
-                    });
-                }
-
-                if (!status.hasNavigated) {
-                    Messages.showWarningDialog(
-                        TerraBundle.toolWindow("screenshot.navigate.to.usage.no.validation.call.message"),
-                        TerraBundle.toolWindow("screenshot.navigate.to.usage.no.validation.call.title"));
+                if (!navigator.navigateToUsage(specPsiFile, selectedScreenshotNodeName)) {
+                    showNoValidationCallToNavigateToDialog();
                 }
             } else {
-                Messages.showWarningDialog(
-                    TerraBundle.toolWindow("screenshot.navigate.to.usage.no.spec.file.message"),
-                    TerraBundle.toolWindow("screenshot.navigate.to.usage.no.spec.file.title"));
+                showNoSpecFileToNavigateToDialog();
             }
         }
-    }
-
-    private boolean hasNavigatedToUsage(String selectedScreenshotNodeName, JSCallExpression callExpression, NavigationStatusHolder status) {
-        if (isScreenshotValidationCall(callExpression)) {
-            JSLiteralExpression nameExpr = getFirstArgumentAsStringLiteral(callExpression.getArgumentList());
-            String resolvedScreenshotName = resolver.resolveWithFallback(nameExpr, callExpression.getMethodExpression());
-
-            if (selectedScreenshotNodeName.equals(resolvedScreenshotName)) {
-                if (nameExpr != null) {
-                    nameExpr.navigate(true);
-                } else {
-                    callExpression.getMethodExpression().navigate(true);
-                }
-                status.hasNavigated = true;
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -142,9 +104,5 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
      */
     public static boolean isNavigateToUsageShortcutKey(KeyEvent e) {
         return e.isControlDown() && e.getKeyCode() == KeyEvent.VK_B;
-    }
-
-    private static final class NavigationStatusHolder {
-        boolean hasNavigated = false;
     }
 }
