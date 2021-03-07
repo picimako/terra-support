@@ -22,7 +22,8 @@
 </b>
 <p>
     The viewports argument of <code>Terra.describeViewports</code> accepts an array only, so any other type of value will be
-    reported by this check.
+    reported by this check. Though there are some exceptions in which case it would unnecessarily complex to compute the
+    returned values: function calls, variables that reference further variables or function calls, not initialized variables.
 </p>
 </body>
 </html>

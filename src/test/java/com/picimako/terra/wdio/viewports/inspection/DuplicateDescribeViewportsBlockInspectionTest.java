@@ -63,4 +63,8 @@ public class DuplicateDescribeViewportsBlockInspectionTest extends TerraInspecti
     public void testMoreThanTwoDescribeViewportsBlocksNonConsecutiveReport() {
         doWdioSpecTest();
     }
+
+    public void testNonArrayDescribeViewportsValues() {
+        doWdioSpecTest();
+    }
 }

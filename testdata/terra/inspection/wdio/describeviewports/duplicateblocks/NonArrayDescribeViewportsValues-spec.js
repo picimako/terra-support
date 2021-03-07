@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/* global Terra */
-
-// No-highlight cases
-
-Terra.describeViewports('Test', [], () => {
-});
-
-Terra.describeViewports('Test', [''], () => {
-});
-
-Terra.describeViewports('Test', ['tiny'], () => {
-});
-
-Terra.describeViewports('Test', ['small', 'huge', 'enormous'], () => {
-});
 
 const VIEWPORTS = ['small', 'huge', 'enormous'];
 Terra.describeViewports('Test', VIEWPORTS, () => {
@@ -51,20 +35,6 @@ let NOT_INITIALIZED;
 Terra.describeViewports('Test', NOT_INITIALIZED, () => {
 });
 
-// Highlight cases
-
-Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">'tiny'</error>, () => {
-});
-
-Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">{ }</error>, () => {
-});
-
-Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">false</error>, () => {
-});
-
-Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">8.4</error>, () => {
-});
-
 const NON_VIEWPORTS = 2;
-Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">NON_VIEWPORTS</error>, () => {
+Terra.describeViewports('Test', NON_VIEWPORTS, () => {
 });

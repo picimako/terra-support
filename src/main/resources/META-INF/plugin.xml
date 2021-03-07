@@ -25,7 +25,7 @@
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection"/>
         <localInspection id="terraDescribeViewportsBlocking" language="JavaScript"
-                         displayName="Terra.describeViewports blocking validations"
+                         displayName="Terra.describeViewports validations (blocking test execution)"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection"/>
         <localInspection id="nestedDescribeViewportsNotAllowed" language="JavaScript"
@@ -47,7 +47,7 @@
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection"/>
         <localInspection id="screenshotMismatchToleranceBlocking" language="JavaScript"
-                         displayName="Screenshot misMatchTolerance blocking validations"
+                         displayName="Screenshot misMatchTolerance validations (blocking test execution)"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection"/>
         <localInspection id="missingScreenshot" language="JavaScript"
