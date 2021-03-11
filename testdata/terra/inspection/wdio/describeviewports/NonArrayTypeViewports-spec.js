@@ -51,6 +51,10 @@ let NOT_INITIALIZED;
 Terra.describeViewports('Test', NOT_INITIALIZED, () => {
 });
 
+let NON_VIEWPORTS_LET = 2;
+Terra.describeViewports('Test', NON_VIEWPORTS_LET, () => {
+});
+
 // Highlight cases
 
 Terra.describeViewports('Test', <error descr="Non-array-type values are not allowed for the viewports argument.">'tiny'</error>, () => {

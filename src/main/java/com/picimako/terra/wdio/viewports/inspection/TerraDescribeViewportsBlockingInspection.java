@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio.viewports.inspection;
 
+import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
@@ -34,6 +35,7 @@ import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
+import com.intellij.lang.javascript.psi.JSVarStatement;
 import com.intellij.lang.javascript.psi.JSVariable;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
@@ -133,6 +135,7 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
      * Validates the viewports argument whether it is defined as an array. There are some exceptions when a problem
      * is not registered:
      * <ul>
+     *     <li>when the variable keyword is var or let,</li>
      *     <li>when a variable/constant is used, and it is not initialized at the location of creation,</li>
      *     <li>when a variable/constant is used, and it is initialized as a reference to another variable/constant,</li>
      *     <li>when a variable/constant is used, and it is initialized as a call to a function,</li>
@@ -147,9 +150,12 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
             if (viewportList instanceof JSReferenceExpression) {
                 PsiElement resolved = ((JSReferenceExpression) viewportList).resolve();
                 if (resolved instanceof JSVariable) {
-                    JSVariable jsVariable = (JSVariable) resolved;
-                    if (jsVariable.getStatement() != null && jsVariable.getStatement().getDeclarations().length == 1) {
-                        JSExpression initializer = jsVariable.getStatement().getDeclarations()[0].getInitializer();
+                    JSVarStatement variableStatement = ((JSVariable) resolved).getStatement();
+                    if (variableStatement != null
+                        && variableStatement.getVarKeyword() == CONST
+                        && variableStatement.getDeclarations().length == 1) {
+
+                        JSExpression initializer = variableStatement.getDeclarations()[0].getInitializer();
                         if (initializer != null
                             && !(initializer instanceof JSArrayLiteralExpression)
                             && !(initializer instanceof JSReferenceExpression)
