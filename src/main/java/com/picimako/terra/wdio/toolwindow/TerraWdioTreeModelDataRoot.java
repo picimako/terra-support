@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -38,9 +39,11 @@ public class TerraWdioTreeModelDataRoot extends AbstractTerraWdioTreeNode {
     private static final String SCREENSHOT = "screenshot";
     private static final String STAT_FORMAT = " (%s, %s)";
     private final List<TerraWdioTreeSpecNode> specs = new ArrayList<>();
+    private final Project project;
 
-    public TerraWdioTreeModelDataRoot(@NotNull String displayName) {
+    public TerraWdioTreeModelDataRoot(@NotNull String displayName, Project project) {
         super(displayName);
+        this.project = project;
     }
 
     public List<TerraWdioTreeSpecNode> getSpecs() {
@@ -62,7 +65,9 @@ public class TerraWdioTreeModelDataRoot extends AbstractTerraWdioTreeNode {
 
     @Override
     public String toString() {
-        return displayName + String.format(STAT_FORMAT, pluralize(SPEC, specs.size()), pluralize(SCREENSHOT, screenshotCount()));
+        return ScreenshotStatisticsProjectService.getInstance(project).isShowStatistics
+            ? displayName + String.format(STAT_FORMAT, pluralize(SPEC, specs.size()), pluralize(SCREENSHOT, screenshotCount()))
+            : displayName;
     }
 
     private int screenshotCount() {

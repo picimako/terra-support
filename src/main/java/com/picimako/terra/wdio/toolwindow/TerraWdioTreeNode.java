@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.toolwindow;
 
 import com.intellij.openapi.Disposable;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -41,8 +42,8 @@ public interface TerraWdioTreeNode extends Disposable {
      * @param displayName the displayName of the spec file
      * @return the new node
      */
-    static TerraWdioTreeSpecNode forSpec(@NotNull String displayName) {
-        return new TerraWdioTreeSpecNode(displayName);
+    static TerraWdioTreeSpecNode forSpec(@NotNull String displayName, Project project) {
+        return new TerraWdioTreeSpecNode(displayName, project);
     }
 
     /**
@@ -51,8 +52,8 @@ public interface TerraWdioTreeNode extends Disposable {
      * @param displayName the displayName of the screenshot (without the extension)
      * @return the new node
      */
-    static TerraWdioTreeScreenshotNode forScreenshot(@NotNull String displayName) {
-        return new TerraWdioTreeScreenshotNode(displayName);
+    static TerraWdioTreeScreenshotNode forScreenshot(@NotNull String displayName, Project project) {
+        return new TerraWdioTreeScreenshotNode(displayName, project);
     }
 
     /**

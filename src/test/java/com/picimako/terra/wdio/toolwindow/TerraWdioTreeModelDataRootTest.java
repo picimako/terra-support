@@ -20,25 +20,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import org.junit.Before;
-import org.junit.Test;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 /**
  * Unit test for {@link TerraWdioTreeModelDataRoot}.
  */
-public class TerraWdioTreeModelDataRootTest {
+public class TerraWdioTreeModelDataRootTest extends BasePlatformTestCase {
 
     private TerraWdioTreeModelDataRoot root;
 
-    @Before
-    public void setup() {
-        root = new TerraWdioTreeModelDataRoot("Screenshots");
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        root = new TerraWdioTreeModelDataRoot("Screenshots", getProject());
+        ScreenshotStatisticsProjectService.getInstance(getProject()).isShowStatistics = true;
     }
 
-    @Test
-    public void shouldReturnToStringWithSingularSpecSingularScreenshotStat() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
+    public void testReturnToStringWithSingularSpecSingularScreenshotStat() {
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
+        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
         screenshot.addReference(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
         root.getSpecs().add(spec);
@@ -46,10 +46,9 @@ public class TerraWdioTreeModelDataRootTest {
         assertThat(root).hasToString("Screenshots (1 spec, 1 screenshot)");
     }
 
-    @Test
-    public void shouldReturnToStringWithSingularSpecPluralScreenshotStat() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
+    public void testReturnToStringWithSingularSpecPluralScreenshotStat() {
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
+        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
         screenshot.addReference(mock(VirtualFile.class));
         screenshot.addReference(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
@@ -58,11 +57,10 @@ public class TerraWdioTreeModelDataRootTest {
         assertThat(root).hasToString("Screenshots (1 spec, 2 screenshots)");
     }
 
-    @Test
-    public void shouldReturnToStringWithPluralSpecSingularScreenshotStat() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
-        TerraWdioTreeSpecNode spec2 = new TerraWdioTreeSpecNode("spec2");
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
+    public void testReturnToStringWithPluralSpecSingularScreenshotStat() {
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
+        TerraWdioTreeSpecNode spec2 = new TerraWdioTreeSpecNode("spec2", getProject());
+        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
         screenshot.addReference(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
         root.getSpecs().add(spec);
@@ -71,13 +69,12 @@ public class TerraWdioTreeModelDataRootTest {
         assertThat(root).hasToString("Screenshots (2 specs, 1 screenshot)");
     }
 
-    @Test
-    public void shouldReturnToStringWithPluralSpecPluralScreenshotStat() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
-        TerraWdioTreeSpecNode spec2 = new TerraWdioTreeSpecNode("spec2");
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
+    public void testReturnToStringWithPluralSpecPluralScreenshotStat() {
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
+        TerraWdioTreeSpecNode spec2 = new TerraWdioTreeSpecNode("spec2", getProject());
+        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
         screenshot.addReference(mock(VirtualFile.class));
-        TerraWdioTreeScreenshotNode screenshot2 = new TerraWdioTreeScreenshotNode("screenshot");
+        TerraWdioTreeScreenshotNode screenshot2 = new TerraWdioTreeScreenshotNode("screenshot", getProject());
         screenshot2.addReference(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
         spec.addScreenshot(screenshot2);
