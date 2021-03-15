@@ -33,9 +33,6 @@ import icons.ImagesIcons;
  * Tree cell rendered that configures each entry in the tree with an icon (at the left) and the name of the node (at the right).
  * <p>
  * The root node and specs are configured with a folder icon, while screenshots are customized with an image file icon.
- * <p>
- * TODO: displaying/hiding the stats in the Terra wdio tool window could also be controlled by an IDE Settings property, e.g.
- * {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_STATS_ENABLED}.
  */
 public class TerraWdioTreeCellRenderer extends DefaultTreeCellRenderer {
 

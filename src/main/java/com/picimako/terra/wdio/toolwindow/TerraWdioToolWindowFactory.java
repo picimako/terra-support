@@ -16,8 +16,6 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
-import static java.util.Collections.singletonList;
-
 import java.util.List;
 import javax.swing.*;
 

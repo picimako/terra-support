@@ -76,6 +76,6 @@ public class ReferenceToLatestScreenshotsPreviewTest extends BasePlatformTestCas
         assertThat(screenshotDiffs.get(0).getOriginal().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/reference/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png");
         assertThat(screenshotDiffs.get(0).getLatest().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png");
         assertThat(screenshotDiffs.get(1).getOriginal().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/reference/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png");
-        assertThat(screenshotDiffs.get(1).getLatest().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png");;
+        assertThat(screenshotDiffs.get(1).getLatest().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png");
     }
 }

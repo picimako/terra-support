@@ -18,6 +18,7 @@ package com.picimako.terra;
 
 import java.util.Optional;
 
+import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -46,7 +47,7 @@ public final class DirectoryPsiUtil {
             Optional.ofNullable(ProjectUtil.guessProjectDir(project))
                 .filter(VirtualFile::exists)
                 .map(projectDir -> projectDir.findFileByRelativePath(directoryPath))
-                .map(subDir -> PsiManager.getInstance(project).findDirectory(subDir))
+                .map(subDir -> ReadAction.compute(() -> PsiManager.getInstance(project).findDirectory(subDir)))
                 .orElse(null)
             : null;
     }

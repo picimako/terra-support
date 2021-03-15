@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
 
-/**ew
+/**
  * A model object for backing the {@link TerraWdioTree} UI component.
  * <p>
  * It maps the original folder structure of Terra wdio files, like this (having {@code tests/wdio} as the base folder):
@@ -104,6 +104,8 @@ public class TerraWdioTreeModel implements TreeModel {
 
     /**
      * Builds the contents of the tree model that is shown in the tool window.
+     * <p>
+     * It uses only a single wdio root path among the ones defined in the Terra Support Settings, first found in the project.
      * <p>
      * <b>Disposer logic</b>
      * <p>

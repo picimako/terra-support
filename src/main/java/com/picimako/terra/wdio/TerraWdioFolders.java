@@ -37,18 +37,20 @@ import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.DirectoryPsiUtil;
+import com.picimako.terra.settings.TerraApplicationState;
+
 /**
  * Folder and path handling for the Terra wdio related folders.
  */
 public final class TerraWdioFolders {
 
     /**
-     * The set of pre-defined wdio test roots. If a project happens to use a different root, there are two ways to support it.
-     * Either rename that folder to one of the pre-defined ones here, or add that folder to this set of roots, but the first option is preferred.
+     * The set of pre-defined test roots.
      * <p>
      * Public since v0.3.0.
      */
-    public static final Set<String> WDIO_TEST_ROOT_NAMES = Set.of("test", "tests");
+    public static final Set<String> TEST_ROOT_NAMES = Set.of("test", "tests");
 
     public static final String SNAPSHOTS = "__snapshots__";
     public static final String REFERENCE = "reference";
@@ -71,7 +73,13 @@ public final class TerraWdioFolders {
      */
     @Nullable
     public static VirtualFile projectWdioRoot(Project project) {
-        return getTestRoot(project, "wdio");
+        return TerraApplicationState.getInstance().wdioRootPaths
+            .stream()
+            .map(path -> DirectoryPsiUtil.findDirectory(project, path.getPath()))
+            .filter(Objects::nonNull)
+            .findFirst()
+            .map(PsiDirectory::getVirtualFile)
+            .orElse(null);
     }
 
     /**
@@ -86,7 +94,7 @@ public final class TerraWdioFolders {
     public static VirtualFile getTestRoot(Project project, String testFolderName) {
         final VirtualFile projectDirectory = ProjectUtil.guessProjectDir(project);
         if (projectDirectory != null && projectDirectory.exists()) {
-            return WDIO_TEST_ROOT_NAMES.stream()
+            return TEST_ROOT_NAMES.stream()
                 .map(projectDirectory::findChild)
                 .filter(Objects::nonNull)
                 .map(testDir -> testDir.findChild(testFolderName))

@@ -18,13 +18,7 @@ package com.picimako.terra.wdio.toolwindow;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.intellij.openapi.project.Project;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Unit test for {@link TerraWdioTreeNode}.

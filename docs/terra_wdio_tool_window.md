@@ -84,9 +84,6 @@ For now, if a project happen to use a different root than the currently supporte
 Either rename that folder to one of the pre-defined ones, or add that folder to the set of roots, which also requires a new build and release of this plugin,
 but the first is the preferred option.
 
-**FUTURE PLANS:**
-- Add support to customize the set of roots on a per application basis.
-
 ## Criteria for the tool window to be enabled
 
 Since only certain projects require the Terra wdio tool window, specifically the ones that has wdio tests, the tool window has the following criteria,
@@ -182,5 +179,5 @@ there is at least one unused screenshot within those particular specs.
 
 **NOTES**:
 - Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,
-and it will require less resources to due to the lack of constant project analysis.
+so it will require less resources due to the lack of constant project analysis.
 - This feature is available only in IntelliJ build 202.5103.13 and later.

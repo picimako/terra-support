@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
+import com.picimako.terra.settings.TerraApplicationState;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
@@ -77,8 +78,6 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      * <p>
      * If there is at least one file with the selected name that could not be deleted, the {@link com.intellij.openapi.vfs.VirtualFile} for
      * that file is still kept along with the respective screenshot node in the tool window.
-     * <p>
-     * TODO: there could also be an option to "Don't remind me anymore" which could be saved in Terra plugin settings
      */
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
@@ -136,7 +135,8 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     }
 
     private boolean isUserSureToDeleteTheScreenshots() {
-        return Messages.showYesNoDialog(project,
+        return !TerraApplicationState.getInstance().isShowReminderBeforeScreenshotDeletion
+            || Messages.showYesNoDialog(project,
             TerraBundle.toolWindow("delete.are.you.sure"),
             TerraBundle.toolWindow("delete.screenshots"),
             Messages.getQuestionIcon()) == YES;
