@@ -202,7 +202,7 @@ Terra.it.validatesElement({ selector: '#root' });
 |---|---|
 | [`TerraScreenshotReferenceContributor`](../src/main/java/com/picimako/terra/wdio/screenshot/reference/TerraScreenshotReferenceContributor.java) | v0.2.0 |
 
-## Quick Documentations
+## Quick Documentation
 
 ### Terra WDIO objects and functions
 
@@ -245,6 +245,10 @@ In case the call references a non-existent screenshot, the line marker is not ad
 
 ![non-default screenshot](../assets/terra-wdio-non-default-screenshot-line-marker.png)
 
+Line markers can also be enabled/disabled under `Settings > Editor > General > Gutter Icons > Terra Screenshot`.
+
+![gutter_icon_settings](../assets/terra_gutter_icon_settings.PNG)
+
 | Implementation class | Introduced in |
 |---|---|
 | [`TerraScreenshotValidationLineMarkerProvider`](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java) | v0.4.0 |
@@ -261,3 +265,21 @@ it is just an alternate location to jump to where a particular image is referenc
 | Implementation class | Introduced in |
 |---|---|
 | [`NavigateToScreenshotUsageProjectViewAction`](../src/main/java/com/picimako/terra/wdio/projectview/action/NavigateToScreenshotUsageProjectViewAction.java) | v0.5.0 |
+
+## Inlay Hints
+
+There are two hints provided for screenshot validation calls: screenshot names and global CSS selectors.
+
+As for screenshot names, it is the referenced image name resolved and displayed (regardless of it exists or not), while for the CSS selector, it is displayed only
+when the `selector` property is not specified and there is a selector defined in the terra.selector property in the project's `wdio.cong.js`.
+
+They are displayed for each validation.
+
+Within the IDE `Settings > Editor > Inlay Hints > JavaScript > Terra screenshot`, their appearance can be customized individually.
+They are either **Disabled**, or enabled as **Block** (hints shown above the call's line) or **Inline** (hints shown at the end of the call's line) style.
+
+![inlay_hints](../assets/terra_wdio_inlay_hints.PNG)
+
+| Implementation class | Introduced in |
+|---|---|
+| [`NavigateToScreenshotUsageProjectViewAction`](../src/main/java/com/picimako/terra/wdio/screenshot/inlayhint/TerraScreenshotInlayHintsProvider.kt) | v0.5.0 |

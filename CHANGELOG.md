@@ -1,5 +1,31 @@
 # Changelog
 
+### 0.5.0
+
+#### NEW
+- [#38](https://github.com/picimako/terra-support/issues/38): A new **Navigate to Screenshot Usage** action is added to the Project View context menu for Terra screenshots,
+so that navigation to code can happen from there as well, besides the tool window.
+- [#27](https://github.com/picimako/terra-support/issues/27): Added a couple of settings options:
+    - project statistics can now be toggled in the Terra wdio tool window by a dedicated toolbar action
+    - screenshot line markers can now be enabled/disabled under `Settings > Editor > General > Gutter Icons`
+    - wdio test root paths can be customized under `Settings > Tools > Terra Support`
+    - an option to enabled/disable the confirmation dialog when deleting a screenshot via the tool window
+- [#49](https://github.com/picimako/terra-support/issues/49):
+  - Added Inlay Hints for Terra screenshot validation calls, to show the referenced screenshot names, and if a CSS selector
+  is not explicitly specified, then show the global selector defined in `wdio.conf.js`.
+  - This issue also introduces Kotlin support to the project, as the hints are implemented in Kotlin.
+
+For more information on Inlay Hints, please visit:
+- https://www.jetbrains.com/help/idea/viewing-reference-information.html#inlay-hints
+- https://www.jetbrains.com/help/idea/inlay-hints.html
+
+#### BUGFIX
+- [#48](https://github.com/picimako/terra-support/issues/48): Fixed an issue in `TerraDescribeViewportsBlockingInspection` that reported false positive results when the viewports argument
+in `Terra.describeViewports` blocks were referenced variables, function calls, etc. instead of a string literal. 
+
+#### MAINTENANCE
+- [#42](https://github.com/picimako/terra-support/issues/42): Optimized the project's unit test area, also making the project size much smaller.
+
 ### v0.4.1
 
 #### ENHANCEMENT
