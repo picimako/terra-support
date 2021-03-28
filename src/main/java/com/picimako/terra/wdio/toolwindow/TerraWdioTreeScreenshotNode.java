@@ -19,6 +19,7 @@ package com.picimako.terra.wdio.toolwindow;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,12 +28,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TerraWdioTreeScreenshotNode extends AbstractTerraWdioTreeNode {
 
+    private final Project project;
     protected final List<VirtualFile> diffs = new ArrayList<>();
     protected final List<VirtualFile> latests = new ArrayList<>();
     protected boolean unused = false;
 
-    public TerraWdioTreeScreenshotNode(@NotNull String displayName) {
+    public TerraWdioTreeScreenshotNode(@NotNull String displayName, Project project) {
         super(displayName);
+        this.project = project;
     }
 
     public void addDiff(VirtualFile virtualFile) {
@@ -79,7 +82,9 @@ public class TerraWdioTreeScreenshotNode extends AbstractTerraWdioTreeNode {
 
     @Override
     public String toString() {
-        return displayName + " (" + references.size() + ")";
+        return ScreenshotStatisticsProjectService.getInstance(project).isShowStatistics
+            ? displayName + " (" + references.size() + ")"
+            : displayName;
     }
 
     @Override

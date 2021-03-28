@@ -126,7 +126,8 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
     }
 
     /**
-     * Checks for the preconditions of this action, specifically that the selected screenshot has latest image.
+     * Checks for the preconditions of this action, disables the action when the selected screenshot has no corresponding
+     * image file under the latest folder.
      */
     @Override
     protected boolean meetsPreconditions(TerraWdioTree tree) {

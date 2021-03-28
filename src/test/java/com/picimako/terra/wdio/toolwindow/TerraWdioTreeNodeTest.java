@@ -27,28 +27,28 @@ public class TerraWdioTreeNodeTest {
 
     @Test
     public void shouldBeSpec() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", null);
 
         assertThat(TerraWdioTreeNode.isSpec(spec)).isTrue();
     }
 
     @Test
     public void shouldNotBeSpec() {
-        TerraWdioTreeModelDataRoot root = new TerraWdioTreeModelDataRoot("root");
+        TerraWdioTreeModelDataRoot root = new TerraWdioTreeModelDataRoot("root", null);
 
         assertThat(TerraWdioTreeNode.isSpec(root)).isFalse();
     }
 
     @Test
     public void shouldBeScreenshot() {
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot");
+        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", null);
 
         assertThat(TerraWdioTreeNode.isScreenshot(screenshot)).isTrue();
     }
 
     @Test
     public void shouldNotBeScreenshot() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec");
+        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", null);
 
         assertThat(TerraWdioTreeNode.isScreenshot(spec)).isFalse();
     }

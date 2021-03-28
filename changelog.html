@@ -1,13 +1,28 @@
-<h4>0.4.1</h4>
-<b>Enhancement</b>
+<h4>0.5.0</h4>
+<b>New</b>
 <ul>
-    <li>Extended the screenshot name resolution logic with test id handling based on <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js">terra-toolkit/visualRegressionConf.js</a></li>
+    <li>A new <b>Navigate to Screenshot Usage</b> action is added to the Project View context menu for Terra screenshots,
+        so that navigation to code can happen from there as well, besides the tool window.</li>
+    <li>
+        Added a couple of settings options:
+        <ul>
+            <li>project statistics can now be toggled in the Terra wdio tool window by a dedicated toolbar action</li>
+            <li>screenshot line markers can now be enabled/disabled under <code> Editor > General > Gutter Icons</code></li>
+            <li>wdio test root paths can be customized under <code>Settings > Tools > Terra Support</code></li>
+            <li>an option to enabled/disable the confirmation dialog when deleting a screenshot via the tool window</li>
+        </ul>
+    </li>
+    <li>Added Inlay Hints for Terra screenshot validation calls, to show the referenced screenshot names, and if a CSS selector
+        is not explicitly specified, then show the global selector defined in <code>wdio.conf.js</code>.</li>
 </ul>
 
 <b>Bugfix</b>
 <ul>
-    <li>Fixed the problem that the Find unused screenshot action in the tool window produced false positive results when
-        screenshots with the same name were present under multiple spec files.</li>
-    <li>Fixed the problem that collecting screenshots happened by name and not by name and spec file.
-        This returned false positive results during reference and gutter icon creation, and the missing screenshot inspection.</li>
+    <li>Fixed an issue in <code>TerraDescribeViewportsBlockingInspection</code> that reported false positive results when the viewports argument
+        in <code>Terra.describeViewports</code> blocks were referenced variables, function calls, etc. instead of a string literal.</li>
+</ul>
+
+<b>Maintenance</b>
+<ul>
+    <li>Optimized the project's unit test area, also making the project size much smaller.</li>
 </ul>

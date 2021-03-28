@@ -20,6 +20,7 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgument
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
 import java.util.Collection;
+import javax.swing.*;
 
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
@@ -84,5 +85,15 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
     private PsiElement findLeafElement(JSCallExpression callExpression) {
         Collection<JSReferenceExpression> references = PsiTreeUtil.findChildrenOfType(callExpression, JSReferenceExpression.class);
         return references.stream().filter(reference -> TerraWdioPsiUtil.TERRA.equals(reference.getText())).findFirst().orElse(null);
+    }
+
+    @Override
+    public String getName() {
+        return TerraBundle.message("terra.screenshot.linemarker.name");
+    }
+
+    @Override
+    public @Nullable Icon getIcon() {
+        return ImagesIcons.ImagesFileType;
     }
 }

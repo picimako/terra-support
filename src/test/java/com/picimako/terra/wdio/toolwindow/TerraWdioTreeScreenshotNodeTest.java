@@ -20,23 +20,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import org.junit.Test;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 /**
  * Unit test for {@link TerraWdioTreeScreenshotNode}.
  */
-public class TerraWdioTreeScreenshotNodeTest {
+public class TerraWdioTreeScreenshotNodeTest extends BasePlatformTestCase {
 
-    @Test
-    public void shouldReturnToStringWithZeroReferenceCount() {
-        TerraWdioTreeScreenshotNode screenshotNode = new TerraWdioTreeScreenshotNode("screenshot node");
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        ScreenshotStatisticsProjectService.getInstance(getProject()).isShowStatistics = true;
+    }
+
+    public void testReturnToStringWithZeroReferenceCount() {
+        TerraWdioTreeScreenshotNode screenshotNode = new TerraWdioTreeScreenshotNode("screenshot node", getProject());
 
         assertThat(screenshotNode).hasToString("screenshot node (0)");
     }
 
-    @Test
-    public void shouldReturnToStringWithMoreThanZeroReferenceCount() {
-        TerraWdioTreeScreenshotNode screenshotNode = new TerraWdioTreeScreenshotNode("screenshot node");
+    public void testReturnToStringWithMoreThanZeroReferenceCount() {
+        TerraWdioTreeScreenshotNode screenshotNode = new TerraWdioTreeScreenshotNode("screenshot node", getProject());
 
         screenshotNode.addReference(mock(VirtualFile.class));
         screenshotNode.addReference(mock(VirtualFile.class));
@@ -44,32 +48,28 @@ public class TerraWdioTreeScreenshotNodeTest {
         assertThat(screenshotNode).hasToString("screenshot node (2)");
     }
 
-    @Test
-    public void shouldHaveLatest() {
-        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy");
+    public void testHaveLatest() {
+        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy", null);
         node.addLatest(mock(VirtualFile.class));
 
         assertThat(node.hasLatest()).isTrue();
     }
 
-    @Test
-    public void shouldNotHaveLatest() {
-        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy");
+    public void testNotHaveLatest() {
+        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy", null);
 
         assertThat(node.hasLatest()).isFalse();
     }
 
-    @Test
-    public void shouldHaveDiff() {
-        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy");
+    public void testHaveDiff() {
+        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy", null);
         node.addDiff(mock(VirtualFile.class));
 
         assertThat(node.hasDiff()).isTrue();
     }
 
-    @Test
-    public void shouldNotHaveDiff() {
-        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy");
+    public void testNotHaveDiff() {
+        TerraWdioTreeScreenshotNode node = new TerraWdioTreeScreenshotNode("dummy", null);
 
         assertThat(node.hasDiff()).isFalse();
     }

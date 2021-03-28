@@ -2,12 +2,11 @@
 
 ![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)
 
-This plugin provides engineers different tools to speed up their work, and most importantly, make their work much easier
-when working with Cerner's various Terra libraries.
+This plugin provides engineers, who work with Cerner's various Terra libraries, different tools to speed up and make their work much easier.
 
 ## IDE features
 
-The following sections give you a summary of what kind of JetBrains IDE features are available in this plugin throughout
+The following sections give you a summary of what JetBrains IDE features are incorporated into this plugin throughout
 different Terra feature areas.
 
 ### Code inspections
@@ -24,15 +23,20 @@ types of JetBrains products which can be triggered via Ctrl+Q (on Windows) or F1
 
 ### References
 
-The feature called References provide a way to navigate from a reference of an element to the definition of the element,
-just like when you can jump to the definition of a function from the usage of that function. 
+The feature called References provides a way to navigate from a reference of an element to the definition of it,
+just like when you can jump to the definition of a function from the usage of that. 
 
 ### Tool windows
 
 Tool windows are sidebar and bottom panels on the frame of the IDE window. There is [one Tool Window available](/docs/terra_wdio_tool_window.md) at the moment
 for working with Terra screenshots.
 
-## Terra features
+### Inlay Hints
+
+Inlay Hints are small labels injected into the code, that provide extra (often otherwise invisible) information about the code.
+The [current Inlay Hints](docs/terra_screenshots.md#inlay-hints) for Terra include displaying screenshot names and global Terra CSS selectors.
+
+## Terra features and settings
 
 You can navigate to further documentation categorized mostly by Terra features.
 
@@ -40,6 +44,8 @@ You can navigate to further documentation categorized mostly by Terra features.
 - [Terra Viewports](docs/terra_viewports.md)
 - [Terra UI and components](docs/terra_ui.md)
 - [Terra Wdio Tool Window](docs/terra_wdio_tool_window.md)
+
+There are also various customization options for the plugin which you can find on its dedicated [Plugin Settings page](docs/terra_settings.md).
 
 ## Plugin contribution guide
 
@@ -49,10 +55,6 @@ To add features, bugfixes or provide any kind of contribution to this project, p
 
 The Terra Support plugin logo is a custom-drawn logo inspired by the original [Terra logo](https://engineering.cerner.com/terra-ui/home/terra-ui/index),
 and it portrays a moon which orbits a planet, which orbits a "cold star". (Shout out to Doctor Who.)
-
-Images for test data are from [Unsplash.com](https://unsplash.com/) from the following artists:
-- [Carter Baran](https://unsplash.com/photos/W7sVwg3EEjA)
-- [Emre Gencer](https://unsplash.com/photos/NZMeJsrMC8U)
 
 ## Licencing
 

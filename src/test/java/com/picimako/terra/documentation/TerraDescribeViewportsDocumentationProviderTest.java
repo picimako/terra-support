@@ -36,11 +36,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class TerraDescribeViewportsDocumentationProviderTest {
 
     private static final String DOCUMENTATION_HTML = "<div class='definition'><pre>huge</pre></div>"
-            + "<div class='content'>"
-            + "<table class='sections'>"
-            + "<tr><td valign='top' class='section'><p>Minimum value: </td><td valign='top'>1216px</td><td valign='top'></td>"
-            + "<tr><td valign='top' class='section'><p>Media Query: </td><td valign='top'><code>@media screen and (min-width: 1216px)</code></td>"
-            + "<tr><td valign='top' class='section'><p>Description: </td><td valign='top'>Active from viewport width 1216px and up</td></table></div>";
+        + "<div class='content'>"
+        + "<table class='sections'>"
+        + "<tr><td valign='top' class='section'><p>Minimum value: </td><td valign='top'>1216px</td><td valign='top'></td>"
+        + "<tr><td valign='top' class='section'><p>Media Query: </td><td valign='top'><code>@media screen and (min-width: 1216px)</code></td>"
+        + "<tr><td valign='top' class='section'><p>Description: </td><td valign='top'>Active from viewport width 1216px and up</td></table></div>";
     @Mock
     private JSLiteralExpression jsLiteralExpression;
     @Mock

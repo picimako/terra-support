@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio;
 
+import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -217,6 +218,24 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
 
     public void testNotInWdioFilesWhenNoWdioRootExists() {
         assertThat(TerraWdioFolders.isInWdioFiles(null, getProject())).isFalse();
+    }
+
+    //isInSnapshotsDirectory
+
+    public void testInSnapshots() {
+        VirtualFile screenshot = myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png"));
+
+        assertThat(TerraWdioFolders.isInSnapshotsDirectory(screenshot)).isTrue();
+    }
+
+    public void testNotInSnapshotsFilesForNoFile() {
+        assertThat(TerraWdioFolders.isInSnapshotsDirectory(null)).isFalse();
+    }
+
+    public void testNotInSnapshots() {
+        VirtualFile wdioConf = myFixture.copyFileToProject("wdio.conf.js");
+
+        assertThat(TerraWdioFolders.isInSnapshotsDirectory(wdioConf)).isFalse();
     }
 
     //collectSpecFiles

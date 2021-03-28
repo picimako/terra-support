@@ -107,7 +107,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                                 WriteAction.run(() -> reference.rename(this, newFileName));
                                 //If not yet created, create a new Screenshot Node under the current parent Spec Node, with the new name
                                 if (!parentSpec.hasScreenshotNodeForName(newFileName)) {
-                                    TerraWdioTreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName);
+                                    TerraWdioTreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName, project);
                                     newScreenshot.addReference(reference);
                                     parentSpec.addScreenshot(newScreenshot);
                                 } else {

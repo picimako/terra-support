@@ -68,24 +68,20 @@ as bulk operations:
 When building this tree view, the logic behind also takes into account when spec JS files are in single or multiple subfolders under the base test path.
 They are collected in the same way into this view, their parent folders (as of now) are not displayed in the tool window.
 
-![terra_wdio_tool_window](../assets/terra_wdio_tool_window.PNG)
+| With statistics | Without statistics |
+|---|---|
+| ![terra_wdio_tool_window](../assets/terra_wdio_tool_window.PNG) | ![terra_wdio_tool_window](../assets/terra_wdio_tool_window_without_stats.PNG) 
 
 ## Wdio test root paths
 
-Since wdio test resources can be placed anywhere in a project, the tool window currently supports the probably most common wdio root paths:
+Since wdio test resources can be placed anywhere in a project, the tool window by default supports the probably most common wdio root paths:
 - `/tests/wdio`
 - `/test/wdio`
 
 If any of these are found, the tool window will base the resource collection and aggregate view building on that particular test root folder.
 
-The set of wdio test roots are stored at `com.picimako.terra.wdio.TerraWdioFolders#BASE_TEST_ROOTS`.
-
-For now, if a project happen to use a different root than the currently supported ones, there are two ways to support it.
-Either rename that folder to one of the pre-defined ones, or add that folder to the set of roots, which also requires a new build and release of this plugin,
-but the first is the preferred option.
-
-**FUTURE PLANS:**
-- Add support to customize the set of roots on a per application basis.
+Starting from v0.5.0, the list of root paths can be configured under `Settings > Tools > Terra Support`. You can find more details in the
+[Plugin Settings](../docs/terra_settings.md) document.
 
 ## Criteria for the tool window to be enabled
 
@@ -123,6 +119,8 @@ All three node types provide basic statistics about the number of specs and scre
 - **Wdio Resources**: displays statistics about the overall, distinct number of spec JS files and screenshot files in the project.
 - **Spec node**: displays how many screenshots can be found under the spec with a distinct name
 - **Screenshot node**: displays the number of screenshot files that are available with this particular node's name
+
+Starting from v0.5.0 the statistics can be enabled/disabled per project using the ![toggle_stat_icon](../assets/terra_wdio_tool_window_toggle_stat_icon.PNG) icon on the tool window's toolbar.
 
 ## Actions
 
@@ -172,7 +170,7 @@ Both previews also show the screenshot context (locale, browser, viewport) above
 During the lifetime of a project it may happen that test implementations are changed or cleaned up but related screenshots are forgot
 to be updated or removed.
 
-In the header section of the tool window you can find an **Analyze** action (green play icon) which analyzes the current project and
+In the header section of the tool window you can find an **Analyze project** action (![analyze_icon](../assets/terra_wdio_analyze_project_icon.PNG) icon) which analyzes the current project and
 marks screenshots that are not referenced by any terra wdio test implementation.  This is an on-demand action run only when a user triggers it manually.
 
 Marking nodes means a red exclamation mark icon put in front of screenshot nodes and their containing spec nodes as well to signal that
@@ -182,5 +180,5 @@ there is at least one unused screenshot within those particular specs.
 
 **NOTES**:
 - Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,
-and it will require less resources to due to the lack of constant project analysis.
+so it will require less resources due to the lack of constant project analysis.
 - This feature is available only in IntelliJ build 202.5103.13 and later.

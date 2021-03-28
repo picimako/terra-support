@@ -107,32 +107,6 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
     }
 
     /**
-     * Returns the JS property for the argument property name within the provided PsiElement,
-     * or null if the element has no such property.
-     * <p>
-     * For example, in case of:
-     * <pre>
-     * Terra.validates.element({ misMatchTolerance: 0.7 });
-     * </pre>
-     * it will return the element corresponding to the "{@code misMatchTolerance: 0.7}" part.
-     *
-     * @param element      the Psi element to get the property from
-     * @param propertyName the property name to retrieve the property by
-     * @return the JSProperty for the property, or null
-     */
-    @Nullable
-    protected JSProperty getScreenshotValidationProperty(PsiElement element, String propertyName) {
-        JSExpression[] arguments = getArgumentsOf((JSExpressionStatement) element);
-        if (arguments.length > 0 && arguments.length < 3) {
-            if (arguments[arguments.length - 1] instanceof JSObjectLiteralExpression) {
-                JSObjectLiteralExpression argument = (JSObjectLiteralExpression) arguments[arguments.length - 1];
-                return argument.findProperty(propertyName);
-            }
-        }
-        return null;
-    }
-
-    /**
      * Returns the reference name element from the argument expression.
      * <p>
      * In practice that means it returns the element corresponding to the {@code describeViewports} name part of the

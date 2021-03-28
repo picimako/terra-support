@@ -82,6 +82,8 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
     /**
      * This method caches the viewport values for each {@code Terra.describeViewports} blocks in the collection called
      * {@code viewportSets}, so that for each such block it is only once that the viewport values have to be retrieved.
+     * <p>
+     * Empty viewports arrays and non-array type viewports argument values are not reported.
      */
     private void reportDuplicateBlocks(PsiElement[] blocks, @NotNull ProblemsHolder holder) {
         final Set<Integer> blocksToReport = new HashSet<>(4);
@@ -96,7 +98,7 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
                 if (!viewportSets.containsKey(j)) {
                     viewportSets.put(j, getViewportsSet(blocks[j]));
                 }
-                if (viewportSets.get(i).equals(viewportSets.get(j))) {
+                if (!viewportSets.get(i).isEmpty() && !viewportSets.get(j).isEmpty() && viewportSets.get(i).equals(viewportSets.get(j))) {
                     if (!blocksToReport.contains(i)) {
                         blocksToReport.add(i);
                         registerProblem(blocks[i], holder);

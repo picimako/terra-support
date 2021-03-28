@@ -51,6 +51,11 @@ public class TerraScreenshotNameResolverTest extends BasePlatformTestCase {
 
     //resolveName with partial test id
 
+    public void testDefaultScreenshotPartialNameWithTestId() {
+        JSLiteralExpression element = configureFileForJSLiteralExpression("tests/wdio/nameResolution/resolveDefaultNameWithTestId-spec.js");
+        assertThat(new TerraScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[default].png");
+    }
+
     public void testResolvePartialNameWithTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression("tests/wdio/nameResolution/resolveNameWithTestId-spec.js");
         assertThat(new TerraScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[test_id].png");
@@ -73,14 +78,19 @@ public class TerraScreenshotNameResolverTest extends BasePlatformTestCase {
         assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
     }
 
+    public void testResolveDefaultNameForNonDefaultValidation() {
+        JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameForNonDefaultValidation-spec.js");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
+    }
+
     public void testResolveDefaultNameToEmptyStringIfNoParentDescribeCall() {
         JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameNoParentDescribe-spec.js");
-        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
     public void testResolveDefaultNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
         JSExpression element = configureFileForJSExpression("tests/wdio/nameResolution/resolveDefaultNameNoParentDescribeName-spec.js");
-        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("");
+        assertThat(new TerraScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
     //resolveWithFallback

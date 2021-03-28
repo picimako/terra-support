@@ -58,4 +58,24 @@ public class TerraBundle extends DynamicBundle {
     public static String toolWindow(@NonNls String id) {
         return message("terra.wdio.toolwindow." + id);
     }
+
+    /**
+     * Retrieves a Terra Settings specific message for the provided id.
+     *
+     * @param id the suffix of the message key
+     * @return the actual message
+     */
+    public static String settings(@NonNls String id) {
+        return message("terra.settings." + id);
+    }
+
+    /**
+     * Retrieves a Terra inlay hints specific message for the provided id.
+     *
+     * @param id the suffix of the message key
+     * @return the actual message
+     */
+    public static String inlay(@NonNls String id) {
+        return message("terra.inlay.hints." + id);
+    }
 }

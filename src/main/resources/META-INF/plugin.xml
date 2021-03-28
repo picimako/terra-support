@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>0.4.1</version>
+    <version>0.5.0-SNAPSHOT</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
 
@@ -25,7 +25,7 @@
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection"/>
         <localInspection id="terraDescribeViewportsBlocking" language="JavaScript"
-                         displayName="Terra.describeViewports blocking validations"
+                         displayName="Terra.describeViewports validations (blocking test execution)"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection"/>
         <localInspection id="nestedDescribeViewportsNotAllowed" language="JavaScript"
@@ -47,7 +47,7 @@
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection"/>
         <localInspection id="screenshotMismatchToleranceBlocking" language="JavaScript"
-                         displayName="Screenshot misMatchTolerance blocking validations"
+                         displayName="Screenshot misMatchTolerance validations (blocking test execution)"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection"/>
         <localInspection id="missingScreenshot" language="JavaScript"
@@ -87,9 +87,32 @@
         <codeInsight.lineMarkerProvider language="JavaScript"
                                         implementationClass="com.picimako.terra.wdio.screenshot.gutter.TerraScreenshotValidationLineMarkerProvider"/>
 
+        <!-- Inlay hints -->
+        <codeInsight.inlayProvider language="JavaScript"
+                                   implementationClass="com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider"/>
+
+        <!-- Settings -->
+        <applicationService serviceImplementation="com.picimako.terra.settings.TerraApplicationState"/>
+        <applicationConfigurable parentId="tools" instance="com.picimako.terra.settings.TerraSettingsConfigurable"
+                                 id="com.picimako.terra.settings.TerraSettingsConfigurable"
+                                 displayName="Terra Support"/>
+
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
 
     </extensions>
+
+    <actions>
+        <group id="ScreenshotUsageNavigation" text="Navigate to Screenshot Usage" compact="true">
+            <action id="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
+                    class="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
+                    text="Navigate to Screenshot Usage"
+                    description="Navigates to the Terra call validating this screenshot"
+                    icon="ImagesIcons.ImagesFileType">
+                <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
+            </action>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
+        </group>
+    </actions>
 </idea-plugin>

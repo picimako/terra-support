@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-<warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single decsribeViewports block.">Terra.describeViewports</warning>('Name', ['tiny','small','huge'], () => {
+<warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single describeViewports block.">Terra.describeViewports</warning>('Name', ['tiny','small','huge'], () => {
     describe('matches screenshot', () => {
         it('matches screenshot', () => {
             Terra.validates.screenshot();
@@ -22,7 +22,7 @@
     });
 });
 
-<warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single decsribeViewports block.">Terra.describeViewports</warning>('Another name', ['small','huge','tiny'], () => {
+<warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single describeViewports block.">Terra.describeViewports</warning>('Another name', ['small','huge','tiny'], () => {
     describe('mathes something else', () => {
     });
 });

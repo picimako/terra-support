@@ -24,7 +24,10 @@ import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
+import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.lang.javascript.psi.JSProperty;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Provides methods for extracting function call arguments.
@@ -67,6 +70,23 @@ public final class JSArgumentUtil {
                 argumentListConsumer.accept(argumentList);
             }
         }
+    }
+
+    /**
+     * Returns the value of the argument JS property if it is a numeric literal.
+     *
+     * @param property to property to get the value of
+     * @return the numeric value, or null if the property's value is not a literal, or it is not a numeric literal
+     */
+    @Nullable
+    public static Object getNumericValueOf(JSProperty property) {
+        if (property.getValue() instanceof JSLiteralExpression) {
+            var literal = (JSLiteralExpression) property.getValue();
+            if (literal.isNumericLiteral()) {
+                return literal.getValue();
+            }
+        }
+        return null;
     }
 
     private JSArgumentUtil() {

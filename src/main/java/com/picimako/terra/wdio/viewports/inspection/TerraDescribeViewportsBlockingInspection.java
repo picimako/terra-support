@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio.viewports.inspection;
 
+import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
@@ -29,9 +30,14 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ui.MultipleCheckboxOptionsPanel;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
+import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
+import com.intellij.lang.javascript.psi.JSReferenceExpression;
+import com.intellij.lang.javascript.psi.JSVarStatement;
+import com.intellij.lang.javascript.psi.JSVariable;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -82,7 +88,7 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) { //FIXME: runs into each Terra.describeViewports twice
+                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) {
                     JSArgumentUtil.doWithinArgumentListOf(node, argumentList -> {
                         if (argumentList.getArguments().length > 1) {
                             JSExpression viewportList = argumentList.getArguments()[1];
@@ -90,8 +96,8 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
                                 final JSExpression[] viewports = ((JSArrayLiteralExpression) viewportList).getExpressions();
                                 checkForEmptyViewportsArgument(viewportList, viewports, holder);
                                 checkForNotSupportedViewports(viewports, holder);
-                            } else if (reportNonArrayViewports) {
-                                holder.registerProblem(viewportList, TerraBundle.inspection("non.array.viewports.not.allowed"));
+                            } else {
+                                checkForNonArrayTypeViewports(viewportList, holder);
                             }
                         }
                     });
@@ -121,6 +127,45 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
                 if (!isSupportedViewport(viewport)) {
                     holder.registerProblem(viewport, TerraBundle.inspection("viewport.not.supported"), ProblemHighlightType.ERROR);
                 }
+            }
+        }
+    }
+
+    /**
+     * Validates the viewports argument whether it is defined as an array. There are some exceptions when a problem
+     * is not registered:
+     * <ul>
+     *     <li>when the variable keyword is var or let,</li>
+     *     <li>when a variable/constant is used, and it is not initialized at the location of creation,</li>
+     *     <li>when a variable/constant is used, and it is initialized as a reference to another variable/constant,</li>
+     *     <li>when a variable/constant is used, and it is initialized as a call to a function,</li>
+     *     <li>when a function call is used.</li>
+     * </ul>
+     * <p>
+     * The reason these exceptions are in place is because it may be unnecessarily complex to try to find out what values
+     * the further references return.
+     */
+    private void checkForNonArrayTypeViewports(JSExpression viewportList, @NotNull ProblemsHolder holder) {
+        if (reportNonArrayViewports) {
+            if (viewportList instanceof JSReferenceExpression) {
+                PsiElement resolved = ((JSReferenceExpression) viewportList).resolve();
+                if (resolved instanceof JSVariable) {
+                    JSVarStatement variableStatement = ((JSVariable) resolved).getStatement();
+                    if (variableStatement != null
+                        && variableStatement.getVarKeyword() == CONST
+                        && variableStatement.getDeclarations().length == 1) {
+
+                        JSExpression initializer = variableStatement.getDeclarations()[0].getInitializer();
+                        if (initializer != null
+                            && !(initializer instanceof JSArrayLiteralExpression)
+                            && !(initializer instanceof JSReferenceExpression)
+                            && !(initializer instanceof JSCallExpression)) {
+                            holder.registerProblem(viewportList, TerraBundle.inspection("non.array.viewports.not.allowed"));
+                        }
+                    }
+                }
+            } else if (!(viewportList instanceof JSCallExpression)) {
+                holder.registerProblem(viewportList, TerraBundle.inspection("non.array.viewports.not.allowed"));
             }
         }
     }

@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
- * Am abstract implementation of {@link FileEditor}.
+ * An abstract implementation of {@link FileEditor}.
  * <p>
  * If, for some reason, no image can be display in the editor, a message saying {@code There is no screenshot available to display.}
  * is shown instead. See {@link #getComponent()}.
@@ -55,6 +55,8 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
     protected AbstractScreenshotsPreview(@NotNull Project project, @NotNull VirtualFile file, @NotNull String sourceFolderName,
                                          @NotNull Function<VirtualFile, ScreenshotDiff> screenshotToDiffMapper) {
         VirtualFile wdioFolder = TerraWdioFolders.projectWdioRoot(project);
+        //There should never be a case when the wdio root is null here. Since previews can only be initiated
+        // from/via screenshots. Having at least one screenshot means that there is a wdio root.
         if (wdioFolder != null) {
             wdioFolder.refresh(false, true);
             this.screenshotDiffs.addAll(collectSpecFoldersInside(sourceFolderName, VfsUtil.collectChildrenRecursively(wdioFolder))
@@ -64,6 +66,10 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
                 .collect(toList()));
         }
         this.project = project;
+    }
+
+    public List<ScreenshotDiff> getScreenshotDiffs() {
+        return screenshotDiffs;
     }
 
     @Override

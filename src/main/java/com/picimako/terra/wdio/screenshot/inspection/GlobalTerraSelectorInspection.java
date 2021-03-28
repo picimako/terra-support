@@ -18,7 +18,8 @@ package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getStringLiteralValue;
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
-import static com.picimako.terra.wdio.WdioConfUtil.SELECTOR_PROPERTY_NAME;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.SELECTOR;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
 
 import java.util.Objects;
 
@@ -63,7 +64,7 @@ public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
                 super.visitJSExpressionStatement(node);
 
                 if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
-                    JSProperty selectorProperty = getScreenshotValidationProperty(node, SELECTOR_PROPERTY_NAME);
+                    JSProperty selectorProperty = getScreenshotValidationProperty(node, SELECTOR);
                     if (selectorProperty != null) {
                         String screenshotSelector = getStringLiteralValue(selectorProperty.getValue());
                         if (Objects.equals(screenshotSelector, globalSelectorRetriever.getSelector(holder.getProject()))) {

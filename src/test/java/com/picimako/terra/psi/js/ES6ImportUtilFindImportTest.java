@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
 import com.intellij.lang.ecmascript6.psi.ES6ImportDeclaration;
 import com.intellij.psi.PsiElement;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Unit test for {@link ES6ImportUtil}.
@@ -34,9 +35,7 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 public class ES6ImportUtilFindImportTest extends BasePlatformTestCase {
 
     public void testFoundImportByBaseName() {
-        PsiElement psiElement = mock(PsiElement.class);
-        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), FILE_WITH_IMPORT));
-        when(psiElement.getText()).thenReturn("ResponsiveElement");
+        PsiElement psiElement = mockPsiElement(FILE_WITH_IMPORT, "ResponsiveElement");
 
         ES6ImportDeclaration foundImportDeclaration = ES6ImportUtil.findImportByBaseName(psiElement);
         assertThat(foundImportDeclaration).isNotNull();
@@ -45,34 +44,34 @@ public class ES6ImportUtilFindImportTest extends BasePlatformTestCase {
     }
 
     public void testDidNotFindImportByBaseName() {
-        PsiElement psiElement = mock(PsiElement.class);
-        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), FILE_WITH_IMPORT));
-        when(psiElement.getText()).thenReturn("Grid");
+        PsiElement psiElement = mockPsiElement(FILE_WITH_IMPORT, "Grid");
 
         assertThat(ES6ImportUtil.findImportByBaseName(psiElement)).isNull();
     }
 
     public void testReturnImportPath() {
-        PsiElement psiElement = mock(PsiElement.class);
-        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), FILE_WITH_IMPORT));
-        when(psiElement.getText()).thenReturn("ResponsiveElement");
+        PsiElement psiElement = mockPsiElement(FILE_WITH_IMPORT, "ResponsiveElement");
 
         assertThat(ES6ImportUtil.importPathForBaseComponent(psiElement)).isEqualTo("terra-responsive-element");
     }
 
     public void testReturnNullForNoImportForComponentName() {
-        PsiElement psiElement = mock(PsiElement.class);
-        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), FILE_WITHOUT_IMPORT));
-        when(psiElement.getText()).thenReturn("ResponsiveElement");
+        PsiElement psiElement = mockPsiElement(FILE_WITHOUT_IMPORT, "ResponsiveElement");
 
         assertThat(ES6ImportUtil.importPathForBaseComponent(psiElement)).isNull();
     }
 
     public void testReturnNullForNoFromClauseForImport() {
-        PsiElement psiElement = mock(PsiElement.class);
-        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), FILE_WITHOUT_IMPORT_FROM_CLAUSE));
-        when(psiElement.getText()).thenReturn("ResponsiveElement");
+        PsiElement psiElement = mockPsiElement(FILE_WITHOUT_IMPORT_FROM_CLAUSE, "ResponsiveElement");
 
         assertThat(ES6ImportUtil.importPathForBaseComponent(psiElement)).isNull();
+    }
+
+    @NotNull
+    private PsiElement mockPsiElement(String fileWithImport, String responsiveElement) {
+        PsiElement psiElement = mock(PsiElement.class);
+        when(psiElement.getContainingFile()).thenReturn(createJavaScriptFileFromText(getProject(), fileWithImport));
+        when(psiElement.getText()).thenReturn(responsiveElement);
+        return psiElement;
     }
 }

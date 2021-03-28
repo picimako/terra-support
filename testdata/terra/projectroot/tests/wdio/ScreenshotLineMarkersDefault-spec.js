@@ -16,6 +16,6 @@
 
 Terra.describeViewports('terra screenshot', ['medium'], () => {
     it('Test case', () => {
-        <caret>Terra.validates.screenshot({ selector: '#selector' });
+        Terra.valid<caret>ates.screenshot({ selector: '#selector' });
     });
 });

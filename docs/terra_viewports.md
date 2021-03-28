@@ -97,6 +97,10 @@ Terra.describeViewports('', ['', '  ', ''], () => {
 
 The viewports argument of `Terra.describeViewports` accepts an array only, so any other type of value will be reported by this check.
 
+In v0.5.0 it is also extended to handle `const` variable references initialized as arrays. `var` and `let` type variables, as well as
+function calls are ignored. This is so that the code doesn't need to add unnecessary complexity to try to find out the actual type of the variable
+among the uncertain number of value assignments it may have.
+
 **Example:**
 
 ```javascript
@@ -107,6 +111,10 @@ Terra.describeViewports('', 'tiny', () => {
 });
 
 Terra.describeViewports('', false, () => {
+});
+
+const VIEWPORTS = ['tiny','small'];
+Terra.describeViewports('', VIEWPORTS, () => {
 });
 ```
 

@@ -32,4 +32,10 @@ public class ScreenshotContextParserTest {
         String path = "/home/project/tests/wdio/__snapshots__/diff/en/chrome_enormous/some-spec/a_screenshot.png";
         assertThat(new ScreenshotContextParser().parse(path)).isEqualTo("en | chrome | enormous");
     }
+
+    @Test
+    public void shouldReturnScreenshotContextStringFromNestedFolder() {
+        String path = "/home/project/tests/wdio/nested/__snapshots__/diff/en/chrome_enormous/some-spec/a_screenshot.png";
+        assertThat(new ScreenshotContextParser().parse(path)).isEqualTo("en | chrome | enormous");
+    }
 }

@@ -81,8 +81,8 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
             assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
 
             serviceManager.verify(
-                    times(1),
-                    () -> ServiceManager.getService(TerraWdioDocumentationService.class));
+                times(1),
+                () -> ServiceManager.getService(TerraWdioDocumentationService.class));
         }
     }
 
@@ -100,8 +100,8 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
             assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
 
             serviceManager.verify(
-                    times(0),
-                    () -> ServiceManager.getService(TerraWdioDocumentationService.class));
+                times(0),
+                () -> ServiceManager.getService(TerraWdioDocumentationService.class));
         }
     }
 
@@ -122,7 +122,6 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
     }
 
     private void setProviderDocumentation(Properties properties) {
-        ReflectionUtil.setField(TerraWdioDocumentationProvider.class, provider,
-                Properties.class, "documentation", properties);
+        ReflectionUtil.setField(TerraWdioDocumentationProvider.class, provider, Properties.class, "documentation", properties);
     }
 }

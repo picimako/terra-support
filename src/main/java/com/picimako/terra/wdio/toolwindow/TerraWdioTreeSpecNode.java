@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,10 +39,12 @@ import org.jetbrains.annotations.Nullable;
 public class TerraWdioTreeSpecNode extends AbstractTerraWdioTreeNode {
 
     private final List<TerraWdioTreeScreenshotNode> screenshots = new ArrayList<>();
+    private final Project project;
     private VirtualFile specFile;
 
-    public TerraWdioTreeSpecNode(@NotNull String displayName) {
+    public TerraWdioTreeSpecNode(@NotNull String displayName, Project project) {
         super(displayName);
+        this.project = project;
     }
 
     /**
@@ -136,7 +139,9 @@ public class TerraWdioTreeSpecNode extends AbstractTerraWdioTreeNode {
 
     @Override
     public String toString() {
-        return screenshots.isEmpty() ? displayName : displayName + " (" + screenshots.size() + ")";
+        return ScreenshotStatisticsProjectService.getInstance(project).isShowStatistics
+            ? screenshots.isEmpty() ? displayName : displayName + " (" + screenshots.size() + ")"
+            : displayName;
     }
 
     @Override

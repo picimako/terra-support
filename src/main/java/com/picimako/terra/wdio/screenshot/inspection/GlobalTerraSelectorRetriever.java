@@ -56,7 +56,8 @@ public class GlobalTerraSelectorRetriever {
      * Gets the {@code terra.selector} config property's value from the argument file, or null if it is not present in the file.
      * <p>
      * Ideally there should be only one terra.selector property specified, but if for some reason there are multiple
-     * ones, e.g. in different config objects, then the last one's value is returned.
+     * ones, e.g. in different config objects, then the last one's value is returned, because perhaps it is that last assignment
+     * that will take effect.
      *
      * @param wdioConfJsFile the wdio.conf.js file to search in
      * @return the CSS selector defined in the terra.selector property, or null if not present

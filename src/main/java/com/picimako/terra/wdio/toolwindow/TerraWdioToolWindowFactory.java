@@ -16,8 +16,7 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
-import static java.util.Collections.singletonList;
-
+import java.util.List;
 import javax.swing.*;
 
 import com.intellij.openapi.project.Project;
@@ -43,9 +42,6 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  * Since this class determines whether to display the tool window or not, when it is determined that it will be shown,
  * it also initializes {@link TerraWdioFolders} with the wdio test root path that will be used as the root path throughout
  * the entire lifecycle of this feature in a particular project.
- * <p>
- * TODO: the availability of this tool window could also be controlled by an IDE Settings property, e.g.
- *  {@code TerraSettings.getInstance().TERRA_WDIO_TOOL_WINDOW_ENABLED}.
  *
  * @see TerraWdioScreenshotsPanel
  * @since 0.1.0
@@ -57,7 +53,10 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
         TerraWdioScreenshotsPanel screenshotsPanel = new TerraWdioScreenshotsPanel(project);
         addTab(toolWindow, screenshotsPanel);
         if (isSetTitleActionSupported()) {
-            toolWindow.setTitleActions(singletonList(new FindUnusedScreenshotsAction(screenshotsPanel.getTree())));
+            toolWindow.setTitleActions(List.of(
+                new FindUnusedScreenshotsAction(screenshotsPanel.getTree()),
+                new ToggleStatisticsAction(() -> screenshotsPanel.getTree().updateUI())
+            ));
         }
     }
 

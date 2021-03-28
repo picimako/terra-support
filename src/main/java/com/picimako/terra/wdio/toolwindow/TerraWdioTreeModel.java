@@ -41,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
 
-/**ew
+/**
  * A model object for backing the {@link TerraWdioTree} UI component.
  * <p>
  * It maps the original folder structure of Terra wdio files, like this (having {@code tests/wdio} as the base folder):
@@ -105,6 +105,8 @@ public class TerraWdioTreeModel implements TreeModel {
     /**
      * Builds the contents of the tree model that is shown in the tool window.
      * <p>
+     * It uses only a single wdio root path among the ones defined in the Terra Support Settings, first found in the project.
+     * <p>
      * <b>Disposer logic</b>
      * <p>
      * Clears all virtual files and screenshot nodes saved in the model.
@@ -132,7 +134,7 @@ public class TerraWdioTreeModel implements TreeModel {
         VirtualFile wdioFolder = projectWdioRoot(project);
         if (wdioFolder != null) {
             if (data == null) {
-                data = new TerraWdioTreeModelDataRoot("Wdio Resources");
+                data = new TerraWdioTreeModelDataRoot("Wdio Resources", project);
             } else {
                 Disposer.dispose(rootDisposable);
             }
@@ -167,7 +169,7 @@ public class TerraWdioTreeModel implements TreeModel {
                         //If a given spec folder hasn't been added
                         () -> {
                             if (existsAfterRefresh(folder)) {
-                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(folderIdentifier);
+                                TerraWdioTreeSpecNode specNode = TerraWdioTreeNode.forSpec(folderIdentifier, project);
                                 populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
 
                                 //Adds the spec file that belongs to the spec node. This is necessary for the "Navigate to Usage" screenshot action.
@@ -198,7 +200,7 @@ public class TerraWdioTreeModel implements TreeModel {
                     .ifPresentOrElse(s -> virtualFileToNodeAdder.accept(s, screenshot),
                         //If a screenshot node hasn't been added
                         () -> {
-                            TerraWdioTreeScreenshotNode newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName());
+                            TerraWdioTreeScreenshotNode newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName(), project);
                             virtualFileToNodeAdder.accept(newScreenshotNode, screenshot);
                             specNode.addScreenshot(newScreenshotNode);
                             Disposer.register(specNode, newScreenshotNode);
