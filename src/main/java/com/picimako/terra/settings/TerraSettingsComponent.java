@@ -39,9 +39,9 @@ public class TerraSettingsComponent {
 
     private final JPanel settingsPanel;
     private final ListTableModel<RootPath> wdioRootPathsTableViewModel;
-    private final JCheckBox screenshotDeletionReminderCheckbox;
+    private final JCheckBox screenshotDeletionConfirmationCheckbox;
 
-    public TerraSettingsComponent(List<RootPath> wdioRootPaths, boolean isScreenshotDeletionReminderCheckboxSelected) {
+    public TerraSettingsComponent(List<RootPath> wdioRootPaths, boolean isScreenshotDeletionConfirmationCheckboxSelected) {
         var wdioRootPathsTableView = new TableView<>(new WdioRootPathsTableModelCreator().create());
         wdioRootPathsTableViewModel = (ListTableModel<RootPath>) wdioRootPathsTableView.getTableViewModel();
         wdioRootPathsTableViewModel.setItems(wdioRootPaths);
@@ -53,8 +53,8 @@ public class TerraSettingsComponent {
             })
             .createPanel();
 
-        screenshotDeletionReminderCheckbox = new JCheckBox(TerraBundle.settings("confirm.screenshot.deletion"));
-        screenshotDeletionReminderCheckbox.setSelected(isScreenshotDeletionReminderCheckboxSelected);
+        screenshotDeletionConfirmationCheckbox = new JCheckBox(TerraBundle.settings("confirm.screenshot.deletion"));
+        screenshotDeletionConfirmationCheckbox.setSelected(isScreenshotDeletionConfirmationCheckboxSelected);
 
         settingsPanel = FormBuilder.createFormBuilder()
             .addComponent(new TitledSeparator(TerraBundle.settings("wdio.paths.section.title")))
@@ -62,7 +62,7 @@ public class TerraSettingsComponent {
             .addComponent(wdioRootPathsPanel)
             .addVerticalGap(10)
             .addComponent(new TitledSeparator(TerraBundle.settings("terra.wdio.tool.window.section.title")))
-            .addComponent(screenshotDeletionReminderCheckbox)
+            .addComponent(screenshotDeletionConfirmationCheckbox)
             .addComponentFillVertically(new JPanel(), 0)
             .getPanel();
     }
@@ -90,11 +90,11 @@ public class TerraSettingsComponent {
         return rootPaths;
     }
 
-    public void setScreenshotDeletionReminderCheckboxSelected(boolean selected) {
-        screenshotDeletionReminderCheckbox.setSelected(selected);
+    public void setScreenshotDeletionConfirmationCheckboxSelected(boolean selected) {
+        screenshotDeletionConfirmationCheckbox.setSelected(selected);
     }
 
-    public boolean isScreenshotDeletionReminderCheckboxSelected() {
-        return screenshotDeletionReminderCheckbox.isSelected();
+    public boolean isScreenshotDeletionConfirmationCheckboxSelected() {
+        return screenshotDeletionConfirmationCheckbox.isSelected();
     }
 }

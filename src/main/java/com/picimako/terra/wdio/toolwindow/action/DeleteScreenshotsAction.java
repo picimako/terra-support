@@ -135,7 +135,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     }
 
     private boolean isUserSureToDeleteTheScreenshots() {
-        return !TerraApplicationState.getInstance().isShowReminderBeforeScreenshotDeletion
+        return !TerraApplicationState.getInstance().showConfirmationBeforeScreenshotDeletion
             || Messages.showYesNoDialog(project,
             TerraBundle.toolWindow("delete.are.you.sure"),
             TerraBundle.toolWindow("delete.screenshots"),

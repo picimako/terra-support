@@ -50,7 +50,7 @@ public class TerraApplicationState implements PersistentStateComponent<TerraAppl
      *
      * @since 0.5.0
      */
-    public boolean isShowReminderBeforeScreenshotDeletion = true;
+    public boolean showConfirmationBeforeScreenshotDeletion = true;
 
     public TerraApplicationState() {
         wdioRootPaths = new ArrayList<>();

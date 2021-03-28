@@ -42,7 +42,7 @@ public class TerraSettingsConfigurable implements Configurable {
     @Override
     public @Nullable JComponent createComponent() {
         var settings = TerraApplicationState.getInstance();
-        component = new TerraSettingsComponent(new ArrayList<>(settings.wdioRootPaths), settings.isShowReminderBeforeScreenshotDeletion);
+        component = new TerraSettingsComponent(new ArrayList<>(settings.wdioRootPaths), settings.showConfirmationBeforeScreenshotDeletion);
         return component.getSettingsPanel();
     }
 
@@ -50,21 +50,21 @@ public class TerraSettingsConfigurable implements Configurable {
     public boolean isModified() {
         var settings = TerraApplicationState.getInstance();
         return !settings.wdioRootPaths.equals(component.getWdioRootPaths())
-            || !settings.isShowReminderBeforeScreenshotDeletion == component.isScreenshotDeletionReminderCheckboxSelected();
+            || !settings.showConfirmationBeforeScreenshotDeletion == component.isScreenshotDeletionConfirmationCheckboxSelected();
     }
 
     @Override
     public void apply() throws ConfigurationException {
         var settings = TerraApplicationState.getInstance();
         settings.wdioRootPaths = component.getWdioRootPaths();
-        settings.isShowReminderBeforeScreenshotDeletion = component.isScreenshotDeletionReminderCheckboxSelected();
+        settings.showConfirmationBeforeScreenshotDeletion = component.isScreenshotDeletionConfirmationCheckboxSelected();
     }
 
     @Override
     public void reset() {
         var settings = TerraApplicationState.getInstance();
         component.setWdioRootPaths(new ArrayList<>(settings.wdioRootPaths));
-        component.setScreenshotDeletionReminderCheckboxSelected(settings.isShowReminderBeforeScreenshotDeletion);
+        component.setScreenshotDeletionConfirmationCheckboxSelected(settings.showConfirmationBeforeScreenshotDeletion);
     }
 
     @Override

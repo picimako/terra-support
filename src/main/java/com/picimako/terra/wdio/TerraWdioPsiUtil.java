@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
+import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static java.util.stream.Collectors.toSet;
@@ -30,6 +31,8 @@ import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
+import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
+import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -63,6 +66,7 @@ public final class TerraWdioPsiUtil {
 
     //Validation properties
     public static final String MISMATCH_TOLERANCE = "misMatchTolerance";
+    public static final String SELECTOR = "selector";
 
     //Spec files
     public static final String WDIO_SPEC_FILE_NAME_PATTERN = ".*-spec\\.(jsx?|ts)$";
@@ -190,6 +194,40 @@ public final class TerraWdioPsiUtil {
             return methodExpression != null && SCREENSHOT_VALIDATION_NAMES.contains(methodExpression.getText());
         }
         return false;
+    }
+
+    /**
+     * Returns the JS property for the argument property name within the provided PsiElement,
+     * or null if the element has no such property.
+     * <p>
+     * For example, in case of:
+     * <pre>
+     * Terra.validates.element({ misMatchTolerance: 0.7 });
+     * </pre>
+     * it will return the element corresponding to the "{@code misMatchTolerance: 0.7}" part.
+     *
+     * @param element      the Psi element to get the property from
+     * @param propertyName the property name to retrieve the property by
+     * @return the JSProperty for the property, or null
+     */
+    @Nullable
+    public static JSProperty getScreenshotValidationProperty(PsiElement element, String propertyName) {
+        JSExpression[] arguments = null;
+        if (element instanceof JSExpressionStatement) {
+            arguments = getArgumentsOf((JSExpressionStatement) element);
+        } else if (element instanceof JSCallExpression) {
+            JSArgumentList argumentList = ((JSCallExpression) element).getArgumentList();
+            if (argumentList != null) {
+                arguments = argumentList.getArguments();
+            }
+        }
+        if (arguments != null && arguments.length > 0 && arguments.length < 3) {
+            if (arguments[arguments.length - 1] instanceof JSObjectLiteralExpression) {
+                JSObjectLiteralExpression argument = (JSObjectLiteralExpression) arguments[arguments.length - 1];
+                return argument.findProperty(propertyName);
+            }
+        }
+        return null;
     }
 
     private TerraWdioPsiUtil() {

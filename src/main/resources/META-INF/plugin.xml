@@ -87,6 +87,10 @@
         <codeInsight.lineMarkerProvider language="JavaScript"
                                         implementationClass="com.picimako.terra.wdio.screenshot.gutter.TerraScreenshotValidationLineMarkerProvider"/>
 
+        <!-- Inlay hints -->
+        <codeInsight.inlayProvider language="JavaScript"
+                                   implementationClass="com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider"/>
+
         <!-- Settings -->
         <applicationService serviceImplementation="com.picimako.terra.settings.TerraApplicationState"/>
         <applicationConfigurable parentId="tools" instance="com.picimako.terra.settings.TerraSettingsConfigurable"
@@ -103,7 +107,8 @@
         <group id="ScreenshotUsageNavigation" text="Navigate to Screenshot Usage" compact="true">
             <action id="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
                     class="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
-                    text="Navigate to Screenshot Usage" description="Navigates to the Terra call validating this screenshot"
+                    text="Navigate to Screenshot Usage"
+                    description="Navigates to the Terra call validating this screenshot"
                     icon="ImagesIcons.ImagesFileType">
                 <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
             </action>
