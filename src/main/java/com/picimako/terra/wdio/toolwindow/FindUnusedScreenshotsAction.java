@@ -52,7 +52,7 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  *         then remove it from the collection of screenshot names.
  *     </li>
  *     <li>If any screenshot names remain, those ones will be the unused ones, and they are marked with a red exclamation mark
- *     icon. See {@link TerraWdioTreeCellRenderer}.</li>
+ *     icon. See {@link com.picimako.terra.wdio.toolwindow.TerraWdioTree.TerraWdioNodeRenderer}.</li>
  * </ol>
  * Processing of the screenshot validation calls quits as soon as there is no more screenshot name left in the original
  * collection, meaning that all screenshots are used. This makes sure that no file is processed unnecessarily after
@@ -74,7 +74,7 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  * window will not be marked as unused, only when the code part of it is removed as well.
  *
  * @see TerraWdioToolWindowFactory
- * @see TerraWdioTreeCellRenderer
+ * @see com.picimako.terra.wdio.toolwindow.TerraWdioTree.TerraWdioNodeRenderer
  * @since 0.3.0
  */
 final class FindUnusedScreenshotsAction extends AnAction {

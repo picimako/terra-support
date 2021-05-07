@@ -16,7 +16,6 @@
 
 package com.picimako.terra.wdio;
 
-import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_MATCHES_SCREENSHOT;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_VALIDATES_ELEMENT;
@@ -29,8 +28,6 @@ import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
-import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
-import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;

@@ -25,6 +25,7 @@ import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.components.JBScrollPane;
 
 import com.picimako.terra.wdio.toolwindow.action.TerraWdioScreenshotActionsGroup;
@@ -66,6 +67,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         tree = new TerraWdioTree(new TerraWdioTreeModel(project));
         registerActionsAndListenersForTree();
         add(new JBScrollPane(tree));
+        new TreeSpeedSearch(tree);
     }
 
     public TerraWdioTree getTree() {
