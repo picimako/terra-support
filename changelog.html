@@ -1,28 +1,8 @@
-<h4>0.5.0</h4>
-<b>New</b>
-<ul>
-    <li>A new <b>Navigate to Screenshot Usage</b> action is added to the Project View context menu for Terra screenshots,
-        so that navigation to code can happen from there as well, besides the tool window.</li>
-    <li>
-        Added a couple of settings options:
-        <ul>
-            <li>project statistics can now be toggled in the Terra wdio tool window by a dedicated toolbar action</li>
-            <li>screenshot line markers can now be enabled/disabled under <code> Editor > General > Gutter Icons</code></li>
-            <li>wdio test root paths can be customized under <code>Settings > Tools > Terra Support</code></li>
-            <li>an option to enabled/disable the confirmation dialog when deleting a screenshot via the tool window</li>
-        </ul>
-    </li>
-    <li>Added Inlay Hints for Terra screenshot validation calls, to show the referenced screenshot names, and if a CSS selector
-        is not explicitly specified, then show the global selector defined in <code>wdio.conf.js</code>.</li>
-</ul>
+<h4>0.5.1</h4>
 
 <b>Bugfix</b>
 <ul>
-    <li>Fixed an issue in <code>TerraDescribeViewportsBlockingInspection</code> that reported false positive results when the viewports argument
-        in <code>Terra.describeViewports</code> blocks were referenced variables, function calls, etc. instead of a string literal.</li>
+    <li>Fixed an issue with the diff and latest/reference previews due to API changes in IJ 2021.1. It caused the IDE
+    to become unresponsive after opening either of these previews, due to a null value under the hood.</li>
 </ul>
 
-<b>Maintenance</b>
-<ul>
-    <li>Optimized the project's unit test area, also making the project size much smaller.</li>
-</ul>
