@@ -53,14 +53,14 @@ public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWd
      * It doesn't matter which latest image is opened because the reference/latest preview will display all of them,
      * it is only the name of the image that is required.
      * <p>
-     * If an editor for the file is already open, it focuses that editor.
+     * If an editor for the file is already open, it puts that editor in focus.
      *
      * @param tree    the wdio tree where this action is invoked on
      * @param project the project
      */
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
-        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
+        if (project!= null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             List<VirtualFile> latests = asScreenshot(tree.getLastSelectedPathComponent()).getLatests();
             if (!latests.isEmpty()) {
                 VirtualFile fileToOpen = latests.get(0);

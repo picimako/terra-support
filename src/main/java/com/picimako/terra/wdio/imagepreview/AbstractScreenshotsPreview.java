@@ -28,6 +28,7 @@ import javax.swing.*;
 
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorLocation;
+import com.intellij.openapi.fileEditor.FileEditorProvider;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
@@ -70,6 +71,24 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     public List<ScreenshotDiff> getScreenshotDiffs() {
         return screenshotDiffs;
+    }
+
+    /**
+     * Overriding and implementing this method is required. Since 2021.1
+     * {@link com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl#createPlaceInfo(FileEditor, FileEditorProvider)}
+     * has changed how it retrieves the file associated with the editor.
+     * <p>
+     * Since then, it is retrieved from {@link FileEditor} instead of {@link com.intellij.openapi.fileEditor.ex.FileEditorManagerEx}.
+     * <p>
+     * If this method is not implemented, opening any of the Terra screenshot editors will fail with NPE due the default implementation
+     * of this method.
+     * <p>
+     * See the related <a href="https://youtrack.jetbrains.com/issue/IDEA-264044">YouTrack ticket</a> for details.
+     */
+    @Override
+    public @Nullable VirtualFile getFile() {
+        //At this point it is guaranteed that there will be at least one file to associate the editor with.
+        return screenshotDiffs.get(0).getOriginal();
     }
 
     @Override

@@ -53,14 +53,14 @@ public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction
      * It doesn't matter which diff image is opened because the diff preview will display all of them,
      * it is only the name of the image that is required.
      * <p>
-     * If an editor for the file is already open, it focuses that editor.
+     * If an editor for the file is already open, it puts that editor in focus.
      *
      * @param tree    the wdio tree where this action is invoked on
      * @param project the project
      */
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
-        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
+        if (project != null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             VirtualFile fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getDiffs().get(0);
             FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
             fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
