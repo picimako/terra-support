@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.5.1
+
+#### BUGFIX
+- Fixed an issue with the diff and latest/reference previews due to API changes in IJ 2021.1. It caused the IDE
+  to become unresponsive after opening either of these previews, due to a null value under the hood.
+
 ### 0.5.0
 
 #### NEW
