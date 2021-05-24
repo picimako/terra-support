@@ -18,6 +18,7 @@ package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.MISMATCH_TOLERANCE;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.MIS_MATCH_TOLERANCE;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -76,7 +77,7 @@ public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInsp
                 super.visitJSExpressionStatement(node);
 
                 if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
-                    JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MISMATCH_TOLERANCE);
+                    JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
                     if (misMatchToleranceProperty != null) {
                         checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
                         if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {

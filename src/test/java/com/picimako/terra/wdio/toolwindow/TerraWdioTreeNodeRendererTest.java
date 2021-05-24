@@ -25,8 +25,14 @@ import javax.swing.*;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
+
 /**
- * Unit test for {@link com.picimako.terra.wdio.toolwindow.TerraWdioTree.TerraWdioNodeRenderer}.
+ * Unit test for {@link TerraWdioTree.TerraWdioNodeRenderer}.
  */
 public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
 
@@ -44,22 +50,22 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
     }
 
     public void testSetFontAndTextForModelDataRoot() {
-        TerraWdioTreeModelDataRoot dataRoot = new TerraWdioTreeModelDataRoot("root", getProject());
+        TreeModelDataRoot dataRoot = new TreeModelDataRoot("root", getProject());
 
         customizeComponent(tree, dataRoot);
-        validateComponent(new Font("font", Font.PLAIN, 14), "root (0 specs, 0 screenshots)");
+        validateComponent(new Font("font", Font.PLAIN, 14), "Wdio Resources (0 specs, 0 screenshots)");
     }
 
     public void testSetFontAndTextForSpecNode() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
+        TreeSpecNode spec = new TreeSpecNode("spec", getProject());
 
         customizeComponent(tree, spec);
         validateComponent(new Font("font", Font.PLAIN, 14), "spec");
     }
 
     public void testMarkSpecNodeAsDiff() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", getProject());
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
+        TreeSpecNode spec = new TreeSpecNode("spec", getProject());
+        TreeScreenshotNode screenshot = new TreeScreenshotNode("screenshot", getProject());
         screenshot.addDiff(mock(VirtualFile.class));
         spec.addScreenshot(screenshot);
 
@@ -68,14 +74,14 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
     }
 
     public void testSetFontAndTextForScreenshotNode() {
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
+        TreeScreenshotNode screenshot = new TreeScreenshotNode("screenshot", getProject());
 
         customizeComponent(tree, screenshot);
         validateComponent(new Font("font", Font.PLAIN, 14), "screenshot (0)");
     }
 
     public void testScreenshotNodeAsDiff() {
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", getProject());
+        TreeScreenshotNode screenshot = new TreeScreenshotNode("screenshot", getProject());
         screenshot.addDiff(mock(VirtualFile.class));
 
         customizeComponent(tree, screenshot);

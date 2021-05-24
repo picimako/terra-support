@@ -18,8 +18,8 @@ package com.picimako.terra.wdio.toolwindow.event;
 
 import javax.swing.tree.TreePath;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
 
 /**
  * Utility class to retrieve the node type selected in the Terra wdio tool window.
@@ -44,7 +44,7 @@ final class TreeNodeTypeIdentifier {
                 tree.setSelectionRow(selectionRow);
             }
             //Indicates that this particular action popup should be displayed only for a screenshot or a spec node in the tree
-            if (path.getLastPathComponent() instanceof TerraWdioTreeScreenshotNode) {
+            if (path.getLastPathComponent() instanceof TreeScreenshotNode) {
                 itemToSelect = "Screenshot";
 //              } else if (path.getLastPathComponent() instanceof TerraWdioTreeSpecNode) {
 //                  itemToSelect = "Spec";

@@ -24,6 +24,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.intellij.testFramework.TestActionEvent;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
+
 /**
  * Unit test for {@link FindUnusedScreenshotsAction}.
  */
@@ -47,10 +52,10 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
 
         TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
         TerraWdioTree tree = new TerraWdioTree(treeModel);
-        FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree);
+        FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TerraWdioTreeSpecNode relatedFindUnusedScreenshotSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
-        assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
+        TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(new TestActionEvent());
 
@@ -71,10 +76,10 @@ public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
 
         TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
         TerraWdioTree tree = new TerraWdioTree(treeModel);
-        FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree);
+        FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TerraWdioTreeSpecNode nonRelatedSomeSpec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
-        assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TerraWdioTreeScreenshotNode::isUnused)).isTrue();
+        TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(new TestActionEvent());
 

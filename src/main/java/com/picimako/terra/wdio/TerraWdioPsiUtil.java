@@ -24,6 +24,7 @@ import static java.util.stream.Collectors.toSet;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import com.intellij.lang.javascript.psi.JSArgumentList;
@@ -65,7 +66,10 @@ public final class TerraWdioPsiUtil {
     public static final String TERRA_IT = "Terra.it";
 
     //Validation properties
-    public static final String MISMATCH_TOLERANCE = "misMatchTolerance";
+    //terra-functional-testing version
+    public static final String MISMATCH_TOLERANCE = "mismatchTolerance";
+    //terra-toolkit version
+    public static final String MIS_MATCH_TOLERANCE = "misMatchTolerance";
     public static final String SELECTOR = "selector";
 
     //Spec files
@@ -207,11 +211,11 @@ public final class TerraWdioPsiUtil {
      * it will return the element corresponding to the "{@code misMatchTolerance: 0.7}" part.
      *
      * @param element      the Psi element to get the property from
-     * @param propertyName the property name to retrieve the property by
+     * @param propertyNameVariants variants of a property name to retrieve any of them if found
      * @return the JSProperty for the property, or null
      */
     @Nullable
-    public static JSProperty getScreenshotValidationProperty(PsiElement element, String propertyName) {
+    public static JSProperty getScreenshotValidationProperty(PsiElement element, String... propertyNameVariants) {
         JSExpression[] arguments = null;
         if (element instanceof JSExpressionStatement) {
             arguments = getArgumentsOf((JSExpressionStatement) element);
@@ -224,7 +228,11 @@ public final class TerraWdioPsiUtil {
         if (arguments != null && arguments.length > 0 && arguments.length < 3) {
             if (arguments[arguments.length - 1] instanceof JSObjectLiteralExpression) {
                 JSObjectLiteralExpression argument = (JSObjectLiteralExpression) arguments[arguments.length - 1];
-                return argument.findProperty(propertyName);
+                return Arrays.stream(propertyNameVariants)
+                    .map(argument::findProperty)
+                    .filter(Objects::nonNull)
+                    .findAny()
+                    .orElse(null);
             }
         }
         return null;

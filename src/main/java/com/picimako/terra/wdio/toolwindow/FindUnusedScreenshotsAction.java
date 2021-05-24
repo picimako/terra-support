@@ -32,11 +32,16 @@ import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
+import com.picimako.terra.wdio.TerraResourceManager;
+import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * An action for the Terra Wdio tool window for collecting unused wdio screenshots in the project and marking them
@@ -52,7 +57,7 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  *         then remove it from the collection of screenshot names.
  *     </li>
  *     <li>If any screenshot names remain, those ones will be the unused ones, and they are marked with a red exclamation mark
- *     icon. See {@link com.picimako.terra.wdio.toolwindow.TerraWdioTree.TerraWdioNodeRenderer}.</li>
+ *     icon. See {@link TerraWdioTree.TerraWdioNodeRenderer}.</li>
  * </ol>
  * Processing of the screenshot validation calls quits as soon as there is no more screenshot name left in the original
  * collection, meaning that all screenshots are used. This makes sure that no file is processed unnecessarily after
@@ -74,17 +79,18 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  * window will not be marked as unused, only when the code part of it is removed as well.
  *
  * @see TerraWdioToolWindowFactory
- * @see com.picimako.terra.wdio.toolwindow.TerraWdioTree.TerraWdioNodeRenderer
+ * @see TerraWdioTree.TerraWdioNodeRenderer
  * @since 0.3.0
  */
 final class FindUnusedScreenshotsAction extends AnAction {
 
-    private final TerraScreenshotNameResolver resolver = new TerraScreenshotNameResolver();
+    private final ScreenshotNameResolver resolver;
     private final TerraWdioTree tree;
 
-    FindUnusedScreenshotsAction(TerraWdioTree tree) {
+    FindUnusedScreenshotsAction(TerraWdioTree tree, Project project) {
         super(toolWindow("find.unused.screenshots"), toolWindow("find.unused.screenshots.description"), AllIcons.Actions.Execute);
         this.tree = tree;
+        resolver = TerraResourceManager.getInstance(project).screenshotNameResolver();
     }
 
     @Override
@@ -92,7 +98,7 @@ final class FindUnusedScreenshotsAction extends AnAction {
         final List<PsiFile> specFiles = new ArrayList<>();
         collectSpecFiles(findDirectory(e.getProject(), wdioRootRelativePath(e.getProject())), specFiles);
 
-        TerraWdioTreeModelDataRoot root = (TerraWdioTreeModelDataRoot) tree.getModel().getRoot();
+        TreeModelDataRoot root = (TreeModelDataRoot) tree.getModel().getRoot();
         final List<String> screenshotPaths = markUsedAndGetAllScreenshotPaths(root);
 
         for (PsiFile specFile : specFiles) {
@@ -118,10 +124,10 @@ final class FindUnusedScreenshotsAction extends AnAction {
      *
      * @return the list of screenshot names in the project
      */
-    private List<String> markUsedAndGetAllScreenshotPaths(TerraWdioTreeModelDataRoot root) {
-        final List<String> names = new ArrayList<>();
-        for (TerraWdioTreeSpecNode spec : root.getSpecs()) {
-            for (TerraWdioTreeScreenshotNode screenshot : spec.getScreenshots()) {
+    private List<String> markUsedAndGetAllScreenshotPaths(TreeModelDataRoot root) {
+        final List<String> names = new SmartList<>();
+        for (var spec : root.getSpecs()) {
+            for (var screenshot : spec.getScreenshots()) {
                 screenshot.setUnused(false);
                 names.add(spec.getDisplayName() + "/" + screenshot.getDisplayName());
             }
@@ -135,9 +141,9 @@ final class FindUnusedScreenshotsAction extends AnAction {
      * @param root            the root node of the tree model containing the spec and screenshot nodes
      * @param screenshotPaths the collection of screenshot names to mark unused
      */
-    private void markScreenshotsAsUnused(TerraWdioTreeModelDataRoot root, List<String> screenshotPaths) {
-        for (TerraWdioTreeSpecNode spec : root.getSpecs()) {
-            for (TerraWdioTreeScreenshotNode screenshot : spec.getScreenshots()) {
+    private void markScreenshotsAsUnused(TreeModelDataRoot root, List<String> screenshotPaths) {
+        for (var spec : root.getSpecs()) {
+            for (var screenshot : spec.getScreenshots()) {
                 for (String screenshotPath : screenshotPaths) {
                     if (screenshotPath.equals(spec.getDisplayName() + "/" + screenshot.getDisplayName())) {
                         screenshot.setUnused(true);

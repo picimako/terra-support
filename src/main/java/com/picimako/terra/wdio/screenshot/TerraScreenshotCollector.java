@@ -34,6 +34,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
@@ -55,11 +56,12 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  */
 public class TerraScreenshotCollector {
 
-    private final TerraScreenshotNameResolver screenshotNameResolver = new TerraScreenshotNameResolver();
+    private final ScreenshotNameResolver screenshotNameResolver;
     private final Project project;
 
     public TerraScreenshotCollector(Project project) {
         this.project = project;
+        screenshotNameResolver = TerraResourceManager.getInstance(project).screenshotNameResolver();
     }
 
     /**
@@ -113,6 +115,11 @@ public class TerraScreenshotCollector {
      * @return the array of screenshots found
      */
     private PsiElement[] collect(PsiElement element, Supplier<String> nameSupplier) {
+        //TODO: unit test
+        if (element == null || nameSupplier.get().isEmpty()) {
+            return PsiElement.EMPTY_ARRAY;
+        }
+
         PsiDirectory specFileDirectory = element.getContainingFile().getParent();
         if (specFileDirectory != null) {
             PsiDirectory snapshotsDirectory = specFileDirectory.findSubdirectory(TerraWdioFolders.SNAPSHOTS);

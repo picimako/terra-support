@@ -54,7 +54,7 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
         addTab(toolWindow, screenshotsPanel);
         if (isSetTitleActionSupported()) {
             toolWindow.setTitleActions(List.of(
-                new FindUnusedScreenshotsAction(screenshotsPanel.getTree()),
+                new FindUnusedScreenshotsAction(screenshotsPanel.getTree(), project),
                 new ToggleStatisticsAction(() -> screenshotsPanel.getTree().updateUI())
             ));
         }

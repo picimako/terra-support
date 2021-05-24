@@ -17,8 +17,8 @@
 package com.picimako.terra.wdio.toolwindow.action;
 
 import static com.intellij.openapi.ui.Messages.YES;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.settings.TerraApplicationState;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
  * An action to delete screenshot files via the Terra wdio tool window.
@@ -83,7 +83,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             if (isUserSureToDeleteTheScreenshots()) {
-                TerraWdioTreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+                TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
                 final List<String> erroredFilePaths = new ArrayList<>();
                 final List<VirtualFile> deletedScreenshotReferences = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                 //Delete the screenshot node from the tree model, and update the UI,
                 //so that the changes are reflected in the tool window, otherwise show message dialog that deletion was not successful.
                 if (erroredFilePaths.isEmpty()) {
-                    TerraWdioTreeSpecNode parentSpec = tree.getParentSpecOfSelected();
+                    TreeSpecNode parentSpec = tree.getParentSpecOfSelected();
                     parentSpec.getScreenshots().remove(selectedScreenshotNode);
 
                     //If there is no screenshot node left under the parent spec node after the deletion, then remove the spec node as well. Fixes #19.
@@ -126,7 +126,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      * @param parentSpec the spec node to remove
      * @param tree       the tree to remove from
      */
-    private void removeSpecNode(TerraWdioTreeSpecNode parentSpec, TerraWdioTree tree) {
+    private void removeSpecNode(TreeSpecNode parentSpec, TerraWdioTree tree) {
         //Save the expansion state of nodes from before removing the spec node
         Enumeration<TreePath> expandedNodes = tree.getAllExpandedNodes();
         tree.getRoot().getSpecs().remove(parentSpec);

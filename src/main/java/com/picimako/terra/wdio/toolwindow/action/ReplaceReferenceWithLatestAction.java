@@ -16,8 +16,8 @@
 
 package com.picimako.terra.wdio.toolwindow.action;
 
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -38,9 +38,9 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioFolders;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
  * An action to replace reference screenshot files with latest screenshots via the Terra wdio tool window.
@@ -78,7 +78,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TerraWdioTreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
 
             final List<String> erroredFilePaths = new ArrayList<>();
             final Set<VirtualFile> referencesToRemove = new HashSet<>();
@@ -114,7 +114,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
             });
 
             if (erroredFilePaths.isEmpty()) {
-                TerraWdioTreeSpecNode parentSpec = (TerraWdioTreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+                TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
                 parentSpec.reorderScreenshotsAlphabeticallyByDisplayName();
                 tree.updateUI();
             } else {

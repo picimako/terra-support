@@ -33,8 +33,8 @@ import com.intellij.refactoring.suggested.startOffset
 import com.intellij.ui.layout.panel
 import com.intellij.util.ui.JBUI
 import com.picimako.terra.resources.TerraBundle
+import com.picimako.terra.wdio.TerraResourceManager
 import com.picimako.terra.wdio.TerraWdioPsiUtil.*
-import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver
 import com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorRetriever
 import javax.swing.DefaultComboBoxModel
 import javax.swing.JComponent
@@ -63,7 +63,6 @@ import javax.swing.JComponent
  */
 class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInlayHintsProvider.Settings> {
 
-    private val nameResolver = TerraScreenshotNameResolver()
     private val globalSelectorRetriever = GlobalTerraSelectorRetriever()
 
     companion object {
@@ -141,6 +140,7 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
                     var addedInlineScreenshot = false
                     if (settings.showScreenshotName != InlayType.Disabled) {
                         val nameExpr = getFirstArgumentAsStringLiteral(element.argumentList);
+                        val nameResolver = TerraResourceManager.getInstance(element.project).screenshotNameResolver();
                         val screenshotName = nameResolver.resolveWithFallback(nameExpr, element.methodExpression);
                         when (settings.showScreenshotName) {
                             InlayType.Inline -> {

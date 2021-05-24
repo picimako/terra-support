@@ -38,8 +38,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * screenshot exists, and if there's none, then reports the problem.
  * <p>
  * In case the name parameter is not specified, the default value {@code default} is used for the screenshot lookup.
- * <p>
- * For screenshot name resolution see {@link com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver}.
  *
  * @since 0.2.0
  */

@@ -56,8 +56,6 @@ import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
  */
 public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
 
-    private final ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
-
     public NavigateToScreenshotUsageProjectViewAction() {
         super(TerraBundle.message("terra.wdio.project.view.screenshot.navigate.to.usage"));
     }
@@ -81,7 +79,7 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
                         .filter(file -> file.getVirtualFile().getNameWithoutExtension().equals(specId))
                         .findFirst()
                         .ifPresentOrElse(specFile -> {
-                            if (!navigator.navigateToUsage(specFile, selectedScreenshot.getName())) {
+                            if (!new ToScreenshotUsageNavigator(e.getProject()).navigateToUsage(specFile, selectedScreenshot.getName())) {
                                 showNoValidationCallToNavigateToDialog();
                             }
                         }, ProblemDialogs::showNoSpecFileToNavigateToDialog);

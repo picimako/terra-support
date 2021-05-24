@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
@@ -129,22 +128,6 @@ public final class TerraWdioFolders {
     }
 
     /**
-     * Collect spec folders within the provided Terra wdio test root, and within that inside the provided {@code imageType} folder
-     * (diff, latest or reference), and return it as a {@link Stream} for further manipulation.
-     *
-     * @param imageType                 the image type folder to collect the spec folders from
-     * @param filesAndFoldersInWdioRoot the list of files and folders inside the wdio test root
-     * @return the stream of virtual files for the necessary spec folders
-     */
-    @NotNull
-    public static Stream<VirtualFile> collectSpecFoldersInside(@NotNull String imageType, @NotNull List<VirtualFile> filesAndFoldersInWdioRoot) {
-        return filesAndFoldersInWdioRoot.stream()
-            .filter(VirtualFile::isDirectory)
-            .filter(dir -> dir.getName().endsWith("-spec"))
-            .filter(dir -> imageType.equals(dir.getParent().getParent().getParent().getName()));
-    }
-
-    /**
      * Gets the value that identifies a spec folder within a {@code __snapshots__} folder.
      * <p>
      * The identifier is the spec folder's name concatenated to the relative path from the wdio test root.
@@ -235,7 +218,6 @@ public final class TerraWdioFolders {
      *
      * @param file the file to check the location of
      * @return true if the file is under __snapshots__ directory, false otherwise
-     *
      * @since 0.5.0
      */
     public static boolean isInSnapshotsDirectory(@Nullable VirtualFile file) {
@@ -393,6 +375,17 @@ public final class TerraWdioFolders {
 
     public static void setWdioTestRootPath(String path) {
         wdioTestRootPath = path;
+    }
+
+    /**
+     * Refreshes the argument virtual file and returns whether it still exists or not.
+     */
+    public static boolean existsAfterRefresh(@Nullable VirtualFile virtualFile) {
+        if (virtualFile != null) {
+            virtualFile.refresh(false, virtualFile.isDirectory());
+            return virtualFile.exists();
+        }
+        return false;
     }
 
     private TerraWdioFolders() {

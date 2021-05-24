@@ -30,11 +30,11 @@ import com.intellij.psi.PsiManager;
 import com.intellij.testFramework.TestActionEvent;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModel;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModelDataRoot;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
  * Unit test for {@link NavigateToScreenshotUsageAction}.
@@ -108,8 +108,8 @@ public class NavigateToScreenshotUsageActionTest extends BasePlatformTestCase {
     private TerraWdioTree wdioTree() {
         TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
         TerraWdioTree tree = new TerraWdioTree(treeModel);
-        TerraWdioTreeSpecNode spec = ((TerraWdioTreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
-        TerraWdioTreeScreenshotNode screenshot = spec.getScreenshot(0);
+        TreeSpecNode spec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeScreenshotNode screenshot = spec.getScreenshot(0);
         tree.addSelectionPath(new TreePath(new Object[]{treeModel.getRoot(), spec, screenshot}));
         return tree;
     }

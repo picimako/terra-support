@@ -34,6 +34,7 @@ import com.picimako.terra.wdio.toolwindow.event.MouseListeningPopupMenuInvoker;
 import com.picimako.terra.wdio.toolwindow.event.MouseListeningScreenshotNodeActionInvoker;
 import com.picimako.terra.wdio.toolwindow.event.ShortcutKeyListeningScreenshotNodeActionInvoker;
 import com.picimako.terra.wdio.toolwindow.event.ToolWindowPopupMenuInvoker;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * A custom tool window panel to contain and display the Terra wdio spec files and screenshots in a custom view.

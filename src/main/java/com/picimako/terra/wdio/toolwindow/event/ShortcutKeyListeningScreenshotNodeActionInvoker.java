@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.action.AbstractTerraWdioToolWindowAction;
 import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction;
