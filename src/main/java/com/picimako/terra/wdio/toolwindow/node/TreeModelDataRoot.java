@@ -78,6 +78,7 @@ public class TreeModelDataRoot extends AbstractTerraWdioTreeNode {
     @Override
     public void dispose() {
         super.dispose();
+        specs.forEach(TreeSpecNode::dispose);
         specs.clear();
     }
 }

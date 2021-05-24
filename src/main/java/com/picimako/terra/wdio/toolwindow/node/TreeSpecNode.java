@@ -133,6 +133,7 @@ public class TreeSpecNode extends AbstractTerraWdioTreeNode {
     @Override
     public void dispose() {
         super.dispose();
+        screenshots.forEach(TreeScreenshotNode::dispose);
         screenshots.clear();
     }
 }
