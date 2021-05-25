@@ -5,6 +5,7 @@
     <version>0.6.0-SNAPSHOT</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
+    <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
     <idea-version since-build="202"/>
@@ -99,7 +100,6 @@
 
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
-        <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
 
     </extensions>
 

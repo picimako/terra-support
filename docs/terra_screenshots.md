@@ -204,10 +204,11 @@ Terra.it.validatesElement({ selector: '#root' });
 
 ## Quick Documentation
 
-### Terra WDIO objects and functions
+### Terra WDIO helpers and functions
 
-There are a few external documentations on GitHub that are useful for Terra wdio testing. Currently these are:
+There are a few external documentations on GitHub that are useful for Terra wdio testing. The follow ones are provided to users:
 - [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
+- [Terra Functional Testing](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/about)
 - [Axe Accessibility Rule Descriptions](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)
 
 To make them easily available, they are included in the Quick Documentation popup of each Terra object and function name that are related to wdio testing.
