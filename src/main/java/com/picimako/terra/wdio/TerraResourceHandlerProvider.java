@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio;
 
 import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
+import com.picimako.terra.wdio.screenshot.inspection.TerraPropertiesProvider;
 
 /**
  * Provides terra resources handlers based on which terra testing library is used in the project.
@@ -30,4 +31,6 @@ public interface TerraResourceHandlerProvider {
     ScreenshotContextParser screenshotContextParser(String contextSeparator);
 
     SpecFolderCollector specFolderCollector();
+
+    TerraPropertiesProvider screenshotValidationProperties();
 }

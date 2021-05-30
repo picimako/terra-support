@@ -23,6 +23,8 @@ import com.intellij.openapi.project.Project;
 
 import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
 import com.picimako.terra.wdio.screenshot.TerraFunctionalTestingScreenshotNameResolver;
+import com.picimako.terra.wdio.screenshot.inspection.TerraPropertiesProvider;
+import com.picimako.terra.wdio.screenshot.inspection.TerraFunctionalTestingPropertiesProvider;
 
 /**
  * Provides terra-functional-testing specific resource handlers.
@@ -33,6 +35,7 @@ public final class TerraFunctionalTestingManager extends TerraResourceManager {
     private ScreenshotNameResolver nameResolver;
     private ScreenshotContextParser contextParser;
     private ScreenshotContextParser contextParserWithSeparator;
+    private TerraPropertiesProvider propertiesProvider;
 
     //Required for project service creation
     public TerraFunctionalTestingManager(Project project) {
@@ -56,5 +59,10 @@ public final class TerraFunctionalTestingManager extends TerraResourceManager {
     @Override
     public SpecFolderCollector specFolderCollector() {
         return SpecFolderCollector.TERRA_FUNCTIONAL_TESTING_SPEC_COLLECTOR;
+    }
+
+    @Override
+    public TerraPropertiesProvider screenshotValidationProperties() {
+        return Optional.ofNullable(propertiesProvider).orElseGet(() -> propertiesProvider = new TerraFunctionalTestingPropertiesProvider());
     }
 }

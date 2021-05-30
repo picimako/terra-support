@@ -59,6 +59,10 @@
                          displayName="Screenshot selector matches global selector"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorInspection"/>
+        <localInspection id="invalidTerraValidationProperties" language="JavaScript"
+                         displayName="Invalid validation properties"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.InvalidTerraValidationPropertiesInspection"/>
 
         <!-- Terra wdio tool window -->
         <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"

@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraItMatchesScreenshotExpression;
 
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;

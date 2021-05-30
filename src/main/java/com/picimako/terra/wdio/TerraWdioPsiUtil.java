@@ -25,6 +25,7 @@ import static java.util.stream.Collectors.toSet;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import com.intellij.lang.javascript.psi.JSArgumentList;
@@ -35,6 +36,7 @@ import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,14 +70,18 @@ public final class TerraWdioPsiUtil {
     //Validation properties
     //terra-functional-testing version
     public static final String MISMATCH_TOLERANCE = "mismatchTolerance";
+    public static final String RULES = "rules";
     //terra-toolkit version
     public static final String MIS_MATCH_TOLERANCE = "misMatchTolerance";
     public static final String SELECTOR = "selector";
+    public static final String VIEWPORTS = "viewports";
+    public static final String AXE_RULES = "axeRules";
 
     //Spec files
     public static final String WDIO_SPEC_FILE_NAME_PATTERN = ".*-spec\\.(jsx?|ts)$";
 
-    private static final Set<String> TERRA_FUNCTIONS = Set.of(TERRA_DESCRIBE_VIEWPORTS, TERRA_VIEWPORTS, TERRA_HIDE_INPUT_CARET,
+    private static final Set<String> TERRA_FUNCTIONS = Set.of(
+        TERRA_DESCRIBE_VIEWPORTS, TERRA_VIEWPORTS, TERRA_HIDE_INPUT_CARET,
         TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_IT_IS_ACCESSIBLE,
         TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT, TERRA_VALIDATES_ACCESSIBILITY,
         TERRA_VALIDATES, TERRA_IT);
@@ -85,8 +91,8 @@ public final class TerraWdioPsiUtil {
      */
     public static final List<String> SUPPORTED_TERRA_VIEWPORTS = List.of("tiny", "small", "medium", "large", "huge", "enormous");
 
-    public static final Set<String> SCREENSHOT_VALIDATION_NAMES = Set.of(TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT,
-        TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT);
+    public static final Set<String> SCREENSHOT_VALIDATION_NAMES = Set.of(
+        TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT, TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT);
 
 
     /**
@@ -166,8 +172,7 @@ public final class TerraWdioPsiUtil {
      * @return true if the element is one of the Terra wdio objects or functions, false otherwise
      */
     public static boolean isAnyOfTerraWdioFunctions(@NotNull PsiElement element) {
-        PsiElement parent = element.getParent();
-        return parent != null && TERRA_FUNCTIONS.contains(parent.getText());
+        return element.getParent() != null && TERRA_FUNCTIONS.contains(element.getParent().getText());
     }
 
     /**
@@ -201,6 +206,55 @@ public final class TerraWdioPsiUtil {
     }
 
     /**
+     * Returns whether the argument element is a top level expression.
+     * <p>
+     * This is achieved by checking whether the element's parent is the containing file itself.
+     *
+     * @param element the element to check
+     * @since 0.6.0
+     */
+    public static boolean isTopLevelExpression(@NotNull PsiElement element) {
+        return element.getParent() instanceof PsiFile;
+    }
+
+    /**
+     * Gets whether the argument element is a {@code Terra.it.matchesScreenshot()} call at any level deep.
+     * <p>
+     * Such calls at top level are ignored.
+     *
+     * @param element the Psi element to check
+     * @return true if the argument is a non-top-level {@code Terra.it.matchesScreenshot()}, false otherwise
+     */
+    public static boolean isTerraItMatchesScreenshotExpression(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_MATCHES_SCREENSHOT);
+    }
+
+    /**
+     * Gets whether the argument element corresponds to one of the Terra function calls that do screenshot validation,
+     * namely: {@code Terra.it.matchesScreenshot}, {@code Terra.it.validatesElement}, {@code Terra.validates.screenshot}
+     * and {@code Terra.validates.element}.
+     *
+     * @param element the element to validate
+     * @return true if the argument is one of the Terra screenshot matching functions, false otherwise
+     */
+    public static boolean isTerraElementOrScreenshotValidationFunction(PsiElement element) {
+        return !isTopLevelExpression(element)
+            && hasText(element, TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT);
+    }
+
+    public static boolean isScreenshotValidation(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_MATCHES_SCREENSHOT, TERRA_VALIDATES_SCREENSHOT);
+    }
+
+    public static boolean isElementValidation(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_VALIDATES_ELEMENT, TERRA_VALIDATES_ELEMENT);
+    }
+
+    public static boolean isAccessibilityValidation(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_IS_ACCESSIBLE, TERRA_VALIDATES_ACCESSIBILITY);
+    }
+
+    /**
      * Returns the JS property for the argument property name within the provided PsiElement,
      * or null if the element has no such property.
      * <p>
@@ -210,12 +264,23 @@ public final class TerraWdioPsiUtil {
      * </pre>
      * it will return the element corresponding to the "{@code misMatchTolerance: 0.7}" part.
      *
-     * @param element      the Psi element to get the property from
+     * @param element              the Psi element to get the property from
      * @param propertyNameVariants variants of a property name to retrieve any of them if found
      * @return the JSProperty for the property, or null
      */
     @Nullable
     public static JSProperty getScreenshotValidationProperty(PsiElement element, String... propertyNameVariants) {
+        JSObjectLiteralExpression propertiesObject = getTerraValidationPropertyObject(element);
+        return propertiesObject != null
+            ? Arrays.stream(propertyNameVariants)
+            .map(propertiesObject::findProperty)
+            .filter(Objects::nonNull)
+            .findAny()
+            .orElse(null)
+            : null;
+    }
+
+    private static JSObjectLiteralExpression getTerraValidationPropertyObject(PsiElement element) {
         JSExpression[] arguments = null;
         if (element instanceof JSExpressionStatement) {
             arguments = getArgumentsOf((JSExpressionStatement) element);
@@ -225,17 +290,23 @@ public final class TerraWdioPsiUtil {
                 arguments = argumentList.getArguments();
             }
         }
-        if (arguments != null && arguments.length > 0 && arguments.length < 3) {
-            if (arguments[arguments.length - 1] instanceof JSObjectLiteralExpression) {
-                JSObjectLiteralExpression argument = (JSObjectLiteralExpression) arguments[arguments.length - 1];
-                return Arrays.stream(propertyNameVariants)
-                    .map(argument::findProperty)
-                    .filter(Objects::nonNull)
-                    .findAny()
-                    .orElse(null);
-            }
+        if (arguments != null && arguments.length > 0 && arguments.length < 3 && arguments[arguments.length - 1] instanceof JSObjectLiteralExpression) {
+            return (JSObjectLiteralExpression) arguments[arguments.length - 1];
         }
+
         return null;
+    }
+
+    /**
+     * Returns the list of JS properties from Terra.it and Terra.validates helpers.
+     *
+     * @param element the JSExpressionStatement to get the properties from
+     * @since 0.6.0
+     */
+    public static JSProperty[] getTerraValidationProperties(PsiElement element) {
+        return Optional.ofNullable(getTerraValidationPropertyObject(element))
+            .map(JSObjectLiteralExpression::getProperties)
+            .orElse(JSProperty.EMPTY_ARRAY);
     }
 
     private TerraWdioPsiUtil() {

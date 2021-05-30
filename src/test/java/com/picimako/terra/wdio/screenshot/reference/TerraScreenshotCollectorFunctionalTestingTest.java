@@ -23,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
@@ -67,5 +68,11 @@ public class TerraScreenshotCollectorFunctionalTestingTest extends BasePlatformT
         myFixture.copyFileToProject(reference("/terra-default-theme/en/chrome_huge/CollectScreenshots-spec/terra_screenshot.png"));
         myFixture.copyFileToProject(reference("/clinical-lowlight-theme/en/chrome_medium/CollectScreenshots-spec/terra_screenshot.png"));
         myFixture.copyFileToProject(latest("/clinical-lowlight-theme/en/chrome_huge/CollectScreenshots-spec/terra_screenshot.png"));
+    }
+
+    //To fix the test failure when copying package.json to the project
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new LightProjectDescriptor();
     }
 }

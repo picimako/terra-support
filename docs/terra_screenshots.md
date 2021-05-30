@@ -147,6 +147,24 @@ Terra.validates.element('an element'); // #global-selector
 |---|---|
 | [`GlobalTerraSelectorInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/GlobalTerraSelectorInspection.java) | v0.2.0 |
 
+### Invalid Terra validation properties
+
+This inspection reports JS properties of `Terra.it` and `Terra.validates` helpers, that are not applicable to the particular helpers.
+
+It handles both terra-toolkit and terra-functional-testing specific properties based on which library is used in the project.
+
+**Valid properties**
+
+| Helpers | terra-toolkit | terra-functional-testing |
+|---|---|---|
+| `Terra.it.matchesScreenshot`/`validates.screenshot` | `misMatchTolerance`, `selector`, `viewports` | `mismatchTolerance`, `selector` |
+| `Terra.it.validatesElement`/`validates.element` | `misMatchTolerance`, `selector`, `axeRules` | `mismatchTolerance`, `selector`, `rules` |
+| `Terra.it.isAccessible`/`validates.accessibility` | `axeRules` | `rules` |
+
+| Implementation class | Introduced in |
+|---|---|
+| [`InvalidTerraValidationPropertiesInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/InvalidTerraValidationPropertiesInspection.java) | v0.6.0 |
+
 ## References
 
 By invoking one of the "Go to declaration" shortcuts on the first, String parameter of screenshot validation function calls, you can navigate to the

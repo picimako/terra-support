@@ -31,6 +31,8 @@ import com.picimako.terra.psi.js.JSArgumentUtil;
  */
 public class TerraWdioPsiUtilScreenshotPropertyTest extends BasePlatformTestCase {
 
+    // getScreenshotValidationProperty
+
     public void testPropertyRetrieval() {
         Object[][] testCases = new Object[][]{
             {"describe('Terra screenshot', () => {\n" +
@@ -78,5 +80,32 @@ public class TerraWdioPsiUtilScreenshotPropertyTest extends BasePlatformTestCase
                 assertThat(mismatchTolerance).extracting(JSArgumentUtil::getNumericValueOf).isEqualTo(testCases[i][2]);
             }
         }
+    }
+
+    // getTerraValidationProperties
+
+
+    public void testRetrievesTerraValidationProperties() {
+        myFixture.configureByText("Terra-spec.js", "describe('Terra screenshot', () => {\n" +
+            "    it('Test case', () => {\n" +
+            "        <caret>Terra.validates.screenshot('test id', { selector: '#selector', mismatchTolerance: 0.5 });\n" +
+            "    });\n" +
+            "});");
+
+        JSExpressionStatement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSExpressionStatement.class);
+
+        assertThat(TerraWdioPsiUtil.getTerraValidationProperties(element)).extracting(JSProperty::getName).containsExactly("selector", "mismatchTolerance");
+    }
+
+    public void testNoTerraValidationProperties() {
+        myFixture.configureByText("Terra-spec.js", "describe('Terra screenshot', () => {\n" +
+            "    it('Test case', () => {\n" +
+            "        <caret>Terra.validates.screenshot('test id');\n" +
+            "    });\n" +
+            "});");
+
+        JSExpressionStatement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSExpressionStatement.class);
+
+        assertThat(TerraWdioPsiUtil.getTerraValidationProperties(element)).isEmpty();
     }
 }

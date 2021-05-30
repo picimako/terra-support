@@ -20,6 +20,7 @@ import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.MISMATCH_TOLERANCE;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.MIS_MATCH_TOLERANCE;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraElementOrScreenshotValidationFunction;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;

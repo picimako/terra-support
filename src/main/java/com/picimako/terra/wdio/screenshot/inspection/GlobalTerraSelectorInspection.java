@@ -20,6 +20,7 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getStringLiteral
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.SELECTOR;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraElementOrScreenshotValidationFunction;
 
 import java.util.Objects;
 

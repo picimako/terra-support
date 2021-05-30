@@ -45,8 +45,8 @@ public class TerraBundle extends DynamicBundle {
      * @param id the suffix of the message key
      * @return the actual message
      */
-    public static String inspection(@NonNls String id) {
-        return message("terra.inspection." + id);
+    public static String inspection(@NonNls String id, Object @NotNull ... params) {
+        return message("terra.inspection." + id, params);
     }
 
     /**

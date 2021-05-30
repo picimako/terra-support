@@ -1,0 +1,57 @@
+<!--
+  ~ Copyright 2021 Tamás Balog
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<!-- tooltip end -->
+<p>This inspection reports JS properties of <code>Terra.it</code> and <code>Terra.validates</code> helpers,
+    that are not applicable to the particular helpers.
+<p>
+    It handles both terra-toolkit and terra-functional-testing specific properties based on which library is
+    used in the project.
+<p>
+<table style="width:100%;">
+    <tr>
+        <th></th>
+        <th>terra-toolkit</th>
+        <th>terra-functional-testing</th>
+    </tr>
+    <tr>
+        <td>Terra.it.matchesScreenshot/validates.screenshot</td>
+        <td>misMatchTolerance, selector, viewports</td>
+        <td>mismatchTolerance, selector</td>
+    </tr>
+    <tr>
+        <td>Terra.it.validatesElement/validates.element</td>
+        <td>misMatchTolerance, selector, axeRules</td>
+        <td>mismatchTolerance, selector, rules</td>
+    </tr>
+    <tr>
+        <td>Terra.it.isAccessible/validates.accessibility</td>
+        <td>axeRules</td>
+        <td>rules</td>
+    </tr>
+</table>
+</body>
+</html>

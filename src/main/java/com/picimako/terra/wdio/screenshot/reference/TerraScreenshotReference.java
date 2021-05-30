@@ -33,7 +33,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
-import com.picimako.terra.wdio.screenshot.TerraToolkitScreenshotNameResolver;
 
 /**
  * A reference implementation for Terra screenshots. The reference is for placing it on screenshot validation calls

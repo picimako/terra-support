@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 /**
@@ -46,5 +47,11 @@ public class TerraFunctionalTestingSpecFolderCollectorTest extends BasePlatformT
 
         assertThat(latests).hasSize(1);
         assertThat(latests.get(0).getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/clinical-lowlight-theme/en/chrome_huge/CollectScreenshots-spec");
+    }
+
+    //To fix the test failure when copying package.json to the project
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new LightProjectDescriptor();
     }
 }
