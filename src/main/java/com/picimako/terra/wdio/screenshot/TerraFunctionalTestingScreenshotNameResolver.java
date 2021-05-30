@@ -70,7 +70,14 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
      */
     @Override
     public @NotNull String resolveName(JSLiteralExpression element) {
-        return element != null ? normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText()))) + ".png" : "";
+        String resolved = "";
+        if (element != null) {
+            resolved = normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText())));
+            if (!resolved.isEmpty()) {
+                resolved += ".png";
+            }
+        }
+        return resolved;
 
     }
 

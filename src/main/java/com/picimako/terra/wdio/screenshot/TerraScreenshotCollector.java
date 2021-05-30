@@ -115,7 +115,6 @@ public class TerraScreenshotCollector {
      * @return the array of screenshots found
      */
     private PsiElement[] collect(PsiElement element, Supplier<String> nameSupplier) {
-        //TODO: unit test
         if (element == null || nameSupplier.get().isEmpty()) {
             return PsiElement.EMPTY_ARRAY;
         }

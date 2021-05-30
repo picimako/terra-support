@@ -24,6 +24,7 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
 /**
@@ -75,7 +76,31 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
         assertThat(((PsiFile) results[0]).getVirtualFile().getPath()).contains("__snapshots__/reference");
     }
 
+    public void testReturnsNoScreenshotForNullSourceElement() {
+        assertThat(new TerraScreenshotCollector(getProject()).collectFor(null)).isEmpty();
+    }
+
+    public void testReturnsNoScreenshotForEmptyScreenshotName() {
+        myFixture.copyFileToProject("package.json");
+        myFixture.configureByText("Collect-spec.js",
+            "describe('terra screenshot', () => {\n" +
+                "    it('Test case', () => {\n" +
+                "        Terra.validates.screenshot(<caret>'', { selector: '#selector' });\n" +
+                "    });\n" +
+                "});");
+
+        JSLiteralExpression element = (JSLiteralExpression) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+
+        assertThat(new TerraScreenshotCollector(getProject()).collectFor(element)).isEmpty();
+    }
+
     //Helper methods
+
+    //To fix the test failure when copying package.json to the project
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new LightProjectDescriptor();
+    }
 
     private void configureSpecFile(String fileName) {
         myFixture.configureByFile("tests/wdio/" + fileName);

@@ -32,15 +32,25 @@ public class TerraFunctionalTestingScreenshotNameResolverTest extends BasePlatfo
 
     public void testResolveName() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-                "Terra.validates.element('terra screenshot<caret>', { selector: '#selector' });");
+            "Terra.validates.element('terra screenshot<caret>', { selector: '#selector' });");
         assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot.png");
+    }
+
+    public void testResolveEmptyNameAsEmptyString() {
+        JSLiteralExpression element = configureFileForJSLiteralExpression(
+            "Terra.validates.element('<caret>', { selector: '#selector' });");
+        assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveName(element)).isEmpty();
+    }
+
+    public void testResolveMissingNameAsEmptyString() {
+        assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveName(null)).isEmpty();
     }
 
     //resolveName with partial test id
 
     public void testResolvePartialNameWithTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-                "Terra.validates.element('terra screenshot <caret>[test id]', { selector: '#selector' });");
+            "Terra.validates.element('terra screenshot <caret>[test id]', { selector: '#selector' });");
         assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveName(element)).isEqualTo("test_id.png");
     }
 
@@ -52,7 +62,7 @@ public class TerraFunctionalTestingScreenshotNameResolverTest extends BasePlatfo
 
     public void testResolveFullNameWithNonMatchingPartialTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-                "Terra.validates.element('terra screenshot <caret>[tes)t id]', { selector: '#selector' });");
+            "Terra.validates.element('terra screenshot <caret>[tes)t id]', { selector: '#selector' });");
         assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot_[tes)t_id].png");
     }
 
@@ -60,7 +70,7 @@ public class TerraFunctionalTestingScreenshotNameResolverTest extends BasePlatfo
 
     public void testThrowsUnsupportedOperationExceptionForResolvingWithDefaultName() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-                "Terra.validates.element('with name<caret>', { selector: '#selector' });");
+            "Terra.validates.element('with name<caret>', { selector: '#selector' });");
 
         assertThatExceptionOfType(UnsupportedOperationException.class)
             .isThrownBy(() -> new TerraFunctionalTestingScreenshotNameResolver().resolveDefaultName(element));
