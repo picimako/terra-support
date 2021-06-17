@@ -17,7 +17,7 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraItMatchesScreenshotExpression;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraItMatchesScreenshot;
 
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
@@ -53,7 +53,7 @@ public class TerraElementValidationIsPreferredOverScreenshotInspection extends T
                 super.visitJSExpressionStatement(node);
 
                 if (isInWdioSpecFile(node)) {
-                    if (isTerraItMatchesScreenshotExpression(node)) {
+                    if (isTerraItMatchesScreenshot(node)) {
                         holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validateselement.preferred"));
                     } else if (isTerraValidatesScreenshotExpression(node)) {
                         holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("validates.element.preferred"));

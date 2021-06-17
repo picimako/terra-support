@@ -60,6 +60,14 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
         doCustomFileTest("", ".js", null, "-spec");
     }
 
+    protected void doQuickFixTest(String filename, String quickFixName) {
+        myFixture.configureByFile(filename + "-spec.js");
+        myFixture.enableInspections(getInspection());
+        myFixture.doHighlighting();
+        myFixture.launchAction(myFixture.findSingleIntention(quickFixName));
+        myFixture.checkResultByFile(filename + "-spec.after.js");
+    }
+
     /**
      * Loads a test data file into the virtual file system, corresponding to the unit test method's name, then executes
      * it and validates highlighting.

@@ -217,6 +217,10 @@ public final class TerraWdioPsiUtil {
         return element.getParent() instanceof PsiFile;
     }
 
+    public static boolean isTerraIt(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_IT_IS_ACCESSIBLE);
+    }
+
     /**
      * Gets whether the argument element is a {@code Terra.it.matchesScreenshot()} call at any level deep.
      * <p>
@@ -225,7 +229,7 @@ public final class TerraWdioPsiUtil {
      * @param element the Psi element to check
      * @return true if the argument is a non-top-level {@code Terra.it.matchesScreenshot()}, false otherwise
      */
-    public static boolean isTerraItMatchesScreenshotExpression(PsiElement element) {
+    public static boolean isTerraItMatchesScreenshot(PsiElement element) {
         return !isTopLevelExpression(element) && hasText(element, TERRA_IT_MATCHES_SCREENSHOT);
     }
 

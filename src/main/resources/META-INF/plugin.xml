@@ -64,6 +64,12 @@
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.InvalidTerraValidationPropertiesInspection"/>
 
+        <!-- Terra helpers -->
+        <localInspection id="replaceTerraItWithTerraValidates" language="JavaScript"
+                         displayName="Terra.validates is preferred over Terra.it"
+                         groupPath="Terra,wdio" groupName="Helpers" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.inspection.ReplaceTerraItWithTerraValidatesInspection"/>
+
         <!-- Terra wdio tool window -->
         <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"
                     factoryClass="com.picimako.terra.wdio.toolwindow.TerraWdioToolWindowFactory"/>

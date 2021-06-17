@@ -18,9 +18,11 @@ package com.picimako.terra.psi.js;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.intellij.lang.javascript.psi.JSArgumentList;
+import com.intellij.lang.javascript.psi.JSArgumentsHolder;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
@@ -34,7 +36,17 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class JSArgumentUtil {
 
-    private static final JSExpression[] EMPTY_ARGUMENTS = new JSExpression[0];
+    /**
+     * Gets the argument list of the provided statement.
+     *
+     * @param element the element to get the argument list of
+     * @return the argument list, or null if there is none
+     */
+    @Nullable
+    public static JSArgumentList getArgumentListOf(JSExpressionStatement element) {
+        JSCallExpression jsCallExpression = getCallExpression(element);
+        return jsCallExpression != null ? jsCallExpression.getArgumentList() : null;
+    }
 
     /**
      * Gets the arguments of the provided statement.
@@ -46,14 +58,7 @@ public final class JSArgumentUtil {
      */
     @NotNull
     public static JSExpression[] getArgumentsOf(JSExpressionStatement element) {
-        JSCallExpression jsCallExpression = getCallExpression(element);
-        if (jsCallExpression != null) {
-            JSArgumentList argumentList = jsCallExpression.getArgumentList();
-            if (argumentList != null) {
-                return argumentList.getArguments();
-            }
-        }
-        return EMPTY_ARGUMENTS;
+        return Optional.ofNullable(getArgumentListOf(element)).map(JSArgumentsHolder::getArguments).orElse(JSExpression.EMPTY_ARRAY);
     }
 
     /**

@@ -37,6 +37,32 @@ import org.mockito.Mockito;
  */
 public class JSArgumentUtilTest {
 
+    //getArgumentListOf
+
+    @Test
+    public void shouldReturnArgumentList() {
+        JSExpressionStatement element = mock(JSExpressionStatement.class);
+        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        JSArgumentList argumentList = mock(JSArgumentList.class);
+        when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
+        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+
+            assertThat(JSArgumentUtil.getArgumentListOf(element)).isSameAs(argumentList);
+        }
+    }
+
+    @Test
+    public void shouldNotReturnArgumentList() {
+        JSExpressionStatement element = mock(JSExpressionStatement.class);
+        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+
+            assertThat(JSArgumentUtil.getArgumentListOf(element)).isNull();
+        }
+    }
+
     //getArgumentsOf
 
     @Test

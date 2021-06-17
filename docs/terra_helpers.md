@@ -1,8 +1,10 @@
-# Terra Screenshots
+# Terra Helpers
 
 ## Inspections
 
 ### Terra element validation is preferred over screenshot validation
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraElementValidationIsPreferredOverScreenshotInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/TerraElementValidationIsPreferredOverScreenshotInspection.java)
 
 This inspection reports problems where either a `Terra.validates.screenshot()` or a `Terra.it.matchesScreenshot()` call is used.
 
@@ -23,11 +25,9 @@ Terra.describeViewports('Test', ['large', 'huge'], () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraElementValidationIsPreferredOverScreenshotInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/TerraElementValidationIsPreferredOverScreenshotInspection.java) | v0.1.0 | 
-
 ### misMatchTolerance value is above a predefined threshold
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceInspection.java)
 
 Although, in some circumstances, specifying the `misMatchTolerance` property may be necessary, it is good practice having a
 threshold as the maximum value allowed for this property, since, quoting the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
@@ -44,11 +44,9 @@ Terra.validates.element({ misMatchTolerance: 23 });
 Terra.validates.element({ misMatchTolerance: 181 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`ScreenshotMismatchToleranceInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceInspection.java) | v0.1.0 |
-
 ### misMatchTolerance has negative value or a value greater than 100
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceBlockingInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceInspection.java)
 
 According to the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
 the value specified in the `misMatchTolerance` property should be a number **between 0 and 100**, thus this inspection is meant to signal values
@@ -61,11 +59,9 @@ Terra.validates.element({ misMatchTolerance: -4 });
 Terra.validates.element({ misMatchTolerance: 153 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`ScreenshotMismatchToleranceBlockingInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceBlockingInspection.java) | v0.1.0 |
-
 ### misMatchTolerance has a non-numeric value defined
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceBlockingInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceBlockingInspection.java)
 
 According to the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
 the value specified in the `misMatchTolerance` property should be a **number** between 0 and 100, thus this inspection is meant to signal values
@@ -80,11 +76,9 @@ Terra.validates.element('test case', { misMatchTolerance: { } });
 Terra.validates.element('test case', { misMatchTolerance: false });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`ScreenshotMismatchToleranceBlockingInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceBlockingInspection.java) | v0.1.0 |
-
 ### Missing screenshots
+
+![](https://img.shields.io/badge/since-0.2.0-blue) [![](https://img.shields.io/badge/implementation-MissingScreenshotInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/MissingScreenshotInspection.java)
 
 When an image, referenced by `Terra.it` and `Terra.validates` calls, doesn't exist for any context (locale, browser, viewport),
 this inspection marks either the name parameter of such calls, or if they are missing (and the default value `default` is used),
@@ -112,11 +106,9 @@ Terra.describeViewports('viewports', ['medium'], () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`MissingScreenshotInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/MissingScreenshotInspection.java) | v0.2.0 |
-
 ### Screenshot selector matches Terra global selector
+
+![](https://img.shields.io/badge/since-0.2.0-blue) [![](https://img.shields.io/badge/implementation-GlobalTerraSelectorInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/GlobalTerraSelectorInspection.java)
 
 Terra-toolkit provides various config options for wdio test execution that can be defined in the project's wdio.conf.js.
 One of these properties is `terra.selector` in which a global/default CSS selector can be specified for capturing screenshots
@@ -143,11 +135,9 @@ Terra.validates.element('an element', { selector: '#selector' }); // #selector
 Terra.validates.element('an element'); // #global-selector
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`GlobalTerraSelectorInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/GlobalTerraSelectorInspection.java) | v0.2.0 |
-
 ### Invalid Terra validation properties
+
+![](https://img.shields.io/badge/since-0.6.0-blue) [![](https://img.shields.io/badge/implementation-InvalidTerraValidationPropertiesInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/InvalidTerraValidationPropertiesInspection.java)
 
 This inspection reports JS properties of `Terra.it` and `Terra.validates` helpers, that are not applicable to the particular helpers.
 
@@ -161,11 +151,55 @@ It handles both terra-toolkit and terra-functional-testing specific properties b
 | `Terra.it.validatesElement`/`validates.element` | `misMatchTolerance`, `selector`, `axeRules` | `mismatchTolerance`, `selector`, `rules` |
 | `Terra.it.isAccessible`/`validates.accessibility` | `axeRules` | `rules` |
 
-| Implementation class | Introduced in |
-|---|---|
-| [`InvalidTerraValidationPropertiesInspection`](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/InvalidTerraValidationPropertiesInspection.java) | v0.6.0 |
+### Convert Terra.it helpers to Terra.validates
 
-## References
+![](https://img.shields.io/badge/since-0.6.0-blue) [![](https://img.shields.io/badge/implementation-ReplaceTerraItWithTerraValidatesInspection-blue)](../src/main/java/com/picimako/terra/wdio/inspection/ReplaceTerraItWithTerraValidatesInspection.java)
+
+Since Terra.it is deprecated in terra-toolkit, and is no longer available in terra-functional-testing, it is recommended to migrate Terra.it helper usage
+to their Terra.validates forms.
+
+This inspection reports usages of `Terra.it` helpers, and provides various quick fixes to replace them.
+
+#### Without a preceding before hook
+In its simplest form, if there is no `before` hook **directly** before the particular Terra.it helper, there is only one quick fix suggested, called
+![replate_terra_it_quick_fix_simple](../assets/replate_terra_it_quick_fix_simple.png). The conversion would be as follows:
+
+```js
+// This
+Terra.it.validatesElement('name', { selector: '#selector', misMatchTolerance: 0.5 });
+
+// becomes this
+it('INSERT TEST NAME', () => {
+    Terra.validates.element('name', {selector: '#selector', misMatchTolerance: 0.5});
+});
+```
+
+#### With a direct preceding before hook
+
+If there is a before hook directly preceding a Terra.it helper, then two quick fixes are suggested: one behaves the same as in the previous section,
+is called ![replate_terra_it_quick_fix_before_hook_unaltered](../assets/replate_terra_it_quick_fix_before_hook_unaltered.png), and it doesn't touch the before hook,
+simply converts the helper. The other one is called ![replate_terra_it_quick_fix_before_hook_merged](../assets/replate_terra_it_quick_fix_before_hook_merged.png), but in that case the before hook and the converted helper
+it merged: basically everything from the before hook's callback is moved to the new `it` block.
+
+```js
+//This
+before(() => {
+    browser.url('/');
+    browser.url('/?param=value');
+});
+Terra.it.validatesElement('test name', { selector: '#selector' });
+
+//becomes this
+it('INSERT TEST NAME', () => {
+    browser.url('/');
+    browser.url('/?param=value');
+    Terra.validates.element('test name', {selector: '#selector'});
+});
+```
+
+## Screenshot references
+
+![](https://img.shields.io/badge/since-0.2.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotReferenceContributor-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/reference/TerraScreenshotReferenceContributor.java)
 
 By invoking one of the "Go to declaration" shortcuts on the first, String parameter of screenshot validation function calls, you can navigate to the
 `reference` version of the referenced image, or images when there are multiple ones with the same name but different contexts.
@@ -216,13 +250,11 @@ Terra.it.matchesScreenshot({ selector: '#root' });
 Terra.it.validatesElement({ selector: '#root' });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraScreenshotReferenceContributor`](../src/main/java/com/picimako/terra/wdio/screenshot/reference/TerraScreenshotReferenceContributor.java) | v0.2.0 |
-
 ## Quick Documentation
 
 ### Terra WDIO helpers and functions
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraWdioDocumentationProvider-blue)](../src/main/java/com/picimako/terra/documentation/TerraWdioDocumentationProvider.java)
 
 There are a few external documentations on GitHub that are useful for Terra wdio testing. The follow ones are provided to users:
 - [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
@@ -237,11 +269,9 @@ When there are multiple documentations e.g. for `validatesElement()` that includ
 
 ![terra-wdio-quick-documentation-multiple](../assets/terra-wdio-quick-documentation-multiple.png)
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraWdioDocumentationProvider`](../src/main/java/com/picimako/terra/documentation/TerraWdioDocumentationProvider.java) | v0.1.0 |
-
 ## Line markers / Gutter icons
+
+![](https://img.shields.io/badge/since-0.4.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotValidationLineMarkerProvider-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java)
 
 To complement the logic provided by the Terra screenshot reference contributor, and to provide visual clues about where in a spec file
 screenshot validations are actually present, there are line markers added for each Terra screenshot validation call.
@@ -268,11 +298,9 @@ Line markers can also be enabled/disabled under `Settings > Editor > General > G
 
 ![gutter_icon_settings](../assets/terra_gutter_icon_settings.PNG)
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraScreenshotValidationLineMarkerProvider`](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java) | v0.4.0 |
-
 ## Navigation from screenshot to code
+
+![](https://img.shields.io/badge/since-0.5.0-blue) [![](https://img.shields.io/badge/implementation-NavigateToScreenshotUsageProjectViewAction-blue)](../src/main/java/com/picimako/terra/wdio/projectview/action/NavigateToScreenshotUsageProjectViewAction.java)
 
 An action called **Navigate to Screenshot Usage** is added to the Project View context menu of image files within `__snapshots__` folders.
 
@@ -281,11 +309,9 @@ it is just an alternate location to jump to where a particular image is referenc
 
 ![navigate_to_screenshot_usage_action](../assets/terra-wdio-navigate-to-screenshot-usage-action.png)
 
-| Implementation class | Introduced in |
-|---|---|
-| [`NavigateToScreenshotUsageProjectViewAction`](../src/main/java/com/picimako/terra/wdio/projectview/action/NavigateToScreenshotUsageProjectViewAction.java) | v0.5.0 |
-
 ## Inlay Hints
+
+![](https://img.shields.io/badge/since-0.5.0-blue) [![](https://img.shields.io/badge/implementation-NavigateToScreenshotUsageProjectViewAction-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inlayhint/TerraScreenshotInlayHintsProvider.kt)
 
 There are two hints provided for screenshot validation calls: screenshot names and global CSS selectors.
 
@@ -298,7 +324,3 @@ Within the IDE `Settings > Editor > Inlay Hints > JavaScript > Terra screenshot`
 They are either **Disabled**, or enabled as **Block** (hints shown above the call's line) or **Inline** (hints shown at the end of the call's line) style.
 
 ![inlay_hints](../assets/terra_wdio_inlay_hints.PNG)
-
-| Implementation class | Introduced in |
-|---|---|
-| [`NavigateToScreenshotUsageProjectViewAction`](../src/main/java/com/picimako/terra/wdio/screenshot/inlayhint/TerraScreenshotInlayHintsProvider.kt) | v0.5.0 |

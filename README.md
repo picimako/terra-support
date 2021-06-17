@@ -34,13 +34,13 @@ for working with Terra screenshots.
 ### Inlay Hints
 
 Inlay Hints are small labels injected into the code, that provide extra (often otherwise invisible) information about the code.
-The [current Inlay Hints](docs/terra_screenshots.md#inlay-hints) for Terra include displaying screenshot names and global Terra CSS selectors.
+The [current Inlay Hints](docs/terra_helpers.md#inlay-hints) for Terra include displaying screenshot names and global Terra CSS selectors.
 
 ## Terra features and settings
 
 You can navigate to further documentation categorized mostly by Terra features.
 
-- [Terra Screenshots](docs/terra_screenshots.md)
+- [Terra Helpers](docs/terra_helpers.md)
 - [Terra Viewports](docs/terra_viewports.md)
 - [Terra UI and components](docs/terra_ui.md)
 - [Terra Wdio Tool Window](docs/terra_wdio_tool_window.md)
