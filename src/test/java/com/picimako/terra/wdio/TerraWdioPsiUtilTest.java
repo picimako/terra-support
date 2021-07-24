@@ -24,24 +24,23 @@ import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.psi.PsiElement;
-import org.junit.Test;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraWdioPsiUtil}.
  */
-public class TerraWdioPsiUtilTest {
+public class TerraWdioPsiUtilTest extends TerraToolkitTestCase {
 
     //isSupportedViewport
 
-    @Test
-    public void shouldNotSupportViewport() {
+    public void testShouldNotSupportViewport() {
         assertThat(TerraWdioPsiUtil.isSupportedViewport("somenotsupported")).isFalse();
     }
 
     //getMethodExpressionOf
 
-    @Test
-    public void shouldReturnMethodExpression() {
+    public void testShouldReturnMethodExpression() {
         JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
         JSCallExpression jsCallExpression = mock(JSCallExpression.class);
         when(psiElement.getExpression()).thenReturn(jsCallExpression);
@@ -51,8 +50,7 @@ public class TerraWdioPsiUtilTest {
         assertThat(TerraWdioPsiUtil.getMethodExpressionOf(psiElement)).isSameAs(methodExpression);
     }
 
-    @Test
-    public void shouldNotReturnMethodExpressionWhenThereIsNoUnderlyingJSCallExpression() {
+    public void testShouldNotReturnMethodExpressionWhenThereIsNoUnderlyingJSCallExpression() {
         JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
         when(psiElement.getExpression()).thenReturn(null);
 
@@ -61,8 +59,7 @@ public class TerraWdioPsiUtilTest {
 
     //isAnyOfTerraWdioFunctions
 
-    @Test
-    public void shouldBeATerraWdioFunction() {
+    public void testShouldBeATerraWdioFunction() {
         PsiElement psiElement = mock(PsiElement.class);
         PsiElement parent = mock(PsiElement.class);
         when(psiElement.getParent()).thenReturn(parent);
@@ -71,8 +68,7 @@ public class TerraWdioPsiUtilTest {
         assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isTrue();
     }
 
-    @Test
-    public void shouldNotBeATerraWdioFunction() {
+    public void testShouldNotBeATerraWdioFunction() {
         PsiElement psiElement = mock(PsiElement.class);
         PsiElement parent = mock(PsiElement.class);
         when(psiElement.getParent()).thenReturn(parent);
@@ -81,8 +77,7 @@ public class TerraWdioPsiUtilTest {
         assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
     }
 
-    @Test
-    public void shouldNotBeATerraWdioFunctionIfThereIsNoParent() {
+    public void testShouldNotBeATerraWdioFunctionIfThereIsNoParent() {
         PsiElement psiElement = mock(PsiElement.class);
 
         assertThat(TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(psiElement)).isFalse();
@@ -90,40 +85,55 @@ public class TerraWdioPsiUtilTest {
 
     //hasText
 
-    @Test
-    public void shouldHaveText() {
-        JSExpressionStatement psiElement = mockExpressionStatementFor("Terra.validates.screenshot");
+    public void testShouldHaveText() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeViewports('viewports', ['huge'], () => {\n" +
+                "    describe('terra screenshot', () => {\n" +
+                "       Terra.validates.el<caret>ement('collect');\n" +
+                "    });" +
+                "});");
 
-        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isTrue();
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent().getParent().getParent();
+
+        assertThat(TerraWdioPsiUtil.hasText(element, "Terra.validates.element", "Terra.validates.screenshot")).isTrue();
     }
 
-    @Test
-    public void shouldNotHaveTextWhenThereNoDesiredTextIsMatched() {
-        JSExpressionStatement psiElement = mockExpressionStatementFor("browser.pause");
+    public void testShouldNotHaveTextWhenThereNoDesiredTextIsMatched() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeViewports('viewports', ['huge'], () => {\n" +
+                "    describe('terra screenshot', () => {\n" +
+                "       browser.pau<caret>se(2000);\n" +
+                "    });" +
+                "});");
 
-        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.element", "Terra.validates.screenshot")).isFalse();
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent().getParent().getParent();
+
+        assertThat(TerraWdioPsiUtil.hasText(element, "Terra.validates.element", "Terra.validates.screenshot")).isFalse();
     }
 
-    @Test
-    public void shouldNotHaveTextWhenNoDesiredTextIsSpecified() {
-        PsiElement psiElement = mock(PsiElement.class);
+    public void testShouldNotHaveTextWhenNoDesiredTextIsSpecified() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeViewports('viewports', ['hu<caret>ge'], () => {\n" +
+                "});");
 
-        assertThat(TerraWdioPsiUtil.hasText(psiElement)).isFalse();
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
+
+        assertThat(TerraWdioPsiUtil.hasText(element)).isFalse();
     }
 
-    @Test
-    public void shouldNotHaveTextIfThereIsNoUnderlyingMethodExpression() {
-        //Mocks TerraWdioUtil#getMethodExpressionOf
-        JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
-        when(psiElement.getExpression()).thenReturn(null);
+    public void testShouldNotHaveTextIfThereIsNoUnderlyingMethodExpression() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeViewports('viewports', ['hu<caret>ge'], () => {\n" +
+                "});");
 
-        assertThat(TerraWdioPsiUtil.hasText(psiElement, "Terra.validates.screenshot")).isFalse();
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
+
+        assertThat(TerraWdioPsiUtil.hasText(element, "Terra.validates.screenshot")).isFalse();
     }
 
     //isScreenshotValidationCall
 
-    @Test
-    public void shouldBeScreenshotValidationCall() {
+    public void testShouldBeScreenshotValidationCall() {
         JSCallExpression callExpression = mock(JSCallExpression.class);
         JSExpression methodExpression = mock(JSExpression.class);
         when(callExpression.getMethodExpression()).thenReturn(methodExpression);
@@ -132,29 +142,16 @@ public class TerraWdioPsiUtilTest {
         assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(callExpression)).isTrue();
     }
 
-    @Test
-    public void shouldNotBeScreenshotValidationCallForNullExpression() {
+    public void testShouldNotBeScreenshotValidationCallForNullExpression() {
         assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(null)).isFalse();
     }
 
-    @Test
-    public void shouldNotBeScreenshotValidationCall() {
+    public void testShouldNotBeScreenshotValidationCall() {
         JSCallExpression callExpression = mock(JSCallExpression.class);
         JSExpression methodExpression = mock(JSExpression.class);
         when(callExpression.getMethodExpression()).thenReturn(methodExpression);
         when(methodExpression.getText()).thenReturn("Terra.validates.accessibility");
 
         assertThat(TerraWdioPsiUtil.isScreenshotValidationCall(callExpression)).isFalse();
-    }
-
-    private JSExpressionStatement mockExpressionStatementFor(String methodExpressionText) {
-        //Mocks TerraWdioUtil#getMethodExpressionOf
-        JSExpressionStatement psiElement = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        when(psiElement.getExpression()).thenReturn(jsCallExpression);
-        JSExpression methodExpression = mock(JSExpression.class);
-        when(jsCallExpression.getMethodExpression()).thenReturn(methodExpression);
-        when(methodExpression.getText()).thenReturn(methodExpressionText);
-        return psiElement;
     }
 }

@@ -17,6 +17,8 @@
 package com.picimako.terra.wdio.screenshot.inlayhint
 
 import com.intellij.testFramework.utils.inlays.InlayHintsProviderTestCase
+import com.picimako.terra.wdio.TerraResourceManager
+import com.picimako.terra.wdio.TerraToolkitManager
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Block
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Inline
 
@@ -31,6 +33,7 @@ class TerraScreenshotInlayHintsProviderTest : InlayHintsProviderTestCase() {
 
     override fun setUp() {
         super.setUp()
+        TerraResourceManager.getInstance(project, TerraToolkitManager::class.java)
         myFixture.copyFileToProject("wdio.conf.js")
     }
 

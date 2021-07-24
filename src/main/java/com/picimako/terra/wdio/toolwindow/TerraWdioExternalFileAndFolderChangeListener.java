@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * Terra wdio specific implementation of {@link BulkFileListener}.
@@ -47,7 +48,7 @@ import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestActio
  * See {@link TerraWdioScreenshotsPanel#TerraWdioScreenshotsPanel(Project)} for subscribing to the related topic.
  * <p>
  * TODO:
- * <b>Possible improvement option:</b>
+ * <b>Possible improvement options:</b>
  * <ul>
  *     <li>Update the tree only when the tool window is open.</li>
  *     <li>Additionally, update the tree only when the tool window is being opened. This of course needs handling of what if the tool

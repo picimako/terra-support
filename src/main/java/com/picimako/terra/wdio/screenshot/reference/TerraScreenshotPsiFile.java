@@ -25,7 +25,8 @@ import com.intellij.psi.impl.file.PsiBinaryFileImpl;
 import icons.ImagesIcons;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.imagepreview.ScreenshotContextParser;
+import com.picimako.terra.wdio.TerraResourceManager;
+import com.picimako.terra.wdio.ScreenshotContextParser;
 
 /**
  * A wrapper class for a binary file, specifically for the screenshot images, so that their representation in the
@@ -36,11 +37,12 @@ import com.picimako.terra.wdio.imagepreview.ScreenshotContextParser;
  */
 final class TerraScreenshotPsiFile extends PsiBinaryFileImpl {
 
-    private final ScreenshotContextParser contextParser = new ScreenshotContextParser("/");
+    private final ScreenshotContextParser contextParser;
     private final PsiFile originalElement;
 
     TerraScreenshotPsiFile(PsiFile originalElement) {
         super((PsiManagerImpl) originalElement.getManager(), originalElement.getViewProvider());
+        contextParser = TerraResourceManager.getInstance(getProject()).screenshotContextParser("/");
         this.originalElement = originalElement;
     }
 

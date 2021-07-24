@@ -16,8 +16,11 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraElementOrScreenshotValidation;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
@@ -38,8 +41,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * screenshot exists, and if there's none, then reports the problem.
  * <p>
  * In case the name parameter is not specified, the default value {@code default} is used for the screenshot lookup.
- * <p>
- * For screenshot name resolution see {@link com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver}.
  *
  * @since 0.2.0
  */
@@ -51,13 +52,17 @@ public class MissingScreenshotInspection extends TerraWdioInspectionBase {
     }
 
     @Override
-    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
+                if (isTerraElementOrScreenshotValidation(node)) {
                     JSExpression callExpression = node.getExpression();
                     if (callExpression instanceof JSCallExpression) {
                         TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector(holder.getProject());

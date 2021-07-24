@@ -20,6 +20,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
+
 /**
  * Unit test for {@link TerraWdioTreeNode}.
  */
@@ -27,28 +32,28 @@ public class TerraWdioTreeNodeTest {
 
     @Test
     public void shouldBeSpec() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", null);
+        TreeSpecNode spec = new TreeSpecNode("spec", null);
 
         assertThat(TerraWdioTreeNode.isSpec(spec)).isTrue();
     }
 
     @Test
     public void shouldNotBeSpec() {
-        TerraWdioTreeModelDataRoot root = new TerraWdioTreeModelDataRoot("root", null);
+        TreeModelDataRoot root = new TreeModelDataRoot("root", null);
 
         assertThat(TerraWdioTreeNode.isSpec(root)).isFalse();
     }
 
     @Test
     public void shouldBeScreenshot() {
-        TerraWdioTreeScreenshotNode screenshot = new TerraWdioTreeScreenshotNode("screenshot", null);
+        TreeScreenshotNode screenshot = new TreeScreenshotNode("screenshot", null);
 
         assertThat(TerraWdioTreeNode.isScreenshot(screenshot)).isTrue();
     }
 
     @Test
     public void shouldNotBeScreenshot() {
-        TerraWdioTreeSpecNode spec = new TerraWdioTreeSpecNode("spec", null);
+        TreeSpecNode spec = new TreeSpecNode("spec", null);
 
         assertThat(TerraWdioTreeNode.isScreenshot(spec)).isFalse();
     }

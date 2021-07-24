@@ -22,7 +22,7 @@ import javax.swing.*;
 
 import com.intellij.openapi.project.Project;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction;
 
 /**

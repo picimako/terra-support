@@ -1,5 +1,29 @@
 # Changelog
 
+### 0.6.0
+
+#### ADDED SUPPORT FOR TERRA-FUNCTIONAL-TESTING
+[#53](https://github.com/picimako/terra-support/issues/53): Added support for the new terra-functional-testing npm package that brings
+a couple of changes to how Terra wdio testing is conducted.
+
+Whether terra-functional-testing or terra-toolkit is used is determined by whether `@cerner/terra-functional-testing` or `terra-toolkit`
+is included in the dependencies of the project's root package.json. If none of them is found, plugin features will not execute.
+
+Areas of changes:
+- Updated the screenshot name resolution logic to use only the name argument of `Terra.validates` calls. This affected references, inlay hints,
+  navigation to screenshot usage actions and inspections. See [Terra Upgrade Guide/Screenshots](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/upgrade-guides/version-1-upgrade-guide#screenshots).
+- Updated screenshot context string resolution to include the theme in the context string. This affects the reference suggestions and the Diff and Reference/Latest previews.
+- Unused screenshot seeking logic is updated as well.
+- Screenshot gutter icons no longer suggest screenshots when the name argument of a `Terra.validates` call is missing,
+  since it is not a valid usage in terra-functional-testing.
+- Inspections validating mismatch tolerance are updated to handle the renamed `mismatchTolerance` property along with `misMatchTolerance`.
+- Various actions are updated to handle the new theme-specific folder structure.
+- Added an inspection to report when the name parameter of a screenshot validation is missing.
+- Added an inspection to report when more than one screenshot validation has the same name parameter, since these names must be unique.
+
+#### BUGFIX
+- Fixed the disposal logic of the Terra wdio tree nodes.
+
 ### 0.5.1
 
 #### BUGFIX

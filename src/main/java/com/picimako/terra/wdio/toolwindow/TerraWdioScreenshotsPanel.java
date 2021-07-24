@@ -25,6 +25,7 @@ import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.components.JBScrollPane;
 
 import com.picimako.terra.wdio.toolwindow.action.TerraWdioScreenshotActionsGroup;
@@ -33,6 +34,7 @@ import com.picimako.terra.wdio.toolwindow.event.MouseListeningPopupMenuInvoker;
 import com.picimako.terra.wdio.toolwindow.event.MouseListeningScreenshotNodeActionInvoker;
 import com.picimako.terra.wdio.toolwindow.event.ShortcutKeyListeningScreenshotNodeActionInvoker;
 import com.picimako.terra.wdio.toolwindow.event.ToolWindowPopupMenuInvoker;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * A custom tool window panel to contain and display the Terra wdio spec files and screenshots in a custom view.
@@ -66,6 +68,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         tree = new TerraWdioTree(new TerraWdioTreeModel(project));
         registerActionsAndListenersForTree();
         add(new JBScrollPane(tree));
+        new TreeSpeedSearch(tree);
     }
 
     public TerraWdioTree getTree() {

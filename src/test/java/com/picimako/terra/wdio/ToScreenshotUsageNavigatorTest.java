@@ -21,12 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link ToScreenshotUsageNavigator}.
  */
-public class ToScreenshotUsageNavigatorTest extends BasePlatformTestCase {
+public class ToScreenshotUsageNavigatorTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -37,7 +38,7 @@ public class ToScreenshotUsageNavigatorTest extends BasePlatformTestCase {
         PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
         myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png"));
 
-        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
+        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator(getProject());
         navigator.navigateToUsage(specFile, "terra_screenshot[default].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
@@ -48,7 +49,7 @@ public class ToScreenshotUsageNavigatorTest extends BasePlatformTestCase {
         PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
         myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[non-default].png"));
 
-        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
+        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator(getProject());
         navigator.navigateToUsage(specFile, "terra_screenshot[non-default].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
@@ -59,7 +60,7 @@ public class ToScreenshotUsageNavigatorTest extends BasePlatformTestCase {
         PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
         myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[not-referenced].png"));
 
-        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
+        ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator(getProject());
         navigator.navigateToUsage(specFile, "terra_screenshot[non-referenced].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();

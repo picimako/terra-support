@@ -4,50 +4,32 @@ If you would like to contribute, first make sure to check out the document about
 
 ## Table of contents
 
-- [Git branching](#git-branching)
-- [How to add new File Templates](#how-to-add-new-file-templates)
 - [Implementing inspections](#implementing-inspections)
     - [Blocking vs. non-blocking inspection types](#blocking-vs-non-blocking-inspection-types)
     - [Steps to implement an inspection](#steps-to-implement-an-inspection)
     - [Unit testing](#unit-testing)
 - [Helper code snippets](#helper-code-snippets)
 
-## Git branching
-
-When you start working on a separate Git branch, please make sure the branch is named according to its purpose as follows:
-
-    <branch_type>/#<issue_number>-<branch_name>
-
-where branch_type may be `feature`, `bugfix` or `doc`, e.g. **feature/#23-add-new-inspection**.
-
-Commit messages doesn't have to contain the issue numbers.
-
-## How to add new File Templates
-
-In order to add File Template under *Settings > Editor > File and Code Template > Files tab*, place your template file under `src/main/resources/fileTemplates`.
-
-The file must be named as follows: `<template name>.<file extension of created file>.ft`, for example for a JavaScript file it could be `Jest test file.js.ft`.
-
 ## Implementing inspections
 
 ### Blocking vs. non-blocking inspection types
 
-Inspections are structured and implemented in a way to have as less duplication and duplicated code execution as possible.
+Inspections are structured and implemented in a way to have as few duplication as possible.
 
-Since severity can only be assigned on a per inspection/implementation class basis (or extension point basis, depending on the viewpoint), inspection implementations are
-separated into **blocking** and **non-blocking** types. (The naming is kind of arbitrary but reflects its purpose. Also, this separation is not a JetBrains standard but is introduced
-here for better performance and maintenance.
+Since severity can only be assigned on an inspection-class (or extension point) basis, inspection implementations are
+separated into **blocking** and **non-blocking** types. (The naming is kind of arbitrary but reflects its purpose. This distinction is not a JetBrains standard but is introduced
+here for better performance and maintenance.)
 
-**Blocking** inspections are registered with `ERROR` severity level in the `plugin.xml`, and each problem registered in the `ProblemsHolder` within the implementation
+**Blocking** inspections are registered with `ERROR` severity level in the `plugin.xml`, and each problem registered in the `ProblemsHolder` 
 is considered a problem that would either cause the test execution not to start, or to fail because in insufficient value was provided that is not considered a valid input.
 
-These classes have their names extended with the word `Blocking`, see e.g. `TerraDescribeViewportsBlockingInspection`.
+These classes have their names postfixed with `Blocking`, e.g. `TerraDescribeViewportsBlockingInspection`.
 
-**Non-blocking** inspections are registered with `WARNING` severity level (or even lower) in the `plugin.xml`, and each problem registered in the `ProblemsHolder` within the implementation
-is considered a problem that would not cause the test execution not to start, or to fail, rather values or construct that would have unintended consequences of the test execution, or might
-mislead users.
+**Non-blocking** inspections are registered with `WARNING` (or lower) severity level. Each problem registered in the `ProblemsHolder`
+is considered a problem that would not cause the test execution not to start, or to fail, rather values or constructs that are not optimal, would have unintended consequences of the test execution,
+or might mislead users.
 
-These classes don't have `Blocking` in their names, see e.g. `TerraDescribeViewportsInspection`.
+These classes don't have `Blocking` in their names, e.g. `TerraDescribeViewportsInspection`.
 
 ### Steps to implement an inspection
 

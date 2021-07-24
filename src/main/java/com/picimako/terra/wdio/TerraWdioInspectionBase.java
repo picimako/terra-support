@@ -16,24 +16,18 @@
 
 package com.picimako.terra.wdio;
 
-import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_MATCHES_SCREENSHOT;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_IT_VALIDATES_ELEMENT;
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_VALIDATES_ELEMENT;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_VALIDATES_SCREENSHOT;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getMethodExpressionOf;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.hasText;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTopLevelExpression;
 
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
-import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
-import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -74,36 +68,6 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
      */
     protected boolean isTerraValidatesScreenshotExpression(PsiElement element) {
         return !isTopLevelExpression(element) && hasText(element, TERRA_VALIDATES_SCREENSHOT);
-    }
-
-    /**
-     * Gets whether the argument element is a {@code Terra.it.matchesScreenshot()} call at any level deep.
-     * <p>
-     * Such calls at top level are ignored.
-     *
-     * @param element the Psi element to check
-     * @return true if the argument is a non-top-level {@code Terra.it.matchesScreenshot()}, false otherwise
-     */
-    protected boolean isTerraItMatchesScreenshotExpression(PsiElement element) {
-        return !isTopLevelExpression(element) && hasText(element, TERRA_IT_MATCHES_SCREENSHOT);
-    }
-
-    /**
-     * Gets whether the argument element corresponds to one of the Terra function calls that do screenshot validation,
-     * namely:
-     * <ul>
-     *     <li>Terra.validates.screenshot</li>
-     *     <li>Terra.validates.element</li>
-     *     <li>Terra.it.matchesScreenshot</li>
-     *     <li>Terra.it.validatesElement</li>
-     * </ul>
-     *
-     * @param element the element to validate
-     * @return true if the argument is one of the Terra screenshot matching functions, false otherwise
-     */
-    protected boolean isTerraElementOrScreenshotValidationFunction(PsiElement element) {
-        return !isTopLevelExpression(element)
-                && hasText(element, TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT);
     }
 
     /**
@@ -153,10 +117,6 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
     @Nullable
     protected PsiElement getFunctionNameElement(JSExpression methodExpression) {
         return ((JSReferenceExpression) methodExpression).getReferenceNameElement();
-    }
-
-    private boolean isTopLevelExpression(@NotNull PsiElement element) {
-        return element.getParent() instanceof PsiFile;
     }
 
     private boolean isTerraDescribeViewportsBlock(@NotNull PsiElement element) {

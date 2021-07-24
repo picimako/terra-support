@@ -45,6 +45,22 @@ public class FileTypePreconditionsTest {
         assertThat(FileTypePreconditions.isInWdioSpecFile(psiElement)).isFalse();
     }
 
+    //isWdioSpecFile
+
+    @Test
+    public void shouldBeWdioSpecFile() {
+        PsiFile psiElement = mockPsiFile("some-spec.js");
+
+        assertThat(FileTypePreconditions.isWdioSpecFile(psiElement)).isTrue();
+    }
+
+    @Test
+    public void shouldNotBeWdioSpecFile() {
+        PsiFile psiElement = mockPsiFile("some-test.js");
+
+        assertThat(FileTypePreconditions.isWdioSpecFile(psiElement)).isFalse();
+    }
+
     //isInAppJsxFile
 
     @Test
@@ -67,5 +83,11 @@ public class FileTypePreconditionsTest {
         when(psiElement.getContainingFile()).thenReturn(containingFile);
         when(containingFile.getName()).thenReturn(fileName);
         return psiElement;
+    }
+    
+    private PsiFile mockPsiFile(String fileName) {
+        PsiFile file = mock(PsiFile.class);
+        when(file.getName()).thenReturn(fileName);
+        return file;
     }
 }

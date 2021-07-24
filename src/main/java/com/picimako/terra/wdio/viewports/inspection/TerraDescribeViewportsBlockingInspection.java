@@ -17,8 +17,9 @@
 package com.picimako.terra.wdio.viewports.inspection;
 
 import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -26,6 +27,7 @@ import java.util.Arrays;
 import javax.swing.*;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ui.MultipleCheckboxOptionsPanel;
@@ -75,20 +77,21 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
     public JComponent createOptionsPanel() {
         final MultipleCheckboxOptionsPanel panel = new MultipleCheckboxOptionsPanel(this);
         panel.addCheckbox("Report empty viewports array", "reportEmptyViewports");
-//        panel.addCheckbox("Report not supported viewport values", "reportNotSupportedViewports");
-//        panel.addCheckbox("Report non-array-type viewports", "reportNonArrayViewports");
         return panel;
     }
 
     @Override
-    @NotNull
-    public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) {
+                if (isTopLevelTerraDescribeViewportsBlock(node)) {
                     JSArgumentUtil.doWithinArgumentListOf(node, argumentList -> {
                         if (argumentList.getArguments().length > 1) {
                             JSExpression viewportList = argumentList.getArguments()[1];

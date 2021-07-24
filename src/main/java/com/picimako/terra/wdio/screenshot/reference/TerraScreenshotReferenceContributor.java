@@ -22,7 +22,6 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCal
 
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
-import com.intellij.openapi.util.Condition;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
@@ -51,9 +50,10 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
         registrar.registerReferenceProvider(PlatformPatterns.psiElement(JSLiteralExpression.class),
             new PsiReferenceProvider() {
                 @Override
-                public @NotNull PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
+                public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                     if (isJSStringLiteral(element)) {
-                        PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element, new ScreenshotValidationCallCondition());
+                        PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element,
+                            psiElement -> psiElement instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) psiElement));
                         if (parentDescribeCall != null) {
                             JSLiteralExpression describeBlockName = getFirstArgumentAsStringLiteral(((JSCallExpression) parentDescribeCall).getArgumentList());
                             if (describeBlockName == element) {
@@ -64,16 +64,5 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
                     return PsiReference.EMPTY_ARRAY;
                 }
             });
-    }
-
-    /**
-     * Describes the condition to find the JSCallExpression a screenshot partial name is located in as its first parameter.
-     */
-    private static final class ScreenshotValidationCallCondition implements Condition<PsiElement> {
-        @Override
-        public boolean value(PsiElement psiElement) {
-            return psiElement instanceof JSCallExpression
-                && isScreenshotValidationCall((JSCallExpression) psiElement);
-        }
     }
 }

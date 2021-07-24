@@ -16,8 +16,8 @@
 
 package com.picimako.terra.wdio.toolwindow.action;
 
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsPreview;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * An action to open a special Terra screenshot view for comparing reference and latest screenshots, via the Terra wdio tool window.

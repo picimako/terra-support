@@ -19,13 +19,13 @@ package com.picimako.terra.wdio.viewports.inspection.blocking;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
 import com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection;
 
 /**
  * Unit test for {@link TerraDescribeViewportsBlockingInspection}.
  */
-public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraInspectionBaseTestCase {
+public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

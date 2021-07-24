@@ -24,14 +24,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.TerraToolkitTestCase;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
  * Unit test for {@link ReferenceToLatestScreenshotsPreview}.
  */
-public class ReferenceToLatestScreenshotsPreviewTest extends BasePlatformTestCase {
+public class ReferenceToLatestScreenshotsPreviewTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

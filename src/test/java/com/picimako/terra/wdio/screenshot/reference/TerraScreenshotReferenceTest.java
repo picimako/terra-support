@@ -26,12 +26,13 @@ import java.util.Set;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.ResolveResult;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraScreenshotReference}.
  */
-public class TerraScreenshotReferenceTest extends BasePlatformTestCase {
+public class TerraScreenshotReferenceTest extends TerraToolkitTestCase {
 
     private static final Set<String> LOCATION_STRINGS = Set.of("en/chrome/huge", "en/chrome/medium");
 

@@ -23,8 +23,11 @@ import java.awt.*;
 import java.util.List;
 import javax.swing.*;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.components.JBScrollPane;
 import org.jetbrains.annotations.NotNull;
+
+import com.picimako.terra.wdio.TerraResourceManager;
 
 /**
  * A container panel for storing the different screenshot diff view components in a vertically scrollable view.
@@ -33,11 +36,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TerraScreenshotsDiffViewContainer extends JPanel {
 
+    private Project project;
+
     private TerraScreenshotsDiffViewContainer() {
         add(new JLabel("There is no screenshot available to display."));
     }
 
-    public TerraScreenshotsDiffViewContainer(@NotNull List<ScreenshotDiff> screenshotDiffs, @NotNull ScreenshotDiffUIContentProvider uiProvider) {
+    public TerraScreenshotsDiffViewContainer(@NotNull List<ScreenshotDiff> screenshotDiffs, @NotNull ScreenshotDiffUIContentProvider uiProvider, Project project) {
+        this.project = project;
         setLayout(new BorderLayout());
         JPanel previewContent = new JPanel();
         previewContent.setLayout(new BoxLayout(previewContent, BoxLayout.Y_AXIS));
@@ -57,7 +63,9 @@ public class TerraScreenshotsDiffViewContainer extends JPanel {
 
     @NotNull
     private JLabel screenshotContextLabelFor(ScreenshotDiff screenshotDiff) {
-        JLabel contextLabel = new JLabel(new ScreenshotContextParser().parse(screenshotDiff.getOriginal().getPath()));
+        JLabel contextLabel = new JLabel(TerraResourceManager.getInstance(project)
+            .screenshotContextParser()
+            .parse(screenshotDiff.getOriginal().getPath()));
         contextLabel.setFont(getFont().deriveFont(16f));
         contextLabel.setAlignmentX(Component.CENTER_ALIGNMENT); //https://stackoverflow.com/questions/2560784/how-to-center-elements-in-the-boxlayout-using-center-of-the-element
         return contextLabel;

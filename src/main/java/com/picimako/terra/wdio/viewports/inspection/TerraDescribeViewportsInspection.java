@@ -17,8 +17,9 @@
 package com.picimako.terra.wdio.viewports.inspection;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.toList;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.*;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ui.MultipleCheckboxOptionsPanel;
@@ -78,14 +80,17 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     }
 
     @Override
-    @NotNull
-    public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTopLevelTerraDescribeViewportsBlock(node)) {
+                if (isTopLevelTerraDescribeViewportsBlock(node)) {
                     JSCallExpression terraDescribeViewports = getCallExpression(node);
                     if (terraDescribeViewports != null) {
                         JSArgumentList argumentList = terraDescribeViewports.getArgumentList();

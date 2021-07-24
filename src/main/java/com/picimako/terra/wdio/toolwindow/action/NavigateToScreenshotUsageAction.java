@@ -18,8 +18,9 @@ package com.picimako.terra.wdio.toolwindow.action;
 
 import static com.picimako.terra.wdio.ProblemDialogs.showNoSpecFileToNavigateToDialog;
 import static com.picimako.terra.wdio.ProblemDialogs.showNoValidationCallToNavigateToDialog;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
+import static com.picimako.terra.wdio.TerraWdioFolders.existsAfterRefresh;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 
@@ -34,9 +35,8 @@ import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModel;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
  * An action to navigate to the usage of screenshots (within their corresponding wdio spec files) from the Terra
@@ -49,7 +49,7 @@ import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
  */
 public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindowAction {
 
-    private final ToScreenshotUsageNavigator navigator = new ToScreenshotUsageNavigator();
+    private final ToScreenshotUsageNavigator navigator;
 
     /**
      * Creates a NavigateToScreenshotUsageAction instance.
@@ -60,6 +60,7 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
         super(TerraBundle.toolWindow("screenshot.navigate.to.usage"), project);
         AnAction action = ActionManager.getInstance().getAction(IdeActions.ACTION_GOTO_DECLARATION);
         setShortcutSet(action.getShortcutSet());
+        navigator = new ToScreenshotUsageNavigator(project);
     }
 
     /**
@@ -82,8 +83,8 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TerraWdioTreeSpecNode parentSpec = (TerraWdioTreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
-            if (TerraWdioTreeModel.existsAfterRefresh(parentSpec.getSpecFile())) {
+            TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+            if (existsAfterRefresh(parentSpec.getSpecFile())) {
                 PsiFile specPsiFile = PsiManager.getInstance(project).findFile(parentSpec.getSpecFile());
                 String selectedScreenshotNodeName = asScreenshot(tree.getLastSelectedPathComponent()).getDisplayName();
 

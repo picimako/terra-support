@@ -3,6 +3,7 @@ package com.picimako.terra.wdio.toolwindow;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.ToggleAction;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -27,7 +28,8 @@ public class ToggleStatisticsAction extends ToggleAction {
 
     @Override
     public boolean isSelected(@NotNull AnActionEvent e) {
-        return ScreenshotStatisticsProjectService.getInstance(e.getProject()).isShowStatistics;
+        Project project = e.getProject();
+        return project != null && ScreenshotStatisticsProjectService.getInstance(project).isShowStatistics;
     }
 
     @Override

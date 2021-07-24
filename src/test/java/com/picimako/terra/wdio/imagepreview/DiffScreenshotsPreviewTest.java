@@ -23,12 +23,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link DiffScreenshotsPreview}.
  */
-public class DiffScreenshotsPreviewTest extends BasePlatformTestCase {
+public class DiffScreenshotsPreviewTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

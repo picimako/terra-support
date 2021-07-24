@@ -42,6 +42,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
 import com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction;
 import com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * Unit test for {@link TerraWdioExternalFileAndFolderChangeListener}.

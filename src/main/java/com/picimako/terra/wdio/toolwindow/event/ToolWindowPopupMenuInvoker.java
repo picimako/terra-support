@@ -24,7 +24,7 @@ import java.util.Map;
 import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * This class takes in the {@link TerraWdioTree} instance and a set of {@link ActionPopupMenu}s identified by their node

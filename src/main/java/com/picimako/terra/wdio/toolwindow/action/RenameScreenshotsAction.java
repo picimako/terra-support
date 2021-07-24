@@ -16,12 +16,11 @@
 
 package com.picimako.terra.wdio.toolwindow.action;
 
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.asScreenshot;
-import static com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode.isScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreenshot;
+import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.intellij.openapi.actionSystem.CommonShortcuts;
@@ -31,14 +30,15 @@ import com.intellij.openapi.ui.InputValidator;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeNode;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeScreenshotNode;
-import com.picimako.terra.wdio.toolwindow.TerraWdioTreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
  * An action to rename screenshot files via the Terra wdio tool window.
@@ -88,7 +88,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TerraWdioTreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
             String originalFileName = selectedScreenshotNode.getDisplayName();
             String newFileName = askUserForNewFileName(originalFileName, originalFileName.substring(originalFileName.lastIndexOf(".") + 1));
 
@@ -96,9 +96,9 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                 List<VirtualFile> references = selectedScreenshotNode.getReferences();
 
                 if (references.stream().allMatch(VirtualFile::isWritable)) {
-                    final List<VirtualFile> successfullyRenamed = new ArrayList<>();
-                    final List<String> erroredFilePaths = new ArrayList<>();
-                    TerraWdioTreeSpecNode parentSpec = (TerraWdioTreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+                    final List<VirtualFile> successfullyRenamed = new SmartList<>();
+                    final List<String> erroredFilePaths = new SmartList<>();
+                    TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
 
                     for (VirtualFile reference : references) {
                         if (reference.exists()) {
@@ -107,7 +107,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                                 WriteAction.run(() -> reference.rename(this, newFileName));
                                 //If not yet created, create a new Screenshot Node under the current parent Spec Node, with the new name
                                 if (!parentSpec.hasScreenshotNodeForName(newFileName)) {
-                                    TerraWdioTreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName, project);
+                                    TreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName, project);
                                     newScreenshot.addReference(reference);
                                     parentSpec.addScreenshot(newScreenshot);
                                 } else {

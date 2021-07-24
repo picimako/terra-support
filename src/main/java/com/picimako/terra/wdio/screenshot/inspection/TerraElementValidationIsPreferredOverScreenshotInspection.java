@@ -16,8 +16,11 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraItMatchesScreenshot;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
@@ -43,20 +46,21 @@ public class TerraElementValidationIsPreferredOverScreenshotInspection extends T
     }
 
     @Override
-    @NotNull
-    public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @SuppressWarnings("ConstantConditions")
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node)) {
-                    if (isTerraItMatchesScreenshotExpression(node)) {
-                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validateselement.preferred"));
-                    } else if (isTerraValidatesScreenshotExpression(node)) {
-                        holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("validates.element.preferred"));
-                    }
+                if (isTerraItMatchesScreenshot(node)) {
+                    holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("it.validateselement.preferred"));
+                } else if (isTerraValidatesScreenshotExpression(node)) {
+                    holder.registerProblem(getTerraValidationFunctionNameElement(node), TerraBundle.inspection("validates.element.preferred"));
                 }
             }
         };

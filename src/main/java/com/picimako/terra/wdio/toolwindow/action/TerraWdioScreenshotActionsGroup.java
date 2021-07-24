@@ -41,7 +41,7 @@ public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
     }
 
     @Override
-    public @NotNull AnAction[] getChildren(@Nullable AnActionEvent e) {
+    public AnAction @NotNull [] getChildren(@Nullable AnActionEvent e) {
         Project project = e.getData(PlatformDataKeys.PROJECT);
         if (project != null) {
             return new AnAction[]{

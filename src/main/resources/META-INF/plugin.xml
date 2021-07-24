@@ -2,9 +2,10 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>0.5.1</version>
+    <version>0.6.0-SNAPSHOT</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
+    <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
     <idea-version since-build="202"/>
@@ -58,6 +59,24 @@
                          displayName="Screenshot selector matches global selector"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorInspection"/>
+        <localInspection id="invalidTerraValidationProperties" language="JavaScript"
+                         displayName="Invalid validation properties"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.InvalidTerraValidationPropertiesInspection"/>
+        <localInspection id="MissingScreenshotName" language="JavaScript"
+                         displayName="Missing screenshot name (terra-functional-testing)"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotNameInspection"/>
+        <localInspection id="duplicateScreenshotName" language="JavaScript"
+                         displayName="Duplicate screenshot name (terra-functional-testing)"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.DuplicateScreenshotNameInspection"/>
+
+        <!-- Terra helpers -->
+        <localInspection id="replaceTerraItWithTerraValidates" language="JavaScript"
+                         displayName="Terra.validates is preferred over Terra.it"
+                         groupPath="Terra,wdio" groupName="Helpers" enabledByDefault="true" level="WARNING"
+                         implementationClass="com.picimako.terra.wdio.inspection.ReplaceTerraItWithTerraValidatesInspection"/>
 
         <!-- Terra wdio tool window -->
         <toolWindow id="Terra wdio" anchor="left" icon="/com/picimako/terra/wdio/toolwindow/terrasupport.svg"
@@ -99,7 +118,6 @@
 
         <!-- Services -->
         <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
-        <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraWdioDocumentationService -->
 
     </extensions>
 

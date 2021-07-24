@@ -17,6 +17,8 @@
 package com.picimako.terra.wdio.screenshot.gutter;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsStringLiteral;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerraToolkit;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
 import java.util.Collection;
@@ -55,10 +57,10 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
-        if (element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
+        if (isUsingTerra(element.getProject()) && element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
             JSCallExpression terraCallExpr = (JSCallExpression) element;
             JSLiteralExpression nameArgument = getFirstArgumentAsStringLiteral(terraCallExpr.getArgumentList());
-            if (nameArgument == null) {
+            if (isUsingTerraToolkit(element.getProject()) && nameArgument == null) {
                 JSExpression methodExpression = terraCallExpr.getMethodExpression();
                 if (methodExpression != null) {
                     PsiElement[] screenshots = new TerraScreenshotCollector(element.getProject()).collectForDefault(methodExpression);
@@ -72,7 +74,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
                         }
                     }
                 }
-            } else {
+            } else if (nameArgument != null) {
                 result.add(NavigationGutterIconBuilder.create(ImagesIcons.ImagesFileType)
                     .setTargets(PsiElement.EMPTY_ARRAY)
                     .setTooltipText(TerraBundle.message("terra.wdio.screenshot.gutter.validation.on.this.line"))

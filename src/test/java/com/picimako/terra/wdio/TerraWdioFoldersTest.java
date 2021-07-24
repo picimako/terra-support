@@ -87,20 +87,6 @@ public class TerraWdioFoldersTest extends BasePlatformTestCase {
         assertThat(TerraWdioFolders.getRelativePathToProjectDir(getProject(), TerraWdioFolders.projectWdioRoot(getProject()))).isEqualTo("tests/wdio");
     }
 
-    // collectSpecFoldersInside
-
-    public void testCollectSpecFolders() {
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/latest/en/chrome_huge/some-spec/testimage[default].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec/testimage[default].png");
-        myFixture.copyFileToProject("tests/wdio/__snapshots__/reference/en/chrome_huge/some-spec/testimage[default].png");
-
-        List<VirtualFile> filesAndFoldersInWdioRoot = VfsUtil.collectChildrenRecursively(TerraWdioFolders.projectWdioRoot(getProject()));
-        List<VirtualFile> diffs = TerraWdioFolders.collectSpecFoldersInside("diff", filesAndFoldersInWdioRoot).collect(toList());
-
-        assertThat(diffs).hasSize(1);
-        assertThat(diffs.get(0).getPath()).isEqualTo("/src/tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec");
-    }
-
     // collectSpecFiles
 
     public void testCollectSpecFilesFromAll() {

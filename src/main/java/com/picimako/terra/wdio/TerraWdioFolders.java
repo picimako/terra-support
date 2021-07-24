@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
@@ -36,6 +35,7 @@ import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 import com.picimako.terra.DirectoryPsiUtil;
 import com.picimako.terra.settings.TerraApplicationState;
@@ -60,6 +60,7 @@ public final class TerraWdioFolders {
     public static final String DIFF_RELATIVE_PATH = "/" + SNAPSHOTS + "/" + DIFF;
     private static final String LATEST_RELATIVE_PATH = "/" + SNAPSHOTS + "/" + LATEST;
 
+    //TODO: this might be problematic with multiple projects having different wdio paths
     private static String wdioTestRootPath;
 
     /**
@@ -126,22 +127,6 @@ public final class TerraWdioFolders {
      */
     public static String getRelativePathToProjectDir(@NotNull Project project, @NotNull VirtualFile testRoot) {
         return VfsUtil.getRelativePath(testRoot, ProjectUtil.guessProjectDir(project));
-    }
-
-    /**
-     * Collect spec folders within the provided Terra wdio test root, and within that inside the provided {@code imageType} folder
-     * (diff, latest or reference), and return it as a {@link Stream} for further manipulation.
-     *
-     * @param imageType                 the image type folder to collect the spec folders from
-     * @param filesAndFoldersInWdioRoot the list of files and folders inside the wdio test root
-     * @return the stream of virtual files for the necessary spec folders
-     */
-    @NotNull
-    public static Stream<VirtualFile> collectSpecFoldersInside(@NotNull String imageType, @NotNull List<VirtualFile> filesAndFoldersInWdioRoot) {
-        return filesAndFoldersInWdioRoot.stream()
-            .filter(VirtualFile::isDirectory)
-            .filter(dir -> dir.getName().endsWith("-spec"))
-            .filter(dir -> imageType.equals(dir.getParent().getParent().getParent().getName()));
     }
 
     /**
@@ -235,7 +220,6 @@ public final class TerraWdioFolders {
      *
      * @param file the file to check the location of
      * @return true if the file is under __snapshots__ directory, false otherwise
-     *
      * @since 0.5.0
      */
     public static boolean isInSnapshotsDirectory(@Nullable VirtualFile file) {
@@ -393,6 +377,22 @@ public final class TerraWdioFolders {
 
     public static void setWdioTestRootPath(String path) {
         wdioTestRootPath = path;
+    }
+    
+    @TestOnly
+    public static String getWdioTestRootPath() {
+        return wdioTestRootPath;
+    }
+
+    /**
+     * Refreshes the argument virtual file and returns whether it still exists or not.
+     */
+    public static boolean existsAfterRefresh(@Nullable VirtualFile virtualFile) {
+        if (virtualFile != null) {
+            virtualFile.refresh(false, virtualFile.isDirectory());
+            return virtualFile.exists();
+        }
+        return false;
     }
 
     private TerraWdioFolders() {

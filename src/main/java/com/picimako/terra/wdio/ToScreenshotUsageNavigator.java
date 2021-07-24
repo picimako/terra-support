@@ -22,10 +22,11 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCal
 
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 
-import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
+import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
 
 /**
  * Provides functionality to navigate from a screenshot, or a UI item representing a screenshot, to the usage of
@@ -36,8 +37,12 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
  */
 public class ToScreenshotUsageNavigator {
 
-    private final TerraScreenshotNameResolver resolver = new TerraScreenshotNameResolver();
+    private final ScreenshotNameResolver resolver;
     private boolean hasNavigated;
+
+    public ToScreenshotUsageNavigator(Project project) {
+        resolver = TerraResourceManager.getInstance(project).screenshotNameResolver();
+    }
 
     /**
      * Navigates to the Terra validation call in the given spec file, based on the provided screenshot name.

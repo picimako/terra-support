@@ -113,6 +113,9 @@ Spec nodes are also highlighted with bold text when at least one of the underlyi
 
 ![highlighted_nodes](../assets/terra_wdio_tool_window_highlighted_nodes.PNG)
 
+You can also search in the tool window. Just start typing the search keyword when the tool window is in focus. Just like in the IDE Project View, the matching
+nodes and texts get highlighted. 
+
 ## Statistics
 
 All three node types provide basic statistics about the number of specs and screenshots available in the project.

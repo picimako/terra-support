@@ -16,6 +16,8 @@
 
 package com.picimako.terra.wdio.toolwindow;
 
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+
 import java.util.List;
 import javax.swing.*;
 
@@ -54,7 +56,7 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
         addTab(toolWindow, screenshotsPanel);
         if (isSetTitleActionSupported()) {
             toolWindow.setTitleActions(List.of(
-                new FindUnusedScreenshotsAction(screenshotsPanel.getTree()),
+                new FindUnusedScreenshotsAction(screenshotsPanel.getTree(), project),
                 new ToggleStatisticsAction(() -> screenshotsPanel.getTree().updateUI())
             ));
         }
@@ -68,6 +70,10 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
 
     @Override
     public boolean shouldBeAvailable(@NotNull Project project) {
+        if (!isUsingTerra(project)) {
+            return false;
+        }
+        
         boolean shouldBeAvailable = !project.isDefault();
         if (shouldBeAvailable) {
             VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(project);

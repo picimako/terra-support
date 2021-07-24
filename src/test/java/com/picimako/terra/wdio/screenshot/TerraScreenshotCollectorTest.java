@@ -24,12 +24,13 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraScreenshotCollector}.
  */
-public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
+public class TerraScreenshotCollectorTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -73,6 +74,24 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
 
         assertThat(results).hasSize(1);
         assertThat(((PsiFile) results[0]).getVirtualFile().getPath()).contains("__snapshots__/reference");
+    }
+
+    public void testReturnsNoScreenshotForNullSourceElement() {
+        assertThat(new TerraScreenshotCollector(getProject()).collectFor(null)).isEmpty();
+    }
+
+    public void testReturnsNoScreenshotForEmptyScreenshotName() {
+        myFixture.copyFileToProject("package.json");
+        myFixture.configureByText("Collect-spec.js",
+            "describe('terra screenshot', () => {\n" +
+                "    it('Test case', () => {\n" +
+                "        Terra.validates.screenshot(<caret>'', { selector: '#selector' });\n" +
+                "    });\n" +
+                "});");
+
+        JSLiteralExpression element = (JSLiteralExpression) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+
+        assertThat(new TerraScreenshotCollector(getProject()).collectFor(element)).isEmpty();
     }
 
     //Helper methods

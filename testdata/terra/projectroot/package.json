@@ -1,0 +1,6 @@
+{
+  "name": "terra-support",
+  "devDependencies": {
+    "@cerner/terra-functional-testing": "^1.5.0"
+  }
+}

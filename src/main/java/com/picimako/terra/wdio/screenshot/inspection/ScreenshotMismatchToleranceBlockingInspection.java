@@ -16,11 +16,15 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.MISMATCH_TOLERANCE;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.MIS_MATCH_TOLERANCE;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraElementOrScreenshotValidation;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
@@ -59,24 +63,19 @@ public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInsp
         return "ScreenshotMismatchToleranceBlocking";
     }
 
-//    @Override
-//    public JComponent createOptionsPanel() {
-//        final MultipleCheckboxOptionsPanel panel = new MultipleCheckboxOptionsPanel(this);
-//        panel.addCheckbox("Report values outside of boundaries (outside of 0-100)", "reportMismatchToleranceOutsideOfBoundaries");
-//        panel.addCheckbox("Report non-numeric values", "reportMismatchToleranceIsNonNumeric");
-//        return panel;
-//    }
-
     @Override
-    @NotNull
-    public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
-                    JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MISMATCH_TOLERANCE);
+                if (isTerraElementOrScreenshotValidation(node)) {
+                    JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
                     if (misMatchToleranceProperty != null) {
                         checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
                         if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {

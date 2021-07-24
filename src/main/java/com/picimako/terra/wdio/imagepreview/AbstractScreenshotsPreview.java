@@ -16,11 +16,9 @@
 
 package com.picimako.terra.wdio.imagepreview;
 
-import static com.picimako.terra.wdio.TerraWdioFolders.collectSpecFoldersInside;
 import static java.util.stream.Collectors.toList;
 
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -35,9 +33,12 @@ import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.picimako.terra.wdio.SpecFolderCollector;
+import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
@@ -50,7 +51,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  */
 public abstract class AbstractScreenshotsPreview implements FileEditor {
 
-    protected final List<ScreenshotDiff> screenshotDiffs = new ArrayList<>();
+    protected final List<ScreenshotDiff> screenshotDiffs = new SmartList<>();
     protected final Project project;
 
     protected AbstractScreenshotsPreview(@NotNull Project project, @NotNull VirtualFile file, @NotNull String sourceFolderName,
@@ -60,7 +61,8 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
         // from/via screenshots. Having at least one screenshot means that there is a wdio root.
         if (wdioFolder != null) {
             wdioFolder.refresh(false, true);
-            this.screenshotDiffs.addAll(collectSpecFoldersInside(sourceFolderName, VfsUtil.collectChildrenRecursively(wdioFolder))
+            SpecFolderCollector specFolderCollector = TerraResourceManager.getInstance(project).specFolderCollector();
+            this.screenshotDiffs.addAll(specFolderCollector.collectSpecFoldersForTypeInside(sourceFolderName, VfsUtil.collectChildrenRecursively(wdioFolder))
                 .flatMap(spec -> Arrays.stream(VfsUtil.getChildren(spec))) //individual screenshot files
                 .filter(screenshot -> file.getName().equals(screenshot.getName()))
                 .map(screenshotToDiffMapper)
@@ -95,7 +97,7 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
     public @NotNull JComponent getComponent() {
         return screenshotDiffs.isEmpty()
             ? TerraScreenshotsDiffViewContainer.noScreenshotAvailable()
-            : new TerraScreenshotsDiffViewContainer(screenshotDiffs, uiContentProvider());
+            : new TerraScreenshotsDiffViewContainer(screenshotDiffs, uiContentProvider(), project);
     }
 
     /**

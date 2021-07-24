@@ -24,7 +24,7 @@ import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.toolwindow.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
 /**
  * Provides easier implementation of, and a somewhat updated API for performing Terra wdio tool window actions.

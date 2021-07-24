@@ -19,12 +19,12 @@ package com.picimako.terra.wdio.screenshot.inspection;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
 
 /**
  * Unit test for {@link ScreenshotMismatchToleranceInspection}.
  */
-public class ScreenshotMismatchToleranceAboveThresholdInspectionTest extends TerraInspectionBaseTestCase {
+public class ScreenshotMismatchToleranceAboveThresholdInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

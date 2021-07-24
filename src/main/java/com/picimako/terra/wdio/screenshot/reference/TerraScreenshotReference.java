@@ -16,6 +16,8 @@
 
 package com.picimako.terra.wdio.screenshot.reference;
 
+import static com.picimako.terra.wdio.TerraWdioFolders.isReferenceScreenshot;
+
 import java.util.Arrays;
 
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
@@ -30,13 +32,12 @@ import com.intellij.psi.ResolveResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraWdioFolders;
 import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
-import com.picimako.terra.wdio.screenshot.TerraScreenshotNameResolver;
 
 /**
  * A reference implementation for Terra screenshots. The reference is for placing it on screenshot validation calls
- * (see the javadoc of {@link TerraScreenshotNameResolver#resolveName(JSLiteralExpression)} and it's class-level documentation).
+ * (see the javadoc of {@link com.picimako.terra.wdio.screenshot.ScreenshotNameResolver#resolveName(JSLiteralExpression)}
+ * and it's implementations' documentation).
  * <p>
  * Although file search based on the image's name would return the latest and diff versions of images, the list is filtered,
  * so that only the reference ones are returned for now.
@@ -59,7 +60,7 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
     }
 
     @Override
-    public @NotNull ResolveResult[] multiResolve(boolean incompleteCode) {
+    public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
         if (!incompleteCode) {
             PsiFile[] screenshotsForName = screenshotCollector.collectAsPsiFilesFor((JSLiteralExpression) myElement);
             //TODO: idea: reorder the suggestions based on locale, browser and viewport to get a consistently ordered list
@@ -71,7 +72,7 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
     @NotNull
     private ResolveResult[] createResultItemsFor(PsiFile[] screenshotsForName, Project project) {
         return Arrays.stream(screenshotsForName)
-            .filter(screenshot -> TerraWdioFolders.isReferenceScreenshot(screenshot.getVirtualFile(), project)) //show only reference images
+            .filter(screenshot -> isReferenceScreenshot(screenshot.getVirtualFile(), project)) //show only reference images
             .map(TerraScreenshotPsiFile::new)
             .map(PsiElementResolveResult::new)
             .toArray(ResolveResult[]::new);

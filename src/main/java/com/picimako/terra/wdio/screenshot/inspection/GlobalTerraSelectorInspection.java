@@ -17,12 +17,15 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getStringLiteralValue;
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.SELECTOR;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getScreenshotValidationProperty;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraElementOrScreenshotValidation;
 
 import java.util.Objects;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
@@ -57,13 +60,17 @@ public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
     }
 
     @Override
-    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node) && isTerraElementOrScreenshotValidationFunction(node)) {
+                if (isTerraElementOrScreenshotValidation(node)) {
                     JSProperty selectorProperty = getScreenshotValidationProperty(node, SELECTOR);
                     if (selectorProperty != null) {
                         String screenshotSelector = getStringLiteralValue(selectorProperty.getValue());

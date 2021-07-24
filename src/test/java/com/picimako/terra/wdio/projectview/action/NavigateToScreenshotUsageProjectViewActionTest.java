@@ -26,12 +26,13 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.testFramework.TestActionEvent;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link NavigateToScreenshotUsageProjectViewAction}.
  */
-public class NavigateToScreenshotUsageProjectViewActionTest extends BasePlatformTestCase {
+public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

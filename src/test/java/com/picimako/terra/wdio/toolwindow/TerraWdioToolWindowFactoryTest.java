@@ -17,79 +17,38 @@
 package com.picimako.terra.wdio.toolwindow;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import com.intellij.testFramework.LightProjectDescriptor;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.wdio.TerraResourceManager;
+import com.picimako.terra.wdio.TerraToolkitManager;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
  * Unit test for {@link TerraWdioToolWindowFactory}.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TerraWdioToolWindowFactoryTest {
+public class TerraWdioToolWindowFactoryTest extends BasePlatformTestCase {
 
-    @Mock
-    private Project project;
-
-    @Test
-    public void shouldNotBeAvailableForDefaultProject() {
-        when(project.isDefault()).thenReturn(true);
-
-        TerraWdioToolWindowFactory factory = new TerraWdioToolWindowFactory();
-
-        assertThat(factory.shouldBeAvailable(project)).isFalse();
+    @Override
+    protected String getTestDataPath() {
+        return "testdata/terra/projectroot";
     }
 
-    @Test
-    public void shouldNotBeAvailableForNullWdioRoot() {
-        when(project.isDefault()).thenReturn(false);
-        try (MockedStatic<TerraWdioFolders> wdioFolders = Mockito.mockStatic(TerraWdioFolders.class)) {
-            wdioFolders.when(() -> TerraWdioFolders.projectWdioRoot(project)).thenReturn(null);
-
-            TerraWdioToolWindowFactory factory = new TerraWdioToolWindowFactory();
-
-            assertThat(factory.shouldBeAvailable(project)).isFalse();
-        }
+    public void testNotAvailableWhenNotUsingTerra() {
+        assertThat(new TerraWdioToolWindowFactory().shouldBeAvailable(getProject())).isFalse();
     }
 
-    @Test
-    public void shouldNotBeAvailableForNonExistentWdioRoot() {
-        when(project.isDefault()).thenReturn(false);
-        try (MockedStatic<TerraWdioFolders> wdioFolders = Mockito.mockStatic(TerraWdioFolders.class)) {
-            VirtualFile wdioRoot = mock(VirtualFile.class);
-            when(wdioRoot.exists()).thenReturn(false);
-            wdioFolders.when(() -> TerraWdioFolders.projectWdioRoot(project)).thenReturn(wdioRoot);
+    public void testAvailableAndShouldConfigureWdioTestRootPath() {
+        TerraResourceManager.getInstance(getProject(), TerraToolkitManager.class);
+        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
-            TerraWdioToolWindowFactory factory = new TerraWdioToolWindowFactory();
-
-            assertThat(factory.shouldBeAvailable(project)).isFalse();
-        }
+        assertThat(new TerraWdioToolWindowFactory().shouldBeAvailable(getProject())).isTrue();
+        assertThat(TerraWdioFolders.getWdioTestRootPath()).isEqualTo("/src/tests/wdio");
     }
 
-    @Test
-    public void shouldBeAvailableAndShouldConfigureWdioTestRootPath() {
-        when(project.isDefault()).thenReturn(false);
-        when(project.getBasePath()).thenReturn("/home/project");
-        try (MockedStatic<TerraWdioFolders> wdioFolders = Mockito.mockStatic(TerraWdioFolders.class)) {
-            VirtualFile wdioRoot = mock(VirtualFile.class);
-            when(wdioRoot.exists()).thenReturn(true);
-            when(wdioRoot.getPath()).thenReturn("/home/project/tests/wdio");
-            wdioFolders.when(() -> TerraWdioFolders.projectWdioRoot(project)).thenReturn(wdioRoot);
-
-            TerraWdioToolWindowFactory factory = new TerraWdioToolWindowFactory();
-            assertThat(factory.shouldBeAvailable(project)).isTrue();
-
-            wdioFolders.verify(times(1), () -> TerraWdioFolders.setWdioTestRootPath("/tests/wdio"));
-        }
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new LightProjectDescriptor();
     }
 }
