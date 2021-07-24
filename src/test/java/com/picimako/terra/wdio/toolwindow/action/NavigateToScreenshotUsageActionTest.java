@@ -28,8 +28,8 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.testFramework.TestActionEvent;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.TerraToolkitTestCase;
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModel;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
@@ -39,7 +39,7 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 /**
  * Unit test for {@link NavigateToScreenshotUsageAction}.
  */
-public class NavigateToScreenshotUsageActionTest extends BasePlatformTestCase {
+public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

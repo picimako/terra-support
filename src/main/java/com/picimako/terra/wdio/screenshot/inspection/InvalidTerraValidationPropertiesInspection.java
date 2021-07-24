@@ -16,7 +16,8 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
-import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getTerraValidationProperties;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isAccessibilityValidation;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isElementValidation;
@@ -25,6 +26,7 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidation;
 import java.util.List;
 import java.util.Optional;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
@@ -53,21 +55,23 @@ public class InvalidTerraValidationPropertiesInspection extends TerraWdioInspect
     }
 
     @Override
-    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isInWdioSpecFile(node)) {
-                    TerraPropertiesProvider properties = TerraResourceManager.getInstance(node.getProject()).screenshotValidationProperties();
-                    if (isScreenshotValidation(node)) {
-                        checkIncorrectPropertyName(node, holder, properties.screenshotProperties());
-                    } else if (isElementValidation(node)) {
-                        checkIncorrectPropertyName(node, holder, properties.elementProperties());
-                    } else if (isAccessibilityValidation(node)) {
-                        checkIncorrectPropertyName(node, holder, properties.accessibilityProperties());
-                    }
+                TerraPropertiesProvider properties = TerraResourceManager.getInstance(node.getProject()).screenshotValidationProperties();
+                if (isScreenshotValidation(node)) {
+                    checkIncorrectPropertyName(node, holder, properties.screenshotProperties());
+                } else if (isElementValidation(node)) {
+                    checkIncorrectPropertyName(node, holder, properties.elementProperties());
+                } else if (isAccessibilityValidation(node)) {
+                    checkIncorrectPropertyName(node, holder, properties.accessibilityProperties());
                 }
             }
         };

@@ -35,6 +35,7 @@ import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 import com.picimako.terra.DirectoryPsiUtil;
 import com.picimako.terra.settings.TerraApplicationState;
@@ -59,6 +60,7 @@ public final class TerraWdioFolders {
     public static final String DIFF_RELATIVE_PATH = "/" + SNAPSHOTS + "/" + DIFF;
     private static final String LATEST_RELATIVE_PATH = "/" + SNAPSHOTS + "/" + LATEST;
 
+    //TODO: this might be problematic with multiple projects having different wdio paths
     private static String wdioTestRootPath;
 
     /**
@@ -375,6 +377,11 @@ public final class TerraWdioFolders {
 
     public static void setWdioTestRootPath(String path) {
         wdioTestRootPath = path;
+    }
+    
+    @TestOnly
+    public static String getWdioTestRootPath() {
+        return wdioTestRootPath;
     }
 
     /**

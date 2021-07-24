@@ -89,7 +89,7 @@ public class TerraToolkitScreenshotNameResolver extends AbstractScreenshotNameRe
      * <p>
      * Name resolution with this method cannot happen when the parent {@code describe} or {@code Terra.describeViewports} block's name is missing.
      */
-    @NotNull
+    @Nullable
     @Override
     public String resolveName(JSLiteralExpression element) {
         return resolve(element, JsonPsiUtil.stripQuotes(element.getText()));
@@ -105,7 +105,7 @@ public class TerraToolkitScreenshotNameResolver extends AbstractScreenshotNameRe
      * @param methodExpression the method expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    @NotNull
+    @Nullable
     @Override
     public String resolveDefaultName(JSExpression methodExpression) {
         return resolve(methodExpression, "default");
@@ -119,7 +119,7 @@ public class TerraToolkitScreenshotNameResolver extends AbstractScreenshotNameRe
      * @param methodExpression  the method expression of the validation call
      * @return the resolved name
      */
-    @NotNull
+    @Nullable
     @Override
     public String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression) {
         return firstNameArgument != null ? resolveName(firstNameArgument) : resolveDefaultName(methodExpression);

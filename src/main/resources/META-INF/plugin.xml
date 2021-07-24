@@ -63,6 +63,14 @@
                          displayName="Invalid validation properties"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.InvalidTerraValidationPropertiesInspection"/>
+        <localInspection id="MissingScreenshotName" language="JavaScript"
+                         displayName="Missing screenshot name (terra-functional-testing)"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotNameInspection"/>
+        <localInspection id="duplicateScreenshotName" language="JavaScript"
+                         displayName="Duplicate screenshot name (terra-functional-testing)"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.DuplicateScreenshotNameInspection"/>
 
         <!-- Terra helpers -->
         <localInspection id="replaceTerraItWithTerraValidates" language="JavaScript"

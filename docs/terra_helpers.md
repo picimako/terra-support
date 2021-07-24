@@ -197,6 +197,49 @@ it('INSERT TEST NAME', () => {
 });
 ```
 
+### Missing screenshot names
+
+![](https://img.shields.io/badge/since-0.6.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotReferenceContributor-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/MissingScreenshotNameInspection.java)
+
+The documentation of Terra Functional Testing says that screenshot name parameters in `Terra.validates.screenshot` and `Terr.validates.element`
+are mandatory. If they are missing, test execution will fail with a specific error. There is no change in terra-toolkit regarding this rule.
+
+See [Terra Commands](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/upgrade-guides/version-1-upgrade-guide#terra-commands) and [Screenshots](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/upgrade-guides/version-1-upgrade-guide#screenshots) sections in the upgrade guide.
+
+**Example:**
+
+```js
+Terra.validates.screenshot();
+Terra.validates.element({ mismatchTolerance: 0.5 });
+```
+
+### Duplicate screenshot names
+
+![](https://img.shields.io/badge/since-0.6.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotReferenceContributor-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/DuplicateScreenshotNameInspection.java)
+
+Based on the Terra Functional Testing documentation each screenshot validation in a wdio spec file has to define a unique name,
+no two names are allowed to be equal.
+
+See [Screenshots](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/upgrade-guides/version-1-upgrade-guide#screenshots) section in the upgrade guide.
+
+**Example:**
+
+```js
+Terra.describeViewports('Terra', ['tiny', 'small'], () => {
+   it('', () => {
+        Terra.validates.screenshot('duplicate name');
+   });
+
+    it('', () => {
+        Terra.validates.screenshot('unique name');
+    });
+
+    it('', () => {
+        Terra.validates.element('duplicate name');
+    });
+});
+```
+
 ## Screenshot references
 
 ![](https://img.shields.io/badge/since-0.2.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotReferenceContributor-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/reference/TerraScreenshotReferenceContributor.java)
@@ -235,7 +278,7 @@ describe('terra screenshot', () => {
 });
 ```
 
-A set of characters are replaced, so that characters reserved by operating systems will not be used in file names:
+A set of characters is replaced, so that characters reserved by operating systems will not be used in file names:
 - any whitespace, the dot (.) and + characters are replaced with an underscore (_)
 - ?, <, >, /, |, *, :, " characters are replaced with a hyphen (-)
 - also, the starting and ending whitespaces are trimmed separately both in the first part of the screenshot name, and in

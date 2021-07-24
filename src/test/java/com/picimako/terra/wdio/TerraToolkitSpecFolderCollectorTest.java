@@ -23,12 +23,13 @@ import java.util.List;
 
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link SpecFolderCollector}.
  */
-public class TerraToolkitSpecFolderCollectorTest extends BasePlatformTestCase {
+public class TerraToolkitSpecFolderCollectorTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

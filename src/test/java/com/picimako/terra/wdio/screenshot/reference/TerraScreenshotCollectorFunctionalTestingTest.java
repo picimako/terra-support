@@ -24,14 +24,14 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.TerraFunctionalTestingTestCase;
 import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
 
 /**
  * Unit test for {@link TerraScreenshotCollector}.
  */
-public class TerraScreenshotCollectorFunctionalTestingTest extends BasePlatformTestCase {
+public class TerraScreenshotCollectorFunctionalTestingTest extends TerraFunctionalTestingTestCase {
 
     @Override
     protected String getTestDataPath() {

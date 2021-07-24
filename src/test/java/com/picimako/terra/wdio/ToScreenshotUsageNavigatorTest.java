@@ -21,12 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link ToScreenshotUsageNavigator}.
  */
-public class ToScreenshotUsageNavigatorTest extends BasePlatformTestCase {
+public class ToScreenshotUsageNavigatorTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

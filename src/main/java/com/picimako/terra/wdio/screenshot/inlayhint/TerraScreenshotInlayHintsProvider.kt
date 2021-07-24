@@ -34,6 +34,7 @@ import com.intellij.ui.layout.panel
 import com.intellij.util.ui.JBUI
 import com.picimako.terra.resources.TerraBundle
 import com.picimako.terra.wdio.TerraResourceManager
+import com.picimako.terra.wdio.TerraResourceManager.isUsingTerra
 import com.picimako.terra.wdio.TerraWdioPsiUtil.*
 import com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorRetriever
 import javax.swing.DefaultComboBoxModel
@@ -136,7 +137,7 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
     override fun getCollectorFor(file: PsiFile, editor: Editor, settings: Settings, sink: InlayHintsSink): InlayHintsCollector? {
         return object : FactoryInlayHintsCollector(editor) {
             override fun collect(element: PsiElement, editor: Editor, sink: InlayHintsSink): Boolean {
-                if (!file.project.service<DumbService>().isDumb && element is JSCallExpression && isScreenshotValidationCall(element)) {
+                if (isUsingTerra(element.project) && !file.project.service<DumbService>().isDumb && element is JSCallExpression && isScreenshotValidationCall(element)) {
                     var addedInlineScreenshot = false
                     if (settings.showScreenshotName != InlayType.Disabled) {
                         val nameExpr = getFirstArgumentAsStringLiteral(element.argumentList);

@@ -19,13 +19,13 @@ package com.picimako.terra.wdio.screenshot.inspection.blocking;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
 import com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection;
 
 /**
  * Unit test for {@link ScreenshotMismatchToleranceBlockingInspection}.
  */
-public class ScreenshotMismatchHasNonNumericValueInspectionTest extends TerraInspectionBaseTestCase {
+public class ScreenshotMismatchHasNonNumericValueInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

@@ -20,13 +20,13 @@ import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraFunctionalTestingInspectionTestCase;
 import com.picimako.terra.wdio.inspection.ReplaceTerraItWithTerraValidatesInspection;
 
 /**
  * Unit test for {@link ReplaceTerraItWithTerraValidatesInspection}.
  */
-public class ReplaceTerraItWithTerraValidatesInspectionForScreenshotTest extends TerraInspectionBaseTestCase {
+public class ReplaceTerraItWithTerraValidatesInspectionForScreenshotTest extends TerraFunctionalTestingInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

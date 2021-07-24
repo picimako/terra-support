@@ -25,13 +25,14 @@ import java.util.function.Function;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import org.jetbrains.annotations.NotNull;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link AbstractScreenshotsPreview}.
  */
-public class AbstractScreenshotsPreviewTest extends BasePlatformTestCase {
+public class AbstractScreenshotsPreviewTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

@@ -17,15 +17,14 @@
 package com.picimako.terra.wdio.screenshot.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
-import com.intellij.testFramework.LightProjectDescriptor;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraFunctionalTestingInspectionTestCase;
 
 /**
- * Unit test for {@link InvalidTerraValidationPropertiesInspection}.
+ * Unit test for {@link MissingScreenshotNameInspection}.
  */
-public class InvalidTerraValidationPropertiesInspectionTest extends TerraInspectionBaseTestCase {
+public class MissingScreenshotNameInspectionTest extends TerraFunctionalTestingInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -34,21 +33,10 @@ public class InvalidTerraValidationPropertiesInspectionTest extends TerraInspect
 
     @Override
     protected @Nullable InspectionProfileEntry getInspection() {
-        return new InvalidTerraValidationPropertiesInspection();
+        return new MissingScreenshotNameInspection();
     }
 
-    public void testInvalidTerraValidationProperties() {
+    public void testMandatoryNameParameter() {
         doWdioSpecTest();
-    }
-
-    public void testInvalidTerraValidationPropertiesTerraFunctionalTesting() {
-        myFixture.copyFileToProject("package.json");
-        doWdioSpecTest();
-    }
-
-    //To fix the test failure when copying package.json to the project
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return new LightProjectDescriptor();
     }
 }

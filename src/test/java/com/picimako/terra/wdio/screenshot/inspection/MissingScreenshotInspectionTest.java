@@ -23,12 +23,12 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
 
 /**
  * Unit test for {@link MissingScreenshotInspection}.
  */
-public class MissingScreenshotInspectionTest extends TerraInspectionBaseTestCase {
+public class MissingScreenshotInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

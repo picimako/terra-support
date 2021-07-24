@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.screenshot.gutter;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsStringLiteral;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerraToolkit;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
@@ -56,7 +57,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
-        if (element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
+        if (isUsingTerra(element.getProject()) && element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
             JSCallExpression terraCallExpr = (JSCallExpression) element;
             JSLiteralExpression nameArgument = getFirstArgumentAsStringLiteral(terraCallExpr.getArgumentList());
             if (isUsingTerraToolkit(element.getProject()) && nameArgument == null) {

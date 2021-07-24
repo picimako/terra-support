@@ -19,6 +19,7 @@ package com.picimako.terra.documentation;
 import static com.intellij.lang.documentation.DocumentationMarkup.CONTENT_END;
 import static com.intellij.lang.documentation.DocumentationMarkup.CONTENT_START;
 import static com.picimako.terra.FileTypePreconditions.isInWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isAnyOfTerraWdioFunctions;
 import static java.util.stream.Collectors.joining;
 
@@ -54,7 +55,8 @@ public class TerraWdioDocumentationProvider extends JavaScriptDocumentationProvi
     @Nullable
     @Override
     public String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
-        if (originalElement != null && isInWdioSpecFile(originalElement) && isAnyOfTerraWdioFunctions(originalElement)) {
+        if (originalElement != null && isUsingTerra(originalElement.getProject())
+            && isInWdioSpecFile(originalElement) && isAnyOfTerraWdioFunctions(originalElement)) {
             return super.generateDoc(element, originalElement) + generateDocLinks(originalElement);
         }
         return null;

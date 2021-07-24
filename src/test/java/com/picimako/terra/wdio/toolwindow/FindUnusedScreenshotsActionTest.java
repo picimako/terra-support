@@ -22,8 +22,8 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.testFramework.TestActionEvent;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.TerraToolkitTestCase;
 import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
@@ -32,7 +32,7 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 /**
  * Unit test for {@link FindUnusedScreenshotsAction}.
  */
-public class FindUnusedScreenshotsActionTest extends BasePlatformTestCase {
+public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {

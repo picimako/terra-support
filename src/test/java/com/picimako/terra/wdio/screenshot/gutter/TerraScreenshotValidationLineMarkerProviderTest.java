@@ -26,12 +26,13 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraScreenshotValidationLineMarkerProvider}.
  */
-public class TerraScreenshotValidationLineMarkerProviderTest extends BasePlatformTestCase {
+public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolkitTestCase {
 
     private final TerraScreenshotValidationLineMarkerProvider provider = new TerraScreenshotValidationLineMarkerProvider();
 

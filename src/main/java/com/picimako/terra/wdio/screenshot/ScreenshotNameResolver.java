@@ -37,7 +37,7 @@ public interface ScreenshotNameResolver {
      * @param element the JS literal expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    @NotNull
+    @Nullable
     String resolveName(JSLiteralExpression element);
 
     /**
@@ -52,7 +52,7 @@ public interface ScreenshotNameResolver {
      * @param methodExpression the method expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    @NotNull
+    @Nullable
     String resolveDefaultName(JSExpression methodExpression);
 
     /**
@@ -63,6 +63,6 @@ public interface ScreenshotNameResolver {
      * @param methodExpression  the method expression of the validation call
      * @return the resolved name
      */
-    @NotNull
+    @Nullable
     String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression);
 }

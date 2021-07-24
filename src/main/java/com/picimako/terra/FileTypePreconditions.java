@@ -20,6 +20,7 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.WDIO_SPEC_FILE_NAME_PATTE
 
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -37,7 +38,7 @@ public final class FileTypePreconditions {
     private static final String NON_TEST_JSX_PATTERN = ".*(?<!\\.test)\\.jsx$";
 
     /**
-     * Validates whether the argument element is in a non-test React JSX file, as in its name ends with {@code .jsx} but
+     * Returns whether the argument element is in a non-test React JSX file, as in its name ends with {@code .jsx} but
      * not with {@code .test.jsx}.
      *
      * @param element the Psi element to check
@@ -48,7 +49,7 @@ public final class FileTypePreconditions {
     }
 
     /**
-     * Validates whether the argument element is in a wdio spec file, as in its name ends with one of the following:
+     * Returns whether the argument element is in a wdio spec file, as in its name ends with one of the following:
      * -spec.js, -spec.jsx or -spec.ts.
      *
      * @param element the Psi element to check
@@ -56,6 +57,17 @@ public final class FileTypePreconditions {
      */
     public static boolean isInWdioSpecFile(@NotNull PsiElement element) {
         return element.getContainingFile().getName().matches(WDIO_SPEC_FILE_NAME_PATTERN);
+    }
+
+    /**
+     * Returns whether the argument file is a wdio spec file, as in its name ends with one of the following:
+     * -spec.js, -spec.jsx or -spec.ts.
+     *
+     * @param file the Psi file to check
+     * @return true if it is a wdio spec file, false otherwise
+     */
+    public static boolean isWdioSpecFile(PsiFile file) {
+        return file.getName().matches(WDIO_SPEC_FILE_NAME_PATTERN);
     }
 
     private FileTypePreconditions() {

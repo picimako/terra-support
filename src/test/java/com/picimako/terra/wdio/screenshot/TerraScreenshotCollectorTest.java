@@ -24,13 +24,13 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraScreenshotCollector}.
  */
-public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
+public class TerraScreenshotCollectorTest extends TerraToolkitTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -95,12 +95,6 @@ public class TerraScreenshotCollectorTest extends BasePlatformTestCase {
     }
 
     //Helper methods
-
-    //To fix the test failure when copying package.json to the project
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return new LightProjectDescriptor();
-    }
 
     private void configureSpecFile(String fileName) {
         myFixture.configureByFile("tests/wdio/" + fileName);

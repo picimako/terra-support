@@ -19,12 +19,12 @@ package com.picimako.terra.wdio.screenshot.inspection;
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.TerraInspectionBaseTestCase;
+import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
 
 /**
  * Unit test for {@link TerraElementValidationIsPreferredOverScreenshotInspection}.
  */
-public class TerraElementValidationIsPreferredOverScreenshotInspectionTest extends TerraInspectionBaseTestCase {
+public class TerraElementValidationIsPreferredOverScreenshotInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {

@@ -69,7 +69,8 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
      * no logic is broken due to Terra.validates calls with no name parameters.
      */
     @Override
-    public @NotNull String resolveName(JSLiteralExpression element) {
+    @Nullable
+    public String resolveName(JSLiteralExpression element) {
         String resolved = "";
         if (element != null) {
             resolved = normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText())));
@@ -82,13 +83,15 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
     }
 
     @Override
-    public @NotNull String resolveDefaultName(JSExpression methodExpression) {
+    @Nullable
+    public String resolveDefaultName(JSExpression methodExpression) {
         throw new UnsupportedOperationException("Default screenshot names are not applicable to the terra-functional-testing library. " +
             "This is a problem in the Terra Support plugin. Please create an issue at https://github.com/picimako/terra-support/issues");
     }
 
     @Override
-    public @NotNull String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression) {
+    @Nullable
+    public String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression) {
         return resolveName(firstNameArgument);
     }
 }

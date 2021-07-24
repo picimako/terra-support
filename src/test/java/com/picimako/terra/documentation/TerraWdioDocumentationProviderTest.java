@@ -17,22 +17,15 @@
 package com.picimako.terra.documentation;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
-import org.jetbrains.annotations.NotNull;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
-import com.picimako.terra.FileTypePreconditions;
-import com.picimako.terra.wdio.TerraWdioPsiUtil;
+import com.picimako.terra.TerraToolkitTestCase;
 
 /**
  * Unit test for {@link TerraWdioDocumentationProvider}.
  */
-public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
+public class TerraWdioDocumentationProviderTest extends TerraToolkitTestCase {
 
     private final TerraWdioDocumentationProvider provider = new TerraWdioDocumentationProvider();
 
@@ -41,47 +34,35 @@ public class TerraWdioDocumentationProviderTest extends BasePlatformTestCase {
     }
 
     public void testReturnNoDocumentationWhenContainingFileIsNotASpecFile() {
-        PsiElement originalElement = mock(PsiElement.class);
+        myFixture.configureByText("WdioDocumentation.js",
+            "describe('terra screenshot', () => {\n" +
+                "    Terra.validates.<caret>element('collect');\n" +
+                "});");
 
-        try (MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(false);
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
 
-            assertThat(provider.generateDoc(null, originalElement)).isNull();
-        }
+        assertThat(provider.generateDoc(null, element)).isNull();
     }
 
     public void testReturnNoDocumentationWhenOriginalElementIsNotTerraWdio() {
-        PsiElement originalElement = mock(PsiElement.class);
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "descri<caret>be('terra screenshot', () => {\n" +
+                "    Terra.validates.element('collect');\n" +
+                "});");
 
-        try (MockedStatic<TerraWdioPsiUtil> importUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
-             MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(true);
-            importUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(false);
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
 
-            assertThat(provider.generateDoc(null, originalElement)).isNull();
-        }
+        assertThat(provider.generateDoc(null, element)).isNull();
     }
 
     public void testGeneratesDocumentation() {
-        PsiElement element = mock(PsiElement.class);
-        PsiElement originalElement = mockOriginalElement();
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "describe('terra screenshot', () => {\n" +
+                "    Terra.validates.access<caret>ibility('collect');\n" +
+                "});");
 
-        try (MockedStatic<TerraWdioPsiUtil> terraUtil = Mockito.mockStatic(TerraWdioPsiUtil.class);
-             MockedStatic<FileTypePreconditions> fileTypeUtil = Mockito.mockStatic(FileTypePreconditions.class)) {
-            fileTypeUtil.when(() -> FileTypePreconditions.isInWdioSpecFile(originalElement)).thenReturn(true);
-            terraUtil.when(() -> TerraWdioPsiUtil.isAnyOfTerraWdioFunctions(originalElement)).thenReturn(true);
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
 
-            assertThat(provider.generateDoc(element, originalElement)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
-        }
-    }
-
-    @NotNull
-    private PsiElement mockOriginalElement() {
-        PsiElement originalElement = mock(PsiElement.class);
-        PsiElement parent = mock(PsiElement.class);
-        when(originalElement.getParent()).thenReturn(parent);
-        when(originalElement.getProject()).thenReturn(getProject());
-        when(parent.getText()).thenReturn("Terra.it.isAccessible");
-        return originalElement;
+        assertThat(provider.generateDoc(element, element)).isEqualTo("null<div class='content'><a href=\"https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#test-assertion-helpers\">Webdriver.io Utility Developer's Guide / Test Assertion Helpers</a><br><a href=\"https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md\">Axe Accessibility Rule Descriptions</a></div>");
     }
 }

@@ -16,7 +16,8 @@
 
 package com.picimako.terra.wdio.viewports.inspection;
 
-import static com.picimako.terra.wdio.TerraWdioPsiUtil.WDIO_SPEC_FILE_NAME_PATTERN;
+import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getMethodExpressionOf;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getViewportsSet;
 
@@ -25,6 +26,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
@@ -57,23 +59,25 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
     }
 
     @Override
-    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
+    public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
+        if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
+            return PsiElementVisitor.EMPTY_VISITOR;
+        }
+
         return new JSElementVisitor() {
             @Override
             public void visitJSFile(JSFile file) {
                 super.visitJSFile(file);
 
-                if (file.getName().matches(WDIO_SPEC_FILE_NAME_PATTERN)) {
-                    PsiElement[] describeViewportsBlocks = PsiTreeUtil.collectElements(file, e -> e instanceof JSExpressionStatement && isTopLevelTerraDescribeViewportsBlock(e));
-                    //In case of 1 or zero describeViewports blocks, there is no validation needed
-                    if (describeViewportsBlocks.length == 2) {
-                        if (getViewportsSet(describeViewportsBlocks[0]).equals(getViewportsSet(describeViewportsBlocks[1]))) {
-                            registerProblem(describeViewportsBlocks[0], holder);
-                            registerProblem(describeViewportsBlocks[1], holder);
-                        }
-                    } else if (describeViewportsBlocks.length > 2) {
-                        reportDuplicateBlocks(describeViewportsBlocks, holder);
+                PsiElement[] describeViewportsBlocks = PsiTreeUtil.collectElements(file, e -> e instanceof JSExpressionStatement && isTopLevelTerraDescribeViewportsBlock(e));
+                //In case of 1 or zero describeViewports blocks, there is no validation needed
+                if (describeViewportsBlocks.length == 2) {
+                    if (getViewportsSet(describeViewportsBlocks[0]).equals(getViewportsSet(describeViewportsBlocks[1]))) {
+                        registerProblem(describeViewportsBlocks[0], holder);
+                        registerProblem(describeViewportsBlocks[1], holder);
                     }
+                } else if (describeViewportsBlocks.length > 2) {
+                    reportDuplicateBlocks(describeViewportsBlocks, holder);
                 }
             }
         };

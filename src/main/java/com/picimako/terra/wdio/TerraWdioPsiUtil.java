@@ -27,12 +27,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
+import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElement;
@@ -185,7 +187,7 @@ public final class TerraWdioPsiUtil {
     public static boolean hasText(@NotNull PsiElement element, String... desiredTexts) {
         if (desiredTexts.length > 0) {
             JSExpression methodExpression = getMethodExpressionOf(element);
-            return methodExpression != null && Arrays.stream(desiredTexts).anyMatch(text -> text.equals(methodExpression.getText()));
+            return methodExpression != null && Arrays.stream(desiredTexts).anyMatch(methodExpression::textMatches);
         }
         return false;
     }
@@ -241,9 +243,13 @@ public final class TerraWdioPsiUtil {
      * @param element the element to validate
      * @return true if the argument is one of the Terra screenshot matching functions, false otherwise
      */
-    public static boolean isTerraElementOrScreenshotValidationFunction(PsiElement element) {
+    public static boolean isTerraElementOrScreenshotValidation(PsiElement element) {
         return !isTopLevelExpression(element)
             && hasText(element, TERRA_IT_MATCHES_SCREENSHOT, TERRA_IT_VALIDATES_ELEMENT, TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT);
+    }
+
+    public static boolean isNonTerraItElementOrScreenshotValidation(PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT);
     }
 
     public static boolean isScreenshotValidation(PsiElement element) {
@@ -256,6 +262,14 @@ public final class TerraWdioPsiUtil {
 
     public static boolean isAccessibilityValidation(PsiElement element) {
         return !isTopLevelExpression(element) && hasText(element, TERRA_IT_IS_ACCESSIBLE, TERRA_VALIDATES_ACCESSIBILITY);
+    }
+    
+    public static boolean isInContextOfNonTerraItElementOrScreenshotValidation(JSLiteralExpression literal) {
+        return Optional.of(literal)
+            .map(PsiElement::getParent)
+            .map(PsiElement::getPrevSibling)
+            .map(methodExpression -> Stream.of(TERRA_VALIDATES_SCREENSHOT, TERRA_VALIDATES_ELEMENT).anyMatch(methodExpression::textMatches))
+            .orElse(false);
     }
 
     /**

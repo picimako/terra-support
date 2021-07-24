@@ -17,6 +17,7 @@
 package com.picimako.terra.wdio.projectview.action;
 
 import static com.picimako.terra.wdio.ProblemDialogs.showNoValidationCallToNavigateToDialog;
+import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioFolders.isInSnapshotsDirectory;
 import static com.picimako.terra.wdio.TerraWdioFolders.isSnapshotsDirectory;
 import static com.picimako.terra.wdio.TerraWdioFolders.specFolderIdentifier;
@@ -90,7 +91,8 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
-        e.getPresentation().setEnabled(isInSnapshotsDirectory(e.getData(PlatformDataKeys.VIRTUAL_FILE))
+        e.getPresentation().setEnabled(isUsingTerra(e.getProject())
+            && isInSnapshotsDirectory(e.getData(PlatformDataKeys.VIRTUAL_FILE))
             && e.getData(PlatformDataKeys.PSI_FILE) instanceof PsiBinaryFile);
     }
 }
