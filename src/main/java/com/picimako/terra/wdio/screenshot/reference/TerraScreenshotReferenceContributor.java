@@ -50,7 +50,7 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
         registrar.registerReferenceProvider(PlatformPatterns.psiElement(JSLiteralExpression.class),
             new PsiReferenceProvider() {
                 @Override
-                public @NotNull PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
+                public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                     if (isJSStringLiteral(element)) {
                         PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element,
                             psiElement -> psiElement instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) psiElement));

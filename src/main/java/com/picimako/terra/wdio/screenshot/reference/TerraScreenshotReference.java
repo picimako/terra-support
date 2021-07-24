@@ -60,7 +60,7 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
     }
 
     @Override
-    public @NotNull ResolveResult[] multiResolve(boolean incompleteCode) {
+    public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
         if (!incompleteCode) {
             PsiFile[] screenshotsForName = screenshotCollector.collectAsPsiFilesFor((JSLiteralExpression) myElement);
             //TODO: idea: reorder the suggestions based on locale, browser and viewport to get a consistently ordered list

@@ -48,6 +48,7 @@ public abstract class AbstractTerraWdioTreeNode implements TerraWdioTreeNode {
         this.project = project;
     }
 
+    @Override
     public String getDisplayName() {
         return displayName;
     }

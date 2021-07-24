@@ -19,7 +19,6 @@ package com.picimako.terra.wdio.screenshot;
 import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
