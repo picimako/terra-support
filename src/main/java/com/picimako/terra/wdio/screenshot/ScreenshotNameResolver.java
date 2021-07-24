@@ -16,12 +16,20 @@
 
 package com.picimako.terra.wdio.screenshot;
 
+import com.intellij.codeInsight.hints.InlayHintsSink;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.Nullable;
+
+import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider;
 
 /**
  * Based on a Terra screenshot validation call's name argument, it resolves the name of the actual screenshot it references.
+ * 
+ * Methods in this interface are not annotated as {@code @Nullable} due to type mismatch in
+ * {@link com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider#getCollectorFor(PsiFile, Editor, TerraScreenshotInlayHintsProvider.Settings, InlayHintsSink)}. 
  */
 public interface ScreenshotNameResolver {
 
@@ -36,7 +44,6 @@ public interface ScreenshotNameResolver {
      * @param element the JS literal expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    @Nullable
     String resolveName(JSLiteralExpression element);
 
     /**
@@ -51,7 +58,6 @@ public interface ScreenshotNameResolver {
      * @param methodExpression the method expression on which the resolution takes place
      * @return the resolved image name, or an empty string if the resolution couldn't happen
      */
-    @Nullable
     String resolveDefaultName(JSExpression methodExpression);
 
     /**
@@ -62,6 +68,5 @@ public interface ScreenshotNameResolver {
      * @param methodExpression  the method expression of the validation call
      * @return the resolved name
      */
-    @Nullable
     String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression);
 }

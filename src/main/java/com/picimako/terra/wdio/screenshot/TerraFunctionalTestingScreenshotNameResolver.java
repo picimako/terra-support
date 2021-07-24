@@ -19,6 +19,7 @@ package com.picimako.terra.wdio.screenshot;
 import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -68,7 +69,7 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
      * no logic is broken due to Terra.validates calls with no name parameters.
      */
     @Override
-    @Nullable
+    @NotNull
     public String resolveName(JSLiteralExpression element) {
         String resolved = "";
         if (element != null) {
@@ -82,14 +83,14 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
     }
 
     @Override
-    @Nullable
+    @NotNull
     public String resolveDefaultName(JSExpression methodExpression) {
         throw new UnsupportedOperationException("Default screenshot names are not applicable to the terra-functional-testing library. " +
             "This is a problem in the Terra Support plugin. Please create an issue at https://github.com/picimako/terra-support/issues");
     }
 
     @Override
-    @Nullable
+    @NotNull
     public String resolveWithFallback(@Nullable JSLiteralExpression firstNameArgument, JSExpression methodExpression) {
         return resolveName(firstNameArgument);
     }
