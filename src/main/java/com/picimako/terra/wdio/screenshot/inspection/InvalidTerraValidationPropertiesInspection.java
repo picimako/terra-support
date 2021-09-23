@@ -50,11 +50,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
 public class InvalidTerraValidationPropertiesInspection extends TerraWdioInspectionBase {
 
     @Override
-    public @NotNull String getShortName() {
-        return "InvalidTerraValidationProperties";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;

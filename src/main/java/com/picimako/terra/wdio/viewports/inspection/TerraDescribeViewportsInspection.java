@@ -66,12 +66,6 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     public boolean reportViewportsNotInAscendingOrder = true;
 
     @Override
-    @NotNull
-    public String getShortName() {
-        return "TerraDescribeViewports";
-    }
-
-    @Override
     public JComponent createOptionsPanel() {
         final MultipleCheckboxOptionsPanel panel = new MultipleCheckboxOptionsPanel(this);
         panel.addCheckbox("Report duplicate viewport values", "reportDuplicateViewports");

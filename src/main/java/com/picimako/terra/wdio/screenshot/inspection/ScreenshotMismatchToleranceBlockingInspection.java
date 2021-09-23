@@ -58,12 +58,6 @@ public class ScreenshotMismatchToleranceBlockingInspection extends TerraWdioInsp
     public boolean reportMismatchToleranceIsNonNumeric = true;
 
     @Override
-    @NotNull
-    public String getShortName() {
-        return "ScreenshotMismatchToleranceBlocking";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;

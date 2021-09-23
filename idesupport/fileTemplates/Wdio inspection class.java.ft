@@ -32,12 +32,6 @@ public class ${NAME}Inspection extends TerraWdioInspectionBase {
 
     @Override
     public @NotNull
-    String getShortName() {
-        return "${NAME}";
-    }
-
-    @Override
-    public @NotNull
     PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
         return new PsiElementVisitor() {
             @Override

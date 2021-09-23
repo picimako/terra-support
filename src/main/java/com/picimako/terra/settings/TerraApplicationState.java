@@ -19,8 +19,8 @@ package com.picimako.terra.settings;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
@@ -59,7 +59,7 @@ public class TerraApplicationState implements PersistentStateComponent<TerraAppl
     }
 
     public static TerraApplicationState getInstance() {
-        return ServiceManager.getService(TerraApplicationState.class);
+        return ApplicationManager.getApplication().getService(TerraApplicationState.class);
     }
 
     @Override

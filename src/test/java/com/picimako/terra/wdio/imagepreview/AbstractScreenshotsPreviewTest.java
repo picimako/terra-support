@@ -59,7 +59,7 @@ public class AbstractScreenshotsPreviewTest extends TerraToolkitTestCase {
         assertThat(screenshotDiffs.get(1).getLatest()).isNull();
     }
 
-    static final class DummyScreenshotPreview extends AbstractScreenshotsPreview {
+    static class DummyScreenshotPreview extends AbstractScreenshotsPreview {
 
         protected DummyScreenshotPreview(@NotNull Project project, @NotNull VirtualFile file, @NotNull String sourceFolderName, @NotNull Function<VirtualFile, ScreenshotDiff> screenshotToDiffMapper) {
             super(project, file, sourceFolderName, screenshotToDiffMapper);

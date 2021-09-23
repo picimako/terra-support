@@ -20,11 +20,11 @@ import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerraFunctionalTesting;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isInContextOfNonTerraItElementOrScreenshotValidation;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.codeInspection.SmartHashMap;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSFile;
@@ -43,15 +43,10 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * <p>
  * See the last part of
  * <a href="https://engineering.cerner.com/terra-ui/dev_tools/cerner-terra-toolkit-docs/terra-functional-testing/upgrade-guides/version-1-upgrade-guide#upgrading-tests">Terra Upgrade guide/Upgrading Tests</a>.
- * 
+ *
  * @since 0.6.0
  */
 public class DuplicateScreenshotNameInspection extends TerraWdioInspectionBase {
-
-    @Override
-    public @NotNull String getShortName() {
-        return "DuplicateScreenshotName";
-    }
 
     /**
      * The inspection logic approaches the checks from the literal expressions' direction: instead of going through each JSExpressionStatement in the file,
@@ -69,7 +64,7 @@ public class DuplicateScreenshotNameInspection extends TerraWdioInspectionBase {
         return new JSElementVisitor() {
             @Override
             public void visitJSFile(JSFile file) {
-                final Map<String, JSExpression> duplicateNames = new SmartHashMap<>();
+                final Map<String, JSExpression> duplicateNames = new HashMap<>();
                 PsiTreeUtil.processElements(session.getFile(), JSLiteralExpression.class, element -> {
                     //The check and reporting is applied only to Terra.validates.element and Terra.validates.screenshot calls,
                     //so there is no unnecessary execution for Terra.it calls which are removed from terra-functional-testing anyway.

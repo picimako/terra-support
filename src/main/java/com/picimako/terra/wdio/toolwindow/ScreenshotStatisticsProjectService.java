@@ -18,7 +18,6 @@ package com.picimako.terra.wdio.toolwindow;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.Service;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
@@ -41,7 +40,7 @@ public final class ScreenshotStatisticsProjectService implements PersistentState
     public boolean isShowStatistics = true;
 
     public static ScreenshotStatisticsProjectService getInstance(Project project) {
-        return ServiceManager.getService(project, ScreenshotStatisticsProjectService.class);
+        return project.getService(ScreenshotStatisticsProjectService.class);
     }
 
     @Override

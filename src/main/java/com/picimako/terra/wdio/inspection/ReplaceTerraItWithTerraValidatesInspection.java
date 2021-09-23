@@ -26,6 +26,7 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.isTerraIt;
 import java.util.Map;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
+import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.util.IntentionFamilyName;
@@ -43,7 +44,6 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.SmartPointerManager;
 import com.intellij.psi.SmartPsiElementPointer;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.siyeh.ig.InspectionGadgetsFix;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -67,16 +67,11 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
     );
 
     @Override
-    public @NotNull String getShortName() {
-        return "ReplaceTerraItWithTerraValidates";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;
         }
-        
+
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
@@ -105,13 +100,13 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
                 return false;
             }
 
-            private void registerProblem(JSExpression methodExpression, InspectionGadgetsFix quickFix) {
+            private void registerProblem(JSExpression methodExpression, LocalQuickFix quickFix) {
                 holder.registerProblem(methodExpression, TerraBundle.inspection("replace.message"), quickFix);
             }
         };
     }
 
-    private static final class ReplaceTerraItWithTerraValidatesQuickFix extends InspectionGadgetsFix {
+    private static final class ReplaceTerraItWithTerraValidatesQuickFix implements LocalQuickFix {
 
         private final String quickFixName;
         private SmartPsiElementPointer<JSExpressionStatement> before;
@@ -126,7 +121,17 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
         }
 
         @Override
-        protected void doFix(Project project, ProblemDescriptor descriptor) {
+        public @IntentionName @NotNull String getName() {
+            return quickFixName;
+        }
+
+        @Override
+        public @IntentionFamilyName @NotNull String getFamilyName() {
+            return TerraBundle.inspection("replace.family.name");
+        }
+
+        @Override
+        public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor) {
             PsiElement terraItCall = descriptor.getPsiElement(); //e.g.: Terra.it.validatesElement
             PsiElement terraItStatement = terraItCall.getParent().getParent(); //e.g.: Terra.it.validatesElement();
 
@@ -156,16 +161,6 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
             }
 
             terraItStatement.replace(itBlock);
-        }
-
-        @Override
-        public @IntentionName @NotNull String getName() {
-            return quickFixName;
-        }
-
-        @Override
-        public @IntentionFamilyName @NotNull String getFamilyName() {
-            return TerraBundle.inspection("replace.family.name");
         }
     }
 }

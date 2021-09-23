@@ -55,11 +55,6 @@ public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
     private final GlobalTerraSelectorRetriever globalSelectorRetriever = new GlobalTerraSelectorRetriever();
 
     @Override
-    public @NotNull String getShortName() {
-        return "GlobalTerraSelector";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;

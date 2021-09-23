@@ -47,11 +47,6 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
 public class MissingScreenshotInspection extends TerraWdioInspectionBase {
 
     @Override
-    public @NotNull String getShortName() {
-        return "MissingScreenshot";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;

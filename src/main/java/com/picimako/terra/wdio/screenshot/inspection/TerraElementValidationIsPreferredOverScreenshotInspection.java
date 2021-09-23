@@ -40,12 +40,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
 public class TerraElementValidationIsPreferredOverScreenshotInspection extends TerraWdioInspectionBase {
 
     @Override
-    @NotNull
-    public String getShortName() {
-        return "TerraElementValidationIsPreferredOverScreenshot";
-    }
-
-    @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
             return PsiElementVisitor.EMPTY_VISITOR;

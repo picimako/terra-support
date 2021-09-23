@@ -20,13 +20,13 @@ import java.util.Optional;
 
 import com.intellij.javascript.nodejs.PackageJsonData;
 import com.intellij.javascript.nodejs.packageJson.PackageJsonFileManager;
-import com.intellij.lang.javascript.buildTools.npm.PackageJsonUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.ModificationTracker;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Base manager for Terra resource handlers.
@@ -73,7 +73,7 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
                     }
                     return false;
                 })
-                .map(PackageJsonUtil::getOrCreateData)
+                .map(TerraResourceManager::getOrCreateData)
                 .findFirst();
 
             if (rootPackageJson.isPresent()) { //dependencies[0] is implicitly not null when rootPackageJson.isPresent()
@@ -99,5 +99,9 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
 
     public static boolean isUsingTerraFunctionalTesting(Project project) {
         return getInstance(project) instanceof TerraFunctionalTestingManager;
+    }
+
+    private static PackageJsonData getOrCreateData(@NotNull VirtualFile packageJson) {
+        return Optional.ofNullable(packageJson).map(PackageJsonData::getOrCreate).orElseThrow(() -> new IllegalArgumentException("No json data found."));
     }
 }

@@ -58,12 +58,6 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
     public double maxThreshold = DEFAULT_THRESHOLD;
 
     @Override
-    @NotNull
-    public String getShortName() {
-        return "ScreenshotMismatchTolerance";
-    }
-
-    @Override
     @Nullable
     public JComponent createOptionsPanel() {
         final JPanel panel = new JPanel(new GridBagLayout());

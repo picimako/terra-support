@@ -20,11 +20,12 @@ import static com.picimako.terra.psi.fs.FileSystemUtil.filePathOf;
 import static com.picimako.terra.psi.js.ES6ImportUtil.importPathForBaseComponent;
 
 import com.intellij.lang.documentation.DocumentationProvider;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlToken;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 import com.picimako.terra.documentation.DocumentationComponents.Component;
 import com.picimako.terra.documentation.DocumentationComponents.ComponentProperties;
@@ -34,8 +35,7 @@ import com.picimako.terra.documentation.DocumentationComponents.ComponentPropert
  * <p>
  * Documentation URLs are handled by an
  * <a href="https://jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_services.html#light-services">application service</a>
- * because application services are initialized only when they are first queried from the {@link ServiceManager}, after that each further
- * query will return the same object.
+ * so that data is initialized only when first queried, after that each further query will return the same object instance.
  * <p>
  * Thus, the documentation URLs are loaded only when the Quick Documentation popup is first triggered, and each further trigger of it
  * will retrieve the data from the already loaded, underlying service-provided object.
@@ -78,7 +78,7 @@ public class TerraUIComponentDocumentationUrlProvider implements DocumentationPr
     }
 
     private DocumentationComponents loadDocumentation() {
-        return ServiceManager.getService(TerraUIComponentDocumentationUrlService.class).getDocs();
+        return ApplicationManager.getApplication().getService(TerraUIComponentDocumentationUrlService.class).getDocs();
     }
 
     /**
@@ -141,5 +141,10 @@ public class TerraUIComponentDocumentationUrlProvider implements DocumentationPr
      */
     private String trimApostrophes(String importPath) {
         return importPath.replace("'", "");
+    }
+
+    @TestOnly
+    DocumentationComponents getDocumentation() {
+        return documentation;
     }
 }

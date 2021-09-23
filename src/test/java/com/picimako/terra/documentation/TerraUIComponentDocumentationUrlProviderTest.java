@@ -21,13 +21,12 @@ import static com.picimako.terra.JavaScriptTestFileSupport.FILE_WITH_IMPORT;
 import static com.picimako.terra.JavaScriptTestFileSupport.createJavaScriptFileFromText;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import com.google.gson.Gson;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlToken;
+import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.util.ReflectionUtil;
 import org.mockito.MockedStatic;
@@ -60,6 +59,11 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
         "<a href=\"https://engineering.cerner.com/terra-ui/components/terra-responsive-element/responsive-element/responsive-element\">Terra documentation: ResponsiveElement</a>";
 
     private final TerraUIComponentDocumentationUrlProvider provider = new TerraUIComponentDocumentationUrlProvider();
+
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new LightProjectDescriptor();
+    }
 
     public void testReturnNoDocumentationForNotXmlTokenElement() {
         assertThat(provider.generateDoc(null, null)).isNull();
@@ -105,20 +109,16 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
 
         String documentationHtml;
         try (MockedStatic<ES6ImportUtil> importUtil = Mockito.mockStatic(ES6ImportUtil.class);
-             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class);
-             MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
+             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class)) {
 
             importUtil.when(() -> ES6ImportUtil.importPathForBaseComponent(originalElement)).thenReturn("terra-responsive-element");
             fileSystemUtil.when(() -> FileSystemUtil.filePathOf(element)).thenReturn("C:\\projects\\plugindev\\somefilename.js");
-            serviceManager.when(() -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class)).thenReturn(service);
 
+            assertThat(provider.getDocumentation()).isNull();
             documentationHtml = provider.generateDoc(element, originalElement);
-
-            serviceManager.verify(
-                times(1),
-                () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class));
         }
 
+        assertThat(provider.getDocumentation()).isNotNull();
         assertThat(documentationHtml).isEqualTo(DOCUMENTATION_HTML);
     }
 
@@ -130,19 +130,16 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
 
         String documentationHtml;
         try (MockedStatic<ES6ImportUtil> importUtil = Mockito.mockStatic(ES6ImportUtil.class);
-             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class);
-             MockedStatic<ServiceManager> serviceManager = Mockito.mockStatic(ServiceManager.class)) {
+             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class)) {
 
             importUtil.when(() -> ES6ImportUtil.importPathForBaseComponent(originalElement)).thenReturn("terra-responsive-element");
             fileSystemUtil.when(() -> FileSystemUtil.filePathOf(element)).thenReturn("C:\\projects\\plugindev\\somefilename.js");
 
+            assertThat(provider.getDocumentation()).isNotNull();
             documentationHtml = provider.generateDoc(element, originalElement);
-
-            serviceManager.verify(
-                times(0),
-                () -> ServiceManager.getService(TerraUIComponentDocumentationUrlService.class)
-            );
         }
+
+        assertThat(provider.getDocumentation()).isNotNull();
         assertThat(documentationHtml).isEqualTo(DOCUMENTATION_HTML);
     }
 

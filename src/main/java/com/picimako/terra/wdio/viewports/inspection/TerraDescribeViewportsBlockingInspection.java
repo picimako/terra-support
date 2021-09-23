@@ -68,12 +68,6 @@ public final class TerraDescribeViewportsBlockingInspection extends TerraWdioIns
     public boolean reportNonArrayViewports = true;
 
     @Override
-    @NotNull
-    public String getShortName() {
-        return "TerraDescribeViewportsBlocking";
-    }
-
-    @Override
     public JComponent createOptionsPanel() {
         final MultipleCheckboxOptionsPanel panel = new MultipleCheckboxOptionsPanel(this);
         panel.addCheckbox("Report empty viewports array", "reportEmptyViewports");
