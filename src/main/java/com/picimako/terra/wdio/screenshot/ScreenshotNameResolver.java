@@ -47,7 +47,7 @@ public interface ScreenshotNameResolver {
     String resolveName(JSLiteralExpression element);
 
     /**
-     * Resolves the name of the screenshot referenced by the argument method expression representing the method name part of
+     * Resolves the name of the screenshot referenced by the argument method expression representing the method name part
      * of one of the screenshot validation calls.
      * <p>
      * This method is designed for the case when there is no name parameter specified in the screenshot validation calls,

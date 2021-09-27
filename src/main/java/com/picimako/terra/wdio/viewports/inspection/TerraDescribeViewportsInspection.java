@@ -95,6 +95,8 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
+                super.visitJSExpressionStatement(node);
+                
                 if (!isTopLevelTerraDescribeViewportsBlock(node)) {
                     return;
                 }

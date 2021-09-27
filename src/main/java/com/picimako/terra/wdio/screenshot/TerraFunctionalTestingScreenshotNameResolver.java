@@ -83,10 +83,9 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
     }
 
     @Override
-    @NotNull
+    @Nullable
     public String resolveDefaultName(JSExpression methodExpression) {
-        throw new UnsupportedOperationException("Default screenshot names are not applicable to the terra-functional-testing library. " +
-            "This is a problem in the Terra Support plugin. Please create an issue at https://github.com/picimako/terra-support/issues");
+        return null;
     }
 
     @Override

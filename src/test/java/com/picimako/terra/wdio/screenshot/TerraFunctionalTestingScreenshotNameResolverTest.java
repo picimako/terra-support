@@ -17,7 +17,6 @@
 package com.picimako.terra.wdio.screenshot;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.intellij.lang.javascript.JavaScriptFileType;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
@@ -72,8 +71,7 @@ public class TerraFunctionalTestingScreenshotNameResolverTest extends BasePlatfo
         JSLiteralExpression element = configureFileForJSLiteralExpression(
             "Terra.validates.element('with name<caret>', { selector: '#selector' });");
 
-        assertThatExceptionOfType(UnsupportedOperationException.class)
-            .isThrownBy(() -> new TerraFunctionalTestingScreenshotNameResolver().resolveDefaultName(element));
+        assertThat(new TerraFunctionalTestingScreenshotNameResolver().resolveDefaultName(element)).isNull();
     }
 
     //Helper methods

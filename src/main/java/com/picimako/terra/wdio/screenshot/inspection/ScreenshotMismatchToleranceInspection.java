@@ -99,6 +99,8 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
+                super.visitJSExpressionStatement(node);
+                
                 if (isTerraElementOrScreenshotValidation(node)) {
                     JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
                     if (misMatchToleranceProperty != null) {
