@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.viewports.inspection.blocking;
+package com.picimako.terra.wdio.viewports.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
-import com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection;
 
 /**
- * Unit test for {@link TerraDescribeViewportsBlockingInspection}.
+ * Unit test for {@link TerraDescribeViewportsInspection}.
  */
-public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraToolkitInspectionTestCase {
+public class NonArrayTypeViewportsInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -35,13 +34,15 @@ public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraToolk
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        final TerraDescribeViewportsBlockingInspection inspection = new TerraDescribeViewportsBlockingInspection();
+        final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
         inspection.reportEmptyViewports = false;
-        inspection.reportNonArrayViewports = false;
+        inspection.reportNotSupportedViewports = false;
+        inspection.reportDuplicateViewports = false;
+        inspection.reportViewportsNotInAscendingOrder = false;
         return inspection;
     }
 
-    public void testNotSupportedTerraViewports() {
+    public void testNonArrayTypeViewports() {
         doWdioSpecTest();
     }
 }

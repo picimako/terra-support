@@ -23,12 +23,8 @@
         <!-- Viewports -->
         <localInspection id="terraDescribeViewports" language="JavaScript"
                          displayName="Terra.describeViewports validations"
-                         groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"
-                         implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection"/>
-        <localInspection id="terraDescribeViewportsBlocking" language="JavaScript"
-                         displayName="Terra.describeViewports validations (blocking test execution)"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
-                         implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection"/>
+                         implementationClass="com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsInspection"/>
         <localInspection id="nestedDescribeViewportsNotAllowed" language="JavaScript"
                          displayName="Nested Terra.describeViewports blocks"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
@@ -44,13 +40,9 @@
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="false" level="WARNING"
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.TerraElementValidationIsPreferredOverScreenshotInspection"/>
         <localInspection id="screenshotMismatchTolerance" language="JavaScript"
-                         displayName="Screenshot misMatchTolerance is above threshold"
-                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="WARNING"
-                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection"/>
-        <localInspection id="screenshotMismatchToleranceBlocking" language="JavaScript"
-                         displayName="Screenshot misMatchTolerance validations (blocking test execution)"
+                         displayName="Screenshot misMatchTolerance validations"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
-                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection"/>
+                         implementationClass="com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection"/>
         <localInspection id="missingScreenshot" language="JavaScript"
                          displayName="Referenced screenshot is missing"
                          groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"

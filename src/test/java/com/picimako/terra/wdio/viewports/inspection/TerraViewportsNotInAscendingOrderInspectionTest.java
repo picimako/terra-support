@@ -36,6 +36,9 @@ public class TerraViewportsNotInAscendingOrderInspectionTest extends TerraToolki
     protected InspectionProfileEntry getInspection() {
         final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
         inspection.reportDuplicateViewports = false;
+        inspection.reportEmptyViewports = false;
+        inspection.reportNonArrayViewports = false;
+        inspection.reportNotSupportedViewports = false;
         return inspection;
     }
 

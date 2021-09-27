@@ -34,7 +34,10 @@ public class ScreenshotMismatchToleranceAboveThresholdInspectionTest extends Ter
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        return new ScreenshotMismatchToleranceInspection();
+        final ScreenshotMismatchToleranceInspection inspection = new ScreenshotMismatchToleranceInspection();
+        inspection.reportMismatchToleranceIsNonNumeric = false;
+        inspection.reportMismatchToleranceOutsideOfBoundaries = false;
+        return inspection;
     }
 
     public void testMismatchToleranceAboveThreshold() {

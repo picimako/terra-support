@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,34 +14,35 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.screenshot.inspection.blocking;
+package com.picimako.terra.wdio.viewports.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
-import com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection;
 
 /**
- * Unit test for {@link ScreenshotMismatchToleranceBlockingInspection}.
+ * Unit test for {@link TerraDescribeViewportsInspection}.
  */
-public class ScreenshotMismatchOutsideOfBoundariesInspectionTest extends TerraToolkitInspectionTestCase {
+public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return BASE_PATH + "/wdio/screenshot";
+        return BASE_PATH + "/wdio/describeviewports";
     }
 
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        final ScreenshotMismatchToleranceBlockingInspection inspection = new ScreenshotMismatchToleranceBlockingInspection();
-        inspection.reportMismatchToleranceIsNonNumeric = false;
+        final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
+        inspection.reportEmptyViewports = false;
+        inspection.reportNonArrayViewports = false;
+        inspection.reportDuplicateViewports = false;
+        inspection.reportViewportsNotInAscendingOrder = false;
         return inspection;
     }
 
-    public void testMismatchToleranceOutsideOfBoundaries() {
+    public void testNotSupportedTerraViewports() {
         doWdioSpecTest();
     }
 }
-    

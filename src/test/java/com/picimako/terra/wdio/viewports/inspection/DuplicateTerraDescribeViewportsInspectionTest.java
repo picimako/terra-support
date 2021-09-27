@@ -36,6 +36,9 @@ public class DuplicateTerraDescribeViewportsInspectionTest extends TerraToolkitI
     protected InspectionProfileEntry getInspection() {
         final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
         inspection.reportViewportsNotInAscendingOrder = false;
+        inspection.reportNotSupportedViewports = false;
+        inspection.reportEmptyViewports = false;
+        inspection.reportNonArrayViewports = false;
         return inspection;
     }
 

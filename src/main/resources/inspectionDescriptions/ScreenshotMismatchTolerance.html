@@ -1,6 +1,6 @@
 <html>
 <body>
-<p>This inspection reports problems where the <code>misMatchTolerance</code> property that may be defined
+<p>This inspection reports various problems regarding the <code>misMatchTolerance</code> property that may be defined
     for screenshot validation related functions such as:
 <ul>
     <li><code>Terra.validates.element</code></li>
@@ -9,11 +9,14 @@
     <li><code>Terra.it.matchesScreenshot</code></li>
 </ul>
 <p>
-    is above a preset threshold, for which the default value is 0.5.
-</p>
+    The following validations are in place at the moment that check whether the specified values are:
+<ul>
+    <li>outside of the allowed boundaries, as in values not between 0 and 100,</li>
+    <li>not numeric values, such as object literals, booleans, Strings, etc.</li>
+    <li>are above a preset threshold, for which the default value is 0.5.</li>
+</ul>
 <p>
     Below, on the Options panel you can override the threshold value.
-</p>
 <p>
     For further details please consult the <a
         href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md">Terra Webdriver.io

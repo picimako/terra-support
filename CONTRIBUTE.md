@@ -5,36 +5,16 @@ If you would like to contribute, first make sure to check out the document about
 ## Table of contents
 
 - [Implementing inspections](#implementing-inspections)
-    - [Blocking vs. non-blocking inspection types](#blocking-vs-non-blocking-inspection-types)
     - [Steps to implement an inspection](#steps-to-implement-an-inspection)
     - [Unit testing](#unit-testing)
 - [Helper code snippets](#helper-code-snippets)
 
 ## Implementing inspections
 
-### Blocking vs. non-blocking inspection types
-
-Inspections are structured and implemented in a way to have as few duplication as possible.
-
-Since severity can only be assigned on an inspection-class (or extension point) basis, inspection implementations are
-separated into **blocking** and **non-blocking** types. (The naming is kind of arbitrary but reflects its purpose. This distinction is not a JetBrains standard but is introduced
-here for better performance and maintenance.)
-
-**Blocking** inspections are registered with `ERROR` severity level in the `plugin.xml`, and each problem registered in the `ProblemsHolder` 
-is considered a problem that would either cause the test execution not to start, or to fail because in insufficient value was provided that is not considered a valid input.
-
-These classes have their names postfixed with `Blocking`, e.g. `TerraDescribeViewportsBlockingInspection`.
-
-**Non-blocking** inspections are registered with `WARNING` (or lower) severity level. Each problem registered in the `ProblemsHolder`
-is considered a problem that would not cause the test execution not to start, or to fail, rather values or constructs that are not optimal, would have unintended consequences of the test execution,
-or might mislead users.
-
-These classes don't have `Blocking` in their names, e.g. `TerraDescribeViewportsInspection`.
-
 ### Steps to implement an inspection
 
 - Create the implementation of the inspection. [[docs]](https://jetbrains.org/intellij/sdk/docs/tutorials/code_inspections.html)
-    - As for determining the severity of the inspection, see the [Blocking vs. non-blocking inspection types](#blocking-vs-non-blocking-inspection-types) section in this document.
+    - As for determining the severity of the inspection, if the test execution would be blocked, use ERROR, otherwise WARNING.
     - Consider customization of inspection configuration via the Settings UI.
 - Register the implementation class in plugin.xml. [[docs]](https://jetbrains.org/intellij/sdk/docs/tutorials/code_inspections.html#plugin-configuration-file)
 - Implement unit test(s) for the inspection with both no-highlight and highlight cases, and make sure they run successfully (and actually validate the logic behind). [[testing plugins]](https://jetbrains.org/intellij/sdk/docs/basics/testing_plugins/testing_plugins.html) [[testing highlighting]](https://jetbrains.org/intellij/sdk/docs/basics/testing_plugins/testing_highlighting.html) 

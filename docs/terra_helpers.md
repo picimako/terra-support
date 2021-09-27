@@ -44,32 +44,24 @@ Terra.validates.element({ misMatchTolerance: 23 });
 Terra.validates.element({ misMatchTolerance: 181 });
 ```
 
-### misMatchTolerance has negative value or a value greater than 100
+### misMatchTolerance value is out of bounds, or is not a numeric value
 
-![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceBlockingInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceInspection.java)
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceInspection.java)
 
 According to the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
 the value specified in the `misMatchTolerance` property should be a number **between 0 and 100**, thus this inspection is meant to signal values
-that are either negative or greater than 100.
+that are
+- either negative or greater than 100,
+- or not numeric ones
 
 **Examples:**
 
 ```javascript
+// Out of bounds
 Terra.validates.element({ misMatchTolerance: -4 });
 Terra.validates.element({ misMatchTolerance: 153 });
-```
 
-### misMatchTolerance has a non-numeric value defined
-
-![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-ScreenshotMismatchToleranceBlockingInspection-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/inspection/ScreenshotMismatchToleranceBlockingInspection.java)
-
-According to the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
-the value specified in the `misMatchTolerance` property should be a **number** between 0 and 100, thus this inspection is meant to signal values
-that are not numeric ones.
-
-**Examples:**
-
-```javascript
+// Not numeric values
 Terra.validates.element({ misMatchTolerance: "asdsad" });
 Terra.validates.element('test case', { selector: '#root', misMatchTolerance: "asdsad" });
 Terra.validates.element('test case', { misMatchTolerance: { } });

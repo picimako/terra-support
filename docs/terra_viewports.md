@@ -21,7 +21,7 @@ Terra.describeViewports('', ['gigantic'], () => {
 
 | Implementation class | Introduced in |
 |---|---|
-| [`TerraDescribeViewportsBlockingInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsBlockingInspection.java) | v0.1.0 |
+| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
 
 ### Viewports in Terra.describeViewports should be enumerated in ascending order
 
@@ -91,7 +91,7 @@ Terra.describeViewports('', ['', '  ', ''], () => {
 
 | Implementation class | Introduced in |
 |---|---|
-| [`TerraDescribeViewportsBlockingInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsBlockingInspection.java) | v0.1.0 |
+| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
 
 ### Non-array-type viewports argument value in Terra.describeViewports blocks
 
@@ -120,7 +120,7 @@ Terra.describeViewports('', VIEWPORTS, () => {
 
 | Implementation class | Introduced in |
 |---|---|
-| [`TerraDescribeViewportsBlockingInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsBlockingInspection.java) | v0.1.0 |
+| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
 
 ### Nested Terra.describeViewports blocks
 

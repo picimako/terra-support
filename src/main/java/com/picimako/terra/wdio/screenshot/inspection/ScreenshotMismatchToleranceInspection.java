@@ -29,31 +29,40 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
+import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
+import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.lang.javascript.psi.JSPrefixExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
- * Reports problems regarding the {@code misMatchTolerance} or {@code mismatchTolerance} property of screenshot
- * validation function parameters.
- * <p>
- * The validations in this inspection all report problems that would not block test execution.
+ * Reports problems regarding the {@code misMatchTolerance} property of screenshot validation function parameters.
  *
  * @since 0.1.0
  */
 public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBase {
 
     private static final double DEFAULT_THRESHOLD = 0.5;
+    private static final String NEGATIVE_OPERATION_SIGN = "JS:MINUS";
 
+    @SuppressWarnings("PublicField")
+    @TestOnly
+    boolean reportMismatchToleranceOutsideOfBoundaries = true;
+    @SuppressWarnings("PublicField")
+    @TestOnly
+    boolean reportMismatchToleranceIsNonNumeric = true;
     @SuppressWarnings("PublicField")
     public double maxThreshold = DEFAULT_THRESHOLD;
 
@@ -90,19 +99,61 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
         return new JSElementVisitor() {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
-                super.visitJSExpressionStatement(node);
-
                 if (isTerraElementOrScreenshotValidation(node)) {
                     JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
-                    if (misMatchToleranceProperty != null && misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
-                        JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
-                        if (literal.isNumericLiteral()) {
-                            checkForMismatchToleranceAboveThreshold(literal, holder);
+                    if (misMatchToleranceProperty != null) {
+                        checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
+                        if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
+                            JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
+                            if (!literal.isNumericLiteral()) {
+                                registerProblemForNonNumericPropertyValue(literal, holder);
+                            } else {
+                                checkForMismatchToleranceAboveThreshold(literal, holder);
+                            }
+                        } else {
+                            registerProblemForNonNumericPropertyValue(misMatchToleranceProperty.getValue(), holder);
                         }
                     }
                 }
             }
         };
+    }
+
+    private void registerProblemForNonNumericPropertyValue(JSExpression propertyValue, @NotNull ProblemsHolder holder) {
+        if (reportMismatchToleranceIsNonNumeric) {
+            holder.registerProblem(propertyValue, TerraBundle.inspection("mismatch.tolerance.not.numeric.value"));
+        }
+    }
+
+    /**
+     * Validates if the argument property's value is between 0 and 100, and registers a problem if it's not.
+     * <p>
+     * Double, Integer, Long and Float values are checked, others are ignored during the validation.
+     * <p>
+     * Negative values are not stored as {@code JSLiteralExpression}s in the PSI tree, rather wrapped in a
+     * {@code JSPrefixExpression} along with its operation sign.
+     *
+     * @param property the property to check
+     */
+    private void checkForMismatchToleranceOutsideOfBoundaries(JSProperty property, boolean reportProblem, ProblemsHolder holder) {
+        if (reportProblem) {
+            JSExpression literal = property.getValue();
+            if (literal instanceof JSLiteralExpression) {
+                if (isGreaterThanMaxAllowedValue(((JSLiteralExpression) literal).getValue())) {
+                    holder.registerProblem(literal, TerraBundle.inspection("mismatch.tolerance.outside.of.range"));
+                }
+            } else if (literal instanceof JSPrefixExpression) {
+                IElementType operationSign = ((JSPrefixExpression) literal).getOperationSign();
+                if (operationSign != null && NEGATIVE_OPERATION_SIGN.equals(operationSign.toString())) {
+                    holder.registerProblem(literal, TerraBundle.inspection("mismatch.tolerance.outside.of.range"));
+                }
+            }
+        }
+    }
+
+    private boolean isGreaterThanMaxAllowedValue(Object literalValue) {
+        return literalValue instanceof Double && (Double) literalValue > 100 || literalValue instanceof Float && (Float) literalValue > 100
+            || literalValue instanceof Integer && (Integer) literalValue > 100 || literalValue instanceof Long && (Long) literalValue > 100;
     }
 
     /**
@@ -115,15 +166,15 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
      */
     private void checkForMismatchToleranceAboveThreshold(JSLiteralExpression literal, @NotNull ProblemsHolder holder) {
         if (isMismatchToleranceAboveThreshold(literal.getValue())) {
-            holder.registerProblem(literal, String.format(TerraBundle.inspection("mismatch.tolerance.above.threshold"), maxThreshold));
+            holder.registerProblem(literal, String.format(TerraBundle.inspection("mismatch.tolerance.above.threshold"), maxThreshold), ProblemHighlightType.WARNING);
         }
     }
 
     private boolean isMismatchToleranceAboveThreshold(Object misMatchToleranceValue) {
         return misMatchToleranceValue instanceof Double && ((Double) misMatchToleranceValue) > maxThreshold
-                || misMatchToleranceValue instanceof Integer && ((Integer) misMatchToleranceValue) > maxThreshold
-                || misMatchToleranceValue instanceof Long && ((Long) misMatchToleranceValue) > maxThreshold
-                || misMatchToleranceValue instanceof Float && ((Float) misMatchToleranceValue) > maxThreshold;
+            || misMatchToleranceValue instanceof Integer && ((Integer) misMatchToleranceValue) > maxThreshold
+            || misMatchToleranceValue instanceof Long && ((Long) misMatchToleranceValue) > maxThreshold
+            || misMatchToleranceValue instanceof Float && ((Float) misMatchToleranceValue) > maxThreshold;
     }
 
     /**

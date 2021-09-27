@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.screenshot.inspection.blocking;
+package com.picimako.terra.wdio.screenshot.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
-import com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceBlockingInspection;
+import com.picimako.terra.wdio.screenshot.inspection.ScreenshotMismatchToleranceInspection;
 
 /**
- * Unit test for {@link ScreenshotMismatchToleranceBlockingInspection}.
+ * Unit test for {@link ScreenshotMismatchToleranceInspection}.
  */
-public class ScreenshotMismatchHasNonNumericValueInspectionTest extends TerraToolkitInspectionTestCase {
+public class ScreenshotMismatchOutsideOfBoundariesInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {
@@ -35,12 +35,12 @@ public class ScreenshotMismatchHasNonNumericValueInspectionTest extends TerraToo
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        final ScreenshotMismatchToleranceBlockingInspection inspection = new ScreenshotMismatchToleranceBlockingInspection();
-        inspection.reportMismatchToleranceOutsideOfBoundaries = false;
+        final ScreenshotMismatchToleranceInspection inspection = new ScreenshotMismatchToleranceInspection();
+        inspection.reportMismatchToleranceIsNonNumeric = false;
         return inspection;
     }
 
-    public void testMismatchToleranceHasNonNumericValue() {
+    public void testMismatchToleranceOutsideOfBoundaries() {
         doWdioSpecTest();
     }
 }

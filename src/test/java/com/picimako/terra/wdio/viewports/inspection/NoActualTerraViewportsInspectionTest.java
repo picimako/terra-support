@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.viewports.inspection.blocking;
+package com.picimako.terra.wdio.viewports.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
-import com.picimako.terra.wdio.viewports.inspection.TerraDescribeViewportsBlockingInspection;
 
 /**
- * Unit test for {@link TerraDescribeViewportsBlockingInspection}.
+ * Unit test for {@link TerraDescribeViewportsInspection}.
  */
 public class NoActualTerraViewportsInspectionTest extends TerraToolkitInspectionTestCase {
 
@@ -35,9 +34,11 @@ public class NoActualTerraViewportsInspectionTest extends TerraToolkitInspection
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        final TerraDescribeViewportsBlockingInspection inspection = new TerraDescribeViewportsBlockingInspection();
+        final TerraDescribeViewportsInspection inspection = new TerraDescribeViewportsInspection();
         inspection.reportNotSupportedViewports = false;
         inspection.reportNonArrayViewports = false;
+        inspection.reportDuplicateViewports = false;
+        inspection.reportViewportsNotInAscendingOrder = false;
         return inspection;
     }
 

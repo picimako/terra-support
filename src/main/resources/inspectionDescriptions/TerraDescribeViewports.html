@@ -1,19 +1,38 @@
 <html>
 <body>
-<b>
-    Duplicate viewports:
-</b>
+<b>Empty viewports / no viewports specified:</b>
+<p>
+    This inspection reports problems when the viewports array has no viewport defined, or all the viewports are blank,
+    as in either empty, or contain only whitespaces.
+
+    You need to define either one or more viewports to have the test cases run properly, or remove the
+    <code>Terra.describeViewports</code> block to run the tests on a single default viewport.
+</p>
+<b>Not supported viewports:</b>
+<p>
+    Terra has support for six distinct viewports/breakpoints. In ascending order by their widths, they are: tiny, small,
+    medium, large, huge, enormous.
+    You can find more details about them in <a
+        href="https://engineering.cerner.com/terra-ui/components/terra-breakpoints/breakpoints/about#breakpoints">Cerner's
+    Terra Breakpoints documentation</a>.
+</p>
+<b>Viewports defined as a non-array-type argument:</b>
+<p>
+    The viewports argument of <code>Terra.describeViewports</code> accepts an array only, so any other type of value
+    will be reported by this check. Though there are some exceptions in which case it would be unnecessarily complex to
+    compute the returned values: function calls, variables that reference further variables or function calls, not
+    initialized variables.
+</p>
+<b>Duplicate viewports:</b>
 <p>
     Duplicate viewports is not an incorrect construct and in itself won't result in test execution failure,
     but having duplicate viewports means that the test cases will be executed multiple times for that/those viewports
 </p>
-<b>
-    Viewports not in ascending order:
-</b>
+<b>Viewports not in ascending order:</b>
 <p>
-    Although the order of viewports defined in the Terra.describeViewports block doesn't affect the test execution negatively,
-    having them specified in ascending order by their width ensures that test implementations are consistent, it is easily
-    readable what viewports are actually covered.
+    Although the order of viewports defined in the Terra.describeViewports block doesn't affect the test execution
+    negatively, having them specified in ascending order by their width ensures that test implementations are
+    consistent, it is easily readable what viewports are actually covered.
 </p>
 </body>
 </html>
