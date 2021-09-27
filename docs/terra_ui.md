@@ -2,6 +2,8 @@
 
 ## Quick Documentations
 
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraUIComponentDocumentationUrlProvider-blue)](../src/main/java/com/picimako/terra/documentation/TerraUIComponentDocumentationUrlProvider.java)
+
 In front-end applications, the [Terra UI Components](https://engineering.cerner.com/terra-ui/components) can be utilized as React JS tags (among other things).
 
 Although regular external components have a default Quick Documentation popup with some basic information,
@@ -20,7 +22,3 @@ so that it can be distinguished from the component with the same name in other p
 **Connection to other Quick Documentation popups**
 
 If any of these Quick Documentation tooltips would interfere with, or override an existing functionality, that you need in a previous Quick Documentation popup content, please raise an issue.
-
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraUIComponentDocumentationUrlProvider`](../src/main/java/com/picimako/terra/documentation/TerraUIComponentDocumentationUrlProvider.java) | v0.1.0 |

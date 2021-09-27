@@ -1,5 +1,11 @@
 # Terra wdio tool window
 
+[![](https://img.shields.io/badge/implementation-TerraWdioToolWindow-blue)](../src/main/java/com/picimako/terra/wdio/toolwindow)
+![](https://img.shields.io/badge/since-0.1.0-blue)
+
+[![](https://img.shields.io/badge/implementation-FindUnusedScreenshotsAction-blue)](../src/main/java/com/picimako/terra/wdio/toolwindow/FindUnusedScreenshotsAction.java)
+![](https://img.shields.io/badge/since-0.3.0-blue)
+
 This is a custom tool window which is inspired by the [Terra Wdio Helper VSCode plugin](https://marketplace.visualstudio.com/items?itemName=juzerzarif.terra-wdio-helper),
 which is a great plugin, so if you are working with VSCode and Terra testing, make sure you have it installed. It will greatly benefit you.
 
@@ -7,11 +13,6 @@ This tool window collects the wdio spec files and screenshots in the project, an
 with additional actions for bulk operations to be applied on those files and folders.
 
 **NOTE**: currently it doesn't support when multiple projects are opened in the same application window in the same workspace.
-
-| Implementation package | Introduced in |
-|---|---|
-| [`com.picimako.terra.wdio.toolwindow`](../src/main/java/com/picimako/terra/wdio/toolwindow) | v0.1.0 |
-| [`FindUnusedScreenshotsAction`](../src/main/java/com/picimako/terra/wdio/toolwindow/FindUnusedScreenshotsAction.java) | v0.3.0 |
 
 ## Aggregate view
 

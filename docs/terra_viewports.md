@@ -4,6 +4,8 @@
 
 ### Incorrect viewport value(s) in Terra.describeViewports blocks
 
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java)
+
 This inspection reports problems where one or more viewports defined in `Terra.describeViewports` are not one of the breakpoints supported by Terra, namely:
 tiny, small, medium, large, huge, enormous.
 
@@ -19,11 +21,9 @@ Terra.describeViewports('', ['gigantic'], () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
-
 ### Viewports in Terra.describeViewports should be enumerated in ascending order
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java)
 
 This inspection reports problems where the viewports in `Terra.describeViewports` are not specified in ascending order by their widths.
 
@@ -42,11 +42,9 @@ Terra.describeViewports('', ['tiny', 'enormous', 'medium', 'large', 'huge', 'sma
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
-
 ### Duplicate viewport values in Terra.describeViewports blocks
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java)
 
 Copy-paste issues and typos can happen, so this inspection checks for duplicate viewport values, but only highlights
 the ones that are actually supported by terra. The rest will be signaled by another inspection, that they are not supported.
@@ -67,11 +65,9 @@ make a permanent part of the test implementation.
 
 In the example above, the first `Terra.describeViewports` block would execute the selected test cases for the *small* viewport twice.
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
-
 ### Blank viewports argument array in Terra.describeViewports blocks
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java)
 
 This inspection reports problems where either the viewports argument is an empty array, or all items in it are blank
 (either empty or contain only whitespaces).
@@ -89,11 +85,9 @@ Terra.describeViewports('', ['', '  ', ''], () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
-
 ### Non-array-type viewports argument value in Terra.describeViewports blocks
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java)
 
 The viewports argument of `Terra.describeViewports` accepts an array only, so any other type of value will be reported by this check.
 
@@ -118,11 +112,9 @@ Terra.describeViewports('', VIEWPORTS, () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/TerraDescribeViewportsInspection.java) | v0.1.0 |
-
 ### Nested Terra.describeViewports blocks
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-NestedTerraDescribeViewportsBlocksNotAllowedInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/NestedTerraDescribeViewportsBlocksNotAllowedInspection.java)
 
 This inspection is based on the official [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
 which states that
@@ -146,11 +138,9 @@ Terra.describeViewports('Top level', ['tiny', 'large'], () => {
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`NestedTerraDescribeViewportsBlocksNotAllowedInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/NestedTerraDescribeViewportsBlocksNotAllowedInspection.java) | v0.1.0 |
-
 ### Duplicate Terra.describeViewports blocks
+
+![](https://img.shields.io/badge/since-0.4.0-blue) [![](https://img.shields.io/badge/implementation-DuplicateDescribeViewportsBlockInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/DuplicateDescribeViewportsBlockInspection.java)
 
 Since tests are organized into different blocks (`Terra.describeViewports`, `describe`, `it`, etc.) it may happen that within the same file there are multiple `Terra.describeViewports`
 that are specified with the same set of viewport values. In this case it is probable that those blocks can be merged and all their test cases be handled under the same single
@@ -169,11 +159,9 @@ Terra.describeViewports('Another Test', ['small','tiny',], () => { // This is al
 });
 ```
 
-| Implementation class | Introduced in |
-|---|---|
-| [`DuplicateDescribeViewportsBlockInspection`](../src/main/java/com/picimako/terra/wdio/viewports/inspection/DuplicateDescribeViewportsBlockInspection.java) | v0.4.0 |
-
 ## Quick Documentations
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsDocumentationProvider-blue)](../src/main/java/com/picimako/terra/documentation/TerraDescribeViewportsDocumentationProvider.java)
 
 Each viewport String value (only the supported viewports) within `Terra.describeViewports` argument list is extended with Quick Documentation, providing
 basic information about the desired viewport.
@@ -181,7 +169,3 @@ basic information about the desired viewport.
 ![terra-viewport-quick-documentation](../assets/terra-viewport-quick-documentation.png)
 
 The information shown is based on the Breakpoints table in the [Terra Breakpoints Guide](https://engineering.cerner.com/terra-ui/components/terra-breakpoints/breakpoints/about#breakpoints).
-
-| Implementation class | Introduced in |
-|---|---|
-| [`TerraDescribeViewportsDocumentationProvider`](src/main/java/com/picimako/terra/documentation/TerraDescribeViewportsDocumentationProvider.java) | v0.1.0 |
