@@ -42,6 +42,9 @@ Terra.describeViewports('Test', ['tiny', 'small', 'medium', 'large', 'huge', 'en
 Terra.describeViewports('Test', ['tiny', 'asd', 'medium', 'asd', 'huge', 'enormous'], () => {
 });
 
+Terra.describeViewports('Test', [large<error descr=", expected">'</error>, '<error descr=", expected">l</error>arge<error descr=", expected">'</error>, '<error descr=", expected">m</error>edium<error descr=", expected">'</error>], () => {<EOLError descr="Unclosed string literal"></EOLError>
+}<error descr="statement expected">)</error>;
+
 // Highlight cases
 
 Terra.<warning descr="There are duplicate viewport values in this block.">describeViewports</warning>('Test', ['small', 'small'], () => {

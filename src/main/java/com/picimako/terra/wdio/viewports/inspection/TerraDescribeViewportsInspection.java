@@ -20,10 +20,10 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpressio
 import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
 import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
+import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static java.util.Comparator.reverseOrder;
-import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import java.util.ArrayList;
@@ -51,7 +51,6 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 
-import com.picimako.terra.psi.js.JSLiteralExpressionUtil;
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 import com.picimako.terra.wdio.TerraWdioPsiUtil;
@@ -139,7 +138,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     private void checkForNotSupportedViewports(@NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportNotSupportedViewports) {
             for (JSExpression viewport : viewports) {
-                if (!isSupportedViewport(viewport)) {
+                if (isJSStringLiteral(viewport) && !isSupportedViewport(getStringValue(viewport))) {
                     holder.registerProblem(viewport, TerraBundle.inspection("viewport.not.supported"), ProblemHighlightType.ERROR);
                 }
             }
@@ -224,7 +223,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
         if (reportViewportsNotInAscendingOrder) {
             //This check ignores zero and one-length arrays, and arrays containing blank item(s)
             if (viewports.length > 1 && Arrays.stream(viewports).allMatch(TerraWdioPsiUtil::isSupportedViewport)) {
-                final List<String> actualViewports = Arrays.stream(viewports).map(JSLiteralExpressionUtil::getStringValue).collect(toList());
+                final List<String> actualViewports = TerraWdioPsiUtil.getViewports(viewports);
                 //This check takes advantage of the fact that the supported viewports, when they are listed in ascending order
                 //by their widths, are in descending order alphabetically.
                 if (!actualViewports.equals(reverseSort(actualViewports))) {

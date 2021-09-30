@@ -20,6 +20,7 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpressio
 import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.Arrays;
@@ -114,8 +115,8 @@ public final class TerraWdioPsiUtil {
      * @param viewport the viewport to check
      * @return true if the viewport is supported by terra, false otherwise
      */
-    public static boolean isSupportedViewport(String viewport) {
-        return SUPPORTED_TERRA_VIEWPORTS.contains(viewport);
+    public static boolean isSupportedViewport(@Nullable String viewport) {
+        return viewport != null && SUPPORTED_TERRA_VIEWPORTS.contains(viewport);
     }
 
     /**
@@ -151,7 +152,20 @@ public final class TerraWdioPsiUtil {
     public static Set<String> getViewportsSet(PsiElement describeViewports) {
         return Arrays.stream(getViewports((JSExpressionStatement) describeViewports))
             .map(JSLiteralExpressionUtil::getStringValue)
+            .filter(Objects::nonNull)
             .collect(toSet());
+    }
+
+    /**
+     * Retrieves the viewports values from the provided viewport element collection as Strings.
+     *
+     * @param viewports the elements representing the viewport literals in the describeViewports block
+     * @return the list of viewport String values
+     * @since 0.7.0
+     */
+    @NotNull
+    public static List<String> getViewports(JSExpression[] viewports) {
+        return Arrays.stream(viewports).map(JSLiteralExpressionUtil::getStringValue).filter(Objects::nonNull).collect(toList());
     }
 
     /**

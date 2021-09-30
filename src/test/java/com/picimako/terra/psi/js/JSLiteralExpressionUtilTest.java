@@ -29,6 +29,8 @@ import org.junit.Test;
  */
 public class JSLiteralExpressionUtilTest {
 
+    //isJSStringLiteral
+    
     @Test
     public void shouldReturnTrueWhenElementIsStringLiteral() {
         JSLiteralExpression jsLiteralExpression = mock(JSLiteralExpression.class);
@@ -42,5 +44,22 @@ public class JSLiteralExpressionUtilTest {
         JSFile notJSLiteralExpression = mock(JSFile.class);
 
         assertThat(JSLiteralExpressionUtil.isJSStringLiteral(notJSLiteralExpression)).isFalse();
+    }
+    
+    //getStringValue
+
+    @Test
+    public void shouldReturnStringValue() {
+        JSLiteralExpression jsLiteralExpression = mock(JSLiteralExpression.class);
+        when(jsLiteralExpression.getStringValue()).thenReturn("js literal");
+
+        assertThat(JSLiteralExpressionUtil.getStringValue(jsLiteralExpression)).isEqualTo("js literal");
+    }
+
+    @Test
+    public void shouldReturnNullForNonJSLiteral() {
+        JSFile notJSLiteralExpression = mock(JSFile.class);
+
+        assertThat(JSLiteralExpressionUtil.getStringValue(notJSLiteralExpression)).isNull();
     }
 }

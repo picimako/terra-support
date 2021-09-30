@@ -45,7 +45,7 @@ public final class JSLiteralExpressionUtil {
      */
     @Nullable
     public static String getStringValue(PsiElement element) {
-        return ((JSLiteralExpression) element).getStringValue();
+        return element instanceof JSLiteralExpression ? ((JSLiteralExpression) element).getStringValue() : null;
     }
 
     private JSLiteralExpressionUtil() {

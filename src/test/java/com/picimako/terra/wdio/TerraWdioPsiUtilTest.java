@@ -38,6 +38,10 @@ public class TerraWdioPsiUtilTest extends TerraToolkitTestCase {
         assertThat(TerraWdioPsiUtil.isSupportedViewport("somenotsupported")).isFalse();
     }
 
+    public void testShouldNotSupportNullViewport() {
+        assertThat(TerraWdioPsiUtil.isSupportedViewport((String) null)).isFalse();
+    }
+
     //getMethodExpressionOf
 
     public void testShouldReturnMethodExpression() {
