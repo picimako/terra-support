@@ -77,7 +77,7 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     /**
      * Overriding and implementing this method is required. Since 2021.1
-     * {@link com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl#createPlaceInfo(FileEditor, FileEditorProvider)}
+     * {@code com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl#createPlaceInfo(FileEditor, FileEditorProvider)}
      * has changed how it retrieves the file associated with the editor.
      * <p>
      * Since then, it is retrieved from {@link FileEditor} instead of {@link com.intellij.openapi.fileEditor.ex.FileEditorManagerEx}.

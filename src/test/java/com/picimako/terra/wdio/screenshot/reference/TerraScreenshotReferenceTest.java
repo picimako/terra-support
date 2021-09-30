@@ -142,6 +142,24 @@ public class TerraScreenshotReferenceTest extends TerraToolkitTestCase {
         assertThat(terraScreenshot.getPresentation().getLocationString()).isEqualTo("en/chrome/huge");
     }
 
+    //sort order
+
+    public void testSuggestionsAreSortedAlphabetically() {
+        myFixture.configureByFile("tests/wdio/Alphabetical-spec.js");
+        myFixture.copyFileToProject(reference("/en/chrome_huge/Alphabetical-spec/alpha[betical].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_medium/Alphabetical-spec/alpha[betical].png"));
+        myFixture.copyFileToProject(reference("/en/chrome_enormous/Alphabetical-spec/alpha[betical].png"));
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+        ResolveResult[] resolveResults = ((PsiPolyVariantReference) element.getReferences()[0]).multiResolve(false);
+
+        assertThat(resolveResults)
+            .extracting(result -> (TerraScreenshotPsiFile) result.getElement())
+            .extracting(e -> e.getPresentation().getLocationString())
+            .containsExactly("en/chrome/enormous", "en/chrome/huge", "en/chrome/medium");
+    }
+
+
     //Helper methods
 
     private void validateReferencesForSourceFile(String specName) {

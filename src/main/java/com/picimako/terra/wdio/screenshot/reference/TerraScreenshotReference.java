@@ -19,6 +19,7 @@ package com.picimako.terra.wdio.screenshot.reference;
 import static com.picimako.terra.wdio.TerraWdioFolders.isReferenceScreenshot;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.project.Project;
@@ -40,7 +41,8 @@ import com.picimako.terra.wdio.screenshot.TerraScreenshotCollector;
  * and it's implementations' documentation).
  * <p>
  * Although file search based on the image's name would return the latest and diff versions of images, the list is filtered,
- * so that only the reference ones are returned for now.
+ * so that only the reference ones are returned for now. The list of suggestions is sorted alphabetically by the context
+ * string (theme, viewport, locale, browser).
  * <p>
  * NOTE: If there will be demand for showing latest and diff images as well in the suggestion list,
  * it may be implemented later, based on that demand.
@@ -57,13 +59,13 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
     public TerraScreenshotReference(@NotNull PsiElement element) {
         super(element, TextRange.create(1, element.getTextRange().getLength() - 1), true);
         screenshotCollector = new TerraScreenshotCollector(element.getProject());
+
     }
 
     @Override
     public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
         if (!incompleteCode) {
             PsiFile[] screenshotsForName = screenshotCollector.collectAsPsiFilesFor((JSLiteralExpression) myElement);
-            //TODO: idea: reorder the suggestions based on locale, browser and viewport to get a consistently ordered list
             return screenshotsForName.length > 0 ? createResultItemsFor(screenshotsForName, myElement.getProject()) : ResolveResult.EMPTY_ARRAY;
         }
         return ResolveResult.EMPTY_ARRAY;
@@ -74,6 +76,7 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
         return Arrays.stream(screenshotsForName)
             .filter(screenshot -> isReferenceScreenshot(screenshot.getVirtualFile(), project)) //show only reference images
             .map(TerraScreenshotPsiFile::new)
+            .sorted(Comparator.comparing(o -> o.getPresentation().getLocationString())) //TerraScreenshotPsiFile always has  ItemPresentation
             .map(PsiElementResolveResult::new)
             .toArray(ResolveResult[]::new);
     }

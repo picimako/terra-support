@@ -45,8 +45,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  * Related documentation for {@code TerraService}:
  * <a href="https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md#configuration-setup">
  * Wdio Utility Configuration Setup</a>
- * <p>
- * TODO: Potential support for `` strings
  *
  * @since 0.2.0
  */
