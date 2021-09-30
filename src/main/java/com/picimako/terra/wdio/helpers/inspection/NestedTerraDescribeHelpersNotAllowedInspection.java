@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.viewports.inspection;
+package com.picimako.terra.wdio.helpers.inspection;
 
 import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
@@ -31,11 +31,11 @@ import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 
 /**
- * Reports {@code Terra.describeViewports} blocks that are not top-level ones.
+ * Reports {@code Terra.describeViewports} and {@code Terra.describeTests} blocks that are not top-level ones.
  *
  * @since 0.1.0
  */
-public class NestedTerraDescribeViewportsBlocksNotAllowedInspection extends TerraWdioInspectionBase {
+public class NestedTerraDescribeHelpersNotAllowedInspection extends TerraWdioInspectionBase {
 
     @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
@@ -49,9 +49,9 @@ public class NestedTerraDescribeViewportsBlocksNotAllowedInspection extends Terr
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
-                if (isNestedTerraDescribeViewportsBlock(node)) {
-                    //At this point getMethodExpressionOf() should not return null because it has been validated in isNestedTerraDescribeViewportsBlock().
-                    holder.registerProblem(getMethodExpressionOf(node), TerraBundle.inspection("nested.viewports.blocks.not.allowed"));
+                if (isNestedTerraDescribeHelper(node)) {
+                    //At this point getMethodExpressionOf() should not return null because it has been validated in isNestedTerraDescribeHelper().
+                    holder.registerProblem(getMethodExpressionOf(node), TerraBundle.inspection("nested.helpers.not.allowed"));
                 }
             }
         };

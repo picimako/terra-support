@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Tamás Balog
+ * Copyright 2021 Tamás Balog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-package com.picimako.terra.wdio.viewports.inspection;
+package com.picimako.terra.wdio.helpers.inspection;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraToolkitInspectionTestCase;
+import com.picimako.terra.wdio.helpers.inspection.NestedTerraDescribeHelpersNotAllowedInspection;
 
 /**
- * Unit test for {@link NestedTerraDescribeViewportsBlocksNotAllowedInspection}.
+ * Unit test for {@link NestedTerraDescribeHelpersNotAllowedInspection}.
  */
-public class NestedTerraDescribeViewportsBlocksNotAllowedInspectionTest extends TerraToolkitInspectionTestCase {
+public class NestedTerraDescribeHelpersNotAllowedInspectionTest extends TerraToolkitInspectionTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return BASE_PATH + "/wdio/describeviewports";
+        return BASE_PATH + "/wdio";
     }
 
     @Override
     @Nullable
     protected InspectionProfileEntry getInspection() {
-        return new NestedTerraDescribeViewportsBlocksNotAllowedInspection();
+        return new NestedTerraDescribeHelpersNotAllowedInspection();
     }
 
-    public void testNestedTerraDescribeViewports() {
+    public void testNestedTerraDescribeHelpers() {
         doWdioSpecTest();
     }
 }

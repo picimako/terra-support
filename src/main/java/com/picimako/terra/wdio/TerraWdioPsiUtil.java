@@ -59,6 +59,7 @@ public final class TerraWdioPsiUtil {
 
     //Viewports
     public static final String TERRA_DESCRIBE_VIEWPORTS = "Terra.describeViewports";
+    public static final String TERRA_DESCRIBE_TESTS = "Terra.describeTests";
     public static final String TERRA_VIEWPORTS = "Terra.viewports";
 
     //Other utilities

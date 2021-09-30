@@ -4,7 +4,7 @@ This plugin is built on Java 11, so make sure you have JDK 11 installed and conf
 
 ### Gradle
 
-This project is based on Gradle, its version 6.6.1 as of the latest version of this document. Make sure you have the necessary environment variables set on your machine.
+This project is built on Gradle. Make sure you have the necessary environment variables set on your machine.
 
 ### Clone intellij-community project
 

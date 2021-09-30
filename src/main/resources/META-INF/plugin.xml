@@ -28,7 +28,7 @@
         <localInspection id="nestedDescribeViewportsNotAllowed" language="JavaScript"
                          displayName="Nested Terra.describeViewports blocks"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="ERROR"
-                         implementationClass="com.picimako.terra.wdio.viewports.inspection.NestedTerraDescribeViewportsBlocksNotAllowedInspection"/>
+                         implementationClass="com.picimako.terra.wdio.helpers.inspection.NestedTerraDescribeHelpersNotAllowedInspection"/>
         <localInspection id="duplicateDescribeViewportsBlock" language="JavaScript"
                          displayName="Duplicate Terra.describeViewports blocks"
                          groupPath="Terra,wdio" groupName="Viewports" enabledByDefault="true" level="WARNING"

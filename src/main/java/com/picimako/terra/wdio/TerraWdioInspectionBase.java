@@ -16,6 +16,7 @@
 
 package com.picimako.terra.wdio;
 
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_TESTS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_VALIDATES_SCREENSHOT;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.getMethodExpressionOf;
@@ -47,15 +48,16 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
     }
 
     /**
-     * Gets whether the argument element is a nested {@code Terra.describeViewports} block at any level deep.
+     * Gets whether the argument element is a nested {@code Terra.describeViewports} or {@code Terra.describeTests}
+     * block at any level deep.
      * <p>
      * Nested-ness is validated by checking if the argument element's parent element is not the file itself.
      *
      * @param element the Psi element to check
-     * @return true if the argument element is a nested {@code Terra.describeViewports} block, false otherwise
+     * @return true if the argument element is a nested {@code Terra.describeViewports} or {@code Terra.describeTests} block, false otherwise
      */
-    protected boolean isNestedTerraDescribeViewportsBlock(@NotNull PsiElement element) {
-        return !isTopLevelExpression(element) && isTerraDescribeViewportsBlock(element);
+    protected boolean isNestedTerraDescribeHelper(@NotNull PsiElement element) {
+        return !isTopLevelExpression(element) && hasText(element, TERRA_DESCRIBE_VIEWPORTS, TERRA_DESCRIBE_TESTS);
     }
 
     /**

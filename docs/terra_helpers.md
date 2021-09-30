@@ -232,6 +232,38 @@ Terra.describeViewports('Terra', ['tiny', 'small'], () => {
 });
 ```
 
+### Nested Terra.describe helpers
+
+![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-NestedTerraDescribeHelpersNotAllowedInspection-blue)](../src/main/java/com/picimako/terra/wdio/helpers/inspection/NestedTerraDescribeHelpersNotAllowedInspection.java)
+
+This inspection is based on the [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md) which states that
+> Terra.describeViewports blocks should not be nested and if tests need to run against different viewports then they should have their own top level Terra.describeViewports block.
+
+and based on the [Terra Functional Testing documentation](https://engineering.cerner.com/terra-ui/dev_tools/cerner-terra-toolkit-docs/terra-functional-testing/about).
+
+Thus, the nested `Terra.describe` blocks, such as the ones in the example below, should be avoided and replaced with top level ones:
+
+```javascript
+Terra.describeViewports('Top level', ['tiny', 'small'], () => {
+    describe('A describe block', () => {
+        Terra.describeViewports('Nested viewports', ['medium', 'enormous'], () => {
+        });
+        Terra.describeTests('Nested tests', { formFactors: ['tiny', 'huge'] }, () => {
+        });
+    });
+});
+
+Terra.describeViewports('Top level', ['tiny', 'large'], () => {
+    Terra.describeViewports('Nested viewports', ['huge', 'large'], () => {
+    });
+});
+
+Terra.describeTests('Top level', { formFactors: ['tiny', 'huge'] }, () => {
+    Terra.describeTests('Nested tests', { formFactors: ['huge', 'large'] }, () => {
+    });
+});
+```
+
 ## Screenshot references
 
 ![](https://img.shields.io/badge/since-0.2.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotReferenceContributor-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/reference/TerraScreenshotReferenceContributor.java)

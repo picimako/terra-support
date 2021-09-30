@@ -112,32 +112,6 @@ Terra.describeViewports('', VIEWPORTS, () => {
 });
 ```
 
-### Nested Terra.describeViewports blocks
-
-![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-NestedTerraDescribeViewportsBlocksNotAllowedInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/NestedTerraDescribeViewportsBlocksNotAllowedInspection.java)
-
-This inspection is based on the official [Terra Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
-which states that
-> Terra.describeViewports blocks should not be nested and if tests need to run against different viewports then they should have their own top level Terra.describeViewports block.
-
-Thus, the nested `Terra.describeViewports` blocks, such as the ones in the example below, should be avoided and replace with top level ones:
-
-```javascript
-Terra.describeViewports('Top level', ['tiny', 'small'], () => {
-    describe('A describe block', () => {
-        Terra.describeViewports('More nested', ['medium', 'enormous'], () => {
-        });
-        it('an it block', () => {
-        });
-    });
-});
-
-Terra.describeViewports('Top level', ['tiny', 'large'], () => {
-    Terra.describeViewports('Nested', ['huge', 'large'], () => {
-    });
-});
-```
-
 ### Duplicate Terra.describeViewports blocks
 
 ![](https://img.shields.io/badge/since-0.4.0-blue) [![](https://img.shields.io/badge/implementation-DuplicateDescribeViewportsBlockInspection-blue)](../src/main/java/com/picimako/terra/wdio/viewports/inspection/DuplicateDescribeViewportsBlockInspection.java)
