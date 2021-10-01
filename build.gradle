@@ -61,6 +61,10 @@ patchPluginXml {
     //systemProperty 'idea.home.path', '<absolute path to locally cloned intellij-community GitHub repository>'
 //}
 
+//runPluginVerifier {
+//    ideVersions = ['IU-2021.1', 'IU-2021.2', 'IU-2021.2.2', 'IU-2021.3', 'WS-2021.1', 'WS-2021.2', 'WS-2021.2.2', ]
+//}
+
 //runIde {
     //https://jetbrains.org/intellij/sdk/docs/products/dev_alternate_products.html#configuring-pluginxml
     //ideDirectory '<absolute path to WebStorm/IntelliJ Ultimate installation>'
