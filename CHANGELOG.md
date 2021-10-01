@@ -1,5 +1,25 @@
 # Changelog
 
+### 0.7.0
+
+#### MAINTENANCE
+- Cleanup and simplification in several inspections.
+- Merged `TerraDescribeViewportsBlockingInspection` into `TerraDescribeViewportsInspection`,
+and `ScreenshotMismatchToleranceBlockingInspection` into `ScreenshotMismatchToleranceInspection`.
+- Refined documentation.
+- Upgraded gradle and intellij-gradle-plugin versions.
+
+#### ENHANCEMENT
+- Screenshot reference suggestions are now sorted alphabetically when Ctrl+Clicking on screenshot names in `Terra.validates`
+and `Terra.it`
+- [#56](https://github.com/picimako/terra-support/issues/56): Added `Terra.describeTests` besides `Terra.describeViewports` to be validated when they are nested in other describe blocks.
+- Added viewport value validation to the testOptions argument of `Terra.describeTests` when it is specified in an inline object.
+- Added viewport quick documentation support for the testOptions argument of `Terra.describeTests` when it is specified in an inline object.
+
+#### BUGFIX
+- Fixed a bug in default name resolution that spammed the logs with exception.
+- Fixed a ClassCastException log spam during viewport value retrieval.
+
 ### 0.6.0
 
 #### ADDED SUPPORT FOR TERRA-FUNCTIONAL-TESTING
