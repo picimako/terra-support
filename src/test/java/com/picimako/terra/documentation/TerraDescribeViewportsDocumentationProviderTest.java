@@ -47,9 +47,29 @@ public class TerraDescribeViewportsDocumentationProviderTest extends TerraToolki
         assertThat(documentationProvider.generateDoc(element, null)).isEqualTo(DOCUMENTATION_HTML);
     }
 
+    public void testShouldReturnDocumentationForViewportInDescribeTests() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeTests('viewports', { formFactors: ['hug<caret>e'] }, () => {\n" +
+                "});");
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+
+        assertThat(documentationProvider.generateDoc(element, null)).isEqualTo(DOCUMENTATION_HTML);
+    }
+
     public void testShouldReturnNullWhenInputElementIsNotStringLiteral() {
         myFixture.configureByText("WdioDocumentation-spec.js",
             "Terra.describeViewports('viewports', ['hug<caret>e'], () => {\n" +
+                "});");
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
+
+        assertThat(documentationProvider.generateDoc(element, null)).isNull();
+    }
+
+    public void testShouldReturnNullWhenInputElementIsNotStringLiteralInDescribeTests() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeTests('viewports', { formFactors: ['hug<caret>e'] }, () => {\n" +
                 "});");
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset());
@@ -67,7 +87,17 @@ public class TerraDescribeViewportsDocumentationProviderTest extends TerraToolki
         assertThat(documentationProvider.generateDoc(element, null)).isNull();
     }
 
-    public void testShouldReturnNullWhenTheStringLiteralIsNotInTerraDescribeViewports() {
+    public void testShouldReturnNullWhenInputElementIsLiteralButNotStringInDescribeTests() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeTests('viewports', { formFactors: [2<caret>0] }, () => {\n" +
+                "});");
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+
+        assertThat(documentationProvider.generateDoc(element, null)).isNull();
+    }
+
+    public void testShouldReturnNullWhenTheStringLiteralIsNotInTerraDescribeViewportsOrDescribeTests() {
         myFixture.configureByText("WdioDocumentation-spec.js",
             "Terra.describeViewports('viewports', ['huge'], () => {\n" +
                 "    describe('terra screenshot', () => {\n" +
@@ -80,9 +110,20 @@ public class TerraDescribeViewportsDocumentationProviderTest extends TerraToolki
         assertThat(documentationProvider.generateDoc(element, null)).isNull();
     }
 
+
     public void testShouldReturnNullWhenTheViewportIsNotSupportedByTerra() {
         myFixture.configureByText("WdioDocumentation-spec.js",
             "Terra.describeViewports('viewports', ['ginor<caret>mous'], () => {\n" +
+                "});");
+
+        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+
+        assertThat(documentationProvider.generateDoc(element, null)).isNull();
+    }
+
+    public void testShouldReturnNullWhenTheViewportIsNotSupportedByTerraInDescribeTests() {
+        myFixture.configureByText("WdioDocumentation-spec.js",
+            "Terra.describeTests('viewports', { formFactors: ['ginor<caret>mous'] }, () => {\n" +
                 "});");
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();

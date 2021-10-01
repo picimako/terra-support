@@ -29,6 +29,7 @@ import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_TESTS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 
@@ -37,6 +38,8 @@ import java.util.Map;
 import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
+import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
+import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
@@ -72,13 +75,25 @@ public final class TerraDescribeViewportsDocumentationProvider implements Docume
             && isWdioSpecFile(element.getContainingFile())
             && isJSStringLiteral(element)
             && element.getParent() instanceof JSArrayLiteralExpression
-            && element.getParent().getParent() instanceof JSArgumentList
-            && element.getParent().getParent().getPrevSibling() instanceof JSReferenceExpression
-            && TERRA_DESCRIBE_VIEWPORTS.equals(((JSReferenceExpression) element.getParent().getParent().getPrevSibling()).getCanonicalText())
+            && (isViewportInDescribeViewports(element) || isViewportInDescribeTests(element))
             && isSupportedViewport(getStringValue(element))) {
             return buildDocumentation(getStringValue(element));
         }
         return null;
+    }
+
+    private boolean isViewportInDescribeViewports(PsiElement element) {
+        return element.getParent().getParent() instanceof JSArgumentList
+            && element.getParent().getParent().getPrevSibling() instanceof JSReferenceExpression
+            && TERRA_DESCRIBE_VIEWPORTS.equals(((JSReferenceExpression) element.getParent().getParent().getPrevSibling()).getCanonicalText());
+    }
+
+    private boolean isViewportInDescribeTests(PsiElement element) {
+        return element.getParent().getParent() instanceof JSProperty
+            && element.getParent().getParent().getParent() instanceof JSObjectLiteralExpression
+            && element.getParent().getParent().getParent().getParent() instanceof JSArgumentList
+            && element.getParent().getParent().getParent().getParent().getPrevSibling() instanceof JSReferenceExpression
+            && TERRA_DESCRIBE_TESTS.equals(((JSReferenceExpression) element.getParent().getParent().getParent().getParent().getPrevSibling()).getCanonicalText());
     }
 
     private String buildDocumentation(String viewport) {

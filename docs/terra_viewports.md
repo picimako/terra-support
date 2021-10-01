@@ -175,8 +175,8 @@ Terra.describeViewports('Another Test', ['small','tiny',], () => { // This is al
 
 ![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraDescribeViewportsDocumentationProvider-blue)](../src/main/java/com/picimako/terra/documentation/TerraDescribeViewportsDocumentationProvider.java)
 
-Each viewport String value (only the supported viewports) within `Terra.describeViewports` argument list is extended with Quick Documentation, providing
-basic information about the desired viewport.
+Each viewport String value (only the supported viewports) within `Terra.describeViewports`' and `Terra.describeTests`' argument list is extended with Quick Documentation, providing
+basic information about the viewport at hand.
 
 ![terra-viewport-quick-documentation](../assets/terra-viewport-quick-documentation.png)
 
