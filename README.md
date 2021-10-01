@@ -1,6 +1,6 @@
 # Terra Support JetBrains plugin
 
-![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)
+[![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)](https://plugins.jetbrains.com/plugin/15430-terra-support)
 
 This plugin provides engineers, who work with Cerner's various Terra libraries, different tools to speed up and make their work much easier.
 
