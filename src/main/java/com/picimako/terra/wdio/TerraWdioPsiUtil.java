@@ -63,6 +63,9 @@ public final class TerraWdioPsiUtil {
     public static final String TERRA_DESCRIBE_TESTS = "Terra.describeTests";
     public static final String TERRA_VIEWPORTS = "Terra.viewports";
 
+    //Terra.describeTests properties
+    public static final String FORM_FACTORS = "formFactors";
+
     //Other utilities
     public static final String TERRA_HIDE_INPUT_CARET = "Terra.hideInputCaret";
 
@@ -278,7 +281,7 @@ public final class TerraWdioPsiUtil {
     public static boolean isAccessibilityValidation(PsiElement element) {
         return !isTopLevelExpression(element) && hasText(element, TERRA_IT_IS_ACCESSIBLE, TERRA_VALIDATES_ACCESSIBILITY);
     }
-    
+
     public static boolean isInContextOfNonTerraItElementOrScreenshotValidation(JSLiteralExpression literal) {
         return Optional.of(literal)
             .map(PsiElement::getParent)

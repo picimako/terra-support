@@ -23,11 +23,11 @@ Terra.describeViewports('Name', ['tiny','small','huge'], () => {
 });
 
 <warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single describeViewports block.">Terra.describeViewports</warning>('Another name', ['tiny','huge'], () => {
-    describe('mathes something else', () => {
+    describe('matches something else', () => {
     });
 });
 
 <warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single describeViewports block.">Terra.describeViewports</warning>('Another name', ['tiny','huge'], () => {
-    describe('mathes something else again', () => {
+    describe('matches something else again', () => {
     });
 });

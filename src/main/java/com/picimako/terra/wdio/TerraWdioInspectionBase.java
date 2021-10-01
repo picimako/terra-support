@@ -48,6 +48,16 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
     }
 
     /**
+     * Checks whether the argument element corresponds to a top-level {@code Terra.describeTests} block.
+     *
+     * @param element the Psi element to check
+     * @return true if the argument element is a top-level {@code Terra.describeTests} block, false otherwise
+     */
+    protected boolean isTopLevelTerraDescribeTestsBlock(@NotNull PsiElement element) {
+        return isTopLevelExpression(element) && isTerraDescribeTestsBlock(element);
+    }
+
+    /**
      * Gets whether the argument element is a nested {@code Terra.describeViewports} or {@code Terra.describeTests}
      * block at any level deep.
      * <p>
@@ -76,17 +86,17 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
      * Returns the reference name element from the argument expression.
      * <p>
      * In practice that means it returns the element corresponding to the {@code describeViewports} name part of the
-     * {@code Terra.describerViewports} expression.
+     * {@code Terra.describeViewports} expression, or the {@code describeTests} part of {@code Terra.describeTests}.
      * <p>
      * At this state the queried MethodExpression should not be null due to the preliminary check in
      * {@link #isTopLevelTerraDescribeViewportsBlock(PsiElement)}.
      *
-     * @param terraDescribeViewports the Terra.describeViewports expression
+     * @param terraDescribeHelper the Terra.describeViewports or Terra.describeTests expression
      * @return the element corresponding to the describeViewports name
      */
     @Nullable
-    protected PsiElement getDescribeViewportsFunctionNameElement(JSCallExpression terraDescribeViewports) {
-        return getFunctionNameElement(terraDescribeViewports.getMethodExpression());
+    protected PsiElement getDescribeHelperFunctionNameElement(JSCallExpression terraDescribeHelper) {
+        return getFunctionNameElement(terraDescribeHelper.getMethodExpression());
     }
 
     /**
@@ -123,5 +133,9 @@ public abstract class TerraWdioInspectionBase extends LocalInspectionTool {
 
     private boolean isTerraDescribeViewportsBlock(@NotNull PsiElement element) {
         return hasText(element, TERRA_DESCRIBE_VIEWPORTS);
+    }
+
+    private boolean isTerraDescribeTestsBlock(@NotNull PsiElement element) {
+        return hasText(element, TERRA_DESCRIBE_TESTS);
     }
 }

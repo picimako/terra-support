@@ -45,4 +45,19 @@ public class NoActualTerraViewportsInspectionTest extends TerraToolkitInspection
     public void testNoActualTerraViewportDefined() {
         doWdioSpecTest();
     }
+
+    public void testNoActualTerraViewportDefinedInDescribeTests() {
+        doWdioSpecTestByText(
+            "Terra.describeTests('Name', { formFactors: <error descr=\"There is no actual viewport specified.\">['']</error> }, () => {\n" +
+                "});\n" +
+                "\n" +
+                "Terra.describeTests('Another name', { formFactors: <error descr=\"There is no actual viewport specified.\">['', '']</error> }, () => {\n" +
+                "});\n" +
+                "\n" +
+                "Terra.describeTests('Another name', { formFactors: <error descr=\"There is no actual viewport specified.\">[]</error> }, () => {\n" +
+                "});\n" +
+                "\n" +
+                "Terra.describeTests('Another name', { formFactors: ['huge'] }, () => {\n" +
+                "});");
+    }
 }

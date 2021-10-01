@@ -19,9 +19,11 @@ package com.picimako.terra.wdio.viewports.inspection;
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
 import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
 import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.psi.js.JSArgumentUtil.getNthArgumentOfMoreThanOne;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerra;
+import static com.picimako.terra.wdio.TerraWdioPsiUtil.FORM_FACTORS;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isSupportedViewport;
 import static java.util.Comparator.reverseOrder;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -37,12 +39,13 @@ import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ui.MultipleCheckboxOptionsPanel;
-import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
+import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
+import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.lang.javascript.psi.JSVarStatement;
 import com.intellij.lang.javascript.psi.JSVariable;
@@ -95,29 +98,36 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
-                
-                if (!isTopLevelTerraDescribeViewportsBlock(node)) {
+
+                if (isTopLevelTerraDescribeViewportsBlock(node)) {
+                    JSCallExpression terraDescribeViewports = getCallExpression(node);
+                    JSExpression viewportList = getNthArgumentOfMoreThanOne(terraDescribeViewports, 2);
+                    checkForAll(terraDescribeViewports, viewportList, holder);
                     return;
                 }
 
-                JSCallExpression terraDescribeViewports = getCallExpression(node);
-                if (terraDescribeViewports != null) {
-                    JSArgumentList argumentList = terraDescribeViewports.getArgumentList();
-                    if (argumentList != null && argumentList.getArguments().length > 1) {
-                        JSExpression viewportList = argumentList.getArguments()[1]; //the 2nd parameter of describeViewports is the list of viewports
-                        if (viewportList instanceof JSArrayLiteralExpression) {
-                            final JSExpression[] viewports = ((JSArrayLiteralExpression) viewportList).getExpressions();
-                            checkForEmptyViewportsArgument(viewportList, viewports, holder);
-                            checkForNotSupportedViewports(viewports, holder);
-                            checkForDuplicateViewports(terraDescribeViewports, viewports, holder);
-                            checkForViewportsNotInAscendingOrder(viewportList, viewports, holder);
-                        } else {
-                            checkForNonArrayTypeViewports(viewportList, holder);
-                        }
+                if (isTopLevelTerraDescribeTestsBlock(node)) {
+                    JSCallExpression terraDescribeTests = getCallExpression(node);
+                    JSExpression testOptions = getNthArgumentOfMoreThanOne(terraDescribeTests, 2);
+                    if (testOptions instanceof JSObjectLiteralExpression) {
+                        JSProperty formFactors = ((JSObjectLiteralExpression) testOptions).findProperty(FORM_FACTORS);
+                        checkForAll(terraDescribeTests, formFactors.getInitializer(), holder);
                     }
                 }
             }
         };
+    }
+
+    private void checkForAll(JSCallExpression terraDescribeTests, JSExpression initializer, @NotNull ProblemsHolder holder) {
+        if (initializer instanceof JSArrayLiteralExpression) {
+            final JSExpression[] viewports = ((JSArrayLiteralExpression) initializer).getExpressions();
+            checkForEmptyViewportsArgument(initializer, viewports, holder);
+            checkForNotSupportedViewports(viewports, holder);
+            checkForDuplicateViewports(terraDescribeTests, viewports, holder);
+            checkForViewportsNotInAscendingOrder(initializer, viewports, holder);
+        } else {
+            checkForNonArrayTypeViewports(initializer, holder);
+        }
     }
 
     /**
@@ -191,19 +201,17 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
      * <p>
      * During validation it takes into account only the terra-supported viewport values.
      */
-    private void checkForDuplicateViewports(JSCallExpression terraDescribeViewports, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
+    private void checkForDuplicateViewports(JSCallExpression terraDescribeHelper, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportDuplicateViewports && viewports.length > 1) {
             final Set<String> processedViewports = new HashSet<>();
             for (JSExpression viewport : viewports) {
                 String vpLiteral = getStringValue(viewport);
                 if (isSupportedViewport(vpLiteral)) {
                     if (processedViewports.contains(vpLiteral)) {
-                        //The reason the 'describeViewports' function name is highlighted in this case is to provide a clearer way of reporting this problem
-                        //when the argument list already has issues reported.
+                        //The reason the 'describeViewports'/'describeTests' function name is highlighted in this case is to provide a clearer way of reporting this problem
+                        //when the argument list has already had issues reported.
                         //noinspection ConstantConditions
-                        holder.registerProblem(getDescribeViewportsFunctionNameElement(terraDescribeViewports),
-                            TerraBundle.inspection("duplicate.viewports"),
-                            ProblemHighlightType.WARNING);
+                        holder.registerProblem(getDescribeHelperFunctionNameElement(terraDescribeHelper), TerraBundle.inspection("duplicate.viewports"), ProblemHighlightType.WARNING);
                         return;
                     }
                     processedViewports.add(vpLiteral);

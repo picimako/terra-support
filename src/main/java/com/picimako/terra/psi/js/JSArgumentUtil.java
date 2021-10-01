@@ -78,6 +78,24 @@ public final class JSArgumentUtil {
     }
 
     /**
+     * Returns the nth argument of the provided call expression, given that it has more than 1 arguments.
+     *
+     * @param callExpression the call expression
+     * @param index          1-based, must be at least 2
+     * @return the nth argument, or null as fallback
+     */
+    @Nullable
+    public static JSExpression getNthArgumentOfMoreThanOne(@Nullable JSCallExpression callExpression, int index) {
+        if (callExpression != null) {
+            JSArgumentList argumentList = callExpression.getArgumentList();
+            if (argumentList != null && argumentList.getArguments().length > 1) {
+                return argumentList.getArguments()[index - 1];
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns the value of the argument JS property if it is a numeric literal.
      *
      * @param property to property to get the value of

@@ -60,6 +60,12 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
         doCustomFileTest("", ".js", null, "-spec");
     }
 
+    protected void doWdioSpecTestByText(String text) {
+        myFixture.configureByText("Wdio-spec.js", text);
+        myFixture.enableInspections(getInspection());
+        myFixture.testHighlighting(true, false, false);
+    }
+
     protected void doQuickFixTest(String filename, String quickFixName) {
         myFixture.configureByFile(filename + "-spec.js");
         myFixture.enableInspections(getInspection());

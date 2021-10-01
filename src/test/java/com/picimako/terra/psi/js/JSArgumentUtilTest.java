@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intellij.lang.ecmascript6.psi.ES6ClassExpression;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSCallExpression;
@@ -143,5 +144,46 @@ public class JSArgumentUtilTest {
             JSArgumentUtil.doWithinArgumentListOf(element, jsArgumentList -> aList.add("Executed logic."));
             assertThat(aList).isEmpty();
         }
+    }
+
+    //getNthArgumentOfMoreThanOne
+
+    @Test
+    public void shouldGetNthArgument() {
+        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        JSArgumentList argumentList = mock(JSArgumentList.class);
+        when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
+        when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class), mock(ES6ClassExpression.class)});
+
+        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+
+        assertThat(nthArgument).isInstanceOf(ES6ClassExpression.class);
+    }
+
+    @Test
+    public void shouldNotGetNthArgumentForNullJsCallExpression() {
+        assertThat(JSArgumentUtil.getNthArgumentOfMoreThanOne(null, 2)).isNull();
+    }
+
+    @Test
+    public void shouldNotGetNthArgumentForNullArgumentList() {
+        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        when(jsCallExpression.getArgumentList()).thenReturn(null);
+
+        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+
+        assertThat(nthArgument).isNull();
+    }
+
+    @Test
+    public void shouldNotGetNthArgumentForLessThanTwoArguments() {
+        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        JSArgumentList argumentList = mock(JSArgumentList.class);
+        when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
+        when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class)});
+
+        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+
+        assertThat(nthArgument).isNull();
     }
 }

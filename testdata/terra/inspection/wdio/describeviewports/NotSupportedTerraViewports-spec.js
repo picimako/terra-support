@@ -26,6 +26,9 @@ Terra.describeViewports('Test', ['small', 'huge', 'enormous'], () => {
 
 // Highlight cases
 
+Terra.describeViewports('Test', [<error descr="This viewport is not supported by Terra.">''</error>], () => {
+});
+
 Terra.describeViewports('Test', [<error descr="This viewport is not supported by Terra.">'gigantic'</error>], () => {
 });
 

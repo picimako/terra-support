@@ -46,4 +46,15 @@ public class DuplicateTerraDescribeViewportsInspectionTest extends TerraToolkitI
         doWdioSpecTest();
     }
 
+    public void testDuplicateViewportsInDescribeTests() {
+        doWdioSpecTestByText(
+            "Terra.<warning descr=\"There are duplicate viewport values in this block.\">describeTests</warning>('Name', { formFactors: ['small','huge','tiny','huge'] }, () => {\n" +
+                "});\n" +
+                "\n" +
+                "Terra.<warning descr=\"There are duplicate viewport values in this block.\">describeTests</warning>('Another name', { formFactors: ['small','small','huge','tiny'] }, () => {\n" +
+                "});\n" +
+                "\n" +
+                "Terra.describeTests('Another name', { formFactors: ['small','huge','tiny'] }, () => {\n" +
+                "});");
+    }
 }
