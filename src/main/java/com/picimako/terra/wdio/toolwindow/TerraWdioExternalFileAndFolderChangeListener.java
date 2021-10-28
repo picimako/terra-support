@@ -20,6 +20,7 @@ import static com.picimako.terra.wdio.TerraWdioFolders.isInWdioFiles;
 
 import java.util.List;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.newvfs.BulkFileListener;
 import com.intellij.openapi.vfs.newvfs.events.VFileContentChangeEvent;
@@ -70,10 +71,12 @@ public class TerraWdioExternalFileAndFolderChangeListener implements BulkFileLis
     @Override
     public void after(@NotNull List<? extends VFileEvent> events) {
         if (events.stream().anyMatch(this::isRequestedOutsideOfMenuActionsAndInsideWdioFolder)) {
-            ((TerraWdioTreeModel) tree.getModel()).buildTree();
-            //Updating the UI is necessary because in case of e.g. a Git bulk rollback/revert of files,
-            // the tool window got stuck, and display zeros for all stats, until the tool window was closed and reopened
-            tree.updateUI();
+            ApplicationManager.getApplication().invokeLater(() -> {
+                ((TerraWdioTreeModel) tree.getModel()).buildTree();
+                //Updating the UI is necessary because in case of e.g. a Git bulk rollback/revert of files,
+                // the tool window got stuck, and display zeros for all stats, until the tool window was closed and reopened
+                tree.updateUI();
+            });
         }
     }
 
