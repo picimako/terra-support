@@ -23,6 +23,7 @@ import com.intellij.javascript.nodejs.packageJson.PackageJsonFileManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.util.ModificationTracker;
+import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
@@ -63,12 +64,12 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
             if (managerType != null && managerType.length == 1) {
                 return CachedValueProvider.Result.create(project.getService(managerType[0]), ModificationTracker.NEVER_CHANGED);
             }
-            Object[] dependencies = new Object[1];
+            Ref<Object> dependency = new Ref<>();
             Optional<PackageJsonData> rootPackageJson = PackageJsonFileManager.getInstance(project).getValidPackageJsonFiles().stream()
                 .filter(packageJson -> {
                     VirtualFile projectDir = ProjectUtil.guessProjectDir(project);
                     if (projectDir != null && packageJson.getParent().getPath().equals(projectDir.getPath())) {
-                        dependencies[0] = packageJson;
+                        dependency.set(packageJson);
                         return true;
                     }
                     return false;
@@ -78,9 +79,9 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
 
             if (rootPackageJson.isPresent()) { //dependencies[0] is implicitly not null when rootPackageJson.isPresent()
                 if (rootPackageJson.get().containsOneOfDependencyOfAnyType(CERNER_TERRA_FUNCTIONAL_TESTING)) {
-                    return CachedValueProvider.Result.create(project.getService(TerraFunctionalTestingManager.class), dependencies[0]);
+                    return CachedValueProvider.Result.create(project.getService(TerraFunctionalTestingManager.class), dependency.get());
                 } else if (rootPackageJson.get().containsOneOfDependencyOfAnyType(CERNER_TERRA_TOOLKIT)) {
-                    return CachedValueProvider.Result.create(project.getService(TerraToolkitManager.class), dependencies[0]);
+                    return CachedValueProvider.Result.create(project.getService(TerraToolkitManager.class), dependency.get());
                 }
             }
             //This will happen when there is a root package.json containing none of the Terra related dependencies,            

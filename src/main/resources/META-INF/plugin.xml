@@ -107,10 +107,6 @@
         <applicationConfigurable parentId="tools" instance="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  id="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  displayName="Terra Support"/>
-
-        <!-- Services -->
-        <!-- Application service (registered via @Service annotation): com.picimako.terra.documentation.TerraUIComponentDocumentationUrlService -->
-
     </extensions>
 
     <actions>

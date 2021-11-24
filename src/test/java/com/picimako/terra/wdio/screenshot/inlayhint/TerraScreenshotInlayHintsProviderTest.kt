@@ -169,15 +169,7 @@ describe('Terra screenshot', () => {
 });""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline, showScreenshotName = Inline))
     }
 
-    private fun doTest(
-        text: String,
-        settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings()
-    ) {
-        testProvider(
-            "test.js",
-            text,
-            TerraScreenshotInlayHintsProvider(),
-            settings
-        )
+    private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings()) {
+        testProvider("test.js", text, TerraScreenshotInlayHintsProvider(), settings)
     }
 }

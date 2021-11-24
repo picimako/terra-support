@@ -62,6 +62,7 @@ import javax.swing.JComponent
  *
  * @since 0.5.0
  */
+@Suppress("UnstableApiUsage")
 class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInlayHintsProvider.Settings> {
 
     private val globalSelectorRetriever = GlobalTerraSelectorRetriever()
@@ -197,13 +198,9 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
         }
     }
 
-    override fun createSettings(): Settings {
-        return Settings()
-    }
+    override fun createSettings(): Settings = Settings()
 
-    override fun isLanguageSupported(language: Language): Boolean {
-        return language is JSLanguageDialect;
-    }
+    override fun isLanguageSupported(language: Language): Boolean = language is JSLanguageDialect
 
     data class Settings(var showScreenshotName: InlayType = InlayType.Disabled, var showCssSelector: InlayType = InlayType.Disabled)
 
