@@ -30,10 +30,10 @@ import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
 import com.picimako.terra.wdio.screenshot.inspection.TerraPropertiesProvider;
 
 /**
- * No-operation resource manager to use when there is no terra-toolkit or terra-functional-testing depencency in the
+ * No-operation resource manager to use when there is no terra-toolkit or terra-functional-testing dependency in the
  * project's root package.json, or there is no root package.json at all.
  */
-@Service
+@Service(Service.Level.PROJECT)
 public final class NoopResourceManager extends TerraResourceManager {
 
     //Required for project service creation

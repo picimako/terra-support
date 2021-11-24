@@ -26,7 +26,7 @@ import com.intellij.openapi.components.Service;
  *
  * @see TerraUIComponentDocumentationUrlProvider
  */
-@Service
+@Service(Service.Level.APP)
 public final class TerraUIComponentDocumentationUrlService {
 
     private final DocumentationComponents componentDocs;
