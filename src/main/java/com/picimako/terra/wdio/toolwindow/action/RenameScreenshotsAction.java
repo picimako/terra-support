@@ -129,7 +129,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                         // it can be removed from the spec, and the one with the new name will be shown
                         parentSpec.getScreenshots().remove(selectedScreenshotNode);
                     }
-                    //Reorder and update he UI even when just a portion of the screenshots could be renamed
+                    //Reorder and update the UI even when just a portion of the screenshots could be renamed
                     parentSpec.reorderScreenshotsAlphabeticallyByDisplayName();
                     tree.updateUI();
                     if (!erroredFilePaths.isEmpty()) {
@@ -183,7 +183,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
                 }
             },
             new TextRange(0, originalFileName.lastIndexOf(".")));
-        //If the user gave a new name and it doesn't include the original extension of the file, then we put it back
+        //If the user gave a new name, and it doesn't include the original extension of the file, then we put it back
         if (newFileName != null && !newFileName.endsWith("." + extension)) {
             newFileName += "." + extension;
         }
