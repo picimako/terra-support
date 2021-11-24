@@ -5,8 +5,8 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '1.1.4'
-    id "org.jetbrains.kotlin.jvm" version "1.3.70"
+    id 'org.jetbrains.intellij' version '1.2.1'
+    id "org.jetbrains.kotlin.jvm" version "1.5.31"
 }
 
 java {
@@ -19,7 +19,9 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     targetCompatibility = "11"
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = ["-Xjvm-default=enable"]
+        //https://kotlinlang.org/docs/whatsnew15.html#deprecation-of-jvmdefault-and-old-xjvm-default-modes
+        //https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-default/
+        freeCompilerArgs = ["-Xjvm-default=all"]
     }
 }
 
@@ -31,7 +33,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 intellij {
-    version = '2020.2'
+    version = '2021.2.3'
     //'java' is necessary to have runtime access to some classes like classes for unit testing
     plugins = ['JavaScript', 'java']
     pluginName = 'Terra Support'
@@ -45,11 +47,11 @@ wrapper {
 
 dependencies {
     //https://kotlinlang.org/docs/reflection.html#jvm-dependency
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.70"
-    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.18.1'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.28'
-    testImplementation('org.mockito:mockito-inline:3.6.28') //for using static method mocking
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.31"
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.0.0'
+    testImplementation('org.mockito:mockito-inline:4.0.0') //for using static method mocking
 }
 
 patchPluginXml {
@@ -62,7 +64,7 @@ patchPluginXml {
 //}
 
 //runPluginVerifier {
-//    ideVersions = ['IU-2021.1', 'IU-2021.2', 'IU-2021.2.2', 'IU-2021.3', 'WS-2021.1', 'WS-2021.2', 'WS-2021.2.2', ]
+//    ideVersions = ['IU-2021.1', 'IU-2021.2', 'IU-2021.2.2', 'IU-2021.3', 'WS-2021.1', 'WS-2021.2', 'WS-2021.2.2']
 //}
 
 //runIde {
