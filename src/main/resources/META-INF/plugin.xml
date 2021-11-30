@@ -61,7 +61,7 @@
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotNameInspection"/>
         <localInspection id="duplicateScreenshotName" language="JavaScript"
                          displayName="Duplicate screenshot name (terra-functional-testing)"
-                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR"
+                         groupPath="Terra,wdio" groupName="Screenshots" enabledByDefault="true" level="ERROR" 
                          implementationClass="com.picimako.terra.wdio.screenshot.inspection.DuplicateScreenshotNameInspection"/>
 
         <!-- Terra helpers -->
@@ -75,25 +75,19 @@
                     factoryClass="com.picimako.terra.wdio.toolwindow.TerraWdioToolWindowFactory"/>
 
         <!-- Documentation -->
-        <documentationProvider
-                implementation="com.picimako.terra.documentation.TerraDescribeViewportsDocumentationProvider"/>
+        <documentationProvider implementation="com.picimako.terra.documentation.TerraDescribeViewportsDocumentationProvider"/>
         <lang.documentationProvider order="first" language="JavaScript"
                                     implementationClass="com.picimako.terra.documentation.TerraUIComponentDocumentationUrlProvider"/>
         <lang.documentationProvider order="first" language="JavaScript"
                                     implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>
 
         <!-- File editors -->
-        <fileEditorProvider
-                implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
-        <fileEditorProvider
-                implementation="com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsFileEditorProvider"/>
+        <fileEditorProvider implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
+        <fileEditorProvider implementation="com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsFileEditorProvider"/>
 
         <!-- References -->
-        <psi.referenceContributor
-                language="JavaScript"
-                implementation="com.picimako.terra.wdio.screenshot.reference.TerraScreenshotReferenceContributor"/>
-
-
+        <psi.referenceContributor language="JavaScript" implementation="com.picimako.terra.wdio.screenshot.reference.TerraScreenshotReferenceContributor"/>
+        
         <!-- Line markers -->
         <codeInsight.lineMarkerProvider language="JavaScript"
                                         implementationClass="com.picimako.terra.wdio.screenshot.gutter.TerraScreenshotValidationLineMarkerProvider"/>

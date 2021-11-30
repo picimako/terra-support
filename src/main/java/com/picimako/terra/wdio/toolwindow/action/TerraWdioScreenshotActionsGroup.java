@@ -18,8 +18,8 @@ package com.picimako.terra.wdio.toolwindow.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.actionSystem.Separator;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +42,7 @@ public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
 
     @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent e) {
-        Project project = e.getData(PlatformDataKeys.PROJECT);
+        Project project = e.getData(CommonDataKeys.PROJECT);
         if (project != null) {
             return new AnAction[]{
                 //Alteration actions
@@ -57,6 +57,6 @@ public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
                 new CompareLatestWithReferenceScreenshotsAction(project),
                 new ShowDiffScreenshotsAction(project)};
         }
-        return new AnAction[0];
+        return AnAction.EMPTY_ARRAY;
     }
 }

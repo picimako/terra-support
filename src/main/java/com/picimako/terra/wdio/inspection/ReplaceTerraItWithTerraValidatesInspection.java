@@ -148,7 +148,7 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
             //itBlockCallback should never be null, since it is created from a fix and correct template text
             itBlockCallback.addAfter(terraValidates, itBlockCallback.getFirstChild());
 
-            //Copy everything from the before hook to the beginning of the it block
+            //Copy everything from the before hook to the beginning of the 'it' block
             if (before != null) {
                 JSBlockStatement beforeHookCallback = PsiTreeUtil.findChildOfType(before.getElement(), JSBlockStatement.class);
                 if (beforeHookCallback != null) {

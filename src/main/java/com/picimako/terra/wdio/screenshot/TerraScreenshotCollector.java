@@ -84,7 +84,7 @@ public class TerraScreenshotCollector {
     @NotNull
     public PsiFile[] collectAsPsiFilesFor(JSLiteralExpression element) {
         return Arrays.stream(collect(element, () -> screenshotNameResolver.resolveName(element)))
-            .map(e -> (PsiFile) e)
+            .map(PsiFile.class::cast)
             .toArray(PsiFile[]::new);
     }
 
