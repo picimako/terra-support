@@ -51,6 +51,12 @@ There are also various customization options for the plugin which you can find o
 
 To add features, bugfixes or provide any kind of contribution to this project, please see the [Contribution guide](/CONTRIBUTE.md).
 
+## Cerner Terra resources
+
+- Terra Toolkit: [GitHub repository](https://github.com/cerner/terra-toolkit-boneyard), [Documentation](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
+- Terra Functional Testing: [GitHub repository](https://github.com/cerner/terra-toolkit/tree/main/packages/terra-functional-testing), [Changelog](https://github.com/cerner/terra-toolkit/blob/main/packages/terra-functional-testing/CHANGELOG.md),
+[Documentation](https://engineering.cerner.com/terra-ui/dev_tools/cerner-terra-toolkit-docs/terra-functional-testing/about)
+
 ## Images and logos
 
 The Terra Support plugin logo is a custom-drawn logo inspired by the original [Terra logo](https://engineering.cerner.com/terra-ui/home/terra-ui/index),
