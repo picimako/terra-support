@@ -27,6 +27,7 @@ import java.util.Set;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.openapi.vfs.VfsUtil;
+import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
@@ -126,7 +127,7 @@ public final class TerraWdioFolders {
      * @since 0.3.0
      */
     public static String getRelativePathToProjectDir(@NotNull Project project, @NotNull VirtualFile testRoot) {
-        return VfsUtil.getRelativePath(testRoot, ProjectUtil.guessProjectDir(project));
+        return VfsUtilCore.getRelativePath(testRoot, ProjectUtil.guessProjectDir(project));
     }
 
     /**

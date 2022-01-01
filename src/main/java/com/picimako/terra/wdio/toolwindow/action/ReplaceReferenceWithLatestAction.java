@@ -21,7 +21,6 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +32,7 @@ import com.intellij.openapi.application.WriteAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,7 +80,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
 
-            final List<String> erroredFilePaths = new ArrayList<>();
+            final List<String> erroredFilePaths = new SmartList<>();
             final Set<VirtualFile> referencesToRemove = new HashSet<>();
             final Set<VirtualFile> copiedFromLatests = new HashSet<>();
             final Set<VirtualFile> diffsToRemove = new HashSet<>();

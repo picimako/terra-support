@@ -26,6 +26,7 @@ import java.util.Arrays;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.psi.PsiBinaryFile;
 import com.intellij.psi.PsiDirectory;
@@ -63,7 +64,7 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        PsiFile selectedScreenshot = e.getData(PlatformDataKeys.PSI_FILE);
+        PsiFile selectedScreenshot = e.getData(CommonDataKeys.PSI_FILE);
 
         if (selectedScreenshot != null) {
             PsiDirectory snapshotsDirectory = (PsiDirectory) PsiTreeUtil.findFirstParent(
@@ -92,7 +93,7 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
     @Override
     public void update(@NotNull AnActionEvent e) {
         e.getPresentation().setEnabled(isUsingTerra(e.getProject())
-            && isInSnapshotsDirectory(e.getData(PlatformDataKeys.VIRTUAL_FILE))
-            && e.getData(PlatformDataKeys.PSI_FILE) instanceof PsiBinaryFile);
+            && isInSnapshotsDirectory(e.getData(CommonDataKeys.VIRTUAL_FILE))
+            && e.getData(CommonDataKeys.PSI_FILE) instanceof PsiBinaryFile);
     }
 }

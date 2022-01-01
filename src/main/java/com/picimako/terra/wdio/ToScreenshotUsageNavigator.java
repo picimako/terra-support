@@ -56,7 +56,7 @@ public class ToScreenshotUsageNavigator {
             PsiTreeUtil.processElements(specFile, JSCallExpression.class, element -> !hasNavigatedToUsage(screenshotName, element));
         } else {
             PsiTreeUtil.processElements(specFile, element ->
-                element instanceof JSCallExpression ? !hasNavigatedToUsage(screenshotName, (JSCallExpression) element) : true);
+                !(element instanceof JSCallExpression) || !hasNavigatedToUsage(screenshotName, (JSCallExpression) element));
         }
         return hasNavigated;
     }

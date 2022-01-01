@@ -81,36 +81,34 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      */
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
-        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            if (isUserSureToDeleteTheScreenshots()) {
-                TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
-                final List<String> erroredFilePaths = new ArrayList<>();
-                final List<VirtualFile> deletedScreenshotReferences = new ArrayList<>();
+        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent()) && isUserSureToDeleteTheScreenshots()) {
+            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            final List<String> erroredFilePaths = new ArrayList<>();
+            final List<VirtualFile> deletedScreenshotReferences = new ArrayList<>();
 
-                for (VirtualFile reference : selectedScreenshotNode.getReferences()) {
-                    FileDeletionHandler.checkExistenceAndHandleDeletion(reference, this,
-                        () -> deletedScreenshotReferences.add(reference),
-                        () -> erroredFilePaths.add(reference.getPath()));
-                }
-                deletedScreenshotReferences.forEach(reference -> selectedScreenshotNode.getReferences().remove(reference));
+            for (VirtualFile reference : selectedScreenshotNode.getReferences()) {
+                FileDeletionHandler.checkExistenceAndHandleDeletion(reference, this,
+                    () -> deletedScreenshotReferences.add(reference),
+                    () -> erroredFilePaths.add(reference.getPath()));
+            }
+            deletedScreenshotReferences.forEach(reference -> selectedScreenshotNode.getReferences().remove(reference));
 
-                //Delete the screenshot node from the tree model, and update the UI,
-                //so that the changes are reflected in the tool window, otherwise show message dialog that deletion was not successful.
-                if (erroredFilePaths.isEmpty()) {
-                    TreeSpecNode parentSpec = tree.getParentSpecOfSelected();
-                    parentSpec.getScreenshots().remove(selectedScreenshotNode);
+            //Delete the screenshot node from the tree model, and update the UI,
+            //so that the changes are reflected in the tool window, otherwise show message dialog that deletion was not successful.
+            if (erroredFilePaths.isEmpty()) {
+                TreeSpecNode parentSpec = tree.getParentSpecOfSelected();
+                parentSpec.getScreenshots().remove(selectedScreenshotNode);
 
-                    //If there is no screenshot node left under the parent spec node after the deletion, then remove the spec node as well. Fixes #19.
-                    if (parentSpec.screenshotCount() == 0) {
-                        removeSpecNode(parentSpec, tree);
-                    } else {
-                        tree.updateUI();
-                    }
+                //If there is no screenshot node left under the parent spec node after the deletion, then remove the spec node as well. Fixes #19.
+                if (parentSpec.screenshotCount() == 0) {
+                    removeSpecNode(parentSpec, tree);
                 } else {
-                    Messages.showWarningDialog(project,
-                        TerraBundle.toolWindow("delete.could.not.delete.screenshots") + String.join("\n", erroredFilePaths),
-                        TerraBundle.toolWindow("delete.error.during.deletion"));
+                    tree.updateUI();
                 }
+            } else {
+                Messages.showWarningDialog(project,
+                    TerraBundle.toolWindow("delete.could.not.delete.screenshots") + String.join("\n", erroredFilePaths),
+                    TerraBundle.toolWindow("delete.error.during.deletion"));
             }
         }
     }

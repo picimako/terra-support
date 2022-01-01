@@ -90,13 +90,9 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
         //The index of the describeViewports block - the set of viewport values
         final Map<Integer, Set<String>> viewportSets = new HashMap<>(4);
         for (int i = 0; i < blocks.length - 1; i++) {
-            if (!viewportSets.containsKey(i)) {
-                viewportSets.put(i, getViewportsSet(blocks[i]));
-            }
+            viewportSets.computeIfAbsent(i, iIndex -> getViewportsSet(blocks[iIndex]));
             for (int j = i + 1; j < blocks.length; j++) {
-                if (!viewportSets.containsKey(j)) {
-                    viewportSets.put(j, getViewportsSet(blocks[j]));
-                }
+                viewportSets.computeIfAbsent(j, jIndex -> getViewportsSet(blocks[jIndex]));
                 if (!viewportSets.get(i).isEmpty() && !viewportSets.get(j).isEmpty() && viewportSets.get(i).equals(viewportSets.get(j))) {
                     if (!blocksToReport.contains(i)) {
                         blocksToReport.add(i);

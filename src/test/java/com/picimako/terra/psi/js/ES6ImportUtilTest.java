@@ -142,7 +142,7 @@ public class ES6ImportUtilTest {
         ES6ImportSpecifier es6ImportSpecifier = mock(ES6ImportSpecifier.class);
         when(es6ImportSpecifier.getName()).thenReturn(RESPONSIVE_ELEMENT);
 
-        when(es6ImportDeclaration.getImportedBindings()).thenReturn(new ES6ImportedBinding[0]);
+        when(es6ImportDeclaration.getImportedBindings()).thenReturn(ES6ImportedBinding.EMPTY_ARRAY);
         when(es6ImportDeclaration.getNamedImports()).thenReturn(es6NamedImports);
         when(es6NamedImports.getSpecifiers()).thenReturn(new ES6ImportSpecifier[]{es6ImportSpecifier});
 
@@ -156,7 +156,7 @@ public class ES6ImportUtilTest {
         when(specifier1.getName()).thenReturn("ContentContainer");
         when(specifier2.getName()).thenReturn(RESPONSIVE_ELEMENT);
 
-        when(es6ImportDeclaration.getImportedBindings()).thenReturn(new ES6ImportedBinding[0]);
+        when(es6ImportDeclaration.getImportedBindings()).thenReturn(ES6ImportedBinding.EMPTY_ARRAY);
         when(es6ImportDeclaration.getNamedImports()).thenReturn(es6NamedImports);
         when(es6NamedImports.getSpecifiers()).thenReturn(new ES6ImportSpecifier[]{specifier1, specifier2});
 
@@ -168,7 +168,7 @@ public class ES6ImportUtilTest {
         ES6ImportSpecifier es6ImportSpecifier = mock(ES6ImportSpecifier.class);
         when(es6ImportSpecifier.getName()).thenReturn("ContentContainer");
 
-        when(es6ImportDeclaration.getImportedBindings()).thenReturn(new ES6ImportedBinding[0]);
+        when(es6ImportDeclaration.getImportedBindings()).thenReturn(ES6ImportedBinding.EMPTY_ARRAY);
         when(es6ImportDeclaration.getNamedImports()).thenReturn(es6NamedImports);
         when(es6NamedImports.getSpecifiers()).thenReturn(new ES6ImportSpecifier[]{es6ImportSpecifier});
 
@@ -182,7 +182,7 @@ public class ES6ImportUtilTest {
         when(specifier1.getName()).thenReturn("ContentContainer");
         when(specifier2.getName()).thenReturn("Grid");
 
-        when(es6ImportDeclaration.getImportedBindings()).thenReturn(new ES6ImportedBinding[0]);
+        when(es6ImportDeclaration.getImportedBindings()).thenReturn(ES6ImportedBinding.EMPTY_ARRAY);
         when(es6ImportDeclaration.getNamedImports()).thenReturn(es6NamedImports);
         when(es6NamedImports.getSpecifiers()).thenReturn(new ES6ImportSpecifier[]{specifier1, specifier2});
 

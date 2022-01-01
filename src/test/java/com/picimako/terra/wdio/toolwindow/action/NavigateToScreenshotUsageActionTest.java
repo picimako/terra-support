@@ -51,7 +51,7 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
         PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png")));
 
         NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction(getProject());
-        action.actionPerformed(testActionEvent(screenshot));
+        action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
         assertThat(myFixture.getCaretOffset()).isEqualTo(741);
@@ -62,7 +62,7 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
         PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[non-default].png")));
 
         NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction(getProject());
-        action.actionPerformed(testActionEvent(screenshot));
+        action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
         assertThat(myFixture.getCaretOffset()).isEqualTo(865);
@@ -74,7 +74,7 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
 
         NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction(getProject());
         assertThatExceptionOfType(RuntimeException.class)
-            .isThrownBy(() -> action.actionPerformed(testActionEvent(screenshot)))
+            .isThrownBy(() -> action.actionPerformed(doTestActionEvent(screenshot)))
             .withMessage("There is no validation linked to this screenshot.\n" +
                 "Either it has been removed entirely or is now referencing this image by a different name.");
     }
@@ -86,13 +86,13 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
 
         assertThat(FileEditorManager.getInstance(getProject()).hasOpenFiles()).isFalse();
         assertThatExceptionOfType(RuntimeException.class)
-            .isThrownBy(() -> action.actionPerformed(testActionEvent(screenshot)))
+            .isThrownBy(() -> action.actionPerformed(doTestActionEvent(screenshot)))
             .withMessage("There is no spec file available to navigate to. It may have been removed.");
     }
 
-    private TestActionEvent testActionEvent(PsiFile screenshot) {
+    private TestActionEvent doTestActionEvent(PsiFile screenshot) {
         return new TestActionEvent(dataId -> {
-            if (PlatformDataKeys.PSI_FILE.is(dataId)) {
+            if (CommonDataKeys.PSI_FILE.is(dataId)) {
                 return screenshot;
             }
             if (CommonDataKeys.PROJECT.is(dataId)) {

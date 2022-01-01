@@ -21,7 +21,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
@@ -44,7 +43,7 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
         PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png")));
 
         NavigateToScreenshotUsageProjectViewAction action = new NavigateToScreenshotUsageProjectViewAction();
-        action.actionPerformed(testActionEvent(screenshot));
+        action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
         assertThat(myFixture.getCaretOffset()).isEqualTo(741);
@@ -55,7 +54,7 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
         PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[non-default].png")));
 
         NavigateToScreenshotUsageProjectViewAction action = new NavigateToScreenshotUsageProjectViewAction();
-        action.actionPerformed(testActionEvent(screenshot));
+        action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
         assertThat(myFixture.getCaretOffset()).isEqualTo(865);
@@ -67,7 +66,7 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
 
         NavigateToScreenshotUsageProjectViewAction action = new NavigateToScreenshotUsageProjectViewAction();
         assertThatExceptionOfType(RuntimeException.class)
-            .isThrownBy(() -> action.actionPerformed(testActionEvent(screenshot)))
+            .isThrownBy(() -> action.actionPerformed(doTestActionEvent(screenshot)))
             .withMessage("There is no validation linked to this screenshot.\n" +
                 "Either it has been removed entirely or is now referencing this image by a different name.");
     }
@@ -79,7 +78,7 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
         action.actionPerformed(new TestActionEvent(dataId -> CommonDataKeys.PROJECT.is(dataId) ? getProject() : null));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
-        assertThat(myFixture.getCaretOffset()).isEqualTo(0);
+        assertThat(myFixture.getCaretOffset()).isZero();
     }
 
     public void testShowNoSpecFileToNavigateToDialog() {
@@ -89,13 +88,13 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
 
         assertThat(FileEditorManager.getInstance(getProject()).hasOpenFiles()).isFalse();
         assertThatExceptionOfType(RuntimeException.class)
-            .isThrownBy(() -> action.actionPerformed(testActionEvent(screenshot)))
+            .isThrownBy(() -> action.actionPerformed(doTestActionEvent(screenshot)))
             .withMessage("There is no spec file available to navigate to. It may have been removed.");
     }
 
-    private TestActionEvent testActionEvent(PsiFile screenshot) {
+    private TestActionEvent doTestActionEvent(PsiFile screenshot) {
         return new TestActionEvent(dataId -> {
-            if (PlatformDataKeys.PSI_FILE.is(dataId)) {
+            if (CommonDataKeys.PSI_FILE.is(dataId)) {
                 return screenshot;
             }
             if (CommonDataKeys.PROJECT.is(dataId)) {

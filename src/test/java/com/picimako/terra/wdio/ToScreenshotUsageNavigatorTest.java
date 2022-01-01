@@ -64,6 +64,6 @@ public class ToScreenshotUsageNavigatorTest extends TerraToolkitTestCase {
         navigator.navigateToUsage(specFile, "terra_screenshot[non-referenced].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
-        assertThat(myFixture.getCaretOffset()).isEqualTo(0);
+        assertThat(myFixture.getCaretOffset()).isZero();
     }
 }
