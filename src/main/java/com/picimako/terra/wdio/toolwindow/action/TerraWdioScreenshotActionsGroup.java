@@ -36,11 +36,6 @@ import org.jetbrains.annotations.Nullable;
 public class TerraWdioScreenshotActionsGroup extends DefaultActionGroup {
 
     @Override
-    public void update(@NotNull AnActionEvent e) {
-        super.update(e);
-    }
-
-    @Override
     public AnAction @NotNull [] getChildren(@Nullable AnActionEvent e) {
         Project project = e.getData(CommonDataKeys.PROJECT);
         if (project != null) {

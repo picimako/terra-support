@@ -52,4 +52,8 @@ final class TreeNodeTypeIdentifier {
         }
         return itemToSelect;
     }
+
+    private TreeNodeTypeIdentifier() {
+        //Utility class
+    }
 }

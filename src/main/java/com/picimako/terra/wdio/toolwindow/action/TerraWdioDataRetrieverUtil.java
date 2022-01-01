@@ -38,4 +38,8 @@ final class TerraWdioDataRetrieverUtil {
     static TerraWdioTree getWdioTreeFrom(@NotNull AnActionEvent e) {
         return (TerraWdioTree) e.getData(PlatformDataKeys.CONTEXT_COMPONENT);
     }
+
+    private TerraWdioDataRetrieverUtil() {
+        //Utility class
+    }
 }
