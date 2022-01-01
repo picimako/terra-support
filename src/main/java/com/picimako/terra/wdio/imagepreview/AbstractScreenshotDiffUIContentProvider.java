@@ -30,7 +30,7 @@ public abstract class AbstractScreenshotDiffUIContentProvider implements Screens
 
     private final Project project;
 
-    public AbstractScreenshotDiffUIContentProvider(@NotNull Project project) {
+    protected AbstractScreenshotDiffUIContentProvider(@NotNull Project project) {
         this.project = project;
     }
 

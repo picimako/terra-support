@@ -35,7 +35,7 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
 
     protected final Project project;
 
-    public AbstractTerraWdioToolWindowAction(String text, @NotNull Project project) {
+    protected AbstractTerraWdioToolWindowAction(String text, @NotNull Project project) {
         super(text);
         this.project = project;
     }

@@ -27,10 +27,10 @@ public abstract class ScreenshotContextParser {
     protected static final String PATH_DELIMITER = "/";
     protected String contextSeparator = CONTEXT_SEPARATOR;
 
-    public ScreenshotContextParser() {
+    protected ScreenshotContextParser() {
     }
 
-    public ScreenshotContextParser(String contextSeparator) {
+    protected ScreenshotContextParser(String contextSeparator) {
         this.contextSeparator = contextSeparator;
     }
 

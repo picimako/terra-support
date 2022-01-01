@@ -54,7 +54,7 @@ public abstract class AbstractTerraWdioTreeModel implements TreeModel {
     protected TreeModelDataRoot data;
     protected final Project project;
 
-    public AbstractTerraWdioTreeModel(Project project) {
+    protected AbstractTerraWdioTreeModel(Project project) {
         this.project = project;
         buildTree();
     }

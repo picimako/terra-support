@@ -43,7 +43,7 @@ public abstract class AbstractTerraWdioTreeNode implements TerraWdioTreeNode {
     protected final String displayName;
     protected final Project project;
 
-    public AbstractTerraWdioTreeNode(@NotNull String displayName, Project project) {
+    protected AbstractTerraWdioTreeNode(@NotNull String displayName, Project project) {
         this.displayName = displayName;
         this.project = project;
     }
