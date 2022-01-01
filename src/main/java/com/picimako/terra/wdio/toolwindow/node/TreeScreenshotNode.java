@@ -55,18 +55,14 @@ public class TreeScreenshotNode extends AbstractTerraWdioTreeNode {
     }
 
     /**
-     * Gets whether this node has a latest image.
-     *
-     * @return true if the node has at least one latest image, false otherwise
+     * Gets whether this node has at least one latest image.
      */
     public boolean hasLatest() {
         return !latests.isEmpty();
     }
 
     /**
-     * Gets whether this node has a diff image.
-     *
-     * @return true if the node has at least one diff image, false otherwise
+     * Gets whether this node has at least one diff image.
      */
     public boolean hasDiff() {
         return !diffs.isEmpty();

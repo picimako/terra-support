@@ -30,9 +30,6 @@ final class TerraWdioDataRetrieverUtil {
 
     /**
      * Gets the {@link TerraWdioTree} object from the argument action event.
-     *
-     * @param e the action event to get the data from
-     * @return the TerraWdioTree object
      */
     @Nullable
     static TerraWdioTree getWdioTreeFrom(@NotNull AnActionEvent e) {

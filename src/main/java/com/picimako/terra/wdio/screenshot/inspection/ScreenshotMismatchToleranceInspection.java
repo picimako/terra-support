@@ -180,12 +180,10 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
     }
 
     /**
-     * Creates a text field that allows only digits and the dot character to be typed into it.
+     * Creates and returns a text field that allows only digits and the dot character to be typed into it.
      * <p>
      * If the value specified in the field cannot be converted to a double, or it is a valid double value, but it is
      * less than 0 or greater than 100 (the allowed values for misMatchTolerance), the previously saved value is kept.
-     *
-     * @return the configured text field
      */
     private JTextField mismatchToleranceValueField() {
         final JTextField valueField = new JTextField(String.valueOf(maxThreshold));

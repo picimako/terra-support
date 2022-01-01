@@ -61,8 +61,6 @@ public class TerraWdioTree extends JTree {
      * Gets the parent node of the currently selected node as spec.
      * <p>
      * Call this only when you are sure that the currently selected node is a screenshot node.
-     *
-     * @return the parent spec node
      */
     public TreeSpecNode getParentSpecOfSelected() {
         return asSpec(getSelectionPath().getParentPath().getLastPathComponent());
@@ -70,8 +68,6 @@ public class TerraWdioTree extends JTree {
 
     /**
      * Gets the root node of this tree.
-     *
-     * @return the root node
      */
     public TreeModelDataRoot getRoot() {
         return (TreeModelDataRoot) getModel().getRoot();
@@ -79,8 +75,6 @@ public class TerraWdioTree extends JTree {
 
     /**
      * Gets all expanded nodes of this tree, the expanded descendants of the root node.
-     *
-     * @return the expanded nodes
      */
     public Enumeration<TreePath> getAllExpandedNodes() {
         return getExpandedDescendants(new TreePath(getRoot()));

@@ -118,11 +118,9 @@ final class FindUnusedScreenshotsAction extends AnAction {
     }
 
     /**
-     * Collects all wdio screenshot paths from the already built wdio tree model.
+     * Collects all wdio screenshot paths in the project from the already built wdio tree model.
      * <p>
-     * Meanwhile it also marks all screenshots as used (basically resetting the unused state if it was set).
-     *
-     * @return the list of screenshot names in the project
+     * Meanwhile, it also marks all screenshots as used (basically resetting the unused state if it was set).
      */
     private List<String> markUsedAndGetAllScreenshotPaths(TreeModelDataRoot root) {
         final List<String> names = new SmartList<>();

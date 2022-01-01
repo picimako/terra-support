@@ -50,8 +50,6 @@ public final class ScreenshotDiff {
 
     /**
      * Gets whether this diff object has a latest image set.
-     *
-     * @return true if there is a latest image, false otherwise
      */
     public boolean hasLatest() {
         return latest != null;

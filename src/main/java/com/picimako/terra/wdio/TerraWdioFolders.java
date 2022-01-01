@@ -110,8 +110,6 @@ public final class TerraWdioFolders {
     /**
      * Gets the relative path of the wdio test root folder within the project root.
      *
-     * @param project the current project
-     * @return the relative path of the wdio test root
      * @since 0.3.0
      */
     public static String wdioRootRelativePath(@NotNull Project project) {

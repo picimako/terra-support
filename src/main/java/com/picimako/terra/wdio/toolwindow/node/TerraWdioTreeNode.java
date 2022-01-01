@@ -31,8 +31,6 @@ public interface TerraWdioTreeNode extends Disposable {
 
     /**
      * Returns the name of the spec file (without the -spec.js ending), or the screenshot (including the extension).
-     *
-     * @return the spec folder or screenshot file name
      */
     String getDisplayName();
 
@@ -70,7 +68,7 @@ public interface TerraWdioTreeNode extends Disposable {
      * Returns the argument object as a {@link TreeSpecNode}.
      *
      * @param node the object to cast
-     * @return the casted object
+     * @return the cast object
      */
     static TreeSpecNode asSpec(Object node) {
         return (TreeSpecNode) node;
@@ -90,7 +88,7 @@ public interface TerraWdioTreeNode extends Disposable {
      * Returns the argument object as a {@link TreeScreenshotNode}.
      *
      * @param node the object to cast
-     * @return the casted object
+     * @return the cast object
      */
     static TreeScreenshotNode asScreenshot(Object node) {
         return (TreeScreenshotNode) node;

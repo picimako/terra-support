@@ -43,7 +43,6 @@ public class TerraBundle extends DynamicBundle {
      * Retrieves an inspection specific message for the provided id.
      *
      * @param id the suffix of the message key
-     * @return the actual message
      */
     public static String inspection(@NonNls String id, Object @NotNull ... params) {
         return message("terra.inspection." + id, params);
@@ -53,7 +52,6 @@ public class TerraBundle extends DynamicBundle {
      * Retrieves a Terra wdio tool window specific message for the provided id.
      *
      * @param id the suffix of the message key
-     * @return the actual message
      */
     public static String toolWindow(@NonNls String id, Object @NotNull ... params) {
         return message("terra.wdio.toolwindow." + id, params);
@@ -63,7 +61,6 @@ public class TerraBundle extends DynamicBundle {
      * Retrieves a Terra Settings specific message for the provided id.
      *
      * @param id the suffix of the message key
-     * @return the actual message
      */
     public static String settings(@NonNls String id) {
         return message("terra.settings." + id);
@@ -73,7 +70,6 @@ public class TerraBundle extends DynamicBundle {
      * Retrieves a Terra inlay hints specific message for the provided id.
      *
      * @param id the suffix of the message key
-     * @return the actual message
      */
     public static String inlay(@NonNls String id) {
         return message("terra.inlay.hints." + id);

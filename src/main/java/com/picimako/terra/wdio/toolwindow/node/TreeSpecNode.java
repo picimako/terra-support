@@ -56,9 +56,7 @@ public class TreeSpecNode extends AbstractTerraWdioTreeNode {
     }
 
     /**
-     * Gets all screenshot nodes stored in this node.
-     *
-     * @return the underlying screenshot nodes
+     * Gets all screenshot nodes stored in this spec node.
      */
     public List<TreeScreenshotNode> getScreenshots() {
         return screenshots;
@@ -109,8 +107,6 @@ public class TreeSpecNode extends AbstractTerraWdioTreeNode {
 
     /**
      * Returns the number of underlying screenshot nodes.
-     *
-     * @return the number of screenshot nodes
      */
     public int screenshotCount() {
         return screenshots.size();
