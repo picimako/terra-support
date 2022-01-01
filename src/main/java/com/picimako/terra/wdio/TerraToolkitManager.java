@@ -29,7 +29,7 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraToolkitPropertiesProvi
 /**
  * Provides terra-toolkit specific resource handlers.
  */
-@Service(Service.Level.PROJECT)
+@Service //Service.Level.PROJECT
 public final class TerraToolkitManager extends TerraResourceManager {
 
     private ScreenshotNameResolver nameResolver;

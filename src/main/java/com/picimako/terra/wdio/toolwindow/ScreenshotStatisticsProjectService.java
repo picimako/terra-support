@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
     name = "com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService",
     storages = {@Storage("TerraWdioScreenshotStatistics.xml")}
 )
-@Service(Service.Level.PROJECT)
+@Service //Service.Level.PROJECT
 public final class ScreenshotStatisticsProjectService implements PersistentStateComponent<ScreenshotStatisticsProjectService> {
 
     public boolean isShowStatistics = true;

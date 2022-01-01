@@ -29,7 +29,7 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraFunctionalTestingPrope
 /**
  * Provides terra-functional-testing specific resource handlers.
  */
-@Service(Service.Level.PROJECT)
+@Service //Service.Level.PROJECT
 public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
     private ScreenshotNameResolver nameResolver;

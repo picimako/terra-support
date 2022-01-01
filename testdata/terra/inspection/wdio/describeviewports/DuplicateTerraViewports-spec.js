@@ -43,7 +43,7 @@ Terra.describeViewports('Test', ['tiny', 'asd', 'medium', 'asd', 'huge', 'enormo
 });
 
 Terra.describeViewports('Test', [large<error descr=", expected">'</error>, '<error descr=", expected">l</error>arge<error descr=", expected">'</error>, '<error descr=", expected">m</error>edium<error descr=", expected">'</error>], () => {<EOLError descr="Unclosed string literal"></EOLError>
-}<error descr="Statement expected">)</error>;
+}<error descr="statement expected">)</error>;
 
 // Highlight cases
 
