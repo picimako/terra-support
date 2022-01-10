@@ -1,28 +1,14 @@
-<h4>0.7.0</h4>
-
-<strong>Maintenance</strong>
-<ul>
-    <li>Cleanup and simplification in several inspections.</li>
-    <li>Merged <code>TerraDescribeViewportsBlockingInspection</code> into <code>TerraDescribeViewportsInspection</code>,
-        and <code>ScreenshotMismatchToleranceBlockingInspection</code> into <code>ScreenshotMismatchToleranceInspection</code>.
-    </li>
-    <li>Refined documentation.</li>
-    <li>Upgraded gradle and intellij-gradle-plugin versions.</li>
-</ul>
-
-<strong>Enhancement</strong>
-<ul>
-    <li>Screenshot reference suggestions are now sorted alphabetically when Ctrl+Clicking on screenshot names in <code>Terra.validates</code>
-        and <code>Terra.it</code></li>
-    <li><a href="https://github.com/picimako/terra-support/issues/56">#56</a>: Added <code>Terra.describeTests</code> besides
-        <code>Terra.describeViewports</code> to be validated when they are nested in other describe blocks.
-    </li>
-    <li>Added viewport value validation to the testOptions argument of <code>Terra.describeTests</code> when it is specified in an inline object.</li>
-    <li>Added viewport quick documentation support for the testOptions argument of <code>Terra.describeTests</code> when it is specified in an inline object.</li>
-</ul>
+<h4>1.0.0</h4>
 
 <strong>Bugfix</strong>
 <ul>
-    <li>Fixed a bug in default name resolution that spammed the logs with exception.</li>
-    <li>Fixed a <code>ClassCastException</code> log spam during viewport value retrieval.</li>
+    <li><a href="https://github.com/picimako/terra-support/issues/57">#57</a>:Fixed an issue when rolling back Git
+        changes on screenshots causes incorrect VirtualFiles to be stored.
+    </li>
+</ul>
+
+<strong>Maintenance</strong>
+<ul>
+    <li>Upgraded library and plugin versions.</li>
+    <li>minor code simplifications.</li>
 </ul>

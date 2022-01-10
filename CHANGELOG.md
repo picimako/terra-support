@@ -1,5 +1,15 @@
 # Changelog
 
+### 1.0.0
+
+#### BUGFIX
+- [#57](https://github.com/picimako/terra-support/issues/57): Fixed an issue when rolling back Git changes on screenshots causes incorrect VirtualFiles to be stored.
+
+#### MAINTENANCE
+- Upgraded library and plugin versions.
+- Fine-tuned various segments of the documentation.
+- Did some minor code simplifications.
+
 ### 0.7.0
 
 #### MAINTENANCE
