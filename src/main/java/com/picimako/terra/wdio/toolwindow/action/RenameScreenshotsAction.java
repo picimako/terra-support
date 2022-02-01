@@ -148,7 +148,6 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
         }
     }
 
-
     /**
      * Shows an input dialog pre-populated with the original filename (also highlighting the filename without the extension
      * for easier editing experience).

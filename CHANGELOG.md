@@ -1,5 +1,12 @@
 # Changelog
 
+### 1.1.0
+
+**IMPORTANT**: to minimize maintenance cost this plugin no longer supports IDE versions 2020.2 and 2020.3.
+
+#### MAINTENANCE
+- Added support for release 2022.1 EAP.
+
 ### 1.0.0
 
 #### BUGFIX

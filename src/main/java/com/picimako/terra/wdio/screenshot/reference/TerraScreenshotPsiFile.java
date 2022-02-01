@@ -22,7 +22,7 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.PsiManagerImpl;
 import com.intellij.psi.impl.file.PsiBinaryFileImpl;
-import icons.ImagesIcons;
+import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.wdio.TerraResourceManager;
@@ -64,7 +64,7 @@ final class TerraScreenshotPsiFile extends PsiBinaryFileImpl {
             @Nullable
             @Override
             public Icon getIcon(boolean unused) {
-                return ImagesIcons.ImagesFileType;
+                return ImageFileType.INSTANCE.getIcon();
             }
         };
     }

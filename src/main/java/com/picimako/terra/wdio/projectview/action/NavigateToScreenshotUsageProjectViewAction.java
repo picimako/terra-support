@@ -32,6 +32,7 @@ import com.intellij.psi.PsiBinaryFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -59,7 +60,7 @@ import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
 public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
 
     public NavigateToScreenshotUsageProjectViewAction() {
-        super(TerraBundle.message("terra.wdio.project.view.screenshot.navigate.to.usage"));
+        super(TerraBundle.message("terra.wdio.project.view.screenshot.navigate.to.usage"), null, ImageFileType.INSTANCE.getIcon());
     }
 
     @Override

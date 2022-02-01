@@ -33,7 +33,7 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import icons.ImagesIcons;
+import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,7 +67,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
                     if (screenshots.length > 0) {
                         PsiElement leafElement = findLeafElement(terraCallExpr);
                         if (leafElement != null) {
-                            result.add(NavigationGutterIconBuilder.create(ImagesIcons.ImagesFileType)
+                            result.add(NavigationGutterIconBuilder.create(ImageFileType.INSTANCE.getIcon())
                                 .setTargets(screenshots)
                                 .setTooltipText(TerraBundle.message("terra.wdio.screenshot.gutter.navigate.to.related"))
                                 .createLineMarkerInfo(leafElement.getFirstChild()));
@@ -75,7 +75,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
                     }
                 }
             } else if (nameArgument != null) {
-                result.add(NavigationGutterIconBuilder.create(ImagesIcons.ImagesFileType)
+                result.add(NavigationGutterIconBuilder.create(ImageFileType.INSTANCE.getIcon())
                     .setTargets(PsiElement.EMPTY_ARRAY)
                     .setTooltipText(TerraBundle.message("terra.wdio.screenshot.gutter.validation.on.this.line"))
                     .createLineMarkerInfo(nameArgument.getFirstChild()));
@@ -96,6 +96,6 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
 
     @Override
     public @Nullable Icon getIcon() {
-        return ImagesIcons.ImagesFileType;
+        return ImageFileType.INSTANCE.getIcon();
     }
 }

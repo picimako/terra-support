@@ -31,7 +31,7 @@ import javax.swing.tree.TreeSelectionModel;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.util.PlatformIcons;
-import icons.ImagesIcons;
+import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.toolwindow.TerraWdioTreeModel;
@@ -119,7 +119,7 @@ public class TerraWdioTree extends JTree {
                 markAsUnusedOrDefault(asSpec(value).getScreenshots().stream().anyMatch(TreeScreenshotNode::isUnused), PlatformIcons.FOLDER_ICON);
             } else if (isScreenshot(value)) {
                 potentiallyMarkAsDiff(asScreenshot(value).hasDiff());
-                markAsUnusedOrDefault(asScreenshot(value).isUnused(), ImagesIcons.ImagesFileType);
+                markAsUnusedOrDefault(asScreenshot(value).isUnused(), ImageFileType.INSTANCE.getIcon());
             }
         }
 
