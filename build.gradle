@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.intellij' version '1.3.0'
+    id 'org.jetbrains.intellij' version '1.3.1'
     id "org.jetbrains.kotlin.jvm" version "1.5.31"
 }
 
@@ -33,7 +33,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 intellij {
-    version = '2020.2'
+    version = '2021.1'
     //'java' is necessary to have runtime access to some classes like classes for unit testing
     plugins = ['JavaScript', 'java']
     pluginName = 'Terra Support'
@@ -42,7 +42,7 @@ intellij {
 }
 
 wrapper {
-    gradleVersion '7.1.1'
+    gradleVersion '7.3.3'
 }
 
 dependencies {
@@ -64,7 +64,7 @@ patchPluginXml {
 //}
 
 //runPluginVerifier {
-//    ideVersions = ['IU-2021.1', 'IU-2021.2', 'IU-2021.2.2', 'IU-2021.3', 'WS-2021.1', 'WS-2021.2', 'WS-2021.2.2']
+//    ideVersions = ['IU-221.3427.89']
 //}
 
 //runIde {
