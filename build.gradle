@@ -72,6 +72,3 @@ patchPluginXml {
     //ideDirectory '<absolute path to WebStorm/IntelliJ Ultimate installation>'
 //}
 
-//publishPlugin {
-//    token <IntelliJ publish token>
-//}
