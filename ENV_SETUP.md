@@ -19,13 +19,13 @@ test {
 
 and set it to the absolute path of the repository you have just cloned.
 
-This is required for loading some necessary libs for unit testing inspections.
+This is required for loading some necessary libs for functional testing inspections.
 
 ### Running the plugin in WebStorm/IntelliJ Ultimate
 
 This plugin is developed for IntelliJ Ultimate but with a little extra configuration it can also be ran in WebStorm.
 
-For that uncomment the following section in the build.gradle file:
+For that, uncomment the following section in the build.gradle file:
 
 ```groovy
 runIde {
@@ -44,18 +44,3 @@ including a tree view of the whole PSI tree, and to the properties of each node 
 
 To get at least a basic understanding of what PSI is and how it works, you can head over to the [JetBrains official documentation](https://jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi.html)
 of the topic.
-
-### IntelliJ import order
-
-Make sure you have the following settings applied regarding wildcard imports and import order under *Settings > Editor > Code Style > Java > Imports*:
-
-```
-import static all other imports
-<blank line>
-import java.*
-import javax.*
-<blank line>
-import all other imports
-<blank line>
-import com.picimako.*
-```
