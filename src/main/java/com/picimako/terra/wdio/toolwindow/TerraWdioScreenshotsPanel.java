@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.swing.*;
 
 import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFileManager;
@@ -70,7 +69,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
      * https://jetbrains.org/intellij/sdk/docs/tutorials/action_system/grouping_action.html#implementing-custom-action-group-classes
      */
     private void registerActionsAndListenersForTree() {
-        ActionManager actionManager = ActionManager.getInstance();
+        var actionManager = ActionManager.getInstance();
 
         //List of action groups to register
         //Since ActionManager seems to be operating on application level, and not project level, this check makes sure
@@ -81,10 +80,10 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         }
 
         //Add action popup menu to the tree component
-        ActionPopupMenu actionPopupMenu = actionManager
+        var actionPopupMenu = actionManager
             .createActionPopupMenu("TerraWdioToolWindow", (DefaultActionGroup) actionManager.getAction(SCREENSHOT_ACTIONS_GROUP));
         actionPopupMenu.setTargetComponent(tree);
-        final Map<String, ActionPopupMenu> actionPopupMenus = Map.of("Screenshot", actionPopupMenu);
+        final var actionPopupMenus = Map.of("Screenshot", actionPopupMenu);
         ToolWindowPopupMenuInvoker menuInvoker = new ToolWindowPopupMenuInvoker(tree, actionPopupMenus);
 
         tree.addMouseListener(new MouseListeningPopupMenuInvoker(menuInvoker));

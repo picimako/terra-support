@@ -15,7 +15,6 @@ import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
-import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,8 +35,6 @@ import com.picimako.terra.wdio.TerraWdioInspectionBase;
  */
 public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
 
-    private final GlobalTerraSelectorRetriever globalSelectorRetriever = new GlobalTerraSelectorRetriever();
-
     @Override
     public @NotNull PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly, @NotNull LocalInspectionToolSession session) {
         if (!isUsingTerra(holder.getProject()) || !isWdioSpecFile(session.getFile())) {
@@ -50,10 +47,11 @@ public class GlobalTerraSelectorInspection extends TerraWdioInspectionBase {
                 super.visitJSExpressionStatement(node);
 
                 if (isTerraElementOrScreenshotValidation(node)) {
-                    JSProperty selectorProperty = getScreenshotValidationProperty(node, SELECTOR);
+                    var selectorProperty = getScreenshotValidationProperty(node, SELECTOR);
                     if (selectorProperty != null) {
-                        String screenshotSelector = getStringLiteralValue(selectorProperty.getValue());
-                        if (Objects.equals(screenshotSelector, globalSelectorRetriever.getSelector(holder.getProject()))) {
+                        String localScreenshotSelector = getStringLiteralValue(selectorProperty.getValue());
+                        String globalSelector = GlobalTerraSelectorRetriever.getInstance(holder.getProject()).getSelector();
+                        if (Objects.equals(localScreenshotSelector, globalSelector)) {
                             //At this point selectorProperty.getValue() has already been validated for null value
                             holder.registerProblem(selectorProperty.getValue(), TerraBundle.inspection("matches.global.selector"));
                         }

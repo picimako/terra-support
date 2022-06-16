@@ -7,7 +7,6 @@ import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerraFunctiona
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isInContextOfNonTerraItElementOrScreenshotValidation;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
@@ -50,7 +49,7 @@ public class DuplicateScreenshotNameInspection extends TerraWdioInspectionBase {
         return new JSElementVisitor() {
             @Override
             public void visitJSFile(JSFile file) {
-                final Map<String, JSExpression> duplicateNames = new HashMap<>();
+                final var duplicateNames = new HashMap<String, JSExpression>();
                 PsiTreeUtil.processElements(session.getFile(), JSLiteralExpression.class, element -> {
                     //The check and reporting is applied only to Terra.validates.element and Terra.validates.screenshot calls,
                     //so there is no unnecessary execution for Terra.it calls which are removed from terra-functional-testing anyway.

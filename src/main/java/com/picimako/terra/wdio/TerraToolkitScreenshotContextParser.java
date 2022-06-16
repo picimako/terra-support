@@ -11,10 +11,13 @@ import org.jetbrains.annotations.NotNull;
  * Terra-toolkit specific context parser.
  * <p>
  * The screenshot context includes the locale, browser and viewport a particular screenshot is created for.
+ *
+ * @see TerraToolkitManager
  */
 public final class TerraToolkitScreenshotContextParser extends ScreenshotContextParser {
+    public static final TerraToolkitScreenshotContextParser INSTANCE = new TerraToolkitScreenshotContextParser();
 
-    public TerraToolkitScreenshotContextParser() {
+    private TerraToolkitScreenshotContextParser() {
     }
 
     public TerraToolkitScreenshotContextParser(String contextSeparator) {

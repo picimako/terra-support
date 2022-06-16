@@ -15,13 +15,10 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraFunctionalTestingPrope
 /**
  * Provides terra-functional-testing specific resource handlers.
  */
-@Service //Service.Level.PROJECT
+@Service(Service.Level.PROJECT)
 public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
-    private ScreenshotNameResolver nameResolver;
-    private ScreenshotContextParser contextParser;
     private ScreenshotContextParser contextParserWithSeparator;
-    private TerraPropertiesProvider propertiesProvider;
 
     //Required for project service creation
     public TerraFunctionalTestingManager(Project project) {
@@ -29,17 +26,18 @@ public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
     @Override
     public ScreenshotNameResolver screenshotNameResolver() {
-        return Optional.ofNullable(nameResolver).orElseGet(() -> nameResolver = new TerraFunctionalTestingScreenshotNameResolver());
+        return TerraFunctionalTestingScreenshotNameResolver.INSTANCE;
     }
 
     @Override
     public ScreenshotContextParser screenshotContextParser() {
-        return Optional.ofNullable(contextParser).orElseGet(() -> contextParser = new TerraFunctionalTestingScreenshotContextParser());
+        return TerraFunctionalTestingScreenshotContextParser.INSTANCE;
     }
 
     @Override
     public ScreenshotContextParser screenshotContextParser(String contextSeparator) {
-        return Optional.ofNullable(contextParserWithSeparator).orElseGet(() -> contextParserWithSeparator = new TerraFunctionalTestingScreenshotContextParser(contextSeparator));
+        return Optional.ofNullable(contextParserWithSeparator)
+            .orElseGet(() -> contextParserWithSeparator = new TerraFunctionalTestingScreenshotContextParser(contextSeparator));
     }
 
     @Override
@@ -49,6 +47,6 @@ public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
     @Override
     public TerraPropertiesProvider screenshotValidationProperties() {
-        return Optional.ofNullable(propertiesProvider).orElseGet(() -> propertiesProvider = new TerraFunctionalTestingPropertiesProvider());
+        return TerraFunctionalTestingPropertiesProvider.INSTANCE;
     }
 }

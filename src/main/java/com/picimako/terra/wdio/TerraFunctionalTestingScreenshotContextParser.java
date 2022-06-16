@@ -13,10 +13,12 @@ import org.jetbrains.annotations.NotNull;
  * The screenshot context includes the theme, locale, browser and viewport a particular screenshot is created for.
  *
  * @since 0.6.0
+ * @see TerraFunctionalTestingManager
  */
 public class TerraFunctionalTestingScreenshotContextParser extends ScreenshotContextParser {
+    public static final TerraFunctionalTestingScreenshotContextParser INSTANCE = new TerraFunctionalTestingScreenshotContextParser();
 
-    public TerraFunctionalTestingScreenshotContextParser() {
+    private TerraFunctionalTestingScreenshotContextParser() {
     }
 
     public TerraFunctionalTestingScreenshotContextParser(String contextSeparator) {

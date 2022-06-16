@@ -11,10 +11,9 @@ import java.util.function.Supplier;
 
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiBinaryFile;
-import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -25,6 +24,10 @@ import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
  * Collects screenshots based on various expressions.
+ * <p>
+ * It is implemented as a project service, and this way during {@link com.picimako.terra.wdio.screenshot.gutter.TerraScreenshotValidationLineMarkerProvider}
+ * and {@link com.picimako.terra.wdio.screenshot.inspection.MissingScreenshotInspection} the number of instance created
+ * of this object can be minimized.
  * <p>
  * The spec files and snapshots folders are related to each other as follows:
  * <pre>
@@ -40,8 +43,8 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  * screenshot validation call is implemented in. The latter one makes sure that related screenshots are returned only
  * for the current spec file, and not for other specs, if there happens to be a screenshot with the same name for that too.
  */
-public class TerraScreenshotCollector {
-
+@Service(Service.Level.PROJECT)
+public final class TerraScreenshotCollector {
     private final ScreenshotNameResolver screenshotNameResolver;
     private final Project project;
 
@@ -105,15 +108,15 @@ public class TerraScreenshotCollector {
             return PsiElement.EMPTY_ARRAY;
         }
 
-        PsiDirectory specFileDirectory = element.getContainingFile().getParent();
+        var specFileDirectory = element.getContainingFile().getParent();
         if (specFileDirectory != null) {
-            PsiDirectory snapshotsDirectory = specFileDirectory.findSubdirectory(TerraWdioFolders.SNAPSHOTS);
+            var snapshotsDirectory = specFileDirectory.findSubdirectory(TerraWdioFolders.SNAPSHOTS);
             if (snapshotsDirectory != null) {
                 String specFileId = specFileIdentifier(element.getContainingFile().getVirtualFile(), project);
                 return PsiTreeUtil.collectElements(snapshotsDirectory,
                     e -> {
                         if (e instanceof PsiBinaryFile) {
-                            VirtualFile screenshotFile = ((PsiBinaryFile) e).getVirtualFile();
+                            var screenshotFile = ((PsiBinaryFile) e).getVirtualFile();
                             return isReferenceScreenshot(screenshotFile)
                                 && ((PsiBinaryFile) e).getName().equals(nameSupplier.get()) //matching based on expected screenshot name
                                 && specFolderIdentifier(screenshotFile.getParent(), project).equals(specFileId); //matching based on the containing spec file
@@ -125,5 +128,9 @@ public class TerraScreenshotCollector {
             }
         }
         return PsiElement.EMPTY_ARRAY;
+    }
+
+    public static TerraScreenshotCollector getInstance(Project project) {
+        return project.getService(TerraScreenshotCollector.class);
     }
 }

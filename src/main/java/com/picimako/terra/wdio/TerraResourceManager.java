@@ -50,7 +50,7 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
             if (managerType != null && managerType.length == 1) {
                 return CachedValueProvider.Result.create(project.getService(managerType[0]), ModificationTracker.NEVER_CHANGED);
             }
-            Ref<Object> dependency = new Ref<>();
+            var dependency = new Ref<>();
             Optional<PackageJsonData> rootPackageJson = PackageJsonFileManager.getInstance(project).getValidPackageJsonFiles().stream()
                 .filter(packageJson -> {
                     VirtualFile projectDir = ProjectUtil.guessProjectDir(project);
@@ -76,19 +76,30 @@ public abstract class TerraResourceManager implements TerraResourceHandlerProvid
         });
     }
 
+    /**
+     * Returns whether any of the terra testing packages are used in the project.
+     */
     public static boolean isUsingTerra(Project project) {
         return !(getInstance(project) instanceof NoopResourceManager);
     }
 
+    /**
+     * Returns whether terra-toolkit is used in the project, and not terra-functional-testing.
+     */
     public static boolean isUsingTerraToolkit(Project project) {
         return getInstance(project) instanceof TerraToolkitManager;
     }
 
+    /**
+     * Returns whether terra-functional-testing is used in the project, and not terra-toolkit.
+     */
     public static boolean isUsingTerraFunctionalTesting(Project project) {
         return getInstance(project) instanceof TerraFunctionalTestingManager;
     }
 
     private static PackageJsonData getOrCreateData(@NotNull VirtualFile packageJson) {
-        return Optional.ofNullable(packageJson).map(PackageJsonData::getOrCreate).orElseThrow(() -> new IllegalArgumentException("No json data found."));
+        return Optional.ofNullable(packageJson)
+            .map(PackageJsonData::getOrCreate)
+            .orElseThrow(() -> new IllegalArgumentException("No json data found."));
     }
 }

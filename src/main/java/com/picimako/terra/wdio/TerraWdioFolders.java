@@ -5,7 +5,6 @@ package com.picimako.terra.wdio;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.WDIO_SPEC_FILE_NAME_PATTERN;
 import static java.util.stream.Collectors.toSet;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +15,6 @@ import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -196,7 +194,7 @@ public final class TerraWdioFolders {
      * @return true if the file is under wdio root, false otherwise
      */
     public static boolean isInWdioFiles(VirtualFile file, Project project) {
-        final VirtualFile wdioRoot = projectWdioRoot(project);
+        final var wdioRoot = projectWdioRoot(project);
         return wdioRoot != null && wdioRoot.equals(VfsUtil.getCommonAncestor(Set.of(wdioRoot, file)));
     }
 
@@ -223,14 +221,14 @@ public final class TerraWdioFolders {
      * @since 0.3.0
      */
     public static void collectSpecFiles(PsiDirectory directory, List<PsiFile> specFiles) {
-        for (PsiElement element : directory.getChildren()) {
-            if (element instanceof PsiFile) {
-                String fileName = ((PsiFile) element).getName();
+        for (var child : directory.getChildren()) {
+            if (child instanceof PsiFile) {
+                String fileName = ((PsiFile) child).getName();
                 if (fileName.matches(WDIO_SPEC_FILE_NAME_PATTERN)) {
-                    specFiles.add((PsiFile) element);
+                    specFiles.add((PsiFile) child);
                 }
-            } else if (element instanceof PsiDirectory && !isSnapshotsDirectory(((PsiDirectory) element))) {
-                collectSpecFiles((PsiDirectory) element, specFiles);
+            } else if (child instanceof PsiDirectory && !isSnapshotsDirectory(((PsiDirectory) child))) {
+                collectSpecFiles((PsiDirectory) child, specFiles);
             }
         }
     }
@@ -341,7 +339,7 @@ public final class TerraWdioFolders {
     }
 
     private static VirtualFile getMatchingImageForName(String name, String desiredPath, Project project) {
-        Collection<VirtualFile> images = FilenameIndex.getVirtualFilesByName(project, name, GlobalSearchScope.projectScope(project));
+        var images = FilenameIndex.getVirtualFilesByName(project, name, GlobalSearchScope.projectScope(project));
         return images.stream()
             .filter(image -> image.getPath().equals(desiredPath))
             .findFirst()

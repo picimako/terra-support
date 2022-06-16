@@ -16,7 +16,6 @@ import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScree
  * by double-clicking on screenshot nodes.
  */
 public class MouseListeningScreenshotNodeActionInvoker extends MouseAdapter {
-
     private final Project project;
     private final TerraWdioTree tree;
 

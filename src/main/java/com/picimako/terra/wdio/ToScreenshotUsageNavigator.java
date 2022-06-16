@@ -3,7 +3,6 @@
 package com.picimako.terra.wdio;
 
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsStringLiteral;
-import static com.picimako.terra.BuildNumberHelper.isIDEBuildNumberSameOrNewerThan;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isScreenshotValidationCall;
 
 import com.intellij.lang.javascript.psi.JSCallExpression;
@@ -38,12 +37,7 @@ public class ToScreenshotUsageNavigator {
      * @return true if navigation to the Terra validation was successful, false otherwise
      */
     public boolean navigateToUsage(PsiFile specFile, String screenshotName) {
-        if (isIDEBuildNumberSameOrNewerThan("202.5103.13")) {
-            PsiTreeUtil.processElements(specFile, JSCallExpression.class, element -> !hasNavigatedToUsage(screenshotName, element));
-        } else {
-            PsiTreeUtil.processElements(specFile, element ->
-                !(element instanceof JSCallExpression) || !hasNavigatedToUsage(screenshotName, (JSCallExpression) element));
-        }
+        PsiTreeUtil.processElements(specFile, JSCallExpression.class, element -> !hasNavigatedToUsage(screenshotName, element));
         return hasNavigated;
     }
 

@@ -7,10 +7,9 @@ import static com.picimako.terra.wdio.WdioConfUtil.TERRA_PROPERTY_NAME;
 import static com.picimako.terra.wdio.WdioConfUtil.WDIO_CONF_JS_FILE_NAME;
 import static java.util.stream.Collectors.toList;
 
-import java.util.List;
-
 import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSProperty;
+import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
 import com.intellij.psi.PsiFile;
@@ -21,17 +20,23 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Retrieves the global CSS selector define in the {@code wdio.conf.js} in the project's root directory.
  */
-public class GlobalTerraSelectorRetriever {
+@Service(Service.Level.PROJECT)
+public final class GlobalTerraSelectorRetriever {
+
+    private final Project project;
+
+    public GlobalTerraSelectorRetriever(Project project) {
+        this.project = project;
+    }
 
     /**
      * Gets the global CSS selector value from the {@code terra.selector} property in wdio.conf.js. The wdio.conf.js
      * file checked is the one present in the project's root directory. It returns null if that wdio.conf.js doesn't exist.
      *
-     * @param project the project to search in
      * @return the global CSS selector, or null
      */
     @Nullable
-    public String getSelector(Project project) {
+    public String getSelector() {
         PsiFile wdioConf = PsiManager.getInstance(project)
             .findDirectory(ProjectUtil.guessProjectDir(project))
             .findFile(WDIO_CONF_JS_FILE_NAME);
@@ -50,13 +55,18 @@ public class GlobalTerraSelectorRetriever {
      */
     @Nullable
     private String findTerraSelectorValue(@Nullable PsiFile wdioConfJsFile) {
-        List<JSProperty> terraSelectors = PsiTreeUtil.collectElementsOfType(wdioConfJsFile, JSProperty.class).stream()
-            .filter(prop ->
-                SELECTOR_PROPERTY_NAME.equals(prop.getName())
-                    && TERRA_PROPERTY_NAME.equals(prop.getJSNamespace().getQualifiedName().getName()))
+        var terraSelectors = PsiTreeUtil.collectElementsOfType(wdioConfJsFile, JSProperty.class).stream()
+            .filter(prop -> {
+                String propertyName = prop.getJSNamespace().getQualifiedName().getName();
+                return SELECTOR_PROPERTY_NAME.equals(prop.getName()) && TERRA_PROPERTY_NAME.equals(propertyName);
+            })
             .collect(toList());
         return !terraSelectors.isEmpty()
             ? JsonPsiUtil.stripQuotes(terraSelectors.get(terraSelectors.size() - 1).getValue().getText())
             : null;
+    }
+
+    public static GlobalTerraSelectorRetriever getInstance(Project project) {
+        return project.getService(GlobalTerraSelectorRetriever.class);
     }
 }

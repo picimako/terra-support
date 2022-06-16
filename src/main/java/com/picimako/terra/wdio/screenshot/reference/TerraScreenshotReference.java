@@ -44,14 +44,14 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
      */
     public TerraScreenshotReference(@NotNull PsiElement element) {
         super(element, TextRange.create(1, element.getTextRange().getLength() - 1), true);
-        screenshotCollector = new TerraScreenshotCollector(element.getProject());
+        screenshotCollector = TerraScreenshotCollector.getInstance(element.getProject());
 
     }
 
     @Override
     public ResolveResult @NotNull [] multiResolve(boolean incompleteCode) {
         if (!incompleteCode) {
-            PsiFile[] screenshotsForName = screenshotCollector.collectAsPsiFilesFor((JSLiteralExpression) myElement);
+            var screenshotsForName = screenshotCollector.collectAsPsiFilesFor((JSLiteralExpression) myElement);
             return screenshotsForName.length > 0 ? createResultItemsFor(screenshotsForName, myElement.getProject()) : ResolveResult.EMPTY_ARRAY;
         }
         return ResolveResult.EMPTY_ARRAY;
@@ -69,7 +69,7 @@ public class TerraScreenshotReference extends PsiReferenceBase<PsiElement> imple
 
     @Override
     public @Nullable PsiElement resolve() {
-        ResolveResult[] resolveResults = multiResolve(false);
+        var resolveResults = multiResolve(false);
         return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
     }
 }

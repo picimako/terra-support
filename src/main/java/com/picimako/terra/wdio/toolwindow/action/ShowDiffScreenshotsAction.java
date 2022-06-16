@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,8 +46,8 @@ public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (project != null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            VirtualFile fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getDiffs().get(0);
-            FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
+            var fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getDiffs().get(0);
+            var fileEditorManager = FileEditorManager.getInstance(project);
             fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
             fileEditorManager.setSelectedEditor(fileToOpen, DiffScreenshotsPreview.EDITOR_TYPE_ID);
         }

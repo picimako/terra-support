@@ -7,7 +7,6 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.List;
 
 import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.application.WriteAction;
@@ -74,62 +73,60 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            var selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
             String originalFileName = selectedScreenshotNode.getDisplayName();
             String newFileName = askUserForNewFileName(originalFileName, originalFileName.substring(originalFileName.lastIndexOf(".") + 1));
 
-            if (newFileName != null) { //The user didn't click Cancel
-                List<VirtualFile> references = selectedScreenshotNode.getReferences();
+            if (newFileName == null) return; //The user didn't click Cancel
+            var references = selectedScreenshotNode.getReferences();
 
-                if (references.stream().allMatch(VirtualFile::isWritable)) {
-                    final List<VirtualFile> successfullyRenamed = new SmartList<>();
-                    final List<String> erroredFilePaths = new SmartList<>();
-                    TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+            if (references.stream().allMatch(VirtualFile::isWritable)) {
+                final var successfullyRenamed = new SmartList<VirtualFile>();
+                final var erroredFilePaths = new SmartList<String>();
+                var parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
 
-                    for (VirtualFile reference : references) {
-                        if (reference.exists()) {
-                            try {
-                                //Rename the actual screenshot files on the file system
-                                WriteAction.run(() -> reference.rename(this, newFileName));
-                                //If not yet created, create a new Screenshot Node under the current parent Spec Node, with the new name
-                                if (!parentSpec.hasScreenshotNodeForName(newFileName)) {
-                                    TreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName, project);
-                                    newScreenshot.addReference(reference);
-                                    parentSpec.addScreenshot(newScreenshot);
-                                } else {
-                                    //Add the current VirtualFile to the new Screenshot Node
-                                    parentSpec.findScreenshotNodeByName(newFileName).get().addReference(reference);
-                                }
-                                //Mark the current VirtualFile to be removed from the current Screenshot Node (they will be removed later in bulk)
-                                successfullyRenamed.add(reference);
-                            } catch (IOException ioe) {
-                                erroredFilePaths.add(reference.getPath());
-                            }
+                for (var reference : references) {
+                    if (!reference.exists()) continue;
+                    try {
+                        //Rename the actual screenshot files on the file system
+                        WriteAction.run(() -> reference.rename(this, newFileName));
+                        //If not yet created, create a new Screenshot Node under the current parent Spec Node, with the new name
+                        if (!parentSpec.hasScreenshotNodeForName(newFileName)) {
+                            TreeScreenshotNode newScreenshot = TerraWdioTreeNode.forScreenshot(newFileName, project);
+                            newScreenshot.addReference(reference);
+                            parentSpec.addScreenshot(newScreenshot);
+                        } else {
+                            //Add the current VirtualFile to the new Screenshot Node
+                            parentSpec.findScreenshotNodeByName(newFileName).get().addReference(reference);
                         }
+                        //Mark the current VirtualFile to be removed from the current Screenshot Node (they will be removed later in bulk)
+                        successfullyRenamed.add(reference);
+                    } catch (IOException ioe) {
+                        erroredFilePaths.add(reference.getPath());
                     }
-
-                    //Remove all VirtualFiles from the original file name's screenshot node
-                    successfullyRenamed.forEach(reference -> selectedScreenshotNode.getReferences().remove(reference));
-                    if (selectedScreenshotNode.getReferences().isEmpty()) {
-                        //Since there is no actual file remained for the original screenshot node,
-                        // it can be removed from the spec, and the one with the new name will be shown
-                        parentSpec.getScreenshots().remove(selectedScreenshotNode);
-                    }
-                    //Reorder and update the UI even when just a portion of the screenshots could be renamed
-                    parentSpec.reorderScreenshotsAlphabeticallyByDisplayName();
-                    tree.updateUI();
-                    if (!erroredFilePaths.isEmpty()) {
-                        Messages.showWarningDialog(project,
-                            TerraBundle.toolWindow("rename.could.not.rename.screenshots") + String.join("\n", erroredFilePaths),
-                            TerraBundle.toolWindow("rename.error.during.rename"));
-                    } else {
-                        tree.getSelectionModel().clearSelection(); //Fixes #24
-                    }
-                } else {
-                    Messages.showWarningDialog(project,
-                        TerraBundle.toolWindow("rename.non.writable.files.description"),
-                        TerraBundle.toolWindow("rename.non.writable.files.title"));
                 }
+
+                //Remove all VirtualFiles from the original file name's screenshot node
+                successfullyRenamed.forEach(reference -> selectedScreenshotNode.getReferences().remove(reference));
+                if (selectedScreenshotNode.getReferences().isEmpty()) {
+                    //Since there is no actual file remained for the original screenshot node,
+                    // it can be removed from the spec, and the one with the new name will be shown
+                    parentSpec.getScreenshots().remove(selectedScreenshotNode);
+                }
+                //Reorder and update the UI even when just a portion of the screenshots could be renamed
+                parentSpec.reorderScreenshotsAlphabeticallyByDisplayName();
+                tree.updateUI();
+                if (!erroredFilePaths.isEmpty()) {
+                    Messages.showWarningDialog(project,
+                        TerraBundle.toolWindow("rename.could.not.rename.screenshots") + String.join("\n", erroredFilePaths),
+                        TerraBundle.toolWindow("rename.error.during.rename"));
+                } else {
+                    tree.getSelectionModel().clearSelection(); //Fixes #24
+                }
+            } else {
+                Messages.showWarningDialog(project,
+                    TerraBundle.toolWindow("rename.non.writable.files.description"),
+                    TerraBundle.toolWindow("rename.non.writable.files.title"));
             }
         }
     }

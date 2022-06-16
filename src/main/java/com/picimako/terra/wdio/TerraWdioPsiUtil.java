@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
@@ -117,11 +116,11 @@ public final class TerraWdioPsiUtil {
      */
     @NotNull
     public static JSExpression[] getViewports(JSExpressionStatement describeViewports) {
-        JSCallExpression terraDescribeViewports = getCallExpression(describeViewports);
+        var terraDescribeViewports = getCallExpression(describeViewports);
         if (terraDescribeViewports != null) {
-            JSArgumentList argumentList = terraDescribeViewports.getArgumentList();
+            var argumentList = terraDescribeViewports.getArgumentList();
             if (argumentList != null && argumentList.getArguments().length > 1) {
-                JSExpression viewportList = argumentList.getArguments()[1];
+                var viewportList = argumentList.getArguments()[1];
                 if (viewportList instanceof JSArrayLiteralExpression) {
                     return ((JSArrayLiteralExpression) viewportList).getExpressions();
                 }
@@ -167,7 +166,7 @@ public final class TerraWdioPsiUtil {
      */
     @Nullable
     public static JSExpression getMethodExpressionOf(@NotNull PsiElement element) {
-        JSCallExpression jsCallExpression = getCallExpression(element);
+        var jsCallExpression = getCallExpression(element);
         return jsCallExpression != null ? jsCallExpression.getMethodExpression() : null;
     }
 
@@ -190,7 +189,7 @@ public final class TerraWdioPsiUtil {
      */
     public static boolean hasText(@NotNull PsiElement element, String... desiredTexts) {
         if (desiredTexts.length > 0) {
-            JSExpression methodExpression = getMethodExpressionOf(element);
+            var methodExpression = getMethodExpressionOf(element);
             return methodExpression != null && Arrays.stream(desiredTexts).anyMatch(methodExpression::textMatches);
         }
         return false;
@@ -205,7 +204,7 @@ public final class TerraWdioPsiUtil {
      */
     public static boolean isScreenshotValidationCall(@Nullable JSCallExpression expression) {
         if (expression != null) {
-            JSExpression methodExpression = expression.getMethodExpression();
+            var methodExpression = expression.getMethodExpression();
             return methodExpression != null && SCREENSHOT_VALIDATION_NAMES.contains(methodExpression.getText());
         }
         return false;
@@ -292,7 +291,7 @@ public final class TerraWdioPsiUtil {
      */
     @Nullable
     public static JSProperty getScreenshotValidationProperty(PsiElement element, String... propertyNameVariants) {
-        JSObjectLiteralExpression propertiesObject = getTerraValidationPropertyObject(element);
+        var propertiesObject = getTerraValidationPropertyObject(element);
         return propertiesObject != null
             ? Arrays.stream(propertyNameVariants)
             .map(propertiesObject::findProperty)
@@ -307,7 +306,7 @@ public final class TerraWdioPsiUtil {
         if (element instanceof JSExpressionStatement) {
             arguments = getArgumentsOf((JSExpressionStatement) element);
         } else if (element instanceof JSCallExpression) {
-            JSArgumentList argumentList = ((JSCallExpression) element).getArgumentList();
+            var argumentList = ((JSCallExpression) element).getArgumentList();
             if (argumentList != null) {
                 arguments = argumentList.getArguments();
             }

@@ -6,11 +6,9 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.asScreen
 import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreenshot;
 
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,10 +45,10 @@ public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWd
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (project!= null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            List<VirtualFile> latests = asScreenshot(tree.getLastSelectedPathComponent()).getLatests();
+            var latests = asScreenshot(tree.getLastSelectedPathComponent()).getLatests();
             if (!latests.isEmpty()) {
-                VirtualFile fileToOpen = latests.get(0);
-                FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
+                var fileToOpen = latests.get(0);
+                var fileEditorManager = FileEditorManager.getInstance(project);
                 fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
                 fileEditorManager.setSelectedEditor(fileToOpen, ReferenceToLatestScreenshotsPreview.EDITOR_TYPE_ID);
             }

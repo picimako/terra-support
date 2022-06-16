@@ -47,23 +47,19 @@ public class InvalidTerraValidationPropertiesInspection extends TerraWdioInspect
                 super.visitJSExpressionStatement(node);
 
                 TerraPropertiesProvider properties = TerraResourceManager.getInstance(node.getProject()).screenshotValidationProperties();
-                if (isScreenshotValidation(node)) {
-                    checkIncorrectPropertyName(node, holder, properties.screenshotProperties());
-                } else if (isElementValidation(node)) {
-                    checkIncorrectPropertyName(node, holder, properties.elementProperties());
-                } else if (isAccessibilityValidation(node)) {
-                    checkIncorrectPropertyName(node, holder, properties.accessibilityProperties());
+                if (isScreenshotValidation(node)) checkIncorrectPropertyName(node, properties.screenshotProperties());
+                else if (isElementValidation(node)) checkIncorrectPropertyName(node, properties.elementProperties());
+                else if (isAccessibilityValidation(node)) checkIncorrectPropertyName(node, properties.accessibilityProperties());
+            }
+
+            private void checkIncorrectPropertyName(JSExpressionStatement node, List<String> validPropertyNames) {
+                for (var property : getTerraValidationProperties(node)) {
+                    if (!validPropertyNames.contains(property.getName())) {
+                        holder.registerProblem(Optional.ofNullable(property.getIdentifyingElement()).orElse(property),
+                            TerraBundle.inspection("invalid.terra.validation.property", validPropertyNames));
+                    }
                 }
             }
         };
-    }
-
-    private void checkIncorrectPropertyName(JSExpressionStatement node, @NotNull ProblemsHolder holder, List<String> validPropertyNames) {
-        for (var property : getTerraValidationProperties(node)) {
-            if (!validPropertyNames.contains(property.getName())) {
-                holder.registerProblem(Optional.ofNullable(property.getIdentifyingElement()).orElse(property),
-                    TerraBundle.inspection("invalid.terra.validation.property", validPropertyNames));
-            }
-        }
     }
 }

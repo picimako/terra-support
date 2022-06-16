@@ -9,13 +9,11 @@ import static com.picimako.terra.wdio.TerraWdioPsiUtil.getViewportsSet;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
-import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.JSFile;
 import com.intellij.psi.PsiElement;
@@ -50,7 +48,8 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
             public void visitJSFile(JSFile file) {
                 super.visitJSFile(file);
 
-                PsiElement[] describeViewportsBlocks = PsiTreeUtil.collectElements(file, e -> e instanceof JSExpressionStatement && isTopLevelTerraDescribeViewportsBlock(e));
+                var describeViewportsBlocks = PsiTreeUtil.collectElements(file,
+                    e -> e instanceof JSExpressionStatement && isTopLevelTerraDescribeViewportsBlock(e));
                 //In case of 1 or zero describeViewports blocks, there is no validation needed
                 if (describeViewportsBlocks.length == 2) {
                     if (getViewportsSet(describeViewportsBlocks[0]).equals(getViewportsSet(describeViewportsBlocks[1]))) {
@@ -71,10 +70,10 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
      * Empty viewports arrays and non-array type viewports argument values are not reported.
      */
     private void reportDuplicateBlocks(PsiElement[] blocks, @NotNull ProblemsHolder holder) {
-        final Set<Integer> blocksToReport = new HashSet<>(4);
+        final var blocksToReport = new HashSet<Integer>(4);
         //The maximum number of entries this will contain is the number of describeViewports blocks
         //The index of the describeViewports block - the set of viewport values
-        final Map<Integer, Set<String>> viewportSets = new HashMap<>(4);
+        final var viewportSets = new HashMap<Integer, Set<String>>(4);
         for (int i = 0; i < blocks.length - 1; i++) {
             viewportSets.computeIfAbsent(i, iIndex -> getViewportsSet(blocks[iIndex]));
             for (int j = i + 1; j < blocks.length; j++) {
@@ -97,7 +96,7 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
     }
 
     private void registerProblem(PsiElement block, @NotNull ProblemsHolder holder) {
-        JSExpression blockMethodExpression = getMethodExpressionOf(block);
+        var blockMethodExpression = getMethodExpressionOf(block);
         if (blockMethodExpression != null) {
             holder.registerProblem(blockMethodExpression, TerraBundle.inspection("duplicate.describe.viewports"));
         }

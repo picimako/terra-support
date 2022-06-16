@@ -8,8 +8,6 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -25,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioFolders;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
 import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
@@ -64,13 +61,13 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            var selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
 
-            final List<String> erroredFilePaths = new SmartList<>();
-            final Set<VirtualFile> referencesToRemove = new HashSet<>();
-            final Set<VirtualFile> copiedFromLatests = new HashSet<>();
-            final Set<VirtualFile> diffsToRemove = new HashSet<>();
-            for (VirtualFile latestVf : selectedScreenshotNode.getLatests()) {
+            final var erroredFilePaths = new SmartList<String>();
+            final var referencesToRemove = new HashSet<VirtualFile>();
+            final var copiedFromLatests = new HashSet<VirtualFile>();
+            final var diffsToRemove = new HashSet<VirtualFile>();
+            for (var latestVf : selectedScreenshotNode.getLatests()) {
                 selectedScreenshotNode.getReferences().stream()
                     .filter(referenceVf -> relativePathEquals(latestVf.getPath(), referenceVf.getPath()))
                     .findFirst()
@@ -100,7 +97,7 @@ public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindo
             });
 
             if (erroredFilePaths.isEmpty()) {
-                TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+                var parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
                 parentSpec.reorderScreenshotsAlphabeticallyByDisplayName();
                 tree.updateUI();
             } else {

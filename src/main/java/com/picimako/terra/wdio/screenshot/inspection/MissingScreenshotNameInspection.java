@@ -2,19 +2,19 @@
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
+import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getFirstArgumentAsString;
 import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
+import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentListOf;
 import static com.picimako.terra.wdio.TerraResourceManager.isUsingTerraFunctionalTesting;
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.isNonTerraItElementOrScreenshotValidation;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.psi.js.JSArgumentUtil;
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.TerraWdioInspectionBase;
 import com.picimako.terra.wdio.TerraWdioPsiUtil;
@@ -39,7 +39,7 @@ public class MissingScreenshotNameInspection extends TerraWdioInspectionBase {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 if (isNonTerraItElementOrScreenshotValidation(node)) {
-                    String nameArgument = JSPsiUtil.getFirstArgumentAsString(JSArgumentUtil.getArgumentListOf(node));
+                    String nameArgument = getFirstArgumentAsString(getArgumentListOf(node));
                     if (nameArgument == null) {
                         var methodExpression = TerraWdioPsiUtil.getMethodExpressionOf(node);
                         if (methodExpression != null) {

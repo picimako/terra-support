@@ -45,8 +45,10 @@ import org.jetbrains.annotations.Nullable;
  * the final screenshot name will be {@code this_is_the_[test_)_id].png}.
  *
  * @since 0.6.0
+ * @see com.picimako.terra.wdio.TerraFunctionalTestingManager
  */
 public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreenshotNameResolver {
+    public static final TerraFunctionalTestingScreenshotNameResolver INSTANCE = new TerraFunctionalTestingScreenshotNameResolver();
 
     /**
      * {@inheritDoc}
@@ -57,14 +59,13 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
     @Override
     @NotNull
     public String resolveName(JSLiteralExpression element) {
-        String resolved = "";
         if (element != null) {
-            resolved = normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText())));
+            String resolved = normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText())));
             if (!resolved.isEmpty()) {
-                resolved += ".png";
+                return resolved + ".png";
             }
         }
-        return resolved;
+        return "";
 
     }
 

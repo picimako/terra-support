@@ -8,10 +8,6 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.tree.TreePath;
 
 import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.project.Project;
@@ -23,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.settings.TerraApplicationState;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
-import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
 import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
@@ -68,11 +63,11 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent()) && isUserSureToDeleteTheScreenshots()) {
-            TreeScreenshotNode selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
-            final List<String> erroredFilePaths = new ArrayList<>();
-            final List<VirtualFile> deletedScreenshotReferences = new ArrayList<>();
+            var selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
+            final var erroredFilePaths = new ArrayList<String>();
+            final var deletedScreenshotReferences = new ArrayList<VirtualFile>();
 
-            for (VirtualFile reference : selectedScreenshotNode.getReferences()) {
+            for (var reference : selectedScreenshotNode.getReferences()) {
                 FileDeletionHandler.checkExistenceAndHandleDeletion(reference, this,
                     () -> deletedScreenshotReferences.add(reference),
                     () -> erroredFilePaths.add(reference.getPath()));
@@ -82,15 +77,12 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
             //Delete the screenshot node from the tree model, and update the UI,
             //so that the changes are reflected in the tool window, otherwise show message dialog that deletion was not successful.
             if (erroredFilePaths.isEmpty()) {
-                TreeSpecNode parentSpec = tree.getParentSpecOfSelected();
+                var parentSpec = tree.getParentSpecOfSelected();
                 parentSpec.getScreenshots().remove(selectedScreenshotNode);
 
                 //If there is no screenshot node left under the parent spec node after the deletion, then remove the spec node as well. Fixes #19.
-                if (parentSpec.screenshotCount() == 0) {
-                    removeSpecNode(parentSpec, tree);
-                } else {
-                    tree.updateUI();
-                }
+                if (parentSpec.screenshotCount() == 0) removeSpecNode(parentSpec, tree);
+                else tree.updateUI();
             } else {
                 Messages.showWarningDialog(project,
                     TerraBundle.toolWindow("delete.could.not.delete.screenshots") + String.join("\n", erroredFilePaths),
@@ -102,7 +94,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
     /**
      * Removes the provided spec node from the tree.
      * <p>
-     * Since with a simple {@link JTree#updateUI()} call, after the removal, the tree becomes collapsed,
+     * Since with a simple {@link javax.swing.JTree#updateUI()} call, after the removal, the tree becomes collapsed,
      * this method also restores the expansion state of the nodes in the tree from before the removal.
      * <p>
      * Although the saved state contains the not yet removed spec node as well, it doesn't affect the restoration.
@@ -112,7 +104,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      */
     private void removeSpecNode(TreeSpecNode parentSpec, TerraWdioTree tree) {
         //Save the expansion state of nodes from before removing the spec node
-        Enumeration<TreePath> expandedNodes = tree.getAllExpandedNodes();
+        var expandedNodes = tree.getAllExpandedNodes();
         tree.getRoot().getSpecs().remove(parentSpec);
         tree.updateUI();
         tree.restoreExpansionStateFrom(expandedNodes);

@@ -24,7 +24,6 @@ import org.jetbrains.annotations.NotNull;
  * (called references in this context), so that the file system resources can be reached and manipulated easier.
  */
 public abstract class AbstractTerraWdioTreeNode implements TerraWdioTreeNode {
-
     protected final List<VirtualFile> references = new SmartList<>();
     protected final String displayName;
     protected final Project project;

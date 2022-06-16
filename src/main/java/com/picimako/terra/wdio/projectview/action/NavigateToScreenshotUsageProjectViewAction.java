@@ -13,10 +13,8 @@ import java.util.Arrays;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.psi.PsiBinaryFile;
 import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.NotNull;
@@ -51,28 +49,27 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        PsiFile selectedScreenshot = e.getData(CommonDataKeys.PSI_FILE);
+        var selectedScreenshot = e.getData(CommonDataKeys.PSI_FILE);
+        if (selectedScreenshot == null) return;
 
-        if (selectedScreenshot != null) {
-            PsiDirectory snapshotsDirectory = (PsiDirectory) PsiTreeUtil.findFirstParent(
-                selectedScreenshot,
-                psiElement -> psiElement instanceof PsiDirectory && isSnapshotsDirectory((PsiDirectory) psiElement));
+        var snapshotsDirectory = (PsiDirectory) PsiTreeUtil.findFirstParent(
+            selectedScreenshot,
+            psiElement -> psiElement instanceof PsiDirectory && isSnapshotsDirectory((PsiDirectory) psiElement));
 
-            if (snapshotsDirectory != null) {
-                PsiDirectory specContainerFolder = snapshotsDirectory.getParent();
+        if (snapshotsDirectory != null) {
+            var specContainerFolder = snapshotsDirectory.getParent();
 
-                if (specContainerFolder != null) {
-                    //Since parent searching above has happened, at this point selectedScreenshot's parent should not be null
-                    String specId = specFolderIdentifier(selectedScreenshot.getParent().getVirtualFile(), e.getProject());
-                    Arrays.stream(specContainerFolder.getFiles())
-                        .filter(file -> file.getVirtualFile().getNameWithoutExtension().equals(specId))
-                        .findFirst()
-                        .ifPresentOrElse(specFile -> {
-                            if (!new ToScreenshotUsageNavigator(e.getProject()).navigateToUsage(specFile, selectedScreenshot.getName())) {
-                                showNoValidationCallToNavigateToDialog();
-                            }
-                        }, ProblemDialogs::showNoSpecFileToNavigateToDialog);
-                }
+            if (specContainerFolder != null) {
+                //Since parent searching above has happened, at this point selectedScreenshot's parent should not be null
+                String specId = specFolderIdentifier(selectedScreenshot.getParent().getVirtualFile(), e.getProject());
+                Arrays.stream(specContainerFolder.getFiles())
+                    .filter(file -> file.getVirtualFile().getNameWithoutExtension().equals(specId))
+                    .findFirst()
+                    .ifPresentOrElse(specFile -> {
+                        if (!new ToScreenshotUsageNavigator(e.getProject()).navigateToUsage(specFile, selectedScreenshot.getName())) {
+                            showNoValidationCallToNavigateToDialog();
+                        }
+                    }, ProblemDialogs::showNoSpecFileToNavigateToDialog);
             }
         }
     }

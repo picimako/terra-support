@@ -12,8 +12,10 @@ import java.util.List;
  * Terra-functional-testing specific properties provider.
  *
  * @since 0.6.0
+ * @see com.picimako.terra.wdio.TerraFunctionalTestingManager
  */
 public class TerraFunctionalTestingPropertiesProvider implements TerraPropertiesProvider {
+    public static final TerraFunctionalTestingPropertiesProvider INSTANCE = new TerraFunctionalTestingPropertiesProvider();
 
     private static final List<String> SCREENSHOT_PROPERTIES = List.of(MISMATCH_TOLERANCE, SELECTOR);
     private static final List<String> ELEMENT_PROPERTIES = List.of(SELECTOR, MISMATCH_TOLERANCE, RULES);

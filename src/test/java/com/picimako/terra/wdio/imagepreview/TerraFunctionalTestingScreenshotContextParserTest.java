@@ -16,12 +16,12 @@ public class TerraFunctionalTestingScreenshotContextParserTest {
     @Test
     public void shouldReturnScreenshotContextString() {
         String path = "/home/project/tests/wdio/__snapshots__/diff/terra-theme/en/chrome_enormous/some-spec/a_screenshot.png";
-        assertThat(new TerraFunctionalTestingScreenshotContextParser().parse(path)).isEqualTo("terra-theme / en / chrome / enormous");
+        assertThat(TerraFunctionalTestingScreenshotContextParser.INSTANCE.parse(path)).isEqualTo("terra-theme / en / chrome / enormous");
     }
 
     @Test
     public void shouldReturnScreenshotContextStringFromNestedFolder() {
         String path = "/home/project/tests/wdio/nested/__snapshots__/diff/terra-theme/en/chrome_enormous/some-spec/a_screenshot.png";
-        assertThat(new TerraFunctionalTestingScreenshotContextParser().parse(path)).isEqualTo("terra-theme / en / chrome / enormous");
+        assertThat(TerraFunctionalTestingScreenshotContextParser.INSTANCE.parse(path)).isEqualTo("terra-theme / en / chrome / enormous");
     }
 }

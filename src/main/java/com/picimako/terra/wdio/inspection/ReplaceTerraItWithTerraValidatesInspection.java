@@ -17,7 +17,6 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.util.IntentionFamilyName;
 import com.intellij.codeInspection.util.IntentionName;
-import com.intellij.lang.javascript.psi.JSArgumentList;
 import com.intellij.lang.javascript.psi.JSBlockStatement;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
@@ -25,6 +24,7 @@ import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.impl.JSPsiElementFactory;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.SmartPointerManager;
@@ -64,29 +64,29 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
                 super.visitJSExpressionStatement(node);
 
                 if (isInWdioSpecFile(node) && isTerraIt(node) && node.getExpression() instanceof JSCallExpression) {
-                    JSExpression methodExpression = ((JSCallExpression) node.getExpression()).getMethodExpression();
+                    var methodExpression = ((JSCallExpression) node.getExpression()).getMethodExpression();
                     if (methodExpression != null) {
-                        JSExpressionStatement[] before = new JSExpressionStatement[1];
+                        var before = new Ref<JSExpressionStatement>();
                         if (hasPrecedingBeforeHook(node, before)) {
-                            registerProblem(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.before.merged"), before[0]));
-                            registerProblem(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.before.unchanged")));
+                            register(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.before.merged"), before.get()));
+                            register(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.before.unchanged")));
                         } else {
-                            registerProblem(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.simple")));
+                            register(methodExpression, new ReplaceTerraItWithTerraValidatesQuickFix(TerraBundle.inspection("replace.terra.it.simple")));
                         }
                     }
                 }
             }
 
-            private boolean hasPrecedingBeforeHook(JSExpressionStatement node, JSExpressionStatement[] before) {
+            private boolean hasPrecedingBeforeHook(JSExpressionStatement node, Ref<JSExpressionStatement> before) {
                 JSExpressionStatement previousSibling = PsiTreeUtil.getPrevSiblingOfType(node, JSExpressionStatement.class);
                 if (previousSibling != null && hasText(previousSibling, "before")) {
-                    before[0] = previousSibling;
+                    before.set(previousSibling);
                     return true;
                 }
                 return false;
             }
 
-            private void registerProblem(JSExpression methodExpression, LocalQuickFix quickFix) {
+            private void register(JSExpression methodExpression, LocalQuickFix quickFix) {
                 holder.registerProblem(methodExpression, TerraBundle.inspection("replace.message"), quickFix);
             }
         };
@@ -118,27 +118,27 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
 
         @Override
         public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor) {
-            PsiElement terraItCall = descriptor.getPsiElement(); //e.g.: Terra.it.validatesElement
-            PsiElement terraItStatement = terraItCall.getParent().getParent(); //e.g.: Terra.it.validatesElement();
+            var terraItCall = descriptor.getPsiElement(); //e.g.: Terra.it.validatesElement
+            var terraItStatement = terraItCall.getParent().getParent(); //e.g.: Terra.it.validatesElement();
 
-            JSArgumentList originalArgumentList = getArgumentListOf((JSExpressionStatement) terraItStatement);
+            var originalArgumentList = getArgumentListOf((JSExpressionStatement) terraItStatement);
             String arguments = originalArgumentList != null && originalArgumentList.getArguments().length != 0
                 ? originalArgumentList.getText() + ";" //e.g.: ('test name', {selector: '#css-selector'})
                 : "();";
             //e.g.: Terra.validates.element
-            JSExpressionStatement terraValidates = JSPsiElementFactory.createJSStatement(IT_TO_VALIDATES.get(terraItCall.getText()) + arguments, terraItStatement, JSExpressionStatement.class);
-            JSExpressionStatement itBlock = JSPsiElementFactory.createJSStatement("it('INSERT TEST NAME', () => {\n" + "});", terraItStatement, JSExpressionStatement.class);
+            var terraValidates = createJSStatement(IT_TO_VALIDATES.get(terraItCall.getText()) + arguments, terraItStatement);
+            var itBlock = createJSStatement("it('INSERT TEST NAME', () => {\n" + "});", terraItStatement);
 
-            JSBlockStatement itBlockCallback = PsiTreeUtil.findChildOfType(itBlock, JSBlockStatement.class);
+            var itBlockCallback = PsiTreeUtil.findChildOfType(itBlock, JSBlockStatement.class);
             //Add right after the opening curly braces.
             //itBlockCallback should never be null, since it is created from a fix and correct template text
             itBlockCallback.addAfter(terraValidates, itBlockCallback.getFirstChild());
 
             //Copy everything from the before hook to the beginning of the 'it' block
             if (before != null) {
-                JSBlockStatement beforeHookCallback = PsiTreeUtil.findChildOfType(before.getElement(), JSBlockStatement.class);
+                var beforeHookCallback = PsiTreeUtil.findChildOfType(before.getElement(), JSBlockStatement.class);
                 if (beforeHookCallback != null) {
-                    PsiElement[] children = beforeHookCallback.getChildren();
+                    var children = beforeHookCallback.getChildren();
                     for (int i = children.length - 2; i >= 1; i--) { //skip copying curly braces
                         itBlockCallback.addAfter(children[i], itBlockCallback.getFirstChild());
                     }
@@ -147,6 +147,10 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
             }
 
             terraItStatement.replace(itBlock);
+        }
+
+        private JSExpressionStatement createJSStatement(String text, PsiElement context) {
+            return JSPsiElementFactory.createJSStatement(text, context, JSExpressionStatement.class);
         }
     }
 }

@@ -58,8 +58,11 @@ import org.jetbrains.annotations.Nullable;
  * });
  * </pre>
  * the final screenshot name will be {@code terra_screenshot_[this_is_the_[test_)_id]].png}.
+ *
+ * @see com.picimako.terra.wdio.TerraToolkitManager
  */
 public class TerraToolkitScreenshotNameResolver extends AbstractScreenshotNameResolver {
+    public static final TerraToolkitScreenshotNameResolver INSTANCE = new TerraToolkitScreenshotNameResolver();
 
     private static final DescribeOrViewportsBlockCondition DESCRIBE_OR_VIEWPORTS_BLOCK_CONDITION = new DescribeOrViewportsBlockCondition();
     public static final String DESCRIBE_BLOCK_PATTERN = "describe|describe\\.only|describe\\.skip";

@@ -38,10 +38,10 @@ public class TerraScreenshotReferenceContributor extends PsiReferenceContributor
                 @Override
                 public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                     if (isJSStringLiteral(element)) {
-                        PsiElement parentDescribeCall = PsiTreeUtil.findFirstParent(element,
+                        var parentDescribeCall = PsiTreeUtil.findFirstParent(element,
                             psiElement -> psiElement instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) psiElement));
                         if (parentDescribeCall != null) {
-                            JSLiteralExpression describeBlockName = getFirstArgumentAsStringLiteral(((JSCallExpression) parentDescribeCall).getArgumentList());
+                            var describeBlockName = getFirstArgumentAsStringLiteral(((JSCallExpression) parentDescribeCall).getArgumentList());
                             if (describeBlockName == element) {
                                 return new PsiReference[]{new TerraScreenshotReference(element)};
                             }

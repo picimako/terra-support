@@ -18,13 +18,12 @@ import org.jetbrains.annotations.NotNull;
  * </ul>
  * <p>
  * <b>Related articles</b>
- * <p>
  * <ul>
- *     <li><a href=https://intellij-support.jetbrains.com/hc/en-us/community/posts/206140779-Context-menu-howto">Context-menu-howto</a></li>
- *     <li><a href=https://stackoverflow.com/questions/27468337/jtree-select-item-on-right-click">JTree select item on right-click</a></li>
- *     <li><a href=https://stackoverflow.com/questions/517704/right-click-context-menu-for-java-jtree">Right-click context menu for java JTree</a></li>
- *     <li><a href=https://stackoverflow.com/questions/38468270/how-to-implement-a-popup-menu-in-swing-that-works-both-under-windows-and-linux">Swing popup menu for Windows and Linux</a></li>
- *     <li><a href=https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#popup">Oracle popup menu tutorial</a></li>
+ *     <li><a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/206140779-Context-menu-howto">Context-menu-howto</a></li>
+ *     <li><a href="https://stackoverflow.com/questions/27468337/jtree-select-item-on-right-click">JTree select item on right-click</a></li>
+ *     <li><a href="https://stackoverflow.com/questions/517704/right-click-context-menu-for-java-jtree">Right-click context menu for java JTree</a></li>
+ *     <li><a href="https://stackoverflow.com/questions/38468270/how-to-implement-a-popup-menu-in-swing-that-works-both-under-windows-and-linux">Swing popup menu for Windows and Linux</a></li>
+ *     <li><a href="https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#popup">Oracle popup menu tutorial</a></li>
  * </ul>
  */
 public final class MouseListeningPopupMenuInvoker extends PopupHandler {

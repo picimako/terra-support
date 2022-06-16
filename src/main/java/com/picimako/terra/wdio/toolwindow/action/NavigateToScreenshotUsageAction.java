@@ -14,7 +14,6 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,17 +68,14 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            TreeSpecNode parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
+            var parentSpec = (TreeSpecNode) tree.getSelectionPath().getParentPath().getLastPathComponent();
             if (existsAfterRefresh(parentSpec.getSpecFile())) {
-                PsiFile specPsiFile = PsiManager.getInstance(project).findFile(parentSpec.getSpecFile());
+                var specPsiFile = PsiManager.getInstance(project).findFile(parentSpec.getSpecFile());
                 String selectedScreenshotNodeName = asScreenshot(tree.getLastSelectedPathComponent()).getDisplayName();
-
-                if (!navigator.navigateToUsage(specPsiFile, selectedScreenshotNodeName)) {
+                if (!navigator.navigateToUsage(specPsiFile, selectedScreenshotNodeName))
                     showNoValidationCallToNavigateToDialog();
-                }
-            } else {
+            } else
                 showNoSpecFileToNavigateToDialog();
-            }
         }
     }
 

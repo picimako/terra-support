@@ -28,7 +28,7 @@ public class ToScreenshotUsageNavigatorTest extends TerraToolkitTestCase {
         navigator.navigateToUsage(specFile, "terra_screenshot[default].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
-        assertThat(myFixture.getCaretOffset()).isEqualTo(741);
+        assertThat(myFixture.getCaretOffset()).isEqualTo(277);
     }
 
     public void testNavigatesToNonDefaultScreenshotValidation() {
@@ -39,7 +39,7 @@ public class ToScreenshotUsageNavigatorTest extends TerraToolkitTestCase {
         navigator.navigateToUsage(specFile, "terra_screenshot[non-default].png");
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
-        assertThat(myFixture.getCaretOffset()).isEqualTo(865);
+        assertThat(myFixture.getCaretOffset()).isEqualTo(401);
     }
 
     public void testDoesntNavigateToNotReferencedImage() {

@@ -1,5 +1,13 @@
 # Changelog
 
+### 1.2.0-SNAPSHOT
+
+- Removed support for version 2021.1 of IDEs.
+
+#### MAINTENANCE
+- Various code and documentation related housekeeping
+- Migrated class instantiation to static instances and project services to minimize object instance creation.
+
 ### 1.1.0
 
 **IMPORTANT**: to minimize maintenance cost this plugin no longer supports IDE versions 2020.2 and 2020.3.

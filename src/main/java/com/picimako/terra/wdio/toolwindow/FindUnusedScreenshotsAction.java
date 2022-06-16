@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.lang.javascript.psi.JSCallExpression;
-import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
@@ -26,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.screenshot.ScreenshotNameResolver;
-import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 
 /**
  * An action for the Terra Wdio tool window for collecting unused wdio screenshots in the project and marking them
@@ -69,7 +68,6 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  * @since 0.3.0
  */
 final class FindUnusedScreenshotsAction extends AnAction {
-
     private final ScreenshotNameResolver resolver;
     private final TerraWdioTree tree;
 
@@ -81,16 +79,16 @@ final class FindUnusedScreenshotsAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        final List<PsiFile> specFiles = new ArrayList<>();
+        final var specFiles = new ArrayList<PsiFile>();
         collectSpecFiles(findDirectory(e.getProject(), wdioRootRelativePath(e.getProject())), specFiles);
 
-        TreeModelDataRoot root = (TreeModelDataRoot) tree.getModel().getRoot();
-        final List<String> screenshotPaths = markUsedAndGetAllScreenshotPaths(root);
+        var root = (TreeModelDataRoot) tree.getModel().getRoot();
+        final var screenshotPaths = markUsedAndGetAllScreenshotPaths(root);
 
-        for (PsiFile specFile : specFiles) {
+        for (var specFile : specFiles) {
             PsiTreeUtil.processElements(specFile, JSCallExpression.class, element -> {
                 if (isScreenshotValidationCall(element)) {
-                    JSLiteralExpression firstNameArgument = getFirstArgumentAsStringLiteral(element.getArgumentList());
+                    var firstNameArgument = getFirstArgumentAsStringLiteral(element.getArgumentList());
                     screenshotPaths.remove(specFileIdentifier(specFile.getVirtualFile(), e.getProject())
                         + "/"
                         + resolver.resolveWithFallback(firstNameArgument, element.getMethodExpression()));
@@ -109,7 +107,7 @@ final class FindUnusedScreenshotsAction extends AnAction {
      * Meanwhile, it also marks all screenshots as used (basically resetting the unused state if it was set).
      */
     private List<String> markUsedAndGetAllScreenshotPaths(TreeModelDataRoot root) {
-        final List<String> names = new SmartList<>();
+        final var names = new SmartList<String>();
         for (var spec : root.getSpecs()) {
             for (var screenshot : spec.getScreenshots()) {
                 screenshot.setUnused(false);

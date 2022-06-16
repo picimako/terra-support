@@ -13,8 +13,10 @@ import java.util.List;
  * Terra-toolkit specific properties provider.
  *
  * @since 0.6.0
+ * @see com.picimako.terra.wdio.TerraToolkitManager
  */
 public class TerraToolkitPropertiesProvider implements TerraPropertiesProvider {
+    public static final TerraToolkitPropertiesProvider INSTANCE = new TerraToolkitPropertiesProvider();
 
     private static final List<String> SCREENSHOT_PROPERTIES = List.of(MIS_MATCH_TOLERANCE, SELECTOR, VIEWPORTS);
     private static final List<String> ELEMENT_PROPERTIES = List.of(SELECTOR, MIS_MATCH_TOLERANCE, AXE_RULES);

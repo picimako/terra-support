@@ -26,7 +26,6 @@ import com.picimako.terra.wdio.TerraWdioFolders;
 import com.picimako.terra.wdio.toolwindow.node.AbstractTerraWdioTreeNode;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode;
 import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
-import com.picimako.terra.wdio.toolwindow.node.TreeScreenshotNode;
 import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 
 /**
@@ -74,7 +73,7 @@ public abstract class AbstractTerraWdioTreeModel implements TreeModel {
      * for alteration.
      */
     public void buildTree() {
-        VirtualFile wdioFolder = projectWdioRoot(project);
+        var wdioFolder = projectWdioRoot(project);
         if (wdioFolder != null) {
             if (data == null) {
                 data = new TreeModelDataRoot(TerraBundle.toolWindow("root.node.name"), project);
@@ -85,8 +84,8 @@ public abstract class AbstractTerraWdioTreeModel implements TreeModel {
             Disposer.register(rootDisposable, data);
 
             wdioFolder.refresh(false, true);
-            List<VirtualFile> filesAndFoldersAnywhereInWdioRoot = VfsUtil.collectChildrenRecursively(wdioFolder);
-            Set<VirtualFile> specFiles = collectSpecFiles(filesAndFoldersAnywhereInWdioRoot);
+            var filesAndFoldersAnywhereInWdioRoot = VfsUtil.collectChildrenRecursively(wdioFolder);
+            var specFiles = collectSpecFiles(filesAndFoldersAnywhereInWdioRoot);
             collectSpecsAndScreenshots(filesAndFoldersAnywhereInWdioRoot, specFiles, TerraWdioFolders.REFERENCE, AbstractTerraWdioTreeNode::addReference);
             collectSpecsAndScreenshots(filesAndFoldersAnywhereInWdioRoot, specFiles, TerraWdioFolders.DIFF, (node, vf) -> asScreenshot(node).addDiff(vf));
             collectSpecsAndScreenshots(filesAndFoldersAnywhereInWdioRoot, specFiles, TerraWdioFolders.LATEST, (node, vf) -> asScreenshot(node).addLatest(vf));
@@ -102,14 +101,14 @@ public abstract class AbstractTerraWdioTreeModel implements TreeModel {
         if (TerraWdioFolders.REFERENCE.equals(imageType)) {
             virtualFileToNodeAdder.accept(specNode, folder);
         }
-        for (VirtualFile screenshot : screenshots) {
+        for (var screenshot : screenshots) {
             if (existsAfterRefresh(screenshot)) {
                 specNode.findScreenshotNodeByName(screenshot.getName())
                     //If one or more screenshot node have already been added with a given name
                     .ifPresentOrElse(s -> virtualFileToNodeAdder.accept(s, screenshot),
                         //If a screenshot node hasn't been added
                         () -> {
-                            TreeScreenshotNode newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName(), project);
+                            var newScreenshotNode = TerraWdioTreeNode.forScreenshot(screenshot.getName(), project);
                             virtualFileToNodeAdder.accept(newScreenshotNode, screenshot);
                             specNode.addScreenshot(newScreenshotNode);
                             Disposer.register(specNode, newScreenshotNode);

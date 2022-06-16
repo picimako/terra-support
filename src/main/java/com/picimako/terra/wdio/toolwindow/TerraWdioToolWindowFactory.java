@@ -11,11 +11,8 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
-import com.intellij.ui.content.Content;
-import com.intellij.ui.content.ContentManager;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.BuildNumberHelper;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
 /**
@@ -38,28 +35,24 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        TerraWdioScreenshotsPanel screenshotsPanel = new TerraWdioScreenshotsPanel(project);
+        var screenshotsPanel = new TerraWdioScreenshotsPanel(project);
         addTab(toolWindow, screenshotsPanel);
-        if (isSetTitleActionSupported()) {
-            toolWindow.setTitleActions(List.of(
-                new FindUnusedScreenshotsAction(screenshotsPanel.getTree(), project),
-                new ToggleStatisticsAction(() -> screenshotsPanel.getTree().updateUI())
-            ));
-        }
+        toolWindow.setTitleActions(List.of(
+            new FindUnusedScreenshotsAction(screenshotsPanel.getTree(), project),
+            new ToggleStatisticsAction(() -> screenshotsPanel.getTree().updateUI())
+        ));
     }
 
     private void addTab(ToolWindow toolWindow, JComponent component) {
-        ContentManager contentManager = toolWindow.getContentManager();
-        Content content = contentManager.getFactory().createContent(component, null, true);
+        var contentManager = toolWindow.getContentManager();
+        var content = contentManager.getFactory().createContent(component, null, true);
         contentManager.addContent(content);
     }
 
     @Override
     public boolean shouldBeAvailable(@NotNull Project project) {
-        if (!isUsingTerra(project)) {
-            return false;
-        }
-        
+        if (!isUsingTerra(project)) return false;
+
         boolean shouldBeAvailable = !project.isDefault();
         if (shouldBeAvailable) {
             VirtualFile wdioRoot = TerraWdioFolders.projectWdioRoot(project);
@@ -69,9 +62,5 @@ public class TerraWdioToolWindowFactory implements ToolWindowFactory {
             }
         }
         return shouldBeAvailable;
-    }
-
-    private boolean isSetTitleActionSupported() {
-        return BuildNumberHelper.isIDEBuildNumberSameOrNewerThan("202.5103.13");
     }
 }

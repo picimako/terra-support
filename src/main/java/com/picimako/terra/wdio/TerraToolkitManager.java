@@ -15,13 +15,10 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraToolkitPropertiesProvi
 /**
  * Provides terra-toolkit specific resource handlers.
  */
-@Service //Service.Level.PROJECT
+@Service(Service.Level.PROJECT)
 public final class TerraToolkitManager extends TerraResourceManager {
 
-    private ScreenshotNameResolver nameResolver;
-    private ScreenshotContextParser contextParser;
     private ScreenshotContextParser contextParserWithSeparator;
-    private TerraPropertiesProvider propertiesProvider;
 
     //Required for project service creation
     public TerraToolkitManager(Project project) {
@@ -29,17 +26,18 @@ public final class TerraToolkitManager extends TerraResourceManager {
 
     @Override
     public ScreenshotNameResolver screenshotNameResolver() {
-        return Optional.ofNullable(nameResolver).orElseGet(() -> nameResolver = new TerraToolkitScreenshotNameResolver());
+        return TerraToolkitScreenshotNameResolver.INSTANCE;
     }
 
     @Override
     public ScreenshotContextParser screenshotContextParser() {
-        return Optional.ofNullable(contextParser).orElseGet(() -> contextParser = new TerraToolkitScreenshotContextParser());
+        return TerraToolkitScreenshotContextParser.INSTANCE;
     }
 
     @Override
     public ScreenshotContextParser screenshotContextParser(String contextSeparator) {
-        return Optional.ofNullable(contextParserWithSeparator).orElseGet(() -> contextParserWithSeparator = new TerraToolkitScreenshotContextParser(contextSeparator));
+        return Optional.ofNullable(contextParserWithSeparator)
+            .orElseGet(() -> contextParserWithSeparator = new TerraToolkitScreenshotContextParser(contextSeparator));
     }
 
     @Override
@@ -49,6 +47,6 @@ public final class TerraToolkitManager extends TerraResourceManager {
 
     @Override
     public TerraPropertiesProvider screenshotValidationProperties() {
-        return Optional.ofNullable(propertiesProvider).orElseGet(() -> propertiesProvider = new TerraToolkitPropertiesProvider());
+        return TerraToolkitPropertiesProvider.INSTANCE;
     }
 }

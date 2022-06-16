@@ -9,6 +9,9 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Provides a Swing UI component for displaying screenshot diffs.
+ *
+ * @see DiffScreenshotsUIProvider
+ * @see ReferenceToLatestScreenshotsUIProvider
  */
 public interface ScreenshotDiffUIContentProvider {
 

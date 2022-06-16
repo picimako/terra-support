@@ -12,9 +12,7 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
-import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
-import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,21 +40,21 @@ public class MissingScreenshotInspection extends TerraWdioInspectionBase {
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
+                if (!isTerraElementOrScreenshotValidation(node)) return;
 
-                if (isTerraElementOrScreenshotValidation(node)) {
-                    JSExpression callExpression = node.getExpression();
-                    if (callExpression instanceof JSCallExpression) {
-                        TerraScreenshotCollector screenshotCollector = new TerraScreenshotCollector(holder.getProject());
-                        JSLiteralExpression nameExpr = JSPsiUtil.getFirstArgumentAsStringLiteral(((JSCallExpression) callExpression).getArgumentList());
-                        if (nameExpr != null) {
-                            if (screenshotCollector.collectFor(nameExpr).length == 0) {
-                                holder.registerProblem(nameExpr, TerraBundle.inspection("no.screenshot.exists"), ProblemHighlightType.ERROR);
-                            }
-                        } else {
-                            JSExpression methodExpression = ((JSCallExpression) callExpression).getMethodExpression();
-                            if (methodExpression != null && screenshotCollector.collectForDefault(methodExpression).length == 0)
-                                holder.registerProblem(methodExpression, TerraBundle.inspection("no.screenshot.exists.for.default"), ProblemHighlightType.ERROR);
+                var callExpression = node.getExpression();
+                if (callExpression instanceof JSCallExpression) {
+                    var screenshotCollector = TerraScreenshotCollector.getInstance(holder.getProject());
+                    var nameExpr = JSPsiUtil.getFirstArgumentAsStringLiteral(((JSCallExpression) callExpression).getArgumentList());
+                    if (nameExpr != null) {
+                        if (screenshotCollector.collectFor(nameExpr).length == 0) {
+                            holder.registerProblem(nameExpr, TerraBundle.inspection("no.screenshot.exists"), ProblemHighlightType.ERROR);
                         }
+                        return;
+                    }
+                    var methodExpression = ((JSCallExpression) callExpression).getMethodExpression();
+                    if (methodExpression != null && screenshotCollector.collectForDefault(methodExpression).length == 0) {
+                        holder.registerProblem(methodExpression, TerraBundle.inspection("no.screenshot.exists.for.default"), ProblemHighlightType.ERROR);
                     }
                 }
             }

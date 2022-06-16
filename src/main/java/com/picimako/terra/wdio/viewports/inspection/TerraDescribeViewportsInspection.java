@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.*;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
@@ -31,11 +30,8 @@ import com.intellij.lang.javascript.psi.JSElementVisitor;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import com.intellij.lang.javascript.psi.JSObjectLiteralExpression;
-import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
-import com.intellij.lang.javascript.psi.JSVarStatement;
 import com.intellij.lang.javascript.psi.JSVariable;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
@@ -86,18 +82,18 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
                 super.visitJSExpressionStatement(node);
 
                 if (isTopLevelTerraDescribeViewportsBlock(node)) {
-                    JSCallExpression terraDescribeViewports = getCallExpression(node);
-                    JSExpression viewportList = getNthArgumentOfMoreThanOne(terraDescribeViewports, 2);
+                    var terraDescribeViewports = getCallExpression(node);
+                    var viewportList = getNthArgumentOfMoreThanOne(terraDescribeViewports, 2);
                     checkForAll(terraDescribeViewports, viewportList, holder);
                     return;
                 }
 
                 if (isTopLevelTerraDescribeTestsBlock(node)) {
-                    JSCallExpression terraDescribeTests = getCallExpression(node);
-                    JSExpression testOptions = getNthArgumentOfMoreThanOne(terraDescribeTests, 2);
+                    var terraDescribeTests = getCallExpression(node);
+                    var testOptions = getNthArgumentOfMoreThanOne(terraDescribeTests, 2);
                     if (testOptions instanceof JSObjectLiteralExpression) {
-                        JSProperty formFactors = ((JSObjectLiteralExpression) testOptions).findProperty(FORM_FACTORS);
-                        checkForAll(terraDescribeTests, formFactors.getInitializer(), holder);
+                        var formFactorsProperty = ((JSObjectLiteralExpression) testOptions).findProperty(FORM_FACTORS);
+                        checkForAll(terraDescribeTests, formFactorsProperty.getInitializer(), holder);
                     }
                 }
             }
@@ -106,7 +102,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
 
     private void checkForAll(JSCallExpression terraDescribeTests, JSExpression initializer, @NotNull ProblemsHolder holder) {
         if (initializer instanceof JSArrayLiteralExpression) {
-            final JSExpression[] viewports = ((JSArrayLiteralExpression) initializer).getExpressions();
+            final var viewports = ((JSArrayLiteralExpression) initializer).getExpressions();
             checkForEmptyViewportsArgument(initializer, viewports, holder);
             checkForNotSupportedViewports(viewports, holder);
             checkForDuplicateViewports(terraDescribeTests, viewports, holder);
@@ -133,7 +129,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
      */
     private void checkForNotSupportedViewports(@NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportNotSupportedViewports) {
-            for (JSExpression viewport : viewports) {
+            for (var viewport : viewports) {
                 if (isJSStringLiteral(viewport) && !isSupportedViewport(getStringValue(viewport))) {
                     holder.registerProblem(viewport, TerraBundle.inspection("viewport.not.supported"), ProblemHighlightType.ERROR);
                 }
@@ -158,14 +154,14 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     private void checkForNonArrayTypeViewports(JSExpression viewportList, @NotNull ProblemsHolder holder) {
         if (reportNonArrayViewports) {
             if (viewportList instanceof JSReferenceExpression) {
-                PsiElement resolved = ((JSReferenceExpression) viewportList).resolve();
+                var resolved = ((JSReferenceExpression) viewportList).resolve();
                 if (resolved instanceof JSVariable) {
-                    JSVarStatement variableStatement = ((JSVariable) resolved).getStatement();
+                    var variableStatement = ((JSVariable) resolved).getStatement();
                     if (variableStatement != null
                         && variableStatement.getVarKeyword() == CONST
                         && variableStatement.getDeclarations().length == 1) {
 
-                        JSExpression initializer = variableStatement.getDeclarations()[0].getInitializer();
+                        var initializer = variableStatement.getDeclarations()[0].getInitializer();
                         if (initializer != null
                             && !(initializer instanceof JSArrayLiteralExpression)
                             && !(initializer instanceof JSReferenceExpression)
@@ -189,8 +185,8 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
      */
     private void checkForDuplicateViewports(JSCallExpression terraDescribeHelper, @NotNull JSExpression[] viewports, @NotNull ProblemsHolder holder) {
         if (reportDuplicateViewports && viewports.length > 1) {
-            final Set<String> processedViewports = new HashSet<>();
-            for (JSExpression viewport : viewports) {
+            final var processedViewports = new HashSet<String>();
+            for (var viewport : viewports) {
                 String vpLiteral = getStringValue(viewport);
                 if (isSupportedViewport(vpLiteral)) {
                     if (processedViewports.contains(vpLiteral)) {
@@ -217,7 +213,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
         if (reportViewportsNotInAscendingOrder) {
             //This check ignores zero and one-length arrays, and arrays containing blank item(s)
             if (viewports.length > 1 && Arrays.stream(viewports).allMatch(TerraWdioPsiUtil::isSupportedViewport)) {
-                final List<String> actualViewports = TerraWdioPsiUtil.getViewports(viewports);
+                final var actualViewports = TerraWdioPsiUtil.getViewports(viewports);
                 //This check takes advantage of the fact that the supported viewports, when they are listed in ascending order
                 //by their widths, are in descending order alphabetically.
                 if (!actualViewports.equals(reverseSort(actualViewports))) {
@@ -228,7 +224,7 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     }
 
     private List<String> reverseSort(List<String> list) {
-        final List<String> reverseSorted = new ArrayList<>(list);
+        final var reverseSorted = new ArrayList<>(list);
         reverseSorted.sort(reverseOrder());
         return reverseSorted;
     }

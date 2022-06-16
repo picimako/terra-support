@@ -16,12 +16,12 @@ public class TerraToolkitScreenshotContextParserTest {
     @Test
     public void shouldReturnScreenshotContextString() {
         String path = "/home/project/tests/wdio/__snapshots__/diff/en/chrome_enormous/some-spec/a_screenshot.png";
-        assertThat(new TerraToolkitScreenshotContextParser().parse(path)).isEqualTo("en / chrome / enormous");
+        assertThat(TerraToolkitScreenshotContextParser.INSTANCE.parse(path)).isEqualTo("en / chrome / enormous");
     }
 
     @Test
     public void shouldReturnScreenshotContextStringFromNestedFolder() {
         String path = "/home/project/tests/wdio/nested/__snapshots__/diff/en/chrome_enormous/some-spec/a_screenshot.png";
-        assertThat(new TerraToolkitScreenshotContextParser().parse(path)).isEqualTo("en / chrome / enormous");
+        assertThat(TerraToolkitScreenshotContextParser.INSTANCE.parse(path)).isEqualTo("en / chrome / enormous");
     }
 }

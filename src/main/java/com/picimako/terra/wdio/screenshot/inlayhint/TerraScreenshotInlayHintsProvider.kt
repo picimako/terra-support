@@ -51,8 +51,6 @@ import javax.swing.JComponent
 @Suppress("UnstableApiUsage")
 class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInlayHintsProvider.Settings> {
 
-    private val globalSelectorRetriever = GlobalTerraSelectorRetriever()
-
     companion object {
         private const val SCREENSHOT_HINT_LABEL: String = "screenshot: "
         private const val SELECTOR_HINT_LABEL: String = "selector: "
@@ -143,7 +141,7 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
                     if (settings.showCssSelector != InlayType.Disabled) {
                         val selectorProperty = getScreenshotValidationProperty(element, SELECTOR)
                         if (selectorProperty == null) {
-                            val cssSelector = globalSelectorRetriever.getSelector(element.project) ?: ""
+                            val cssSelector = GlobalTerraSelectorRetriever.getInstance(element.project).getSelector() ?: ""
                             if (cssSelector.isNotEmpty()) {
                                 when (settings.showCssSelector) {
                                     //When the screenshot name and CSS selector hints are displayed inline, an extra comma is inserted between them to separate them better visually

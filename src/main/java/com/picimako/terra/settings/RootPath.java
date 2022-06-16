@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Container object for a single wdio root path value.
+ *
+ * @see WdioRootPathsTableModelCreator
  */
 public final class RootPath {
 

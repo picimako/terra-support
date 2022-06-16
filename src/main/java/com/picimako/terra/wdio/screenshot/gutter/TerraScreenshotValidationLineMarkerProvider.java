@@ -14,8 +14,6 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.lang.javascript.psi.JSCallExpression;
-import com.intellij.lang.javascript.psi.JSExpression;
-import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.lang.javascript.psi.JSReferenceExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -44,15 +42,16 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
         if (isUsingTerra(element.getProject()) && element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
-            JSCallExpression terraCallExpr = (JSCallExpression) element;
-            JSLiteralExpression nameArgument = getFirstArgumentAsStringLiteral(terraCallExpr.getArgumentList());
+            var terraCallExpr = (JSCallExpression) element;
+            var nameArgument = getFirstArgumentAsStringLiteral(terraCallExpr.getArgumentList());
             if (isUsingTerraToolkit(element.getProject()) && nameArgument == null) {
-                JSExpression methodExpression = terraCallExpr.getMethodExpression();
+                var methodExpression = terraCallExpr.getMethodExpression();
                 if (methodExpression != null) {
-                    PsiElement[] screenshots = new TerraScreenshotCollector(element.getProject()).collectForDefault(methodExpression);
+                    var screenshots = TerraScreenshotCollector.getInstance(element.getProject()).collectForDefault(methodExpression);
                     if (screenshots.length > 0) {
-                        PsiElement leafElement = findLeafElement(terraCallExpr);
+                        var leafElement = findLeafElement(terraCallExpr);
                         if (leafElement != null) {
+                            //Icon is retrieved via ImageFileType because to prevent at least package changes of ImagesIcons.ImagesFileType
                             result.add(NavigationGutterIconBuilder.create(ImageFileType.INSTANCE.getIcon())
                                 .setTargets(screenshots)
                                 .setTooltipText(TerraBundle.message("terra.wdio.screenshot.gutter.navigate.to.related"))
@@ -71,7 +70,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
 
     @Nullable
     private PsiElement findLeafElement(JSCallExpression callExpression) {
-        Collection<JSReferenceExpression> references = PsiTreeUtil.findChildrenOfType(callExpression, JSReferenceExpression.class);
+        var references = PsiTreeUtil.findChildrenOfType(callExpression, JSReferenceExpression.class);
         return references.stream().filter(reference -> TerraWdioPsiUtil.TERRA.equals(reference.getText())).findFirst().orElse(null);
     }
 

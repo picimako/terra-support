@@ -18,10 +18,9 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.TerraResourceManager;
-import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode;
-import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
+import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 
 /**
  * A model object for backing the {@link TerraWdioTree} UI component.
@@ -95,7 +94,7 @@ public class TerraWdioTreeModel extends AbstractTerraWdioTreeModel {
         TerraResourceManager.getInstance(project).specFolderCollector()
             .collectSpecFoldersForTypeInside(imageType, filesAndFoldersAnywhereInWdioRoot)
             .forEach(folder -> {
-                VirtualFile[] screenshots = VfsUtil.getChildren(folder);
+                var screenshots = VfsUtil.getChildren(folder);
                 String folderIdentifier = specFolderIdentifier(folder, project);
                 data.getSpecs().stream()
                     .filter(spec -> spec.getDisplayName().equals(folderIdentifier)) //to make sure that the UI tree will contain a single node for a given spec name
@@ -104,23 +103,28 @@ public class TerraWdioTreeModel extends AbstractTerraWdioTreeModel {
                         //If the given spec folder (specNode) has already been added
                         specNode -> populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType),
                         //If a given spec folder hasn't been added
-                        () -> {
-                            if (existsAfterRefresh(folder)) {
-                                TreeSpecNode specNode = TerraWdioTreeNode.forSpec(folderIdentifier, project);
-                                populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
-
-                                //Adds the spec file that belongs to the spec node. This is necessary for the "Navigate to Usage" screenshot action.
-                                specFiles.stream()
-                                    //This makes sure that in case of multiple spec files with the same name in different folders, the correct file is selected and added.
-                                    .filter(specFile -> specFile.getPath().substring(0, specFile.getPath().lastIndexOf(".")).equals(wdioRootPath + "/" + folderIdentifier))
-                                    .findFirst()
-                                    .ifPresent(specNode::setSpecFile);
-
-                                data.getSpecs().add(specNode);
-                                Disposer.register(data, specNode);
-                            }
-                        });
+                        () -> doIfSpecFolderHasntBeenAdded(specFiles, imageType, virtualFileToNodeAdder, wdioRootPath, folder, screenshots, folderIdentifier));
             });
+    }
+
+    private void doIfSpecFolderHasntBeenAdded(Set<VirtualFile> specFiles, @NotNull String imageType,
+                                              @NotNull VirtualFileToNodeAdder virtualFileToNodeAdder, String wdioRootPath,
+                                              VirtualFile folder, VirtualFile[] screenshots,
+                                              String folderIdentifier) {
+        if (existsAfterRefresh(folder)) {
+            var specNode = TerraWdioTreeNode.forSpec(folderIdentifier, project);
+            populateSpecNodeWithFolderAndScreenshots(folder, screenshots, specNode, virtualFileToNodeAdder, imageType);
+
+            //Adds the spec file that belongs to the spec node. This is necessary for the "Navigate to Usage" screenshot action.
+            specFiles.stream()
+                //This makes sure that in case of multiple spec files with the same name in different folders, the correct file is selected and added.
+                .filter(specFile -> specFile.getPath().substring(0, specFile.getPath().lastIndexOf(".")).equals(wdioRootPath + "/" + folderIdentifier))
+                .findFirst()
+                .ifPresent(specNode::setSpecFile);
+
+            data.getSpecs().add(specNode);
+            Disposer.register(data, specNode);
+        }
     }
 
     // The methods below are responsible for building the actual tree model from the backing model data.

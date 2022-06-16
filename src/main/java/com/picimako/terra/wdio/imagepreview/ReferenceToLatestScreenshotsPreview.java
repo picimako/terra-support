@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * example double-clicking on a reference or latest image file in the project view, or selecting the
  * {@code Compare Latests With References} context menu option in the Terra wdio tool window.
  * <p>
- * If, for some reason no image can be display, a message saying {@code There is no screenshot available to display.}
+ * If, for some reason no image can be displayed, a message saying {@code There is no screenshot available to display.}
  * is shown instead.
  *
  * @see ReferenceToLatestScreenshotsUIProvider

@@ -13,7 +13,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class ScreenshotDiff {
 
-    private final VirtualFile original; //may be reference or diff
+    /**
+     * Can be a reference or diff image. If it is a diff, then {@link #latest} will be null.
+     */
+    private final VirtualFile original;
     private VirtualFile latest;
 
     public ScreenshotDiff(@NotNull VirtualFile original) {

@@ -86,22 +86,17 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
             @Override
             public void visitJSExpressionStatement(JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
-                
-                if (isTerraElementOrScreenshotValidation(node)) {
-                    JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
-                    if (misMatchToleranceProperty != null) {
-                        checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
-                        if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
-                            JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
-                            if (!literal.isNumericLiteral()) {
-                                registerProblemForNonNumericPropertyValue(literal, holder);
-                            } else {
-                                checkForMismatchToleranceAboveThreshold(literal, holder);
-                            }
-                        } else {
-                            registerProblemForNonNumericPropertyValue(misMatchToleranceProperty.getValue(), holder);
-                        }
-                    }
+                if (!isTerraElementOrScreenshotValidation(node)) return;
+
+                JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
+                if (misMatchToleranceProperty != null) {
+                    checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
+                    if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
+                        JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
+                        if (!literal.isNumericLiteral())
+                            registerProblemForNonNumericPropertyValue(literal, holder);
+                        else checkForMismatchToleranceAboveThreshold(literal, holder);
+                    } else registerProblemForNonNumericPropertyValue(misMatchToleranceProperty.getValue(), holder);
                 }
             }
         };
