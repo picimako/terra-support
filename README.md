@@ -1,6 +1,7 @@
 # Terra Support Plugin for JetBrains IDEs
 
 [![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)](https://plugins.jetbrains.com/plugin/15430-terra-support)
+![](https://img.shields.io/badge/since-v2021.2-blue)
 
 The plugin provides integration with Cerner's various Terra libraries, especially the with their test automation elements.
 
