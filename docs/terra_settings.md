@@ -2,7 +2,7 @@
 
 Under `Settings > Tools > Terra Support` there are some configuration options to better customize the plugin's behaviour.
 
-![settings](../assets/terra_settings_panel.PNG)
+![settings](assets/terra_settings_panel.PNG)
 
 In the **Wdio Root Paths** table you can define the list of wdio root paths that the plugin will recognize. The Terra Wdio Tool Window
 will use the first one it founds from this list, in the project.

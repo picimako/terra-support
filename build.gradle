@@ -59,10 +59,7 @@ patchPluginXml {
     pluginDescription = provider { file(terraPluginDescription).text }
 }
 
-//Uncomment and configure this for functional testing
 //test {
-    //systemProperty 'idea.home.path', '<absolute path to locally cloned intellij-community GitHub repository>'
-
     //This section will be required when building the project with IJ-2021.3 sources. See intellij.version gradle property.
     //Required for running tests in 2021.3 due to it not finding test classes properly.
     //See https://app.slack.com/client/T5P9YATH9/C5U8BM1MK/thread/C5U8BM1MK-1639934273.054400

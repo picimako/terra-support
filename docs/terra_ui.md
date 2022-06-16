@@ -12,12 +12,12 @@ be opened right from the editor.
 
 The generated documentation URLs are based on the Terra components' names (e.g. `ResponsiveElement`, or in case of subcomponents like `Grid.Row`, it is `Grid`), and the path from where they are imported.
 
-![terra-component-quick-documentation-single](../assets/terra-component-tag-quick-documentation.png)
+![terra-component-quick-documentation-single](assets/terra-component-tag-quick-documentation.png)
 
 Certain component names may be found in multiple Terra packages, in that case it is not just the component name that is shown in the link but the family / group name the component is imported from,
 so that it can be distinguished from the component with the same name in other packages.
 
-![terra-component-quick-documentation-family](../assets/terra-component-tag-quick-documentation-family.png)
+![terra-component-quick-documentation-family](assets/terra-component-tag-quick-documentation-family.png)
 
 **Connection to other Quick Documentation popups**
 

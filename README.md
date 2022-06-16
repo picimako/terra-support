@@ -14,7 +14,7 @@ The followings are a summary of the features incorporated into this plugin:
   can be triggered via Ctrl+Q (on Windows) or F1 (on Mac). It shows a popup with some rendered information about the element in question.
 - **References**: The feature called References provides a way to navigate from a reference of an element to the definition of it,
   just like when you jump to the definition of a function from the usage of that.
-- **Tool Windows**: There is a [Tool Window called Terra Wdio](/docs/terra_wdio_tool_window.md) available to work with Terra screenshots.
+- **Tool Window**: There is a [Tool Window called Terra Wdio](/docs/terra_wdio_tool_window.md) available to work with Terra screenshots.
 - **Inlay Hints**: These are small labels injected into the code, that provide extra (often otherwise invisible) information about the code.
   The [current Inlay Hints](docs/terra_helpers.md#inlay-hints) include displaying screenshot names and global Terra CSS selectors.
 
@@ -26,6 +26,10 @@ The documents below provide more details about the various features:
 - [Terra Wdio Tool Window](docs/terra_wdio_tool_window.md)
 
 There are also various customization options for the plugin which you can find on its dedicated [Plugin Settings page](docs/terra_settings.md).
+
+## Developer documentation
+
+To get started with the development of this project you can find some details in the [dev docs](docs/devdocs.md).
 
 ## Cerner Terra resources
 

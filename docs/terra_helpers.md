@@ -154,7 +154,7 @@ This inspection reports usages of `Terra.it` helpers, and provides various quick
 
 #### Without a preceding before hook
 In its simplest form, if there is no `before` hook **directly** before the particular Terra.it helper, there is only one quick fix suggested, called
-![replate_terra_it_quick_fix_simple](../assets/replate_terra_it_quick_fix_simple.png). The conversion would be as follows:
+![replate_terra_it_quick_fix_simple](assets/replate_terra_it_quick_fix_simple.png). The conversion would be as follows:
 
 ```js
 // This
@@ -169,8 +169,8 @@ it('INSERT TEST NAME', () => {
 #### With a direct preceding before hook
 
 If there is a before hook directly preceding a Terra.it helper, then two quick fixes are suggested: one behaves the same as in the previous section,
-is called ![replate_terra_it_quick_fix_before_hook_unaltered](../assets/replate_terra_it_quick_fix_before_hook_unaltered.png), and it doesn't touch the before hook,
-simply converts the helper. The other one is called ![replate_terra_it_quick_fix_before_hook_merged](../assets/replate_terra_it_quick_fix_before_hook_merged.png), but in that case the before hook and the converted helper
+is called ![replate_terra_it_quick_fix_before_hook_unaltered](assets/replate_terra_it_quick_fix_before_hook_unaltered.png), and it doesn't touch the before hook,
+simply converts the helper. The other one is called ![replate_terra_it_quick_fix_before_hook_merged](assets/replate_terra_it_quick_fix_before_hook_merged.png), but in that case the before hook and the converted helper
 it merged: basically everything from the before hook's callback is moved to the new `it` block.
 
 ```js
@@ -330,11 +330,11 @@ There are a few external documentations on GitHub that are useful for Terra wdio
 
 To make them easily available, they are included in the Quick Documentation popup of each Terra object and function name that are related to wdio testing.
 
-![terra-wdio-quick-documentation-single](../assets/terra-wdio-quick-documentation-single.png)
+![terra-wdio-quick-documentation-single](assets/terra-wdio-quick-documentation-single.png)
 
 When there are multiple documentations e.g. for `validatesElement()` that include both screenshot validation and accessibility testing, multiple relevant links are displayed:
 
-![terra-wdio-quick-documentation-multiple](../assets/terra-wdio-quick-documentation-multiple.png)
+![terra-wdio-quick-documentation-multiple](assets/terra-wdio-quick-documentation-multiple.png)
 
 ## Line markers / Gutter icons
 
@@ -349,21 +349,21 @@ references added to those name parameters are complemented with this logic.
 
 **Default screenshot**
 
-![default screenshot](../assets/terra-wdio-default-screenshot-line-marker.png)
+![default screenshot](assets/terra-wdio-default-screenshot-line-marker.png)
 
 **Missing default screenshot**
 
 In case the call references a non-existent screenshot, the line marker is not added.
 
-![missing default screenshot](../assets/terra-wdio-missing-default-screenshot-line-marker.png)
+![missing default screenshot](assets/terra-wdio-missing-default-screenshot-line-marker.png)
 
 **Non-default screenshot**
 
-![non-default screenshot](../assets/terra-wdio-non-default-screenshot-line-marker.png)
+![non-default screenshot](assets/terra-wdio-non-default-screenshot-line-marker.png)
 
 Line markers can also be enabled/disabled under `Settings > Editor > General > Gutter Icons > Terra Screenshot`.
 
-![gutter_icon_settings](../assets/terra_gutter_icon_settings.PNG)
+![gutter_icon_settings](assets/terra_gutter_icon_settings.PNG)
 
 ## Navigation from screenshot to code
 
@@ -374,7 +374,7 @@ An action called **Navigate to Screenshot Usage** is added to the Project View c
 From end-user perspective it works the same way the [**Navigate to Usage**](../docs/terra_wdio_tool_window.md#actions) action works in the Terra wdio tool window,
 it is just an alternate location to jump to where a particular image is referenced from code.
 
-![navigate_to_screenshot_usage_action](../assets/terra-wdio-navigate-to-screenshot-usage-action.png)
+![navigate_to_screenshot_usage_action](assets/terra-wdio-navigate-to-screenshot-usage-action.png)
 
 ## Inlay Hints
 
@@ -390,4 +390,4 @@ They are displayed for each validation.
 Within the IDE `Settings > Editor > Inlay Hints > JavaScript > Terra screenshot`, their appearance can be customized individually.
 They are either **Disabled**, or enabled as **Block** (hints shown above the call's line) or **Inline** (hints shown at the end of the call's line) style.
 
-![inlay_hints](../assets/terra_wdio_inlay_hints.PNG)
+![inlay_hints](assets/terra_wdio_inlay_hints.PNG)

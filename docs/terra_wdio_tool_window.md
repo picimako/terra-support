@@ -71,7 +71,7 @@ They are collected in the same way into this view, their parent folders (as of n
 
 | With statistics | Without statistics |
 |---|---|
-| ![terra_wdio_tool_window](../assets/terra_wdio_tool_window.PNG) | ![terra_wdio_tool_window](../assets/terra_wdio_tool_window_without_stats.PNG) 
+| ![terra_wdio_tool_window](assets/terra_wdio_tool_window.PNG) | ![terra_wdio_tool_window](assets/terra_wdio_tool_window_without_stats.PNG) 
 
 ## Wdio test root paths
 
@@ -112,7 +112,7 @@ what images' comparisons failed.
 
 Spec nodes are also highlighted with bold text when at least one of the underlying image nodes has a diff image.
 
-![highlighted_nodes](../assets/terra_wdio_tool_window_highlighted_nodes.PNG)
+![highlighted_nodes](assets/terra_wdio_tool_window_highlighted_nodes.PNG)
 
 You can also search in the tool window. Just start typing the search keyword when the tool window is in focus. Just like in the IDE Project View, the matching
 nodes and texts get highlighted. 
@@ -124,24 +124,24 @@ All three node types provide basic statistics about the number of specs and scre
 - **Spec node**: displays how many screenshots can be found under the spec with a distinct name
 - **Screenshot node**: displays the number of screenshot files that are available with this particular node's name
 
-Starting from v0.5.0 the statistics can be enabled/disabled per project using the ![toggle_stat_icon](../assets/terra_wdio_tool_window_toggle_stat_icon.PNG) icon on the tool window's toolbar.
+Starting from v0.5.0 the statistics can be enabled/disabled per project using the ![toggle_stat_icon](assets/terra_wdio_tool_window_toggle_stat_icon.PNG) icon on the tool window's toolbar.
 
 ## Actions
 
 Screenshot nodes also provide bulk actions to work with them, in the form of context menu items and keyboard shortcuts.
 
-![screenshot_actions_menu](../assets/terra_wdio_tool_window_screenshot_actions_menu.png)
+![screenshot_actions_menu](assets/terra_wdio_tool_window_screenshot_actions_menu.png)
 
 | Action | Description | Shortcut keys |
 |---|---|---|
 | Rename Screenshots | Renames all screenshot files under the wdio test root with the same name.<br>When this action is invoked, a message popup appears populated with the file name, for which a simple validation is in place: the new name cannot be blank, and cannot be the same as its original name.<br>If the extension is erased from the new name, it is added back automatically before saving. | **Shift+F6** (the common Rename shortcut) |
-|  | ![rename_screenshots_action_popup](../assets/terra_wdio_tool_window_rename_screenshots_action_popup.png) |  |
+|  | ![rename_screenshots_action_popup](assets/terra_wdio_tool_window_rename_screenshots_action_popup.png) |  |
 | Delete Screenshots | Deletes all screenshot files under the wdio test root with the same name.<br>Before deletion, it show a message popup asking for confirmation from the user whether he/she really wants to delete all such files. | **Delete** |
-|  | ![delete_screenshots_action_popup](../assets/terra_wdio_tool_window_delete_screenshots_action_popup.png) |  |
+|  | ![delete_screenshots_action_popup](assets/terra_wdio_tool_window_delete_screenshots_action_popup.png) |  |
 | Replace Reference With Latest | Replaces all reference screenshot files with their latest counterparts under the wdio test root with the same name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images. | **Ctrl+R** (**Command+R** on Mac) |
 | Navigate to Usage | Navigates to the code section (the Terra validation call) where the selected screenshot is referenced. | **Ctrl+B** (**Command+B** on Mac) |
-|  | If there is no spec file (it has been deleted after or wasn't available at the IDE startup), but the screenshots linked screenshots are still available in the __snapshots__ directory, the dialog below is shown:<br>![navigate_to_no_spec](../assets/terra_wdio_tool_window_navigate_to_no_spec.png) |  |
-|  | If there is no validation linked to this image (the Terra validation call was removed entirely or it references this image by a different name), the following dialog is shown:<br>![navigate_to_no_validation](../assets/terra_wdio_tool_window_navigate_to_no_validation.png) |  |
+|  | If there is no spec file (it has been deleted after or wasn't available at the IDE startup), but the screenshots linked screenshots are still available in the __snapshots__ directory, the dialog below is shown:<br>![navigate_to_no_spec](assets/terra_wdio_tool_window_navigate_to_no_spec.png) |  |
+|  | If there is no validation linked to this image (the Terra validation call was removed entirely or it references this image by a different name), the following dialog is shown:<br>![navigate_to_no_validation](assets/terra_wdio_tool_window_navigate_to_no_validation.png) |  |
 | Show Diffs | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the diff version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below.|  **Ctrl+D** (**Command+D** on Mac) |
 | Compare Latests With References | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below. | **Enter** shortcut key or **mouse double-click** |
 
@@ -163,24 +163,24 @@ Both previews also show the screenshot context (locale, browser, viewport) above
 
 **Terra: Diff Preview**
 
-![terra_diff_preview](../assets/terra_diff_preview.PNG)
+![terra_diff_preview](assets/terra_diff_preview.PNG)
 
 **Terra: Reference/Latest Preview**
 
-![reference_latest_preview](../assets/terra_reference_latest_preview.PNG)
+![reference_latest_preview](assets/terra_reference_latest_preview.PNG)
 
 ## Analyzing project for unused screenshots
 
 During the lifetime of a project it may happen that test implementations are changed or cleaned up but related screenshots are forgot
 to be updated or removed.
 
-In the header section of the tool window you can find an **Analyze project** action (![analyze_icon](../assets/terra_wdio_analyze_project_icon.PNG) icon) which analyzes the current project and
+In the header section of the tool window you can find an **Analyze project** action (![analyze_icon](assets/terra_wdio_analyze_project_icon.PNG) icon) which analyzes the current project and
 marks screenshots that are not referenced by any terra wdio test implementation.  This is an on-demand action run only when a user triggers it manually.
 
 Marking nodes means a red exclamation mark icon put in front of screenshot nodes and their containing spec nodes as well to signal that
 there is at least one unused screenshot within those particular specs.
 
-![unused_screenshots](../assets/terra_wdio_tool_window_unused_screenshots.PNG)
+![unused_screenshots](assets/terra_wdio_tool_window_unused_screenshots.PNG)
 
 **NOTES**:
 - Project analysis for unused screenshots will not happen automatically in future releases either, so the plugin code is kept simpler,

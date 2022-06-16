@@ -178,6 +178,6 @@ Terra.describeViewports('Another Test', ['small','tiny',], () => { // This is al
 Each viewport String value (only the supported viewports) within `Terra.describeViewports`' and `Terra.describeTests`' argument list is extended with Quick Documentation, providing
 basic information about the viewport at hand.
 
-![terra-viewport-quick-documentation](../assets/terra-viewport-quick-documentation.png)
+![terra-viewport-quick-documentation](assets/terra-viewport-quick-documentation.png)
 
 The information shown is based on the Breakpoints table in the [Terra Breakpoints Guide](https://engineering.cerner.com/terra-ui/components/terra-breakpoints/breakpoints/about#breakpoints).
