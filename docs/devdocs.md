@@ -23,6 +23,8 @@ either terra-toolkit or terra-functional-testing
 
 Some classes use Mockito for mocking certain functionality, while many more use an integration test based approach.
 
+Test data is available in the `testdata` folder in the project root.
+
 ### Running the plugin in WebStorm/IntelliJ Ultimate
 
 This plugin is developed for IntelliJ Ultimate but with a little extra configuration it can also be ran in WebStorm.
