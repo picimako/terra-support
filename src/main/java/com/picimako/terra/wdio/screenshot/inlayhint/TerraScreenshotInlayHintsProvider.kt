@@ -125,36 +125,50 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
                 if (isUsingTerra(element.project) && !file.project.service<DumbService>().isDumb && element is JSCallExpression && isScreenshotValidationCall(element)) {
                     var addedInlineScreenshot = false
                     if (settings.showScreenshotName != InlayType.Disabled) {
-                        val nameExpr = getFirstArgumentAsStringLiteral(element.argumentList);
-                        val nameResolver = TerraResourceManager.getInstance(element.project).screenshotNameResolver();
-                        val screenshotName = nameResolver.resolveWithFallback(nameExpr, element.methodExpression);
-                        when (settings.showScreenshotName) {
-                            InlayType.Inline -> {
-                                addInlineHint(element, SCREENSHOT_HINT_LABEL, screenshotName)
-                                addedInlineScreenshot = true
-                            }
-                            InlayType.Block -> addBlockHint(element, SCREENSHOT_HINT_LABEL, screenshotName)
+                        addedInlineScreenshot = addScreenshotHint(element, addedInlineScreenshot)
+                    }
+                    if (settings.showCssSelector != InlayType.Disabled) {
+                        addCSSSelectorHint(element, addedInlineScreenshot)
+                    }
+                }
+                return true
+            }
+
+            private fun addScreenshotHint(element: JSCallExpression, addedInlineScreenshot: Boolean): Boolean {
+                var isAddedInlineScreenshot = addedInlineScreenshot
+                val nameExpr = getFirstArgumentAsStringLiteral(element.argumentList);
+                val nameResolver = TerraResourceManager.getInstance(element.project).screenshotNameResolver();
+                val screenshotName = nameResolver.resolveWithFallback(nameExpr, element.methodExpression);
+                when (settings.showScreenshotName) {
+                    InlayType.Inline -> {
+                        addInlineHint(element, SCREENSHOT_HINT_LABEL, screenshotName)
+                        isAddedInlineScreenshot = true
+                    }
+                    InlayType.Block -> addBlockHint(element, SCREENSHOT_HINT_LABEL, screenshotName)
+                    else -> {
+                    }
+                }
+                return isAddedInlineScreenshot
+            }
+
+            private fun addCSSSelectorHint(element: JSCallExpression, addedInlineScreenshot: Boolean) {
+                val selectorProperty = getScreenshotValidationProperty(element, SELECTOR)
+                if (selectorProperty == null) {
+                    val cssSelector = GlobalTerraSelectorRetriever.getInstance(element.project).getSelector() ?: ""
+                    if (cssSelector.isNotEmpty()) {
+                        when (settings.showCssSelector) {
+                            //When the screenshot name and CSS selector hints are displayed inline, an extra comma is inserted between them to separate them better visually
+                            InlayType.Inline -> addInlineHint(
+                                element,
+                                if (addedInlineScreenshot) ", $SELECTOR_HINT_LABEL" else SELECTOR_HINT_LABEL,
+                                cssSelector
+                            )
+                            InlayType.Block -> addBlockHint(element, SELECTOR_HINT_LABEL, cssSelector)
                             else -> {
                             }
                         }
                     }
-                    if (settings.showCssSelector != InlayType.Disabled) {
-                        val selectorProperty = getScreenshotValidationProperty(element, SELECTOR)
-                        if (selectorProperty == null) {
-                            val cssSelector = GlobalTerraSelectorRetriever.getInstance(element.project).getSelector() ?: ""
-                            if (cssSelector.isNotEmpty()) {
-                                when (settings.showCssSelector) {
-                                    //When the screenshot name and CSS selector hints are displayed inline, an extra comma is inserted between them to separate them better visually
-                                    InlayType.Inline -> addInlineHint(element, if (addedInlineScreenshot) ", $SELECTOR_HINT_LABEL" else SELECTOR_HINT_LABEL, cssSelector)
-                                    InlayType.Block -> addBlockHint(element, SELECTOR_HINT_LABEL, cssSelector)
-                                    else -> {
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
-                return true
             }
 
             private fun addInlineHint(element: JSCallExpression, label: String, value: String) {

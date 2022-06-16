@@ -186,6 +186,7 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
                             maxThreshold = value;
                         }
                     } catch (NumberFormatException ignored) {
+                        //no-op if the format is invalid
                     }
                 }
             }
