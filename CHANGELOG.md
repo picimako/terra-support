@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.2.0-SNAPSHOT
+### 1.2.0
 
 - Removed support for version 2021.1 of IDEs.
 
