@@ -172,26 +172,28 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
             }
 
             private fun addInlineHint(element: JSCallExpression, label: String, value: String) {
-                sink.addInlineElement(element.parent.startOffset + element.parent.textLength, true, basePresentation(label, value, InlayType.Inline.padding))
+                sink.addInlineElement(element.parent.startOffset + element.parent.textLength, true, basePresentation(
+                    label,
+                    value
+                ))
             }
 
             private fun addBlockHint(element: JSCallExpression, label: String, value: String) {
-                val insetPres = factory.inset(basePresentation(label, value, InlayType.Block.padding), left = calculateBlockInlayStartOffset(element))
+                val width = EditorUtil.getPlainSpaceWidth(editor)
+                //Starting from 2022.3 there doesn't seem to be a document associated with the preview's dummy file,
+                // so for now, there is no preview displayed for block type hints
+                val document = PsiDocumentManager.getInstance(file.project).getDocument(file) ?: return
+
+                val line = document.getLineNumber(element.parent.startOffset)
+                val startOffset = document.getLineStartOffset(line)
+                val leftInset = (element.parent.startOffset - startOffset) * width;
+
+                val insetPres = factory.inset(basePresentation(label, value), left = leftInset)
                 sink.addBlockElement(element.parent.startOffset, relatesToPrecedingText = true, showAbove = true, priority = 0, presentation = insetPres)
             }
 
-            private fun basePresentation(label: String, value: String, padding: Int): InlayPresentation {
-                return factory.container(
-                    factory.seq(factory.smallText(label), factory.smallText(value)),
-                    padding = InlayPresentationFactory.Padding(padding, padding, padding, padding))
-            }
-
-            private fun calculateBlockInlayStartOffset(element: JSCallExpression): Int {
-                val width = EditorUtil.getPlainSpaceWidth(editor)
-                val document = PsiDocumentManager.getInstance(file.project).getDocument(file)
-                val line = document!!.getLineNumber(element.parent.startOffset)
-                val startOffset = document.getLineStartOffset(line)
-                return (element.parent.startOffset - startOffset) * width
+            private fun basePresentation(label: String, value: String): InlayPresentation {
+                return factory.seq(factory.smallText(label), factory.smallText(value));
             }
         }
     }
