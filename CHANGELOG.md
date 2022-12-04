@@ -3,10 +3,14 @@
 ### 1.2.0
 
 - Removed support for version 2021.1 of IDEs.
+- NOTE: Due to a kotlin related issue, the screenshot and CSS selector inlay hints are not displayed in WS-2022.3, for now.
 
 #### MAINTENANCE
 - Various code and documentation related housekeeping
 - Migrated class instantiation to static instances and project services to minimize object instance creation.
+
+#### BUGFIX
+- It fixes an NPE during calculating the position of the block inlay hints in the hint preview in Settings. 
 
 ### 1.1.0
 
