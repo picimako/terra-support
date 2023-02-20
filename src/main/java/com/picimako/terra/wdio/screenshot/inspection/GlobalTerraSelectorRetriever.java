@@ -7,7 +7,10 @@ import static com.picimako.terra.wdio.WdioConfUtil.TERRA_PROPERTY_NAME;
 import static com.picimako.terra.wdio.WdioConfUtil.WDIO_CONF_JS_FILE_NAME;
 import static java.util.stream.Collectors.toList;
 
+import java.util.Optional;
+
 import com.intellij.json.psi.JsonPsiUtil;
+import com.intellij.lang.javascript.psi.JSDefinitionExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
@@ -57,8 +60,40 @@ public final class GlobalTerraSelectorRetriever {
     private String findTerraSelectorValue(@Nullable PsiFile wdioConfJsFile) {
         var terraSelectors = PsiTreeUtil.collectElementsOfType(wdioConfJsFile, JSProperty.class).stream()
             .filter(prop -> {
-                String propertyName = prop.getJSNamespace().getQualifiedName().getName();
-                return SELECTOR_PROPERTY_NAME.equals(prop.getName()) && TERRA_PROPERTY_NAME.equals(propertyName);
+                if (SELECTOR_PROPERTY_NAME.equals(prop.getName())) {
+                    /*
+                     * Handles the following case of wdio.conf.js:
+                     *
+                     * const config = {
+                     *   terra: {
+                     *       selector: '#root',
+                     *   }
+                     * }
+                     * exports.config = config;
+                     */
+                    var parentProperty = Optional.of(prop)
+                        .map(selectorProp -> PsiTreeUtil.getParentOfType(selectorProp, JSProperty.class));
+                    if (parentProperty.isPresent() && TERRA_PROPERTY_NAME.equals(parentProperty.get().getName())) {
+                        return true;
+                    }
+
+                    /*
+                     * Handles the following case of wdio.conf.js:
+                     *
+                     * const { config } = require('@cerner/terra-functional-testing');
+                     *
+                     * config.serviceOptions = {
+                     *   selector: '#root',
+                     * };
+                     *
+                     * exports.config = config;
+                     */
+                    return Optional.of(prop)
+                        .map(selectorProp -> PsiTreeUtil.getParentOfType(selectorProp, JSDefinitionExpression.class))
+                        .map(parentDefExpression -> "serviceOptions".equals(parentDefExpression.getName()))
+                        .orElse(false);
+                }
+                return false;
             })
             .collect(toList());
         return !terraSelectors.isEmpty()
