@@ -60,6 +60,10 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
         return screenshotDiffs;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
     /**
      * Overriding and implementing this method is required. Since 2021.1
      * {@code com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl#createPlaceInfo(FileEditor, FileEditorProvider)}
@@ -125,6 +129,13 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     @Override
     public void dispose() {
+        var imageEditorCache = ImageEditorCache.getInstance(project);
+        imageEditorCache.disposeEditorFor(getFile());
+        for (var screenshotDiff : screenshotDiffs) {
+            imageEditorCache.disposeEditorFor(screenshotDiff.getOriginal());
+            if (screenshotDiff.getLatest() != null)
+                imageEditorCache.disposeEditorFor(screenshotDiff.getLatest());
+        }
         Disposer.dispose(this);
     }
 

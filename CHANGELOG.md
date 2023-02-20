@@ -10,6 +10,7 @@
 
 ### Fixed
 - Improved the retrieval of the global terra selector, in turn stabilizing the CSS selector inlay hint in test files.
+- Fixed a memory leak regarding disposal of diff and reference/latest previews.
 
 ## [1.2.0]
 

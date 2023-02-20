@@ -5,6 +5,7 @@ package com.picimako.terra.wdio.imagepreview;
 import javax.swing.*;
 
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.intellij.images.editor.impl.ImageEditorImpl;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,9 @@ public abstract class AbstractScreenshotDiffUIContentProvider implements Screens
     }
 
     protected JPanel createImageEditorFor(@NotNull VirtualFile file) {
-        return new ImageEditorImpl(project, file).getComponent();
+        var imageEditor = new ImageEditorImpl(project, file);
+        Disposer.register(ImageEditorCache.getInstance(project), imageEditor);
+        ImageEditorCache.getInstance(project).cacheImageEditorFor(file, imageEditor);
+        return imageEditor.getComponent();
     }
 }
