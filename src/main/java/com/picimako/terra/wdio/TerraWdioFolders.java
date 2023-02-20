@@ -339,7 +339,7 @@ public final class TerraWdioFolders {
     }
 
     private static VirtualFile getMatchingImageForName(String name, String desiredPath, Project project) {
-        var images = FilenameIndex.getVirtualFilesByName(project, name, GlobalSearchScope.projectScope(project));
+        var images = FilenameIndex.getVirtualFilesByName(name, GlobalSearchScope.projectScope(project));
         return images.stream()
             .filter(image -> image.getPath().equals(desiredPath))
             .findFirst()
