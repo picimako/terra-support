@@ -6,6 +6,7 @@ import com.intellij.testFramework.utils.inlays.InlayHintsProviderTestCase
 import com.picimako.terra.wdio.TerraResourceManager
 import com.picimako.terra.wdio.TerraToolkitManager
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Block
+import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Disabled
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Inline
 
 /**
@@ -50,7 +51,7 @@ describe('Terra screenshot', () => {
     Terra.it.matchesScreenshot('test id');
 <# block [screenshot:  Terra_screenshot[test_id].png] #>
     Terra.it.validatesElement('test id');
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showScreenshotName = Block))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Disabled, Block))
     }
 
     fun testOnlyScreenshotNameInline() {
@@ -62,7 +63,7 @@ describe('Terra screenshot', () => {
     });
     Terra.it.matchesScreenshot('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
     Terra.it.validatesElement('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showScreenshotName = Inline))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Disabled, Inline))
     }
 
     fun testOnlySelectorBlock() {
@@ -78,7 +79,7 @@ describe('Terra screenshot', () => {
     Terra.it.matchesScreenshot('test id');
 <# block [selector:  .second-se'l'ector] #>
     Terra.it.validatesElement('test id');
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Block))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Block, Disabled))
     }
 
     fun testOnlySelectorInline() {
@@ -90,7 +91,7 @@ describe('Terra screenshot', () => {
     });
     Terra.it.matchesScreenshot('test id');<# [selector:  .second-se'l'ector] #>
     Terra.it.validatesElement('test id');<# [selector:  .second-se'l'ector] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Inline, Disabled))
     }
 
     //All hints
@@ -104,7 +105,7 @@ describe('Terra screenshot', () => {
     });
     Terra.it.matchesScreenshot('test id', { selector: '#selector' });<# [screenshot:  Terra_screenshot[test_id].png] #>
     Terra.it.validatesElement('test id', { selector: '#selector' });<# [screenshot:  Terra_screenshot[test_id].png] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline, showScreenshotName = Inline))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Inline, Inline))
     }
 
     fun testWithTestId() {
@@ -124,7 +125,7 @@ describe('Terra screenshot', () => {
 <# block [screenshot:  Terra_screenshot[test_id].png]
 [selector:  .second-se'l'ector] #>
     Terra.it.validatesElement('test id');
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Block, showScreenshotName = Block))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Block, Block))
     }
 
     fun testWithSelector() {
@@ -140,7 +141,7 @@ describe('Terra screenshot', () => {
     Terra.it.matchesScreenshot({ selector: '#selector' });
 <# block [screenshot:  Terra_screenshot[default].png] #>
     Terra.it.validatesElement({ selector: '#selector' });
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Block, showScreenshotName = Block))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Block, Block))
     }
 
     fun testWithoutTestIdAndSelector() {
@@ -152,10 +153,11 @@ describe('Terra screenshot', () => {
     });
     Terra.it.matchesScreenshot();<# [[screenshot:  Terra_screenshot[default].png] [, selector:  .second-se'l'ector]] #>
     Terra.it.validatesElement();<# [[screenshot:  Terra_screenshot[default].png] [, selector:  .second-se'l'ector]] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline, showScreenshotName = Inline))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Inline, Inline))
     }
 
-    private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings()) {
-        testProvider("test.js", text, TerraScreenshotInlayHintsProvider(), settings)
+    private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(Disabled, Disabled)) {
+        testProvider("test.js", text,
+            TerraScreenshotInlayHintsProvider(), settings)
     }
 }
