@@ -1,4 +1,4 @@
-//Copyright 2021 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inlayhint
 
@@ -31,12 +31,13 @@ describe('Terra screenshot', () => {
     });
     Terra.it.matchesScreenshot('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
     Terra.it.validatesElement('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline, showScreenshotName = Inline))
+});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Inline, Inline))
     }
 
     private fun doTest(
         text: String,
-        settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings()
+        settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(
+            TerraScreenshotInlayHintsProvider.InlayType.Disabled, TerraScreenshotInlayHintsProvider.InlayType.Disabled)
     ) {
         testProvider(
             "test.js",

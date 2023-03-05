@@ -1,4 +1,4 @@
-//Copyright 2021 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inlayhint
 
@@ -6,6 +6,7 @@ import com.intellij.testFramework.utils.inlays.InlayHintsProviderTestCase
 import com.picimako.terra.wdio.TerraResourceManager
 import com.picimako.terra.wdio.TerraToolkitManager
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Block
+import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Disabled
 import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Inline
 
 /**
@@ -155,7 +156,8 @@ describe('Terra screenshot', () => {
 });""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(showCssSelector = Inline, showScreenshotName = Inline))
     }
 
-    private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings()) {
-        testProvider("test.js", text, TerraScreenshotInlayHintsProvider(), settings)
+    private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(Disabled, Disabled)) {
+        testProvider("test.js", text,
+            TerraScreenshotInlayHintsProvider(), settings)
     }
 }

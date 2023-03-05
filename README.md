@@ -1,9 +1,22 @@
 # Terra Support Plugin for JetBrains IDEs
 
 [![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)](https://plugins.jetbrains.com/plugin/15430-terra-support)
-![](https://img.shields.io/badge/since-v2021.2-blue)
+![](https://img.shields.io/badge/since-v2021.3-blue)
 
-The plugin provides integration with Cerner's various Terra libraries, especially the with their test automation elements.
+<!-- Plugin description -->
+This plugin provides integration to Cerner's various Terra libraries, especially with their test automation elements.
+
+The automation specific part of the plugin provides tools for easier handling of screenshots, and for reporting
+coding issues, including but not limited to:
+- Inspections for viewports and screenshots.
+- Custom tool window for a better overview of Terra wdio screenshots, extended with bulk operations on them.
+- Custom editors for previewing diff images, and comparing reference and latest screenshots.
+- Additional navigation options and visual clues for screenshot validation.
+- Added and extended Quick Documentation popup contents.
+
+The part that focuses on the [Terra UI components](https://engineering.cerner.com/terra-ui/home/terra-ui/index") adds
+external documentation URLs to UI component React tags for easier navigation to related documentation.
+<!-- Plugin description end -->
 
 ## Features and settings
 

@@ -1,57 +1,68 @@
 # Changelog
 
-### 1.2.0
+## [Unreleased]
 
+## [1.3.0]
+
+### Changed
+- Removed support for version 2021.2 of IDEs.
+- Added support for 2023.1.
+
+### Fixed
+- Improved the retrieval of the global terra selector, in turn stabilizing the CSS selector inlay hint in test files.
+- Fixed a memory leak regarding disposal of diff and reference/latest previews.
+
+## [1.2.0]
+
+### Changed
 - Removed support for version 2021.1 of IDEs.
 - NOTE: Due to a kotlin related issue, the screenshot and CSS selector inlay hints are not displayed in WS-2022.3, for now.
-
-#### MAINTENANCE
 - Various code and documentation related housekeeping
 - Migrated class instantiation to static instances and project services to minimize object instance creation.
 
-#### BUGFIX
+### Fixed
 - It fixes an NPE during calculating the position of the block inlay hints in the hint preview in Settings. 
 
-### 1.1.0
+## [1.1.0]
 
-**IMPORTANT**: to minimize maintenance cost this plugin no longer supports IDE versions 2020.2 and 2020.3.
-
-#### MAINTENANCE
+### Changed
+- **IMPORTANT**: to minimize maintenance cost this plugin no longer supports IDE versions 2020.2 and 2020.3.
 - Added support for release 2022.1 EAP.
 
-### 1.0.0
+## [1.0.0]
 
-#### BUGFIX
+### Fixed
 - [#57](https://github.com/picimako/terra-support/issues/57): Fixed an issue when rolling back Git changes on screenshots causes incorrect VirtualFiles to be stored.
 
-#### MAINTENANCE
+### Changed
 - Upgraded library and plugin versions.
 - Fine-tuned various segments of the documentation.
 - Did some minor code simplifications.
 
-### 0.7.0
+## [0.7.0]
 
-#### MAINTENANCE
+### Changed
 - Cleanup and simplification in several inspections.
 - Merged `TerraDescribeViewportsBlockingInspection` into `TerraDescribeViewportsInspection`,
 and `ScreenshotMismatchToleranceBlockingInspection` into `ScreenshotMismatchToleranceInspection`.
 - Refined documentation.
 - Upgraded gradle and intellij-gradle-plugin versions.
-
-#### ENHANCEMENT
 - Screenshot reference suggestions are now sorted alphabetically when Ctrl+Clicking on screenshot names in `Terra.validates`
 and `Terra.it`
 - [#56](https://github.com/picimako/terra-support/issues/56): Added `Terra.describeTests` besides `Terra.describeViewports` to be validated when they are nested in other describe blocks.
 - Added viewport value validation to the testOptions argument of `Terra.describeTests` when it is specified in an inline object.
 - Added viewport quick documentation support for the testOptions argument of `Terra.describeTests` when it is specified in an inline object.
 
-#### BUGFIX
+### Fixed
 - Fixed a bug in default name resolution that spammed the logs with exception.
 - Fixed a ClassCastException log spam during viewport value retrieval.
 
-### 0.6.0
+## [0.6.0]
 
-#### ADDED SUPPORT FOR TERRA-FUNCTIONAL-TESTING
+### Added
+
+**Added support for Terra Functional-Testing**
+
 [#53](https://github.com/picimako/terra-support/issues/53): Added support for the new terra-functional-testing npm package that brings
 a couple of changes to how Terra wdio testing is conducted.
 
@@ -70,18 +81,18 @@ Areas of changes:
 - Added an inspection to report when the name parameter of a screenshot validation is missing.
 - Added an inspection to report when more than one screenshot validation has the same name parameter, since these names must be unique.
 
-#### BUGFIX
+### Fixed
 - Fixed the disposal logic of the Terra wdio tree nodes.
 
-### 0.5.1
+## [0.5.1]
 
-#### BUGFIX
+### Fixed
 - Fixed an issue with the diff and latest/reference previews due to API changes in IJ 2021.1. It caused the IDE
   to become unresponsive after opening either of these previews, due to a null value under the hood.
 
-### 0.5.0
+## [0.5.0]
 
-#### NEW
+### Added
 - [#38](https://github.com/picimako/terra-support/issues/38): A new **Navigate to Screenshot Usage** action is added to the Project View context menu for Terra screenshots,
 so that navigation to code can happen from there as well, besides the tool window.
 - [#27](https://github.com/picimako/terra-support/issues/27): Added a couple of settings options:
@@ -98,27 +109,27 @@ For more information on Inlay Hints, please visit:
 - https://www.jetbrains.com/help/idea/viewing-reference-information.html#inlay-hints
 - https://www.jetbrains.com/help/idea/inlay-hints.html
 
-#### BUGFIX
+### Fixed
 - [#48](https://github.com/picimako/terra-support/issues/48): Fixed an issue in `TerraDescribeViewportsBlockingInspection` that reported false positive results when the viewports argument
 in `Terra.describeViewports` blocks were referenced variables, function calls, etc. instead of a string literal. 
 
-#### MAINTENANCE
+### Changed
 - [#42](https://github.com/picimako/terra-support/issues/42): Optimized the project's unit test area, also making the project size much smaller.
 
-### v0.4.1
+## [0.4.1]
 
-#### ENHANCEMENT
+### Changed
 - [#40](https://github.com/picimako/terra-support/issues/40): Extended the screenshot name resolution logic with test id handling based on [terra-toolkit/visualRegressionConf.js](https://github.com/cerner/terra-toolkit-boneyard/blob/main/config/wdio/visualRegressionConf.js)
 
-#### BUGFIX
+### Fixed
 - [#41](https://github.com/picimako/terra-support/issues/41): Fixed the problem that the Find unused screenshot action in the tool window produced false positive results when
 screenshots with the same name were present under multiple spec files.
 - [#43](https://github.com/picimako/terra-support/issues/43): Fixed the problem that collecting screenshots happened by name and not by name and spec file. 
   This returned false positive results during reference and gutter icon creation, and the missing screenshot inspection.  
 
-### v0.4.0
+## [0.4.0]
 
-#### NEW
+### Added
 - [#30](https://github.com/picimako/terra-support/issues/30): Added partial support for TypeScript (.ts) spec files.
 - [#31](https://github.com/picimako/terra-support/issues/31): Added inspection to report Terra.describeViewports blocks with the same set of viewport values within the same file. 
 - [#26](https://github.com/picimako/terra-support/issues/26): Added gutter icons / line markers for screenshot validation calls in wdio spec files. Image references are added only
@@ -126,17 +137,17 @@ screenshots with the same name were present under multiple spec files.
 - [#25](https://github.com/picimako/terra-support/issues/25): Added the **Navigate to Usage** action to the wdio tool window, so that users can jump to the code section
   where the screenshot's validation happens. 
 
-### v0.3.1
+## [0.3.1]
 
-#### BUGFIX
+### Fixed
 - [#28](https://github.com/picimako/terra-support/issues/28): Fixed the problem when double-clicking on a screenshot node in the Terra Wdio tool window
   that had no latest version of that screenshot present, it resulted in an `IndexOutOfBoundsException`.
 - [#24](https://github.com/picimako/terra-support/issues/24): Fixed the problem that hitting Enter in the screenshot rename dialog also opened the editor
   for the selected screenshot. 
 
-### v0.3.0
+## [0.3.0]
 
-#### NEW
+### Added
 - [#15](https://github.com/picimako/terra-support/issues/15): Moved the majority of user-facing messages to a custom message bundle
 - [#18](https://github.com/picimako/terra-support/issues/18): Added support for handling nested spec files and screenshots as part of
   - the Terra Wdio tool window
@@ -145,20 +156,20 @@ screenshots with the same name were present under multiple spec files.
 - [#14](https://github.com/picimako/terra-support/issues/14): Added an action to the Terra Wdio tool window to analyze the project and report screenshots
 that are not referenced anywhere in tests
 
-#### BUGFIX
+### Fixed
 - [#19](https://github.com/picimako/terra-support/issues/19): Fixed the problem where after deleting the last screenshot node in the Terra Wdio tool window,
 the spec node still remained
 
-### v0.2.0
+## [0.2.0]
 
-#### NEW
+### Added
 - [#1](https://github.com/picimako/terra-support/issues/1): Added references between Terra.it/Terra.validates calls and screenshots
 - [#2](https://github.com/picimako/terra-support/issues/2): Added inspection for missing screenshots in Terra.validates/Terra.it calls
 - [#4](https://github.com/picimako/terra-support/issues/4): Added inspection to check whether the global Terra selector is used in Terra.validates/Terra.it calls
 
-#### MAINTENANCE
+### Changed
 - [#3](https://github.com/picimako/terra-support/issues/3): Reorganized documentation and "introduced in \<version>" sections to readme and javadoc
 
-### v0.1.0
+## [0.1.0]
 
 Initial release

@@ -1,4 +1,4 @@
-//Copyright 2020 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.imagepreview;
 
@@ -58,6 +58,10 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     public List<ScreenshotDiff> getScreenshotDiffs() {
         return screenshotDiffs;
+    }
+
+    public Project getProject() {
+        return project;
     }
 
     /**
@@ -125,6 +129,13 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     @Override
     public void dispose() {
+        var imageEditorCache = ImageEditorCache.getInstance(project);
+        imageEditorCache.disposeEditorFor(getFile());
+        for (var screenshotDiff : screenshotDiffs) {
+            imageEditorCache.disposeEditorFor(screenshotDiff.getOriginal());
+            if (screenshotDiff.getLatest() != null)
+                imageEditorCache.disposeEditorFor(screenshotDiff.getLatest());
+        }
         Disposer.dispose(this);
     }
 
