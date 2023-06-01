@@ -7,6 +7,9 @@ import java.util.List;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService;
@@ -14,10 +17,12 @@ import com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService;
 /**
  * Represents a screenshot node in the tree displayed in the Terra wido tool window.
  */
+@Getter
 public class TreeScreenshotNode extends AbstractTerraWdioTreeNode {
 
     protected final List<VirtualFile> diffs = new SmartList<>();
     protected final List<VirtualFile> latests = new SmartList<>();
+    @Setter
     protected boolean unused = false;
 
     public TreeScreenshotNode(@NotNull String displayName, Project project) {
@@ -28,16 +33,8 @@ public class TreeScreenshotNode extends AbstractTerraWdioTreeNode {
         diffs.add(virtualFile);
     }
 
-    public List<VirtualFile> getDiffs() {
-        return diffs;
-    }
-
     public void addLatest(VirtualFile virtualFile) {
         latests.add(virtualFile);
-    }
-
-    public List<VirtualFile> getLatests() {
-        return latests;
     }
 
     /**
@@ -52,14 +49,6 @@ public class TreeScreenshotNode extends AbstractTerraWdioTreeNode {
      */
     public boolean hasDiff() {
         return !diffs.isEmpty();
-    }
-
-    public boolean isUnused() {
-        return unused;
-    }
-
-    public void setUnused(boolean unused) {
-        this.unused = unused;
     }
 
     @Override

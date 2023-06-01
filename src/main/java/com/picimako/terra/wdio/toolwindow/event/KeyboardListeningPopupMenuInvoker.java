@@ -6,15 +6,14 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Listens for the Microsoft Context menu keyboard button to invoke popup menus.
  */
+@RequiredArgsConstructor
 public final class KeyboardListeningPopupMenuInvoker extends KeyAdapter {
     private final ToolWindowPopupMenuInvoker menuInvoker;
-
-    public KeyboardListeningPopupMenuInvoker(ToolWindowPopupMenuInvoker menuInvoker) {
-        this.menuInvoker = menuInvoker;
-    }
 
     @Override
     public void keyReleased(KeyEvent e) {

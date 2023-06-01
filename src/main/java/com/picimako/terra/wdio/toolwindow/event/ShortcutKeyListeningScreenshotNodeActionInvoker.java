@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.intellij.openapi.project.Project;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
@@ -26,6 +27,7 @@ import com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction;
  * Validates that the used shortcut keys correspond to one of the available action's shortcut,
  * and if they do, it invokes that particular action.
  */
+@RequiredArgsConstructor
 public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAdapter {
     private static final Map<ShortcutKeyChecker, ActionProvider> ACTIONS = Map.of(
         RenameScreenshotsAction::isRenameScreenshotsShortcutKey, RenameScreenshotsAction::new,
@@ -36,13 +38,10 @@ public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAd
         ShowDiffScreenshotsAction::isShowDiffsShortcutKey, ShowDiffScreenshotsAction::new
     );
 
+    @NotNull
     private final Project project;
+    @NotNull
     private final TerraWdioTree tree;
-
-    public ShortcutKeyListeningScreenshotNodeActionInvoker(@NotNull Project project, @NotNull TerraWdioTree tree) {
-        this.project = project;
-        this.tree = tree;
-    }
 
     @Override
     public void keyPressed(KeyEvent e) {
