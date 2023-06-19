@@ -10,6 +10,8 @@ import java.util.Optional;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,9 +25,13 @@ import com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService;
  * The number of underlying screenshots may be zero, because there might be cases when all tests within the corresponding
  * spec file are implemented without taking any screenshots.
  */
+@Getter
 public class TreeSpecNode extends AbstractTerraWdioTreeNode {
 
+    //Gets all screenshot nodes stored in this spec node.
     private final List<TreeScreenshotNode> screenshots = new SmartList<>();
+    @Nullable
+    @Setter
     private VirtualFile specFile;
 
     public TreeSpecNode(@NotNull String displayName, Project project) {
@@ -42,13 +48,6 @@ public class TreeSpecNode extends AbstractTerraWdioTreeNode {
     }
 
     /**
-     * Gets all screenshot nodes stored in this spec node.
-     */
-    public List<TreeScreenshotNode> getScreenshots() {
-        return screenshots;
-    }
-
-    /**
      * Returns the index-th screenshot from this node.
      *
      * @param index the 0-based index
@@ -56,15 +55,6 @@ public class TreeSpecNode extends AbstractTerraWdioTreeNode {
      */
     public TreeScreenshotNode getScreenshot(int index) {
         return screenshots.get(index);
-    }
-
-    @Nullable
-    public VirtualFile getSpecFile() {
-        return specFile;
-    }
-
-    public void setSpecFile(VirtualFile specFile) {
-        this.specFile = specFile;
     }
 
     /**

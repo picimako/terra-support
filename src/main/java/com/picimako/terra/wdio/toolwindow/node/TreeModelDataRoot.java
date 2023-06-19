@@ -3,10 +3,11 @@
 package com.picimako.terra.wdio.toolwindow.node;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.util.SmartList;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -22,29 +23,14 @@ import com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService;
  * This node also displays the basic statistics about the overall, distinct number of specs and screenshot files in the project.
  * Both the spec and screenshot values handle singular and plural cases based on the count values.
  */
+@EqualsAndHashCode
 public class TreeModelDataRoot extends AbstractTerraWdioTreeNode {
 
+    @Getter
     private final List<TreeSpecNode> specs = new SmartList<>();
 
     public TreeModelDataRoot(@NotNull String displayName, Project project) {
         super(displayName, project);
-    }
-
-    public List<TreeSpecNode> getSpecs() {
-        return specs;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TreeModelDataRoot that = (TreeModelDataRoot) o;
-        return Objects.equals(specs, that.specs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(specs);
     }
 
     @Override

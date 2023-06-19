@@ -19,10 +19,10 @@ import com.intellij.openapi.util.Key;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.wdio.SpecFolderCollector;
 import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.TerraWdioFolders;
 
@@ -34,6 +34,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
  *
  * @since 0.1.0
  */
+@Getter
 public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     protected final List<ScreenshotDiff> screenshotDiffs = new SmartList<>();
@@ -41,12 +42,12 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
 
     protected AbstractScreenshotsPreview(@NotNull Project project, @NotNull VirtualFile file, @NotNull String sourceFolderName,
                                          @NotNull Function<VirtualFile, ScreenshotDiff> screenshotToDiffMapper) {
-        VirtualFile wdioFolder = TerraWdioFolders.projectWdioRoot(project);
+        var wdioFolder = TerraWdioFolders.projectWdioRoot(project);
         //There should never be a case when the wdio root is null here. Since previews can only be initiated
         // from/via screenshots. Having at least one screenshot means that there is a wdio root.
         if (wdioFolder != null) {
             wdioFolder.refresh(false, true);
-            SpecFolderCollector specFolderCollector = TerraResourceManager.getInstance(project).specFolderCollector();
+            var specFolderCollector = TerraResourceManager.getInstance(project).specFolderCollector();
             this.screenshotDiffs.addAll(specFolderCollector.collectSpecFoldersForTypeInside(sourceFolderName, VfsUtil.collectChildrenRecursively(wdioFolder))
                 .flatMap(spec -> Arrays.stream(VfsUtil.getChildren(spec))) //individual screenshot files
                 .filter(screenshot -> file.getName().equals(screenshot.getName()))
@@ -54,14 +55,6 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
                 .collect(toList()));
         }
         this.project = project;
-    }
-
-    public List<ScreenshotDiff> getScreenshotDiffs() {
-        return screenshotDiffs;
-    }
-
-    public Project getProject() {
-        return project;
     }
 
     /**

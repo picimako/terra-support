@@ -2,39 +2,31 @@
 
 package com.picimako.terra.wdio.imagepreview;
 
-import java.util.Objects;
-
 import com.intellij.openapi.vfs.VirtualFile;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a screenshot diff, meaning either an actual diff image, or a pair of a reference and a latest image.
  */
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public final class ScreenshotDiff {
 
     /**
      * Can be a reference or diff image. If it is a diff, then {@link #latest} will be null.
      */
+    @NotNull
     private final VirtualFile original;
+    @Nullable
     private VirtualFile latest;
 
     public ScreenshotDiff(@NotNull VirtualFile original) {
         this.original = original;
-    }
-
-    public ScreenshotDiff(@NotNull VirtualFile original, @Nullable VirtualFile latest) {
-        this.original = original;
-        this.latest = latest;
-    }
-
-    public VirtualFile getOriginal() {
-        return original;
-    }
-
-    @Nullable
-    public VirtualFile getLatest() {
-        return latest;
     }
 
     /**
@@ -42,19 +34,5 @@ public final class ScreenshotDiff {
      */
     public boolean hasLatest() {
         return latest != null;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ScreenshotDiff that = (ScreenshotDiff) o;
-        return Objects.equals(original, that.original) &&
-            Objects.equals(latest, that.latest);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(original, latest);
     }
 }

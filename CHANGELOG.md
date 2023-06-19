@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.3.1]
+
+### Changed
+- Removed support for 2021.3, and added support for 2023.2
+
 ## [1.3.0]
 
 ### Changed

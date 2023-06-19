@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import com.intellij.openapi.project.Project;
+import lombok.RequiredArgsConstructor;
 
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction;
@@ -15,14 +16,10 @@ import com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScree
  * Adds support for the Screenshot nodes in the Terra wdio tree to be able to open the Reference/Latest Preview
  * by double-clicking on screenshot nodes.
  */
+@RequiredArgsConstructor
 public class MouseListeningScreenshotNodeActionInvoker extends MouseAdapter {
     private final Project project;
     private final TerraWdioTree tree;
-
-    public MouseListeningScreenshotNodeActionInvoker(Project project, TerraWdioTree tree) {
-        this.project = project;
-        this.tree = tree;
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {

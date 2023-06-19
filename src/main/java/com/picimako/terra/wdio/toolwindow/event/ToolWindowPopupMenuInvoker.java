@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.Map;
 
 import com.intellij.openapi.actionSystem.ActionPopupMenu;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
@@ -18,14 +19,12 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  * <p>
  * The logic for what mouse or shortcut keys to display the popups is handled in separate listener implementations.
  */
+@RequiredArgsConstructor
 public final class ToolWindowPopupMenuInvoker {
+    @NotNull
     private final TerraWdioTree tree;
+    @NotNull
     private final Map<String, ActionPopupMenu> actionPopupMenus;
-
-    public ToolWindowPopupMenuInvoker(@NotNull TerraWdioTree tree, @NotNull Map<String, ActionPopupMenu> actionPopupMenus) {
-        this.tree = tree;
-        this.actionPopupMenus = actionPopupMenus;
-    }
 
     //Invokes the context menu only when it is initiated on the proper node type
     public void invokePopup(Component comp, int x, int y) {
