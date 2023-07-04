@@ -35,7 +35,7 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 public class TerraWdioScreenshotsPanel extends JPanel {
 
     private static final String SCREENSHOT_ACTIONS_GROUP = "terra.wdio.toolwindow.ScreenshotActionsGroup";
-    private final Project project;
+    private final transient Project project;
     private TerraWdioTree tree;
 
     public TerraWdioScreenshotsPanel(Project project) {
