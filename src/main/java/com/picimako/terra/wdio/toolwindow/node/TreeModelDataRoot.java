@@ -23,7 +23,7 @@ import com.picimako.terra.wdio.toolwindow.ScreenshotStatisticsProjectService;
  * This node also displays the basic statistics about the overall, distinct number of specs and screenshot files in the project.
  * Both the spec and screenshot values handle singular and plural cases based on the count values.
  */
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class TreeModelDataRoot extends AbstractTerraWdioTreeNode {
 
     @Getter
