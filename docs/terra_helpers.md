@@ -137,11 +137,11 @@ It handles both terra-toolkit and terra-functional-testing specific properties b
 
 **Valid properties**
 
-| Helpers | terra-toolkit | terra-functional-testing |
-|---|---|---|
-| `Terra.it.matchesScreenshot`/`validates.screenshot` | `misMatchTolerance`, `selector`, `viewports` | `mismatchTolerance`, `selector` |
-| `Terra.it.validatesElement`/`validates.element` | `misMatchTolerance`, `selector`, `axeRules` | `mismatchTolerance`, `selector`, `rules` |
-| `Terra.it.isAccessible`/`validates.accessibility` | `axeRules` | `rules` |
+| Helpers                                             | terra-toolkit                                | terra-functional-testing                 |
+|-----------------------------------------------------|----------------------------------------------|------------------------------------------|
+| `Terra.it.matchesScreenshot`/`validates.screenshot` | `misMatchTolerance`, `selector`, `viewports` | `mismatchTolerance`, `selector`          |
+| `Terra.it.validatesElement`/`validates.element`     | `misMatchTolerance`, `selector`, `axeRules`  | `mismatchTolerance`, `selector`, `rules` |
+| `Terra.it.isAccessible`/`validates.accessibility`   | `axeRules`                                   | `rules`                                  |
 
 ### Convert Terra.it helpers to Terra.validates
 
@@ -153,6 +153,7 @@ to their Terra.validates forms.
 This inspection reports usages of `Terra.it` helpers, and provides various quick fixes to replace them.
 
 #### Without a preceding before hook
+
 In its simplest form, if there is no `before` hook **directly** before the particular Terra.it helper, there is only one quick fix suggested, called
 ![replate_terra_it_quick_fix_simple](assets/replate_terra_it_quick_fix_simple.png). The conversion would be as follows:
 
