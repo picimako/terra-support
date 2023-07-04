@@ -91,7 +91,8 @@ public final class InlayHintsCollectorProvider {
             private void addInlineHint(JSCallExpression element, String label, String value) {
                 sink.addInlineElement(element.getParent().getTextRange().getStartOffset() + element.getParent().getTextLength(),
                     true,
-                    basePresentation(label, value)
+                    basePresentation(label, value),
+                    false
                 );
             }
 

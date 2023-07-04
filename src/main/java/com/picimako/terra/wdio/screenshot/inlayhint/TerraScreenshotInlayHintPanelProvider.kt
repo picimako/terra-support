@@ -4,7 +4,8 @@ package com.picimako.terra.wdio.screenshot.inlayhint
 
 import com.intellij.codeInsight.hints.ChangeListener
 import com.intellij.codeInsight.hints.ImmediateConfigurable
-import com.intellij.ui.layout.panel
+import com.intellij.ui.SimpleListCellRenderer
+import com.intellij.ui.dsl.builder.panel
 import com.intellij.util.ui.JBUI
 import com.picimako.terra.resources.TerraBundle
 import javax.swing.DefaultComboBoxModel
@@ -18,7 +19,8 @@ class TerraScreenshotInlayHintPanelProvider {
         @JvmStatic
         fun createConfigurable(settings: TerraScreenshotInlayHintsProvider.Settings): ImmediateConfigurable {
             return object : ImmediateConfigurable {
-                val screenshotInlayTypeModel = DefaultComboBoxModel(TerraScreenshotInlayHintsProvider.InlayType.values())
+                val screenshotInlayTypeModel =
+                    DefaultComboBoxModel(TerraScreenshotInlayHintsProvider.InlayType.values())
                 val selectorInlayTypeModel = DefaultComboBoxModel(TerraScreenshotInlayHintsProvider.InlayType.values())
 
                 override val mainCheckboxText: String
@@ -26,27 +28,27 @@ class TerraScreenshotInlayHintPanelProvider {
 
                 override fun createComponent(listener: ChangeListener): JComponent {
                     val panel = panel {
-                        row {
-                            label(TerraBundle.inlay("option.screenshot.name"))
+                        row(TerraBundle.inlay("option.screenshot.name")) {
                             val screenshotHintType = comboBox<TerraScreenshotInlayHintsProvider.InlayType>(
                                 screenshotInlayTypeModel,
-                                { settings.showScreenshotName },
-                                { settings.showScreenshotName = it ?: TerraScreenshotInlayHintsProvider.InlayType.Disabled }
+                                SimpleListCellRenderer.create("") { it.name }
                             ).component
+
                             screenshotHintType.addActionListener {
-                                settings.showScreenshotName = screenshotHintType.selectedItem as TerraScreenshotInlayHintsProvider.InlayType
+                                settings.showScreenshotName =
+                                    screenshotHintType.selectedItem as TerraScreenshotInlayHintsProvider.InlayType
                                 listener.settingsChanged()
                             }
                         }
-                        row {
-                            label(TerraBundle.inlay("option.css.selectors"))
+                        row(TerraBundle.inlay("option.css.selectors")) {
                             val selectorHintType = comboBox<TerraScreenshotInlayHintsProvider.InlayType>(
                                 selectorInlayTypeModel,
-                                { settings.showCssSelector },
-                                { settings.showCssSelector = it ?: TerraScreenshotInlayHintsProvider.InlayType.Disabled }
+                                SimpleListCellRenderer.create("") { it.name }
                             ).component
+
                             selectorHintType.addActionListener {
-                                settings.showCssSelector = selectorHintType.selectedItem as TerraScreenshotInlayHintsProvider.InlayType
+                                settings.showCssSelector =
+                                    selectorHintType.selectedItem as TerraScreenshotInlayHintsProvider.InlayType
                                 listener.settingsChanged()
                             }
                         }
