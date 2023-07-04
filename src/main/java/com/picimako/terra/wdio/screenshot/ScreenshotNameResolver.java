@@ -13,9 +13,9 @@ import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsPro
 
 /**
  * Based on a Terra screenshot validation call's name argument, it resolves the name of the actual screenshot it references.
- * 
+ * <p>
  * Methods in this interface are not annotated as {@code @Nullable} due to type mismatch in
- * {@link com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider#getCollectorFor(PsiFile, Editor, TerraScreenshotInlayHintsProvider.Settings, InlayHintsSink)}. 
+ * {@link com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider#getCollectorFor(PsiFile, Editor, TerraScreenshotInlayHintsProvider.Settings, InlayHintsSink)}.
  */
 public interface ScreenshotNameResolver {
 

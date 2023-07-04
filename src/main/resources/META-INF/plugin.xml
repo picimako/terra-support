@@ -115,5 +115,36 @@
             </action>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
         </group>
+
+        <group id="TerraWdioToolWindowScreenshotActions">
+            <!-- Alteration actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
+                    use-shortcut-of="$Delete">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
+                    use-shortcut-of="RenameElement">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
+                    use-shortcut-of="Replace">
+            </action>
+            <separator/>
+            <!-- Navigation actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
+                    use-shortcut-of="GotoDeclaration">
+            </action>
+            <separator/>
+            <!-- Comparison actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
+                    use-shortcut-of="Diff.ShowDiff">
+            </action>
+        </group>
     </actions>
 </idea-plugin>

@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -23,8 +22,8 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  */
 public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    public CompareLatestWithReferenceScreenshotsAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("compare.latests.with.references"), project);
+    public CompareLatestWithReferenceScreenshotsAction() {
+        super(TerraBundle.toolWindow("compare.latests.with.references"));
     }
 
     /**

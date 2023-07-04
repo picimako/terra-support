@@ -4,6 +4,7 @@ package com.picimako.terra.wdio.toolwindow.action;
 
 import static com.picimako.terra.wdio.toolwindow.action.TerraWdioDataRetrieverUtil.getWdioTreeFrom;
 
+import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
@@ -19,26 +20,17 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  */
 public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
 
-    protected final Project project;
-
-    protected AbstractTerraWdioToolWindowAction(String text, @NotNull Project project) {
+    protected AbstractTerraWdioToolWindowAction(String text) {
         super(text);
-        this.project = project;
+    }
+
+    public static AbstractTerraWdioToolWindowAction getAction(String actionId) {
+        return (AbstractTerraWdioToolWindowAction) ActionManager.getInstance().getAction(actionId);
     }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         performAction(getWdioTreeFrom(e), e.getProject());
-    }
-
-    /**
-     * Same as {@link #performAction(TerraWdioTree, Project)} with the difference that this uses the preconfigured
-     * {@link Project} object instead of one from an action event.
-     *
-     * @param tree the wdio tree where this action is invoked on
-     */
-    public void performAction(TerraWdioTree tree) {
-        performAction(tree, project);
     }
 
     /**
@@ -54,11 +46,11 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
     /**
      * Validates the preconditions for this action, then if they are met, performs this action.
      *
-     * @param tree the tree to perform the action on
+     * @param tree    the tree to perform the action on
      */
-    public void validatePreconditionsAndPerformAction(TerraWdioTree tree) {
+    public void validatePreconditionsAndPerformAction(TerraWdioTree tree, @NotNull Project project) {
         if (meetsPreconditions(tree)) {
-            performAction(tree);
+            performAction(tree, project);
         }
     }
 

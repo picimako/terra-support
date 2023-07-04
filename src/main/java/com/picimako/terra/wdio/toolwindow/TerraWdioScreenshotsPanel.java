@@ -13,7 +13,6 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.components.JBScrollPane;
 
-import com.picimako.terra.wdio.toolwindow.action.TerraWdioScreenshotActionsGroup;
 import com.picimako.terra.wdio.toolwindow.event.KeyboardListeningPopupMenuInvoker;
 import com.picimako.terra.wdio.toolwindow.event.MouseListeningPopupMenuInvoker;
 import com.picimako.terra.wdio.toolwindow.event.MouseListeningScreenshotNodeActionInvoker;
@@ -76,7 +75,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         //that in case multiple projects are open, this tool window doesn't try to register the same action group twice,
         //which would lead to exception thrown, and to a crashing tool window.
         if (actionManager.getAction(SCREENSHOT_ACTIONS_GROUP) == null) {
-            actionManager.registerAction(SCREENSHOT_ACTIONS_GROUP, new TerraWdioScreenshotActionsGroup());
+            actionManager.registerAction(SCREENSHOT_ACTIONS_GROUP, ActionManager.getInstance().getAction("TerraWdioToolWindowScreenshotActions"));
         }
 
         //Add action popup menu to the tree component

@@ -9,11 +9,9 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -30,16 +28,8 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    /**
-     * Creates a DeleteScreenshotsAction instance.
-     * <p>
-     * Also registers the common Delete shortcut key for this action.
-     *
-     * @param project the project
-     */
-    public DeleteScreenshotsAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("delete.screenshots"), project);
-        setShortcutSet(CommonShortcuts.getDelete());
+    public DeleteScreenshotsAction() {
+        super(TerraBundle.toolWindow("delete.screenshots"));
     }
 
     /**
@@ -62,7 +52,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      */
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
-        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent()) && isUserSureToDeleteTheScreenshots()) {
+        if (tree != null && isScreenshot(tree.getLastSelectedPathComponent()) && isUserSureToDeleteTheScreenshots(project)) {
             var selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
             final var erroredFilePaths = new ArrayList<String>();
             final var deletedScreenshotReferences = new ArrayList<VirtualFile>();
@@ -110,7 +100,7 @@ public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
         tree.restoreExpansionStateFrom(expandedNodes);
     }
 
-    private boolean isUserSureToDeleteTheScreenshots() {
+    private boolean isUserSureToDeleteTheScreenshots(@Nullable Project project) {
         return !TerraApplicationState.getInstance().showConfirmationBeforeScreenshotDeletion
             || Messages.showYesNoDialog(project,
             TerraBundle.toolWindow("delete.are.you.sure"),

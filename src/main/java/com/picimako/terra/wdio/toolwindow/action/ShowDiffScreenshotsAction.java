@@ -7,10 +7,8 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 
 import java.awt.event.KeyEvent;
 
-import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -24,9 +22,8 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  */
 public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    public ShowDiffScreenshotsAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("show.diff.title"), project);
-        setShortcutSet(CommonShortcuts.getDiff());
+    public ShowDiffScreenshotsAction() {
+        super(TerraBundle.toolWindow("show.diff.title"));
     }
 
     /**

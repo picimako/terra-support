@@ -10,12 +10,8 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 
 import java.awt.event.KeyEvent;
 
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiManager;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -34,18 +30,15 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindowAction {
 
-    private final ToScreenshotUsageNavigator navigator;
+    private ToScreenshotUsageNavigator navigator;
 
     /**
      * Creates a NavigateToScreenshotUsageAction instance.
      * <p>
      * Also registers the common Go to Declaration shortcut key for this action.
      */
-    public NavigateToScreenshotUsageAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("screenshot.navigate.to.usage"), project);
-        AnAction action = ActionManager.getInstance().getAction(IdeActions.ACTION_GOTO_DECLARATION);
-        setShortcutSet(action.getShortcutSet());
-        navigator = new ToScreenshotUsageNavigator(project);
+    public NavigateToScreenshotUsageAction() {
+        super(TerraBundle.toolWindow("screenshot.navigate.to.usage"));
     }
 
     /**
@@ -72,11 +65,18 @@ public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindow
             if (existsAfterRefresh(parentSpec.getSpecFile())) {
                 var specPsiFile = PsiManager.getInstance(project).findFile(parentSpec.getSpecFile());
                 String selectedScreenshotNodeName = asScreenshot(tree.getLastSelectedPathComponent()).getDisplayName();
-                if (!navigator.navigateToUsage(specPsiFile, selectedScreenshotNodeName))
+                if (!getOrCreateNavigator(project).navigateToUsage(specPsiFile, selectedScreenshotNodeName))
                     showNoValidationCallToNavigateToDialog();
             } else
                 showNoSpecFileToNavigateToDialog();
         }
+    }
+
+    private ToScreenshotUsageNavigator getOrCreateNavigator(@Nullable Project project) {
+        if (navigator == null)
+            navigator = new ToScreenshotUsageNavigator(project);
+
+        return navigator;
     }
 
     /**

@@ -2,11 +2,13 @@
 
 package com.picimako.terra.wdio.toolwindow.event;
 
+import static com.picimako.terra.wdio.toolwindow.action.AbstractTerraWdioToolWindowAction.getAction;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import com.intellij.openapi.project.Project;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +31,13 @@ import com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction;
  */
 @RequiredArgsConstructor
 public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAdapter {
-    private static final Map<ShortcutKeyChecker, ActionProvider> ACTIONS = Map.of(
-        RenameScreenshotsAction::isRenameScreenshotsShortcutKey, RenameScreenshotsAction::new,
-        DeleteScreenshotsAction::isDeleteScreenshotsShortcutKey, DeleteScreenshotsAction::new,
-        ReplaceReferenceWithLatestAction::isReplaceScreenshotsShortcutKey, ReplaceReferenceWithLatestAction::new,
-        NavigateToScreenshotUsageAction::isNavigateToUsageShortcutKey, NavigateToScreenshotUsageAction::new,
-        CompareLatestWithReferenceScreenshotsAction::isCompareLatestsWithReferencesShortcutKey, CompareLatestWithReferenceScreenshotsAction::new,
-        ShowDiffScreenshotsAction::isShowDiffsShortcutKey, ShowDiffScreenshotsAction::new
+    private static final Map<ShortcutKeyChecker, Supplier<AbstractTerraWdioToolWindowAction>> ACTIONS = Map.of(
+        DeleteScreenshotsAction::isDeleteScreenshotsShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"),
+        RenameScreenshotsAction::isRenameScreenshotsShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"),
+        ReplaceReferenceWithLatestAction::isReplaceScreenshotsShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"),
+        NavigateToScreenshotUsageAction::isNavigateToUsageShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"),
+        CompareLatestWithReferenceScreenshotsAction::isCompareLatestsWithReferencesShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction"),
+        ShowDiffScreenshotsAction::isShowDiffsShortcutKey, () -> getAction("com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction")
     );
 
     @NotNull
@@ -48,14 +50,10 @@ public final class ShortcutKeyListeningScreenshotNodeActionInvoker extends KeyAd
         ACTIONS.keySet().stream()
             .filter(isShortcut -> isShortcut.test(e))
             .findFirst()
-            .ifPresent(isShortcut -> ACTIONS.get(isShortcut).apply(project).validatePreconditionsAndPerformAction(tree));
+            .ifPresent(isShortcut -> ACTIONS.get(isShortcut).get().validatePreconditionsAndPerformAction(tree, project));
     }
 
     @FunctionalInterface
     private interface ShortcutKeyChecker extends Predicate<KeyEvent> {
-    }
-
-    @FunctionalInterface
-    private interface ActionProvider extends Function<Project, AbstractTerraWdioToolWindowAction> {
     }
 }
