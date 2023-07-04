@@ -30,7 +30,7 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  * <p>
  * It replaces all available screenshots for the name the user selected in the tool window.
  * <p>
- * NOTE: it might happen that the bold marking of a screenshot node (that it has diff image), and the status of this menu action
+ * NOTE: it might happen that the diff icon of a screenshot node (that it has diff image), and the status of this menu action
  * are not consistent. It can happen in cases when the diff and/or latest folders are modified manually.
  *
  * @since 0.1.0

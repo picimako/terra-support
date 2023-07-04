@@ -89,9 +89,9 @@ public class TerraWdioTree extends JTree {
          *
          * <b>Terra wdio tool window cell rendering</b>
          * <p>
-         * Screenshot nodes are marked with bold text in case they have at least one diff image.
+         * Screenshot nodes are marked with a dedicated diff icon in case they have at least one diff image.
          * <p>
-         * Spec nodes are also marked with bold text if one of their underlying screenshots has at least one diff image.
+         * Spec nodes are also marked with the same diff icon when one of their underlying screenshots has at least one diff image.
          */
         @Override
         public void customizeCellRenderer(@NotNull JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
