@@ -107,10 +107,10 @@ There are three node types in the tool window
 
 ### Highlighting nodes
 
-Screenshot nodes are highlighted with bold text when at least one of the underlying image files for a name has a diff image. This makes it easier to see
+Screenshot nodes have a dedicated diff icon when at least one of the underlying image files for a name has a diff image. This makes it easier to see
 what images' comparisons failed.
 
-Spec nodes are also highlighted with bold text when at least one of the underlying image nodes has a diff image.
+Spec nodes are also marked with the same diff icon when at least one of the underlying image nodes has a diff image.
 
 ![highlighted_nodes](assets/terra_wdio_tool_window_highlighted_nodes.PNG)
 

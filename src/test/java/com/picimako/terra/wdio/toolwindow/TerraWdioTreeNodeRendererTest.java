@@ -8,8 +8,11 @@ import static org.mockito.Mockito.mock;
 import java.awt.*;
 import javax.swing.*;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import com.intellij.util.PlatformIcons;
+import org.intellij.images.fileTypes.impl.ImageFileType;
 
 import com.picimako.terra.wdio.toolwindow.node.TreeModelDataRoot;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
@@ -39,14 +42,14 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
         TreeModelDataRoot dataRoot = new TreeModelDataRoot("root", getProject());
 
         customizeComponent(tree, dataRoot);
-        validateComponent(new Font("font", Font.PLAIN, 14), "Wdio Resources (0 specs, 0 screenshots)");
+        validateComponent(PlatformIcons.FOLDER_ICON, "Wdio Resources (0 specs, 0 screenshots)");
     }
 
     public void testSetFontAndTextForSpecNode() {
         TreeSpecNode spec = new TreeSpecNode("spec", getProject());
 
         customizeComponent(tree, spec);
-        validateComponent(new Font("font", Font.PLAIN, 14), "spec");
+        validateComponent(PlatformIcons.FOLDER_ICON, "spec");
     }
 
     public void testMarkSpecNodeAsDiff() {
@@ -56,14 +59,14 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
         spec.addScreenshot(screenshot);
 
         customizeComponent(tree, spec);
-        validateComponent(new Font("font", Font.BOLD, 14), "spec (1)");
+        validateComponent(AllIcons.Actions.Diff, "spec (1)");
     }
 
-    public void testSetFontAndTextForScreenshotNode() {
+    public void testSetIconAndTextForScreenshotNode() {
         TreeScreenshotNode screenshot = new TreeScreenshotNode("screenshot", getProject());
 
         customizeComponent(tree, screenshot);
-        validateComponent(new Font("font", Font.PLAIN, 14), "screenshot (0)");
+        validateComponent(ImageFileType.INSTANCE.getIcon(), "screenshot (0)");
     }
 
     public void testScreenshotNodeAsDiff() {
@@ -71,15 +74,33 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
         screenshot.addDiff(mock(VirtualFile.class));
 
         customizeComponent(tree, screenshot);
-        validateComponent(new Font("font", Font.BOLD, 14), "screenshot (0)");
+        validateComponent(AllIcons.RunConfigurations.TestError, "screenshot (0)");
+    }
+
+    public void testSpecNodeAsHavingUnused() {
+        var spec = new TreeSpecNode("spec", getProject());
+        var screenshot = new TreeScreenshotNode("screenshot", getProject());
+        screenshot.setUnused(true);
+        spec.addScreenshot(screenshot);
+
+        customizeComponent(tree, spec);
+        validateComponent(AllIcons.RunConfigurations.TestError, "spec (1)");
+    }
+
+    public void testScreenshotNodeAsUnused() {
+        var screenshot = new TreeScreenshotNode("screenshot", getProject());
+        screenshot.setUnused(true);
+
+        customizeComponent(tree, screenshot);
+        validateComponent(AllIcons.Actions.Diff, "screenshot (0)");
     }
 
     private void customizeComponent(JTree tree, TerraWdioTreeNode node) {
         renderer.customizeCellRenderer(tree, node, false, false, false, 1, false);
     }
 
-    private void validateComponent(Font font, String text) {
-        assertThat(renderer.getFont()).isEqualTo(font);
+    private void validateComponent(Icon icon, String text) {
+        assertThat(renderer.getIcon()).isEqualTo(icon);
         assertThat(renderer.getCharSequence(true)).isEqualTo(text);
     }
 }
