@@ -70,14 +70,6 @@ public class TerraWdioScreenshotsPanel extends JPanel {
     private void registerActionsAndListenersForTree() {
         var actionManager = ActionManager.getInstance();
 
-        //List of action groups to register
-        //Since ActionManager seems to be operating on application level, and not project level, this check makes sure
-        //that in case multiple projects are open, this tool window doesn't try to register the same action group twice,
-        //which would lead to exception thrown, and to a crashing tool window.
-        if (actionManager.getAction(SCREENSHOT_ACTIONS_GROUP) == null) {
-            actionManager.registerAction(SCREENSHOT_ACTIONS_GROUP, ActionManager.getInstance().getAction("TerraWdioToolWindowScreenshotActions"));
-        }
-
         //Add action popup menu to the tree component
         var actionPopupMenu = actionManager
             .createActionPopupMenu("TerraWdioToolWindow", (DefaultActionGroup) actionManager.getAction(SCREENSHOT_ACTIONS_GROUP));

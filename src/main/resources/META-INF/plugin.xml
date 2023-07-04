@@ -116,7 +116,7 @@
             <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
         </group>
 
-        <group id="TerraWdioToolWindowScreenshotActions">
+        <group id="terra.wdio.toolwindow.ScreenshotActionsGroup">
             <!-- Alteration actions -->
             <action id="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
                     class="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
