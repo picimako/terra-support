@@ -74,7 +74,7 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
         screenshot.addDiff(mock(VirtualFile.class));
 
         customizeComponent(tree, screenshot);
-        validateComponent(AllIcons.RunConfigurations.TestError, "screenshot (0)");
+        validateComponent(AllIcons.Actions.Diff, "screenshot (0)");
     }
 
     public void testSpecNodeAsHavingUnused() {
@@ -92,7 +92,7 @@ public class TerraWdioTreeNodeRendererTest extends BasePlatformTestCase {
         screenshot.setUnused(true);
 
         customizeComponent(tree, screenshot);
-        validateComponent(AllIcons.Actions.Diff, "screenshot (0)");
+        validateComponent(AllIcons.RunConfigurations.TestError, "screenshot (0)");
     }
 
     private void customizeComponent(JTree tree, TerraWdioTreeNode node) {
