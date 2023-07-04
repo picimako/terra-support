@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [1.4.0]
+
+### Added
+- Offer this plugin when a project has dependency on the `@cerner/terra-functional-testing` npm package.
+
+### Changed
+- Plugin configuration updates.
+- Updated a few URL for the quick documentation popups.
+
 ## [1.3.1]
 
 ### Changed

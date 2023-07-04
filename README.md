@@ -46,7 +46,7 @@ To get started with the development of this project you can find some details in
 
 ## Cerner Terra resources
 
-- Terra Toolkit: [GitHub repository](https://github.com/cerner/terra-toolkit-boneyard), [Documentation](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
+- Terra Toolkit: [GitHub repository](https://github.com/cerner/terra-toolkit)
 - Terra Functional Testing: [GitHub repository](https://github.com/cerner/terra-toolkit/tree/main/packages/terra-functional-testing), [Changelog](https://github.com/cerner/terra-toolkit/blob/main/packages/terra-functional-testing/CHANGELOG.md),
 [Documentation](https://engineering.cerner.com/terra-ui/dev_tools/cerner-terra-toolkit-docs/terra-functional-testing/about)
 
