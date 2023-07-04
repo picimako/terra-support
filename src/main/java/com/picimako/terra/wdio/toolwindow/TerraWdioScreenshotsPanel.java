@@ -10,7 +10,7 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFileManager;
-import com.intellij.ui.TreeSpeedSearch;
+import com.intellij.ui.TreeUIHelper;
 import com.intellij.ui.components.JBScrollPane;
 
 import com.picimako.terra.wdio.toolwindow.event.KeyboardListeningPopupMenuInvoker;
@@ -52,7 +52,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         tree = new TerraWdioTree(new TerraWdioTreeModel(project));
         registerActionsAndListenersForTree();
         add(new JBScrollPane(tree));
-        new TreeSpeedSearch(tree);
+        TreeUIHelper.getInstance().installTreeSpeedSearch(tree);
     }
 
     public TerraWdioTree getTree() {
@@ -63,9 +63,9 @@ public class TerraWdioScreenshotsPanel extends JPanel {
      * Registers actions and listeners to the tool window tree.
      * <p>
      * Registering menu actions happens from code instead of the plugin.xml, because this tool window may not be used,
-     * so that when the it is not opened, actions are not registered unnecessarily.
+     * so that when it is not opened, actions are not registered unnecessarily.
      * <p>
-     * https://jetbrains.org/intellij/sdk/docs/tutorials/action_system/grouping_action.html#implementing-custom-action-group-classes
+     * @see <a href="https://jetbrains.org/intellij/sdk/docs/tutorials/action_system/grouping_action.html#implementing-custom-action-group-classes">Grouping actions</a>
      */
     private void registerActionsAndListenersForTree() {
         var actionManager = ActionManager.getInstance();
