@@ -101,6 +101,8 @@
         <applicationConfigurable parentId="tools" instance="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  id="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  displayName="Terra Support"/>
+
+        <dependencySupport kind="javascript" coordinate="npm:@cerner/terra-functional-testing" displayName="Terra Functional Testing"/>
     </extensions>
 
     <actions>
