@@ -9,15 +9,11 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashSet;
 
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.IdeActions;
 import com.intellij.openapi.application.WriteAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -30,24 +26,15 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  * <p>
  * It replaces all available screenshots for the name the user selected in the tool window.
  * <p>
- * NOTE: it might happen that the bold marking of a screenshot node (that it has diff image), and the status of this menu action
+ * NOTE: it might happen that the diff icon of a screenshot node (that it has diff image), and the status of this menu action
  * are not consistent. It can happen in cases when the diff and/or latest folders are modified manually.
  *
  * @since 0.1.0
  */
 public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindowAction {
 
-    /**
-     * Creates a ReplaceReferenceWithLatestAction instance.
-     * <p>
-     * Also registers the common Replace shortcut key for this action.
-     *
-     * @param project the project
-     */
-    public ReplaceReferenceWithLatestAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("replace.reference"), project);
-        AnAction action = ActionManager.getInstance().getAction(IdeActions.ACTION_REPLACE);
-        setShortcutSet(action.getShortcutSet());
+    public ReplaceReferenceWithLatestAction() {
+        super(TerraBundle.toolWindow("replace.reference"));
     }
 
     /**

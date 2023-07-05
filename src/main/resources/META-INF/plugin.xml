@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
     <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
@@ -101,6 +101,8 @@
         <applicationConfigurable parentId="tools" instance="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  id="com.picimako.terra.settings.TerraSettingsConfigurable"
                                  displayName="Terra Support"/>
+
+        <dependencySupport kind="javascript" coordinate="npm:@cerner/terra-functional-testing" displayName="Terra Functional Testing"/>
     </extensions>
 
     <actions>
@@ -112,6 +114,37 @@
                 <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
             </action>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
+        </group>
+
+        <group id="terra.wdio.toolwindow.ScreenshotActionsGroup">
+            <!-- Alteration actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
+                    use-shortcut-of="$Delete">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
+                    use-shortcut-of="RenameElement">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
+                    use-shortcut-of="Replace">
+            </action>
+            <separator/>
+            <!-- Navigation actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
+                    use-shortcut-of="GotoDeclaration">
+            </action>
+            <separator/>
+            <!-- Comparison actions -->
+            <action id="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction">
+            </action>
+            <action id="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
+                    class="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
+                    use-shortcut-of="Diff.ShowDiff">
+            </action>
         </group>
     </actions>
 </idea-plugin>

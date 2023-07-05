@@ -69,9 +69,9 @@ as bulk operations:
 When building this tree view, the logic behind also takes into account when spec JS files are in single or multiple subfolders under the base test path.
 They are collected in the same way into this view, their parent folders (as of now) are not displayed in the tool window.
 
-| With statistics | Without statistics |
-|---|---|
-| ![terra_wdio_tool_window](assets/terra_wdio_tool_window.PNG) | ![terra_wdio_tool_window](assets/terra_wdio_tool_window_without_stats.PNG) 
+| With statistics                                              | Without statistics                                                         |
+|--------------------------------------------------------------|----------------------------------------------------------------------------|
+| ![terra_wdio_tool_window](assets/terra_wdio_tool_window.PNG) | ![terra_wdio_tool_window](assets/terra_wdio_tool_window_without_stats.PNG) |
 
 ## Wdio test root paths
 
@@ -107,10 +107,10 @@ There are three node types in the tool window
 
 ### Highlighting nodes
 
-Screenshot nodes are highlighted with bold text when at least one of the underlying image files for a name has a diff image. This makes it easier to see
+Screenshot nodes have a dedicated diff icon when at least one of the underlying image files for a name has a diff image. This makes it easier to see
 what images' comparisons failed.
 
-Spec nodes are also highlighted with bold text when at least one of the underlying image nodes has a diff image.
+Spec nodes are also marked with the same diff icon when at least one of the underlying image nodes has a diff image.
 
 ![highlighted_nodes](assets/terra_wdio_tool_window_highlighted_nodes.PNG)
 
@@ -132,18 +132,18 @@ Screenshot nodes also provide bulk actions to work with them, in the form of con
 
 ![screenshot_actions_menu](assets/terra_wdio_tool_window_screenshot_actions_menu.png)
 
-| Action | Description | Shortcut keys |
-|---|---|---|
-| Rename Screenshots | Renames all screenshot files under the wdio test root with the same name.<br>When this action is invoked, a message popup appears populated with the file name, for which a simple validation is in place: the new name cannot be blank, and cannot be the same as its original name.<br>If the extension is erased from the new name, it is added back automatically before saving. | **Shift+F6** (the common Rename shortcut) |
-|  | ![rename_screenshots_action_popup](assets/terra_wdio_tool_window_rename_screenshots_action_popup.png) |  |
-| Delete Screenshots | Deletes all screenshot files under the wdio test root with the same name.<br>Before deletion, it show a message popup asking for confirmation from the user whether he/she really wants to delete all such files. | **Delete** |
-|  | ![delete_screenshots_action_popup](assets/terra_wdio_tool_window_delete_screenshots_action_popup.png) |  |
-| Replace Reference With Latest | Replaces all reference screenshot files with their latest counterparts under the wdio test root with the same name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images. | **Ctrl+R** (**Command+R** on Mac) |
-| Navigate to Usage | Navigates to the code section (the Terra validation call) where the selected screenshot is referenced. | **Ctrl+B** (**Command+B** on Mac) |
-|  | If there is no spec file (it has been deleted after or wasn't available at the IDE startup), but the screenshots linked screenshots are still available in the __snapshots__ directory, the dialog below is shown:<br>![navigate_to_no_spec](assets/terra_wdio_tool_window_navigate_to_no_spec.png) |  |
-|  | If there is no validation linked to this image (the Terra validation call was removed entirely or it references this image by a different name), the following dialog is shown:<br>![navigate_to_no_validation](assets/terra_wdio_tool_window_navigate_to_no_validation.png) |  |
-| Show Diffs | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the diff version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below.|  **Ctrl+D** (**Command+D** on Mac) |
-| Compare Latests With References | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below. | **Enter** shortcut key or **mouse double-click** |
+| Action                          | Description                                                                                                                                                                                                                                                                                                                                                                          | Shortcut keys                                    |
+|---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| Rename Screenshots              | Renames all screenshot files under the wdio test root with the same name.<br>When this action is invoked, a message popup appears populated with the file name, for which a simple validation is in place: the new name cannot be blank, and cannot be the same as its original name.<br>If the extension is erased from the new name, it is added back automatically before saving. | **Shift+F6** (the common Rename shortcut)        |
+|                                 | ![rename_screenshots_action_popup](assets/terra_wdio_tool_window_rename_screenshots_action_popup.png)                                                                                                                                                                                                                                                                                |                                                  |
+| Delete Screenshots              | Deletes all screenshot files under the wdio test root with the same name.<br>Before deletion, it show a message popup asking for confirmation from the user whether he/she really wants to delete all such files.                                                                                                                                                                    | **Delete**                                       |
+|                                 | ![delete_screenshots_action_popup](assets/terra_wdio_tool_window_delete_screenshots_action_popup.png)                                                                                                                                                                                                                                                                                |                                                  |
+| Replace Reference With Latest   | Replaces all reference screenshot files with their latest counterparts under the wdio test root with the same name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images.                                                                                                                                             | **Ctrl+R** (**Command+R** on Mac)                |
+| Navigate to Usage               | Navigates to the code section (the Terra validation call) where the selected screenshot is referenced.                                                                                                                                                                                                                                                                               | **Ctrl+B** (**Command+B** on Mac)                |
+|                                 | If there is no spec file (it has been deleted after or wasn't available at the IDE startup), but the screenshots linked screenshots are still available in the __snapshots__ directory, the dialog below is shown:<br>![navigate_to_no_spec](assets/terra_wdio_tool_window_navigate_to_no_spec.png)                                                                                  |                                                  |
+|                                 | If there is no validation linked to this image (the Terra validation call was removed entirely or it references this image by a different name), the following dialog is shown:<br>![navigate_to_no_validation](assets/terra_wdio_tool_window_navigate_to_no_validation.png)                                                                                                         |                                                  |
+| Show Diffs                      | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the diff version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below.                                                                                                          | **Ctrl+D** (**Command+D** on Mac)                |
+| Compare Latests With References | Opens the Terra Diff Preview for the selected image name.<br>The action is available only when there is at least one screenshot as the latest version of the reference images.<br><br>See details in the [Diff screenshot previews](#diff-screenshot-previews) section below.                                                                                                        | **Enter** shortcut key or **mouse double-click** |
 
 ## Diff screenshot previews
 
@@ -152,12 +152,12 @@ so that investigating a diff screenshot collection for the same file name (but f
 
 These previews are displayed as separate editor tabs when an image file is opened, and that particular image file is eligible for showing the preview.
 
-|  | Terra: Diff Preview | Terra: Reference / Latest Preview |
-|---|---|---|
-| From where can it be opened? | From the **Project view**, or from the **Terra wdio tool window**, selecting the `Show Diffs` context menu option on a screenshot node. | From the **Project view**, or from the **Terra wdio tool window**, selecting the `Compare Latests With References` context menu option on a screenshot node. |
-| Which files does it open for? | From the **Project view**, it is displayed when opening any Terra `diff` image. From the **Terra wdio tool window** it can be opened for screenshot nodes but only if there is at least one `diff` screenshot for that file name. | From the **Project view**, it is displayed when opening any Terra `reference` or `latest` image. From the **Terra wdio tool window** it can be opened for screenshot nodes but only if there is at least one `latest` screenshot for that file name. |
-| Does it get focus? | When an image is opened via the **Project view**, the default image editor is shown. Using the `Show Diffs` context menu option also focuses the view on the Diff Preview.  | Behaves the same as for the `Diff Preview` but instead it is the `Reference / Latest Preview` that is focused. |
-| What is displayed in the preview? | It shows one or more `diff` images for a given screenshot name. | It shows one or more pairs of `reference`/`latest` images, each displayed side-by-side. Each split panel can be resized but their states are not remembered for later openings. |
+|                                   | Terra: Diff Preview                                                                                                                                                                                                               | Terra: Reference / Latest Preview                                                                                                                                                                                                                    |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| From where can it be opened?      | From the **Project view**, or from the **Terra wdio tool window**, selecting the `Show Diffs` context menu option on a screenshot node.                                                                                           | From the **Project view**, or from the **Terra wdio tool window**, selecting the `Compare Latests With References` context menu option on a screenshot node.                                                                                         |
+| Which files does it open for?     | From the **Project view**, it is displayed when opening any Terra `diff` image. From the **Terra wdio tool window** it can be opened for screenshot nodes but only if there is at least one `diff` screenshot for that file name. | From the **Project view**, it is displayed when opening any Terra `reference` or `latest` image. From the **Terra wdio tool window** it can be opened for screenshot nodes but only if there is at least one `latest` screenshot for that file name. |
+| Does it get focus?                | When an image is opened via the **Project view**, the default image editor is shown. Using the `Show Diffs` context menu option also focuses the view on the Diff Preview.                                                        | Behaves the same as for the `Diff Preview` but instead it is the `Reference / Latest Preview` that is focused.                                                                                                                                       |
+| What is displayed in the preview? | It shows one or more `diff` images for a given screenshot name.                                                                                                                                                                   | It shows one or more pairs of `reference`/`latest` images, each displayed side-by-side. Each split panel can be resized but their states are not remembered for later openings.                                                                      |
 
 Both previews also show the screenshot context (locale, browser, viewport) above each image to help identify them.
 

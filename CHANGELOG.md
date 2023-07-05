@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [1.4.0]
+
+### Added
+- Offer this plugin when a project has dependency on the `@cerner/terra-functional-testing` npm package.
+
+### Changed
+- Spec and screenshot nodes are now marked with a dedicated diff icon, instead of bold text, when they have a diff image. This was necessary because the font setting is not being applied by the IDE.
+- Updated a few URL for the quick documentation popups.
+- Plugin configuration updates.
+
 ## [1.3.1]
 
 ### Changed

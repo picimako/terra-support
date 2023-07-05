@@ -8,7 +8,6 @@ import static com.picimako.terra.wdio.toolwindow.node.TerraWdioTreeNode.isScreen
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-import com.intellij.openapi.actionSystem.CommonShortcuts;
 import com.intellij.openapi.application.WriteAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.InputValidator;
@@ -16,7 +15,6 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.picimako.terra.resources.TerraBundle;
@@ -34,16 +32,8 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    /**
-     * Creates a RenameScreenshotsAction instance.
-     * <p>
-     * Also registers the common Rename shortcut key for this action.
-     *
-     * @param project the project
-     */
-    public RenameScreenshotsAction(@NotNull Project project) {
-        super(TerraBundle.toolWindow("rename.screenshots"), project);
-        setShortcutSet(CommonShortcuts.getRename());
+    public RenameScreenshotsAction() {
+        super(TerraBundle.toolWindow("rename.screenshots"));
     }
 
     /**
@@ -75,7 +65,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
         if (tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             var selectedScreenshotNode = asScreenshot(tree.getLastSelectedPathComponent());
             String originalFileName = selectedScreenshotNode.getDisplayName();
-            String newFileName = askUserForNewFileName(originalFileName, originalFileName.substring(originalFileName.lastIndexOf(".") + 1));
+            String newFileName = askUserForNewFileName(originalFileName, originalFileName.substring(originalFileName.lastIndexOf(".") + 1), project);
 
             if (newFileName == null) return; //The user didn't click Cancel
             var references = selectedScreenshotNode.getReferences();
@@ -144,7 +134,7 @@ public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
      * @return the new filename, or null if the user Cancelled or closed the input dialog
      */
     @Nullable
-    private String askUserForNewFileName(String originalFileName, String extension) {
+    private String askUserForNewFileName(String originalFileName, String extension, @Nullable Project project) {
         String originalFileNameWithoutExt = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
         String newFileName = Messages.showInputDialog(project,
             TerraBundle.toolWindow("rename.provide.new.name"),

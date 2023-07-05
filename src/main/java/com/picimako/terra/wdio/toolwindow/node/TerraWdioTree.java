@@ -89,9 +89,9 @@ public class TerraWdioTree extends JTree {
          *
          * <b>Terra wdio tool window cell rendering</b>
          * <p>
-         * Screenshot nodes are marked with bold text in case they have at least one diff image.
+         * Screenshot nodes are marked with a dedicated diff icon in case they have at least one diff image.
          * <p>
-         * Spec nodes are also marked with bold text if one of their underlying screenshots has at least one diff image.
+         * Spec nodes are also marked with the same diff icon when one of their underlying screenshots has at least one diff image.
          */
         @Override
         public void customizeCellRenderer(@NotNull JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
@@ -101,20 +101,24 @@ public class TerraWdioTree extends JTree {
                 setIcon(PlatformIcons.FOLDER_ICON);
                 setFont(getFont().deriveFont(Font.PLAIN));
             } else if (isSpec(value)) {
-                potentiallyMarkAsDiff(asSpec(value).getScreenshots().stream().anyMatch(TreeScreenshotNode::hasDiff));
-                markAsUnusedOrDefault(asSpec(value).getScreenshots().stream().anyMatch(TreeScreenshotNode::isUnused), PlatformIcons.FOLDER_ICON);
+                setIcon(
+                    asSpec(value).getScreenshots().stream().anyMatch(TreeScreenshotNode::hasDiff),
+                    asSpec(value).getScreenshots().stream().anyMatch(TreeScreenshotNode::isUnused),
+                    PlatformIcons.FOLDER_ICON);
             } else if (isScreenshot(value)) {
-                potentiallyMarkAsDiff(asScreenshot(value).hasDiff());
-                markAsUnusedOrDefault(asScreenshot(value).isUnused(), ImageFileType.INSTANCE.getIcon());
+                setIcon(asScreenshot(value).hasDiff(), asScreenshot(value).isUnused(), ImageFileType.INSTANCE.getIcon());
             }
         }
 
-        private void potentiallyMarkAsDiff(boolean hasDiff) {
-            setFont(getFont().deriveFont(hasDiff ? Font.BOLD : Font.PLAIN));
-        }
-
-        private void markAsUnusedOrDefault(boolean isOrHasUnused, Icon defaultIcon) {
-            setIcon(isOrHasUnused ? AllIcons.RunConfigurations.TestError : defaultIcon);
+        /**
+         * If the current node is unused, or has an unused child node, it is marked with an error icon. This takes precedence.
+         * <p>
+         * Otherwise, if there is a diff image for the node, then it is marked with a diff icon. In every other case, the node's default icon is used.
+         */
+        private void setIcon(boolean hasDiff, boolean isOrHasUnused, Icon defaultIcon) {
+            setIcon(isOrHasUnused
+                ? AllIcons.RunConfigurations.TestError
+                : hasDiff ? AllIcons.Actions.Diff : defaultIcon);
         }
     }
 }
