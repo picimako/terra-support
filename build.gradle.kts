@@ -1,6 +1,5 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = providers.gradleProperty(key)
 fun environment(key: String) = providers.environmentVariable(key)
@@ -50,20 +49,6 @@ intellij {
 }
 
 tasks {
-    // Set the JVM compatibility versions
-    properties("javaVersion").get().let {
-        withType<JavaCompile> {
-            sourceCompatibility = it
-            targetCompatibility = it
-        }
-        withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = it
-            //https://kotlinlang.org/docs/whatsnew15.html#deprecation-of-jvmdefault-and-old-xjvm-default-modes
-            //https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-default/
-            kotlinOptions.freeCompilerArgs = listOf("-Xjvm-default=all")
-        }
-    }
-
     wrapper {
         gradleVersion = properties("gradleVersion").get()
     }
@@ -109,6 +94,6 @@ tasks {
     }
 
 //    runPluginVerifier {
-//        ideVersions.set(listOf(//"IU-2022.1", "IU-2022.2", "IU-2022.3", "IU-2023.1", "IU-2023.2"))
+//        ideVersions.set(listOf("IU-2023.2"))
 //    }
 }
