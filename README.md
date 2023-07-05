@@ -14,7 +14,7 @@ coding issues, including but not limited to:
 - Additional navigation options and visual clues for screenshot validation.
 - Added and extended Quick Documentation popup contents.
 
-The part that focuses on the [Terra UI components](https://engineering.cerner.com/terra-ui/home/terra-ui/index") adds
+The part that focuses on the [Terra UI components](https://engineering.cerner.com/terra-ui/home/terra-ui/index) adds
 external documentation URLs to UI component React tags for easier navigation to related documentation.
 <!-- Plugin description end -->
 
@@ -27,7 +27,7 @@ The followings are a summary of the features incorporated into this plugin:
   can be triggered via Ctrl+Q (on Windows) or F1 (on Mac). It shows a popup with some rendered information about the element in question.
 - **References**: The feature called References provides a way to navigate from a reference of an element to the definition of it,
   just like when you jump to the definition of a function from the usage of that.
-- **Tool Window**: There is a [Tool Window called Terra Wdio](/docs/terra_wdio_tool_window.md) available to work with Terra screenshots.
+- **Tool Window**: There is a [Tool Window called Terra Wdio](docs/terra_wdio_tool_window.md) available to work with Terra screenshots.
 - **Inlay Hints**: These are small labels injected into the code, that provide extra (often otherwise invisible) information about the code.
   The [current Inlay Hints](docs/terra_helpers.md#inlay-hints) include displaying screenshot names and global Terra CSS selectors.
 
