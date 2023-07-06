@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.5.0]
+### Fixed
+- [#62](https://github.com/picimako/terra-support/issues/62): Fixed a `ClassCastException` when retrieving the wdio tree component.
+
 ## [1.4.0]
 
 ### Added

@@ -3,7 +3,7 @@
 package com.picimako.terra.wdio.toolwindow.action;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.actionSystem.PlatformCoreDataKeys;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,8 @@ final class TerraWdioDataRetrieverUtil {
      */
     @Nullable
     static TerraWdioTree getWdioTreeFrom(@NotNull AnActionEvent e) {
-        return (TerraWdioTree) e.getData(PlatformDataKeys.CONTEXT_COMPONENT);
+        var data = e.getData(PlatformCoreDataKeys.CONTEXT_COMPONENT);
+        return data instanceof TerraWdioTree ? (TerraWdioTree) data : null;
     }
 
     private TerraWdioDataRetrieverUtil() {
