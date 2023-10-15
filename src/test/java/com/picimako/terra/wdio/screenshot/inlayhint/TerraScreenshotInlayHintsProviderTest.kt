@@ -157,7 +157,7 @@ describe('Terra screenshot', () => {
     }
 
     private fun doTest(text: String, settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(Disabled, Disabled)) {
-        testProvider("test.js", text,
+        doTestProvider("test.js", text,
             TerraScreenshotInlayHintsProvider(), settings)
     }
 }

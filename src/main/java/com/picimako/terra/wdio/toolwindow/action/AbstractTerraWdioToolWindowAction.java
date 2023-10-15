@@ -2,11 +2,10 @@
 
 package com.picimako.terra.wdio.toolwindow.action;
 
-import static com.picimako.terra.wdio.toolwindow.action.TerraWdioDataRetrieverUtil.getWdioTreeFrom;
-
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.PlatformCoreDataKeys;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,6 +27,8 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
         return (AbstractTerraWdioToolWindowAction) ActionManager.getInstance().getAction(actionId);
     }
 
+    //Performing the action
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         performAction(getWdioTreeFrom(e), e.getProject());
@@ -42,6 +43,8 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
      * @param project the project
      */
     public abstract void performAction(TerraWdioTree tree, @Nullable Project project);
+
+    //Preconditions and update logic
 
     /**
      * Validates the preconditions for this action, then if they are met, performs this action.
@@ -70,5 +73,16 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
     @Override
     public void update(@NotNull AnActionEvent e) {
         e.getPresentation().setEnabled(meetsPreconditions(getWdioTreeFrom(e)));
+    }
+
+    //Helpers
+
+    /**
+     * Gets the {@link TerraWdioTree} object from the argument action event.
+     */
+    @Nullable
+    private static TerraWdioTree getWdioTreeFrom(@NotNull AnActionEvent e) {
+        var data = e.getData(PlatformCoreDataKeys.CONTEXT_COMPONENT);
+        return data instanceof TerraWdioTree ? (TerraWdioTree) data : null;
     }
 }
