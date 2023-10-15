@@ -22,6 +22,8 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraPropertiesProvider;
 @Service(Service.Level.PROJECT)
 public final class NoopResourceManager extends TerraResourceManager {
 
+    private static final SpecFolderCollector NOOP = new SpecFolderCollector(null);
+
     //Required for project service creation
     public NoopResourceManager(Project project) {
     }
@@ -63,7 +65,7 @@ public final class NoopResourceManager extends TerraResourceManager {
 
     @Override
     public SpecFolderCollector specFolderCollector() {
-        return dir -> null;
+        return NOOP;
     }
 
     @Override

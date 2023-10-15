@@ -18,6 +18,11 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraFunctionalTestingPrope
 @Service(Service.Level.PROJECT)
 public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
+    /**
+     * Retrieves the folder type based on the {@code [type]/theme/locale/browser_viewport/spec} folder structure.
+     */
+    private static final SpecFolderCollector TERRA_FUNCTIONAL_TESTING_SPEC_COLLECTOR =
+        new SpecFolderCollector(dir -> dir.getParent().getParent().getParent().getParent().getName());
     private ScreenshotContextParser contextParserWithSeparator;
 
     //Required for project service creation
@@ -42,7 +47,7 @@ public final class TerraFunctionalTestingManager extends TerraResourceManager {
 
     @Override
     public SpecFolderCollector specFolderCollector() {
-        return SpecFolderCollector.TERRA_FUNCTIONAL_TESTING_SPEC_COLLECTOR;
+        return TERRA_FUNCTIONAL_TESTING_SPEC_COLLECTOR;
     }
 
     @Override

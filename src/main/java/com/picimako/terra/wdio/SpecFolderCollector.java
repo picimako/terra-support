@@ -3,25 +3,27 @@
 package com.picimako.terra.wdio;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import com.intellij.openapi.vfs.VirtualFile;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Collects spec folders based on image type.
  */
-@FunctionalInterface
-public interface SpecFolderCollector {
+@RequiredArgsConstructor
+public final class SpecFolderCollector {
 
     /**
-     * Retrieves the folder type based on the {@code [type]/locale/browser_viewport/spec} folder structure.
+     * Returns in which image type the argument folder is located: diff, latest, reference.
      */
-    SpecFolderCollector TERRA_TOOLKIT_SPEC_COLLECTOR = dir -> dir.getParent().getParent().getParent().getName();
-    /**
-     * Retrieves the folder type based on the {@code [type]/theme/locale/browser_viewport/spec} folder structure.
-     */
-    SpecFolderCollector TERRA_FUNCTIONAL_TESTING_SPEC_COLLECTOR = dir -> dir.getParent().getParent().getParent().getParent().getName();
+    @Nullable("Only by the no-op collector.")
+    @Getter
+    private final Function<VirtualFile, String> folderType;
 
     /**
      * Collect spec folders from within the provided set of files and folders (effectively everything from) the wdio
@@ -33,15 +35,10 @@ public interface SpecFolderCollector {
      * @return the stream of matching spec folders
      */
     @NotNull
-    default Stream<VirtualFile> collectSpecFoldersForTypeInside(@NotNull String imageType, @NotNull List<VirtualFile> filesAndFoldersInWdioRoot) {
+    public Stream<VirtualFile> collectSpecFoldersForTypeInside(@NotNull String imageType, @NotNull List<VirtualFile> filesAndFoldersInWdioRoot) {
         return filesAndFoldersInWdioRoot.stream()
             .filter(VirtualFile::isDirectory)
             .filter(dir -> dir.getName().endsWith("-spec"))
-            .filter(dir -> imageType.equals(getFolderType(dir)));
+            .filter(dir -> imageType.equals(folderType.apply(dir)));
     }
-
-    /**
-     * Returns in which image type the argument folder is located: diff, latest, reference.
-     */
-    String getFolderType(VirtualFile dir);
 }

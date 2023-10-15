@@ -18,6 +18,10 @@ import com.picimako.terra.wdio.screenshot.inspection.TerraToolkitPropertiesProvi
 @Service(Service.Level.PROJECT)
 public final class TerraToolkitManager extends TerraResourceManager {
 
+    /**
+     * Retrieves the folder type based on the {@code [type]/locale/browser_viewport/spec} folder structure.
+     */
+    private static final SpecFolderCollector TERRA_TOOLKIT_SPEC_COLLECTOR = new SpecFolderCollector(dir -> dir.getParent().getParent().getParent().getName());
     private ScreenshotContextParser contextParserWithSeparator;
 
     //Required for project service creation
@@ -42,7 +46,7 @@ public final class TerraToolkitManager extends TerraResourceManager {
 
     @Override
     public SpecFolderCollector specFolderCollector() {
-        return SpecFolderCollector.TERRA_TOOLKIT_SPEC_COLLECTOR;
+        return TERRA_TOOLKIT_SPEC_COLLECTOR;
     }
 
     @Override
