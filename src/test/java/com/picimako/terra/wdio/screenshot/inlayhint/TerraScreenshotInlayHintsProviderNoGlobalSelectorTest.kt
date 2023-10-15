@@ -39,7 +39,7 @@ describe('Terra screenshot', () => {
         settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(
             TerraScreenshotInlayHintsProvider.InlayType.Disabled, TerraScreenshotInlayHintsProvider.InlayType.Disabled)
     ) {
-        testProvider(
+        doTestProvider(
             "test.js",
             text,
             TerraScreenshotInlayHintsProvider(),
