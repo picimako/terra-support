@@ -13,6 +13,7 @@ import com.intellij.ui.ToolbarDecorator;
 import com.intellij.ui.table.TableView;
 import com.intellij.util.ui.FormBuilder;
 import com.intellij.util.ui.ListTableModel;
+import lombok.Getter;
 
 import com.picimako.terra.resources.TerraBundle;
 
@@ -23,6 +24,7 @@ import com.picimako.terra.resources.TerraBundle;
  */
 public class TerraSettingsComponent {
 
+    @Getter
     private final JPanel settingsPanel;
     private final ListTableModel<RootPath> wdioRootPathsTableViewModel;
     private final JCheckBox screenshotDeletionConfirmationCheckbox;
@@ -59,12 +61,7 @@ public class TerraSettingsComponent {
         return rootPathsHelpLabel;
     }
 
-
     //Setters, getters
-
-    public JPanel getSettingsPanel() {
-        return settingsPanel;
-    }
 
     public void setWdioRootPaths(List<RootPath> wdioRootPaths) {
         wdioRootPathsTableViewModel.setItems(wdioRootPaths);

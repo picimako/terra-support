@@ -2,13 +2,13 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
     <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
-    <idea-version since-build="222"/>
+    <idea-version since-build="223.8836.41"/>
 
     <description>Adds dev and test support for Cerner's various Terra libraries.</description>
 
