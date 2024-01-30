@@ -33,9 +33,9 @@ dependencies {
 
     //Testing
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("org.mockito:mockito-core:4.2.0")
-    testImplementation("org.mockito:mockito-inline:4.2.0") //for using static method mocking
+    testImplementation("org.assertj:assertj-core:3.25.2")
+    testImplementation("org.mockito:mockito-core:5.10.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0") //for using static method mocking
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
