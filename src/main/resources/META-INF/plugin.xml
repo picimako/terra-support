@@ -78,8 +78,6 @@
         <documentationProvider implementation="com.picimako.terra.documentation.TerraDescribeViewportsDocumentationProvider"/>
         <lang.documentationProvider order="first" language="JavaScript"
                                     implementationClass="com.picimako.terra.documentation.TerraUIComponentDocumentationUrlProvider"/>
-<!--        <lang.documentationProvider order="first" language="JavaScript"-->
-<!--                                    implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>-->
 
         <!-- File editors -->
         <fileEditorProvider implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
