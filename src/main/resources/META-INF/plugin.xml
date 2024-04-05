@@ -2,7 +2,7 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
     <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
@@ -78,8 +78,8 @@
         <documentationProvider implementation="com.picimako.terra.documentation.TerraDescribeViewportsDocumentationProvider"/>
         <lang.documentationProvider order="first" language="JavaScript"
                                     implementationClass="com.picimako.terra.documentation.TerraUIComponentDocumentationUrlProvider"/>
-        <lang.documentationProvider order="first" language="JavaScript"
-                                    implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>
+<!--        <lang.documentationProvider order="first" language="JavaScript"-->
+<!--                                    implementationClass="com.picimako.terra.documentation.TerraWdioDocumentationProvider"/>-->
 
         <!-- File editors -->
         <fileEditorProvider implementation="com.picimako.terra.wdio.imagepreview.DiffScreenshotsFileEditorProvider"/>
