@@ -2,8 +2,8 @@
 # plugins
 kotlin = "1.9.0"
 changelog = "2.2.0"
-gradleIntelliJPlugin = "1.17.2"
-lombok = "8.3"
+gradleIntelliJPlugin = "1.17.3"
+lombok = "8.6"
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }

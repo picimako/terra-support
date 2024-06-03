@@ -8,7 +8,7 @@
     <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
-    <idea-version since-build="223.8836.41"/>
+    <idea-version since-build="231.9414.13"/>
 
     <description>Adds dev and test support for Cerner's various Terra libraries.</description>
 
