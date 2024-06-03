@@ -34,7 +34,7 @@ public class TerraElementValidationIsPreferredOverScreenshotInspection extends T
         return new JSElementVisitor() {
             @SuppressWarnings("ConstantConditions")
             @Override
-            public void visitJSExpressionStatement(JSExpressionStatement node) {
+            public void visitJSExpressionStatement(@NotNull JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
                 if (isTerraItMatchesScreenshot(node)) {

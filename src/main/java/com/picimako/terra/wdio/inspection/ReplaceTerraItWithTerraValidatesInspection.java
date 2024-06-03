@@ -60,7 +60,7 @@ public class ReplaceTerraItWithTerraValidatesInspection extends TerraWdioInspect
 
         return new JSElementVisitor() {
             @Override
-            public void visitJSExpressionStatement(JSExpressionStatement node) {
+            public void visitJSExpressionStatement(@NotNull JSExpressionStatement node) {
                 super.visitJSExpressionStatement(node);
 
                 if (isInWdioSpecFile(node) && isTerraIt(node) && node.getExpression() instanceof JSCallExpression) {

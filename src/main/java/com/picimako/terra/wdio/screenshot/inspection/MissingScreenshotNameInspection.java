@@ -37,7 +37,7 @@ public class MissingScreenshotNameInspection extends TerraWdioInspectionBase {
 
         return new JSElementVisitor() {
             @Override
-            public void visitJSExpressionStatement(JSExpressionStatement node) {
+            public void visitJSExpressionStatement(@NotNull JSExpressionStatement node) {
                 if (isNonTerraItElementOrScreenshotValidation(node)) {
                     String nameArgument = getFirstArgumentAsString(getArgumentListOf(node));
                     if (nameArgument == null) {
