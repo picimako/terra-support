@@ -2,6 +2,7 @@
 
 package com.picimako.terra.wdio.viewports.inspection;
 
+import static com.intellij.codeInspection.options.OptPane.*;
 import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpression;
 import static com.intellij.lang.javascript.psi.JSVarStatement.VarKeyword.CONST;
 import static com.picimako.terra.FileTypePreconditions.isWdioSpecFile;
@@ -18,12 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import javax.swing.*;
 
 import com.intellij.codeInspection.LocalInspectionToolSession;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.codeInspection.ui.MultipleCheckboxOptionsPanel;
+import com.intellij.codeInspection.options.OptPane;
 import com.intellij.lang.javascript.psi.JSArrayLiteralExpression;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSElementVisitor;
@@ -62,12 +62,11 @@ public final class TerraDescribeViewportsInspection extends TerraWdioInspectionB
     public boolean reportViewportsNotInAscendingOrder = true;
 
     @Override
-    public JComponent createOptionsPanel() {
-        final MultipleCheckboxOptionsPanel panel = new MultipleCheckboxOptionsPanel(this);
-        panel.addCheckbox("Report empty viewports array", "reportEmptyViewports");
-        panel.addCheckbox("Report duplicate viewport values", "reportDuplicateViewports");
-        panel.addCheckbox("Report when viewports are not in ascending order", "reportViewportsNotInAscendingOrder");
-        return panel;
+    public @NotNull OptPane getOptionsPane() {
+        return pane(
+            checkbox("reportEmptyViewports", "Report empty viewports array"),
+            checkbox("reportDuplicateViewports", "Report duplicate viewport values"),
+            checkbox("reportViewportsNotInAscendingOrder", "Report when viewports are not in ascending order"));
     }
 
     @Override
