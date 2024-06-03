@@ -48,7 +48,7 @@ public class DuplicateScreenshotNameInspection extends TerraWdioInspectionBase {
 
         return new JSElementVisitor() {
             @Override
-            public void visitJSFile(JSFile file) {
+            public void visitJSFile(@NotNull JSFile file) {
                 final var duplicateNames = new HashMap<String, JSExpression>();
                 PsiTreeUtil.processElements(session.getFile(), JSLiteralExpression.class, element -> {
                     //The check and reporting is applied only to Terra.validates.element and Terra.validates.screenshot calls,

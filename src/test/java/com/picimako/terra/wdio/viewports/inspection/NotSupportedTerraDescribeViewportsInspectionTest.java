@@ -31,16 +31,17 @@ public class NotSupportedTerraDescribeViewportsInspectionTest extends TerraToolk
     public void testNotSupportedTerraViewports() {
         doWdioSpecTest();
     }
-    
+
     public void testNotSupportedViewportsInDescribeTests() {
         doWdioSpecTestByText(
-            "Terra.describeTests('Name', { formFactors: [<error descr=\"This viewport is not supported by Terra.\">''</error>,'huge','tiny'] }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: ['small',<error descr=\"This viewport is not supported by Terra.\">'gigantic'</error>,'tiny'] }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: ['small','huge','tiny'] }, () => {\n" +
-                "});");
+            """
+                Terra.describeTests('Name', { formFactors: [<error descr="This viewport is not supported by Terra.">''</error>,'huge','tiny'] }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: ['small',<error descr="This viewport is not supported by Terra.">'gigantic'</error>,'tiny'] }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: ['small','huge','tiny'] }, () => {
+                });""");
     }
 }

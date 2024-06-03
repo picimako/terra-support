@@ -85,11 +85,12 @@ public class TerraDescribeViewportsDocumentationProviderTest extends TerraToolki
 
     public void testShouldReturnNullWhenTheStringLiteralIsNotInTerraDescribeViewportsOrDescribeTests() {
         myFixture.configureByText("WdioDocumentation-spec.js",
-            "Terra.describeViewports('viewports', ['huge'], () => {\n" +
-                "    describe('terra screenshot', () => {\n" +
-                "       Terra.validates.element('coll<caret>ect');\n" +
-                "    });" +
-                "});");
+            """
+                Terra.describeViewports('viewports', ['huge'], () => {
+                    describe('terra screenshot', () => {
+                       Terra.validates.element('coll<caret>ect');
+                    });\
+                });""");
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
 

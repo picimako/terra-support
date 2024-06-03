@@ -116,11 +116,6 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
     }
 
     @Override
-    public @Nullable FileEditorLocation getCurrentLocation() {
-        return null;
-    }
-
-    @Override
     public void dispose() {
         var imageEditorCache = ImageEditorCache.getInstance(project);
         imageEditorCache.disposeEditorFor(getFile());

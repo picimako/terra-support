@@ -21,31 +21,36 @@ public class TerraWdioPsiUtilScreenshotPropertyTest extends BasePlatformTestCase
 
     public void testPropertyRetrieval() {
         Object[][] testCases = new Object[][]{
-            {"describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        <caret>Terra.validates.screenshot('test id');\n" +
-                "    });\n" +
-                "});", null, null},
-            {"describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        <caret>Terra.validates.screenshot('test id', { });\n" +
-                "    });\n" +
-                "});", null, null},
-            {"describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        <caret>Terra.validates.screenshot('test id', { selector: '#selector' });\n" +
-                "    });\n" +
-                "});", "#selector", null},
-            {"describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        <caret>Terra.validates.screenshot('test id', { mismatchTolerance: 0.5 });\n" +
-                "    });\n" +
-                "});", null, 0.5},
-            {"describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        <caret>Terra.validates.screenshot('test id', { selector: '#selector', mismatchTolerance: 0.5 });\n" +
-                "    });\n" +
-                "});", "#selector", 0.5}
+            {"""
+describe('Terra screenshot', () => {
+    it('Test case', () => {
+        <caret>Terra.validates.screenshot('test id');
+    });
+});""", null, null},
+            {"""
+describe('Terra screenshot', () => {
+    it('Test case', () => {
+        <caret>Terra.validates.screenshot('test id', { });
+    });
+});""", null, null},
+            {"""
+describe('Terra screenshot', () => {
+    it('Test case', () => {
+        <caret>Terra.validates.screenshot('test id', { selector: '#selector' });
+    });
+});""", "#selector", null},
+            {"""
+describe('Terra screenshot', () => {
+    it('Test case', () => {
+        <caret>Terra.validates.screenshot('test id', { mismatchTolerance: 0.5 });
+    });
+});""", null, 0.5},
+            {"""
+describe('Terra screenshot', () => {
+    it('Test case', () => {
+        <caret>Terra.validates.screenshot('test id', { selector: '#selector', mismatchTolerance: 0.5 });
+    });
+});""", "#selector", 0.5}
         };
 
         for (int i = 0; i < testCases.length; i++) {
@@ -72,11 +77,12 @@ public class TerraWdioPsiUtilScreenshotPropertyTest extends BasePlatformTestCase
 
 
     public void testRetrievesTerraValidationProperties() {
-        myFixture.configureByText("Terra-spec.js", "describe('Terra screenshot', () => {\n" +
-            "    it('Test case', () => {\n" +
-            "        <caret>Terra.validates.screenshot('test id', { selector: '#selector', mismatchTolerance: 0.5 });\n" +
-            "    });\n" +
-            "});");
+        myFixture.configureByText("Terra-spec.js", """
+            describe('Terra screenshot', () => {
+                it('Test case', () => {
+                    <caret>Terra.validates.screenshot('test id', { selector: '#selector', mismatchTolerance: 0.5 });
+                });
+            });""");
 
         JSExpressionStatement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSExpressionStatement.class);
 
@@ -84,11 +90,12 @@ public class TerraWdioPsiUtilScreenshotPropertyTest extends BasePlatformTestCase
     }
 
     public void testNoTerraValidationProperties() {
-        myFixture.configureByText("Terra-spec.js", "describe('Terra screenshot', () => {\n" +
-            "    it('Test case', () => {\n" +
-            "        <caret>Terra.validates.screenshot('test id');\n" +
-            "    });\n" +
-            "});");
+        myFixture.configureByText("Terra-spec.js", """
+            describe('Terra screenshot', () => {
+                it('Test case', () => {
+                    <caret>Terra.validates.screenshot('test id');
+                });
+            });""");
 
         JSExpressionStatement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSExpressionStatement.class);
 

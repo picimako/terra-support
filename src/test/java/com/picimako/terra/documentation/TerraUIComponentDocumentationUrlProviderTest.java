@@ -26,19 +26,20 @@ import com.picimako.terra.psi.js.ES6ImportUtil;
  */
 public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTestCase {
 
-    private static final String DOCUMENTATION = "{\n" +
-        "  \"components\": [\n" +
-        "    {\n" +
-        "      \"componentName\": \"ResponsiveElement\",\n" +
-        "      \"properties\": [\n" +
-        "        {\n" +
-        "          \"importPath\": \"terra-responsive-element\",\n" +
-        "          \"relativeUrl\": \"/terra-responsive-element/responsive-element/responsive-element\"\n" +
-        "        }\n" +
-        "      ]\n" +
-        "    }\n" +
-        "  ]\n" +
-        "}";
+    private static final String DOCUMENTATION = """
+        {
+          "components": [
+            {
+              "componentName": "ResponsiveElement",
+              "properties": [
+                {
+                  "importPath": "terra-responsive-element",
+                  "relativeUrl": "/terra-responsive-element/responsive-element/responsive-element"
+                }
+              ]
+            }
+          ]
+        }""";
 
     private static final String DOCUMENTATION_HTML = "<code>C:\\projects\\plugindev\\somefilename.js</code>" +
         "<br>" +

@@ -32,10 +32,6 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class RenameScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    public RenameScreenshotsAction() {
-        super(TerraBundle.toolWindow("rename.screenshots"));
-    }
-
     /**
      * Handles the action when the user clicks the Rename Screenshots menu item.
      * <p>

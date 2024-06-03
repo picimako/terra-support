@@ -6,6 +6,7 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiFile;
@@ -61,7 +62,7 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
         PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
 
         NavigateToScreenshotUsageProjectViewAction action = new NavigateToScreenshotUsageProjectViewAction();
-        action.actionPerformed(new TestActionEvent(dataId -> CommonDataKeys.PROJECT.is(dataId) ? getProject() : null));
+        action.actionPerformed(TestActionEvent.createTestEvent(dataId -> CommonDataKeys.PROJECT.is(dataId) ? getProject() : null));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
         assertThat(myFixture.getCaretOffset()).isZero();
@@ -78,14 +79,10 @@ public class NavigateToScreenshotUsageProjectViewActionTest extends TerraToolkit
             .withMessage("There is no spec file available to navigate to. It may have been removed.");
     }
 
-    private TestActionEvent doTestActionEvent(PsiFile screenshot) {
-        return new TestActionEvent(dataId -> {
-            if (CommonDataKeys.PSI_FILE.is(dataId)) {
-                return screenshot;
-            }
-            if (CommonDataKeys.PROJECT.is(dataId)) {
-                return getProject();
-            }
+    private AnActionEvent doTestActionEvent(PsiFile screenshot) {
+        return TestActionEvent.createTestEvent(dataId -> {
+            if (CommonDataKeys.PSI_FILE.is(dataId)) return screenshot;
+            if (CommonDataKeys.PROJECT.is(dataId)) return getProject();
             return null;
         });
     }

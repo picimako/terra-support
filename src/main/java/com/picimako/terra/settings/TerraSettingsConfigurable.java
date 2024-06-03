@@ -40,7 +40,7 @@ public class TerraSettingsConfigurable implements Configurable {
     }
 
     @Override
-    public void apply() throws ConfigurationException {
+    public void apply() {
         var settings = TerraApplicationState.getInstance();
         settings.wdioRootPaths = component.getWdioRootPaths();
         settings.showConfirmationBeforeScreenshotDeletion = component.isScreenshotDeletionConfirmationCheckboxSelected();

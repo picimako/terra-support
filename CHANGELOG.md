@@ -2,8 +2,12 @@
 
 ## [Unreleased]
 
-## [1.7.0]
+## [1.8.0]
+### Changed
+- New supported IDE version range: 2023.1.6-2024.2-EAP.
+- Plugin configuration and dependency updates.
 
+## [1.7.0]
 ### Changed
 - Temporarily disable quick documentations for Terra Wdio functions in Terra spec files.
 

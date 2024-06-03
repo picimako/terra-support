@@ -14,7 +14,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
@@ -31,15 +30,6 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
 public class NavigateToScreenshotUsageAction extends AbstractTerraWdioToolWindowAction {
 
     private ToScreenshotUsageNavigator navigator;
-
-    /**
-     * Creates a NavigateToScreenshotUsageAction instance.
-     * <p>
-     * Also registers the common Go to Declaration shortcut key for this action.
-     */
-    public NavigateToScreenshotUsageAction() {
-        super(TerraBundle.toolWindow("screenshot.navigate.to.usage"));
-    }
 
     /**
      * Handles the action when the user clicks the Navigate to Usage menu item.

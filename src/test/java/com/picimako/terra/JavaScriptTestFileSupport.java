@@ -16,45 +16,48 @@ import com.intellij.psi.PsiFileFactory;
  */
 public final class JavaScriptTestFileSupport {
 
-    public static final String FILE_WITH_IMPORT = "import React, { useState } from 'react';\n" +
-        "import Placeholder from '@cerner/terra-docs';\n" +
-        "import ResponsiveElement from 'terra-responsive-element';\n" +
-        "import SomeNotTerraComponent from 'not-terra-component';\n" +
-        "const BreakpointExample = () => {\n" +
-        "  const [breakpoint, setBreakpoint] = useState('');\n" +
-        "  return (\n" +
-        "    <ResponsiveElement onChange={value => setBreakpoint(value)}>\n" +
-        "      <Placeholder title={breakpoint} />\n" +
-        "    </ResponsiveElement>\n" +
-        "    <SomeNotTerraComponent />\n" +
-        "  );\n" +
-        "};\n" +
-        "export default BreakpointExample;";
+    public static final String FILE_WITH_IMPORT = """
+        import React, { useState } from 'react';
+        import Placeholder from '@cerner/terra-docs';
+        import ResponsiveElement from 'terra-responsive-element';
+        import SomeNotTerraComponent from 'not-terra-component';
+        const BreakpointExample = () => {
+          const [breakpoint, setBreakpoint] = useState('');
+          return (
+            <ResponsiveElement onChange={value => setBreakpoint(value)}>
+              <Placeholder title={breakpoint} />
+            </ResponsiveElement>
+            <SomeNotTerraComponent />
+          );
+        };
+        export default BreakpointExample;""";
 
-    public static final String FILE_WITHOUT_IMPORT = "import React, { useState } from 'react';\n" +
-        "import Placeholder from '@cerner/terra-docs';\n" +
-        "const BreakpointExample = () => {\n" +
-        "  const [breakpoint, setBreakpoint] = useState('');\n" +
-        "  return (\n" +
-        "    <ResponsiveElement onChange={value => setBreakpoint(value)}>\n" +
-        "      <Placeholder title={breakpoint} />\n" +
-        "    </ResponsiveElement>\n" +
-        "  );\n" +
-        "};\n" +
-        "export default BreakpointExample;";
+    public static final String FILE_WITHOUT_IMPORT = """
+        import React, { useState } from 'react';
+        import Placeholder from '@cerner/terra-docs';
+        const BreakpointExample = () => {
+          const [breakpoint, setBreakpoint] = useState('');
+          return (
+            <ResponsiveElement onChange={value => setBreakpoint(value)}>
+              <Placeholder title={breakpoint} />
+            </ResponsiveElement>
+          );
+        };
+        export default BreakpointExample;""";
 
-    public static final String FILE_WITHOUT_IMPORT_FROM_CLAUSE = "import React, { useState } from 'react';\n" +
-        "import Placeholder from '@cerner/terra-docs';\n" +
-        "import ResponsiveElement;\n" +
-        "const BreakpointExample = () => {\n" +
-        "  const [breakpoint, setBreakpoint] = useState('');\n" +
-        "  return (\n" +
-        "    <ResponsiveElement onChange={value => setBreakpoint(value)}>\n" +
-        "      <Placeholder title={breakpoint} />\n" +
-        "    </ResponsiveElement>\n" +
-        "  );\n" +
-        "};\n" +
-        "export default BreakpointExample;";
+    public static final String FILE_WITHOUT_IMPORT_FROM_CLAUSE = """
+        import React, { useState } from 'react';
+        import Placeholder from '@cerner/terra-docs';
+        import ResponsiveElement;
+        const BreakpointExample = () => {
+          const [breakpoint, setBreakpoint] = useState('');
+          return (
+            <ResponsiveElement onChange={value => setBreakpoint(value)}>
+              <Placeholder title={breakpoint} />
+            </ResponsiveElement>
+          );
+        };
+        export default BreakpointExample;""";
 
     /**
      * Creates a {@link PsiFile} object from the argument file content.

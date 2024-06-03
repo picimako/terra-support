@@ -29,12 +29,11 @@ kotlin {
 dependencies {
     //https://kotlinlang.org/docs/reflection.html#jvm-dependency
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
-    //testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
 
     //Testing
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.assertj:assertj-core:3.25.2")
-    testImplementation("org.mockito:mockito-core:5.10.0")
+    testImplementation("org.assertj:assertj-core:3.26.0")
+    testImplementation("org.mockito:mockito-core:5.12.0")
     testImplementation("org.mockito:mockito-inline:5.2.0") //for using static method mocking
 }
 

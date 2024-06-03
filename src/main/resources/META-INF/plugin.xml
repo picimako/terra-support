@@ -2,13 +2,13 @@
 <idea-plugin require-restart="true">
     <name>Terra Support</name>
     <id>terra.support</id>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
     <resource-bundle>messages.TerraBundle</resource-bundle>
     <resource-bundle>messages.TerraQuickDocBundle</resource-bundle>
 
     <!-- https://jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
-    <idea-version since-build="223.8836.41"/>
+    <idea-version since-build="231.9414.13"/>
 
     <description>Adds dev and test support for Cerner's various Terra libraries.</description>
 
@@ -105,10 +105,11 @@
 
     <actions>
         <group id="ScreenshotUsageNavigation" text="Navigate to Screenshot Usage" compact="true">
-            <action id="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
+            <action id="terra.wdio.project.view.screenshot.navigate.to.usage"
                     class="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
                     text="Navigate to Screenshot Usage"
-                    description="Navigates to the Terra call validating this screenshot">
+                    description="Navigates to the Terra call validating this screenshot"
+                    icon="org.intellij.images.ImagesIcons.ImagesFileType">
                 <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
             </action>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
@@ -116,30 +117,30 @@
 
         <group id="terra.wdio.toolwindow.ScreenshotActionsGroup">
             <!-- Alteration actions -->
-            <action id="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
+            <action id="terra.wdio.toolwindow.delete.screenshots"
                     class="com.picimako.terra.wdio.toolwindow.action.DeleteScreenshotsAction"
                     use-shortcut-of="$Delete">
             </action>
-            <action id="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
+            <action id="terra.wdio.toolwindow.rename.screenshots"
                     class="com.picimako.terra.wdio.toolwindow.action.RenameScreenshotsAction"
                     use-shortcut-of="RenameElement">
             </action>
-            <action id="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
+            <action id="terra.wdio.toolwindow.replace.reference"
                     class="com.picimako.terra.wdio.toolwindow.action.ReplaceReferenceWithLatestAction"
                     use-shortcut-of="Replace">
             </action>
             <separator/>
             <!-- Navigation actions -->
-            <action id="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
+            <action id="terra.wdio.toolwindow.screenshot.navigate.to.usage"
                     class="com.picimako.terra.wdio.toolwindow.action.NavigateToScreenshotUsageAction"
                     use-shortcut-of="GotoDeclaration">
             </action>
             <separator/>
             <!-- Comparison actions -->
-            <action id="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction"
+            <action id="terra.wdio.toolwindow.compare.latests.with.references"
                     class="com.picimako.terra.wdio.toolwindow.action.CompareLatestWithReferenceScreenshotsAction">
             </action>
-            <action id="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
+            <action id="terra.wdio.toolwindow.show.diff.title"
                     class="com.picimako.terra.wdio.toolwindow.action.ShowDiffScreenshotsAction"
                     use-shortcut-of="Diff.ShowDiff">
             </action>

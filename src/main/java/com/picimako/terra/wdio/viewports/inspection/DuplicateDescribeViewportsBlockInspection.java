@@ -45,7 +45,7 @@ public class DuplicateDescribeViewportsBlockInspection extends TerraWdioInspecti
 
         return new JSElementVisitor() {
             @Override
-            public void visitJSFile(JSFile file) {
+            public void visitJSFile(@NotNull JSFile file) {
                 super.visitJSFile(file);
 
                 var describeViewportsBlocks = PsiTreeUtil.collectElements(file,

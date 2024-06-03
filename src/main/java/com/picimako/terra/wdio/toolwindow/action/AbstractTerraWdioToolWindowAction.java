@@ -3,6 +3,7 @@
 package com.picimako.terra.wdio.toolwindow.action;
 
 import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformCoreDataKeys;
@@ -18,10 +19,6 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  * @since 0.1.0
  */
 public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
-
-    protected AbstractTerraWdioToolWindowAction(String text) {
-        super(text);
-    }
 
     public static AbstractTerraWdioToolWindowAction getAction(String actionId) {
         return (AbstractTerraWdioToolWindowAction) ActionManager.getInstance().getAction(actionId);
@@ -73,6 +70,11 @@ public abstract class AbstractTerraWdioToolWindowAction extends AnAction {
     @Override
     public void update(@NotNull AnActionEvent e) {
         e.getPresentation().setEnabled(meetsPreconditions(getWdioTreeFrom(e)));
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     //Helpers
