@@ -11,7 +11,6 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nullable;
 
-import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsPreview;
 import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
 
@@ -21,10 +20,6 @@ import com.picimako.terra.wdio.toolwindow.node.TerraWdioTree;
  * @since 0.1.0
  */
 public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWdioToolWindowAction {
-
-    public CompareLatestWithReferenceScreenshotsAction() {
-        super(TerraBundle.toolWindow("compare.latests.with.references"));
-    }
 
     /**
      * Opens a {@link com.picimako.terra.wdio.imagepreview.ReferenceToLatestScreenshotsPreview} for the

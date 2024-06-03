@@ -10,16 +10,15 @@ import static com.picimako.terra.wdio.TerraWdioFolders.specFolderIdentifier;
 
 import java.util.Arrays;
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.psi.PsiBinaryFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.jetbrains.annotations.NotNull;
 
-import com.picimako.terra.resources.TerraBundle;
 import com.picimako.terra.wdio.ProblemDialogs;
 import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
 
@@ -42,10 +41,6 @@ import com.picimako.terra.wdio.ToScreenshotUsageNavigator;
  * @since 0.5.0
  */
 public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
-
-    public NavigateToScreenshotUsageProjectViewAction() {
-        super(TerraBundle.message("terra.wdio.project.view.screenshot.navigate.to.usage"), null, ImageFileType.INSTANCE.getIcon());
-    }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
@@ -79,5 +74,10 @@ public class NavigateToScreenshotUsageProjectViewAction extends AnAction {
         e.getPresentation().setEnabled(isUsingTerra(e.getProject())
             && isInSnapshotsDirectory(e.getData(CommonDataKeys.VIRTUAL_FILE))
             && e.getData(CommonDataKeys.PSI_FILE) instanceof PsiBinaryFile);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 }

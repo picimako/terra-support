@@ -43,7 +43,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
         assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
-        action.actionPerformed(new TestActionEvent());
+        action.actionPerformed(TestActionEvent.createTestEvent());
 
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("used[default].png").get().isUnused()).isFalse();
         assertThat(relatedFindUnusedScreenshotSpec.findScreenshotNodeByName("unused[default].png").get().isUnused()).isTrue();
@@ -67,7 +67,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
         assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
-        action.actionPerformed(new TestActionEvent());
+        action.actionPerformed(TestActionEvent.createTestEvent());
 
         //This is marked as unused because there is no spec file present that references this image
         //Although FindUnusedScreenshot-spec has a validation for terra_screenshot[collect].png, it doesn't have an image for this spec

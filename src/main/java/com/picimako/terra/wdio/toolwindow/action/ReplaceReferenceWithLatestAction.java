@@ -33,10 +33,6 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class ReplaceReferenceWithLatestAction extends AbstractTerraWdioToolWindowAction {
 
-    public ReplaceReferenceWithLatestAction() {
-        super(TerraBundle.toolWindow("replace.reference"));
-    }
-
     /**
      * Handles the action when the user clicks the Replace Reference With Latest menu item.
      * <p>

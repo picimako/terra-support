@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import javax.swing.tree.TreePath;
 
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.fileEditor.FileEditorManager;
@@ -76,17 +77,11 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
             .withMessage("There is no spec file available to navigate to. It may have been removed.");
     }
 
-    private TestActionEvent doTestActionEvent(PsiFile screenshot) {
-        return new TestActionEvent(dataId -> {
-            if (CommonDataKeys.PSI_FILE.is(dataId)) {
-                return screenshot;
-            }
-            if (CommonDataKeys.PROJECT.is(dataId)) {
-                return getProject();
-            }
-            if (PlatformDataKeys.CONTEXT_COMPONENT.is(dataId)) {
-                return wdioTree();
-            }
+    private AnActionEvent doTestActionEvent(PsiFile screenshot) {
+        return TestActionEvent.createTestEvent(dataId -> {
+            if (CommonDataKeys.PSI_FILE.is(dataId)) return screenshot;
+            if (CommonDataKeys.PROJECT.is(dataId)) return getProject();
+            if (PlatformDataKeys.CONTEXT_COMPONENT.is(dataId)) return wdioTree();
             return null;
         });
     }

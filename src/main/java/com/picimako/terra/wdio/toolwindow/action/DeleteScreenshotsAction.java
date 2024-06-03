@@ -28,10 +28,6 @@ import com.picimako.terra.wdio.toolwindow.node.TreeSpecNode;
  */
 public class DeleteScreenshotsAction extends AbstractTerraWdioToolWindowAction {
 
-    public DeleteScreenshotsAction() {
-        super(TerraBundle.toolWindow("delete.screenshots"));
-    }
-
     /**
      * Handles the action when the user clicks the Delete Screenshots menu item.
      * <p>

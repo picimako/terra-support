@@ -1,6 +1,7 @@
 package com.picimako.terra.wdio.toolwindow;
 
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.ToggleAction;
 import com.intellij.openapi.project.Project;
@@ -36,5 +37,10 @@ public class ToggleStatisticsAction extends ToggleAction {
     public void setSelected(@NotNull AnActionEvent e, boolean state) {
         ScreenshotStatisticsProjectService.getInstance(e.getProject()).isShowStatistics = state;
         updateUICallback.run();
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 }
