@@ -34,16 +34,17 @@ public class TerraViewportsNotInAscendingOrderInspectionTest extends TerraToolki
 
     public void testTerraViewportsNotInAscendingOrderInDescribeTests() {
         doWdioSpecTestByText(
-            "Terra.describeTests('Name', { formFactors: ['huge','enormous'] }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: <warning descr=\"Viewports are not in ascending order by their widths.\">['small','medium','tiny']</warning> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: <warning descr=\"Viewports are not in ascending order by their widths.\">['huge','small','tiny']</warning> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: ['huge'] }, () => {\n" +
-                "});");
+            """
+                Terra.describeTests('Name', { formFactors: ['huge','enormous'] }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: <warning descr="Viewports are not in ascending order by their widths.">['small','medium','tiny']</warning> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: <warning descr="Viewports are not in ascending order by their widths.">['huge','small','tiny']</warning> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: ['huge'] }, () => {
+                });""");
     }
 }

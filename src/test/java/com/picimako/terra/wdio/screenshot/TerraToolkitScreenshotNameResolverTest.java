@@ -18,29 +18,32 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
 
     public void testResolveName() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[with_name].png");
     }
 
     public void testResolveNameToEmptyStringIfNoParentDescribeCall() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "{\n" +
-            "    Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });\n" +
-            "}");
+            """
+                {
+                    Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });
+                }""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEmpty();
     }
 
     public void testResolveNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe(() => {\n" +
-            "        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe(() => {
+                        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEmpty();
     }
 
@@ -48,41 +51,45 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
 
     public void testDefaultScreenshotPartialNameWithTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with name <caret>[default]', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with name <caret>[default]', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[default].png");
     }
 
     public void testResolvePartialNameWithTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with name <caret>[test id]', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with name <caret>[test id]', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[test_id].png");
     }
 
     public void testResolvePartialNameWithMultipleTestIds() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with <caret>[test id] and another [testid]', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with <caret>[test id] and another [testid]', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[test_id]_and_another_[testid].png");
     }
 
     public void testResolveFullNameWithNonMatchingPartialTestId() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with name <caret>[tes)t id]', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with name <caret>[tes)t id]', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveName(element)).isEqualTo("terra_screenshot[with_name_[tes)t_id]].png");
     }
 
@@ -90,39 +97,44 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
 
     public void testResolveDefaultName() {
         JSExpression element = configureFileForJSExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
     }
 
     public void testResolveDefaultNameForNonDefaultValidation() {
         JSExpression element = configureFileForJSExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreen<caret>shot('default', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreen<caret>shot('default', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveDefaultName(element)).isEqualTo("terra_screenshot[default].png");
     }
 
     public void testResolveDefaultNameToEmptyStringIfNoParentDescribeCall() {
         JSExpression element = configureFileForJSExpression(
-            "{\n" +
-            "    Terra.it.matchesScreen<caret>shot({ selector: '#selector' });\n" +
-            "}\n");
+            """
+                {
+                    Terra.it.matchesScreen<caret>shot({ selector: '#selector' });
+                }
+                """);
         assertThat(new TerraToolkitScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
     public void testResolveDefaultNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
         JSExpression element = configureFileForJSExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe(() => {\n" +
-            "        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe(() => {
+                        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveDefaultName(element)).isEmpty();
     }
 
@@ -130,21 +142,23 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
 
     public void testResolveByLiteralNoFallback() {
         JSLiteralExpression element = configureFileForJSLiteralExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveWithFallback(element, null)).isEqualTo("terra_screenshot[with_name].png");
     }
 
     public void testResolveByMethodExpressionFallback() {
         JSExpression element = configureFileForJSExpression(
-            "describe('outer describe', () => {\n" +
-            "    describe('terra screenshot', () => {\n" +
-            "        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });\n" +
-            "    });\n" +
-            "});");
+            """
+                describe('outer describe', () => {
+                    describe('terra screenshot', () => {
+                        Terra.it.matchesScreen<caret>shot({ selector: '#selector' });
+                    });
+                });""");
         assertThat(new TerraToolkitScreenshotNameResolver().resolveWithFallback(null, element)).isEqualTo("terra_screenshot[default].png");
     }
 

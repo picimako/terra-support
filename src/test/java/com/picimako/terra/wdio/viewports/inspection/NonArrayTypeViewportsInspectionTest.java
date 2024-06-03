@@ -34,19 +34,20 @@ public class NonArrayTypeViewportsInspectionTest extends TerraToolkitInspectionT
 
     public void testNonArrayTypeViewportsInDescribeTests() {
         doWdioSpecTestByText(
-            "Terra.describeTests('Name', { formFactors: <error descr=\"Non-array-type values are not allowed for the viewports argument.\">'asd'</error> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: <error descr=\"Non-array-type values are not allowed for the viewports argument.\">{ }</error> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: <error descr=\"Non-array-type values are not allowed for the viewports argument.\">true</error> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: <error descr=\"Non-array-type values are not allowed for the viewports argument.\">45</error> }, () => {\n" +
-                "});\n" +
-                "\n" +
-                "Terra.describeTests('Another name', { formFactors: ['huge'] }, () => {\n" +
-                "});");
+            """
+                Terra.describeTests('Name', { formFactors: <error descr="Non-array-type values are not allowed for the viewports argument.">'asd'</error> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: <error descr="Non-array-type values are not allowed for the viewports argument.">{ }</error> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: <error descr="Non-array-type values are not allowed for the viewports argument.">true</error> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: <error descr="Non-array-type values are not allowed for the viewports argument.">45</error> }, () => {
+                });
+
+                Terra.describeTests('Another name', { formFactors: ['huge'] }, () => {
+                });""");
     }
 }

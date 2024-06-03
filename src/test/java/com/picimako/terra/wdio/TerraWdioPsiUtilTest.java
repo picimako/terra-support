@@ -77,11 +77,12 @@ public class TerraWdioPsiUtilTest extends TerraToolkitTestCase {
 
     public void testShouldHaveText() {
         myFixture.configureByText("WdioDocumentation-spec.js",
-            "Terra.describeViewports('viewports', ['huge'], () => {\n" +
-                "    describe('terra screenshot', () => {\n" +
-                "       Terra.validates.el<caret>ement('collect');\n" +
-                "    });" +
-                "});");
+            """
+                Terra.describeViewports('viewports', ['huge'], () => {
+                    describe('terra screenshot', () => {
+                       Terra.validates.el<caret>ement('collect');
+                    });\
+                });""");
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent().getParent().getParent();
 
@@ -90,11 +91,12 @@ public class TerraWdioPsiUtilTest extends TerraToolkitTestCase {
 
     public void testShouldNotHaveTextWhenThereNoDesiredTextIsMatched() {
         myFixture.configureByText("WdioDocumentation-spec.js",
-            "Terra.describeViewports('viewports', ['huge'], () => {\n" +
-                "    describe('terra screenshot', () => {\n" +
-                "       browser.pau<caret>se(2000);\n" +
-                "    });" +
-                "});");
+            """
+                Terra.describeViewports('viewports', ['huge'], () => {
+                    describe('terra screenshot', () => {
+                       browser.pau<caret>se(2000);
+                    });\
+                });""");
 
         PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent().getParent().getParent();
 

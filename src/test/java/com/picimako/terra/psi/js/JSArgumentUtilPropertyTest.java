@@ -16,11 +16,12 @@ public class JSArgumentUtilPropertyTest extends BasePlatformTestCase {
 
     public void testNoValueReturnedForNonLiteralExpression() {
         myFixture.configureByText("Terra-spec.js",
-            "describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        Terra.validates.screenshot('test id', { <caret>selector: { } });\n" +
-                "    });\n" +
-                "});");
+            """
+                describe('Terra screenshot', () => {
+                    it('Test case', () => {
+                        Terra.validates.screenshot('test id', { <caret>selector: { } });
+                    });
+                });""");
 
         JSProperty property = (JSProperty) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         assertThat(JSArgumentUtil.getNumericValueOf(property)).isNull();
@@ -28,11 +29,12 @@ public class JSArgumentUtilPropertyTest extends BasePlatformTestCase {
 
     public void testNoValueReturnedForNonNumericLiteral() {
         myFixture.configureByText("Terra-spec.js",
-            "describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        Terra.validates.screenshot('test id', { <caret>selector: \"#selector\" });\n" +
-                "    });\n" +
-                "});");
+            """
+                describe('Terra screenshot', () => {
+                    it('Test case', () => {
+                        Terra.validates.screenshot('test id', { <caret>selector: "#selector" });
+                    });
+                });""");
 
         JSProperty property = (JSProperty) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         assertThat(JSArgumentUtil.getNumericValueOf(property)).isNull();
@@ -40,11 +42,12 @@ public class JSArgumentUtilPropertyTest extends BasePlatformTestCase {
 
     public void testValueReturnedForNumericLiteral() {
         myFixture.configureByText("Terra-spec.js",
-            "describe('Terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        Terra.validates.screenshot('test id', { <caret>mismatchTolerance: 0.5 });\n" +
-                "    });\n" +
-                "});");
+            """
+                describe('Terra screenshot', () => {
+                    it('Test case', () => {
+                        Terra.validates.screenshot('test id', { <caret>mismatchTolerance: 0.5 });
+                    });
+                });""");
 
         JSProperty property = (JSProperty) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         assertThat(JSArgumentUtil.getNumericValueOf(property)).isEqualTo(0.5);

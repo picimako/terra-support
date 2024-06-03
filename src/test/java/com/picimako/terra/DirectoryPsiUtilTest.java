@@ -19,16 +19,14 @@ public class DirectoryPsiUtilTest extends BasePlatformTestCase{
 
     public void testNotReturnDirectoryWhenDirectoryPathIsNull() {
         myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
-        PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), null);
 
-        assertThat(tests).isNull();
+        assertThat(DirectoryPsiUtil.findDirectory(getProject(), null)).isNull();
     }
 
     public void testNotReturnDirectorySubDirectoryIsNull() {
         myFixture.configureByFile("tests/wdio/MissingScreenshots-spec.js");
-        PsiDirectory tests = DirectoryPsiUtil.findDirectory(getProject(), "tests/jest");
 
-        assertThat(tests).isNull();
+        assertThat(DirectoryPsiUtil.findDirectory(getProject(), "tests/jest")).isNull();
     }
 
     public void testReturnDirectoryForName() {

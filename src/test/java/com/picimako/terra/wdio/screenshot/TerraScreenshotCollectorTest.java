@@ -69,11 +69,12 @@ public class TerraScreenshotCollectorTest extends TerraToolkitTestCase {
     public void testReturnsNoScreenshotForEmptyScreenshotName() {
         myFixture.copyFileToProject("package.json");
         myFixture.configureByText("Collect-spec.js",
-            "describe('terra screenshot', () => {\n" +
-                "    it('Test case', () => {\n" +
-                "        Terra.validates.screenshot(<caret>'', { selector: '#selector' });\n" +
-                "    });\n" +
-                "});");
+            """
+                describe('terra screenshot', () => {
+                    it('Test case', () => {
+                        Terra.validates.screenshot(<caret>'', { selector: '#selector' });
+                    });
+                });""");
 
         JSLiteralExpression element = (JSLiteralExpression) myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
 

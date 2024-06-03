@@ -93,15 +93,6 @@ public final class TerraDescribeViewportsDocumentationProvider implements Docume
             + CONTENT_END;
     }
 
-    private static final class Breakpoint {
-        private final String minimumValue;
-        private final String mediaQuery;
-        private final String description;
-
-        Breakpoint(String minimumValue, String mediaQuery, String description) {
-            this.minimumValue = minimumValue;
-            this.mediaQuery = mediaQuery;
-            this.description = description;
-        }
+    private record Breakpoint(String minimumValue, String mediaQuery, String description) {
     }
 }

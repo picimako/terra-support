@@ -15,43 +15,44 @@ import com.picimako.terra.documentation.DocumentationComponents.ComponentPropert
  */
 public class DocumentationComponentsTest {
 
-    private static final String DOCUMENTATION = "{\n" +
-        "  \"components\": [\n" +
-        "    {\n" +
-        "      \"componentName\": \"ActionFooter\",\n" +
-        "      \"properties\": [\n" +
-        "        {\n" +
-        "          \"importPath\": \"terra-action-footer\",\n" +
-        "          \"relativeUrl\": \"/terra-action-footer/action-footer/standard\"\n" +
-        "        }\n" +
-        "      ]\n" +
-        "    },\n" +
-        "    {\n" +
-        "      \"componentName\": \"ActionHeader\",\n" +
-        "      \"properties\": [\n" +
-        "        {\n" +
-        "          \"importPath\": \"terra-action-header\",\n" +
-        "          \"relativeUrl\": \"/terra-action-header/action-header/action-header\"\n" +
-        "        }\n" +
-        "      ]\n" +
-        "    },\n" +
-        "    {\n" +
-        "      \"componentName\": \"Item\",\n" +
-        "      \"properties\": [\n" +
-        "        {\n" +
-        "          \"family\": \"Dropdown Button\",\n" +
-        "          \"importPath\": \"terra-dropdown-button\",\n" +
-        "          \"relativeUrl\": \"/terra-dropdown-button/dropdown-button/dropdown-button\"\n" +
-        "        },\n" +
-        "        {\n" +
-        "          \"family\": \"List\",\n" +
-        "          \"importPath\": \"terra-list/lib/index\",\n" +
-        "          \"relativeUrl\": \"/terra-list/list/list-item\"\n" +
-        "        }\n" +
-        "      ]\n" +
-        "    }\n" +
-        "  ]\n" +
-        "}";
+    private static final String DOCUMENTATION = """
+        {
+          "components": [
+            {
+              "componentName": "ActionFooter",
+              "properties": [
+                {
+                  "importPath": "terra-action-footer",
+                  "relativeUrl": "/terra-action-footer/action-footer/standard"
+                }
+              ]
+            },
+            {
+              "componentName": "ActionHeader",
+              "properties": [
+                {
+                  "importPath": "terra-action-header",
+                  "relativeUrl": "/terra-action-header/action-header/action-header"
+                }
+              ]
+            },
+            {
+              "componentName": "Item",
+              "properties": [
+                {
+                  "family": "Dropdown Button",
+                  "importPath": "terra-dropdown-button",
+                  "relativeUrl": "/terra-dropdown-button/dropdown-button/dropdown-button"
+                },
+                {
+                  "family": "List",
+                  "importPath": "terra-list/lib/index",
+                  "relativeUrl": "/terra-list/list/list-item"
+                }
+              ]
+            }
+          ]
+        }""";
     private static final DocumentationComponents COMPONENTS = new Gson().fromJson(DOCUMENTATION, DocumentationComponents.class);
 
     @Test

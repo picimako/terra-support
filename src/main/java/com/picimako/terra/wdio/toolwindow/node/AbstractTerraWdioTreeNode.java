@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.SmartList;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
  * (called references in this context), so that the file system resources can be reached and manipulated easier.
  */
 public abstract class AbstractTerraWdioTreeNode implements TerraWdioTreeNode {
+    @Getter
     protected final List<VirtualFile> references = new SmartList<>();
     protected final String displayName;
     protected final Project project;
@@ -45,10 +47,6 @@ public abstract class AbstractTerraWdioTreeNode implements TerraWdioTreeNode {
      */
     public void addReference(VirtualFile virtualFile) {
         references.add(virtualFile);
-    }
-
-    public List<VirtualFile> getReferences() {
-        return references;
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.TreeUIHelper;
 import com.intellij.ui.components.JBScrollPane;
+import lombok.Getter;
 
 import com.picimako.terra.wdio.toolwindow.event.KeyboardListeningPopupMenuInvoker;
 import com.picimako.terra.wdio.toolwindow.event.MouseListeningPopupMenuInvoker;
@@ -36,6 +37,7 @@ public class TerraWdioScreenshotsPanel extends JPanel {
 
     private static final String SCREENSHOT_ACTIONS_GROUP = "terra.wdio.toolwindow.ScreenshotActionsGroup";
     private final transient Project project;
+    @Getter
     private TerraWdioTree tree;
 
     public TerraWdioScreenshotsPanel(Project project) {
@@ -53,10 +55,6 @@ public class TerraWdioScreenshotsPanel extends JPanel {
         registerActionsAndListenersForTree();
         add(new JBScrollPane(tree));
         TreeUIHelper.getInstance().installTreeSpeedSearch(tree);
-    }
-
-    public TerraWdioTree getTree() {
-        return tree;
     }
 
     /**
