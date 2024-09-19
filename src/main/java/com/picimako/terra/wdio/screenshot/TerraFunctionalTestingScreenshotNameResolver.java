@@ -2,9 +2,9 @@
 
 package com.picimako.terra.wdio.screenshot;
 
-import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
+import com.intellij.openapi.util.text.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,7 +60,7 @@ public class TerraFunctionalTestingScreenshotNameResolver extends AbstractScreen
     @NotNull
     public String resolveName(JSLiteralExpression element) {
         if (element != null) {
-            String resolved = normalize(parseTestId(JsonPsiUtil.stripQuotes(element.getText())));
+            String resolved = normalize(parseTestId(StringUtil.unquoteString(element.getText())));
             if (!resolved.isEmpty()) {
                 return resolved + ".png";
             }

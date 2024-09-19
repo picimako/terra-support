@@ -4,12 +4,12 @@ package com.picimako.terra.wdio.screenshot;
 
 import static com.picimako.terra.wdio.TerraWdioPsiUtil.TERRA_DESCRIBE_VIEWPORTS;
 
-import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
 import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.util.Condition;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
@@ -81,7 +81,7 @@ public class TerraToolkitScreenshotNameResolver extends AbstractScreenshotNameRe
     @NotNull
     @Override
     public String resolveName(JSLiteralExpression element) {
-        return resolve(element, JsonPsiUtil.stripQuotes(element.getText()));
+        return resolve(element, StringUtil.unquoteString(element.getText()));
     }
 
     /**

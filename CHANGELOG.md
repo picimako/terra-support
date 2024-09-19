@@ -7,6 +7,7 @@
 - New supported IDE version range: 2024.2 - 2024.3.*.
 - Updated the project to use the IntelliJ Platform Gradle Plugin 2.0.
 - Updated the project to use JDK 21.
+- Removed dependency on the JSON module/plugin.
 
 ### Fixed
 - Screenshot name and CSS selector inlay hints are again displayed properly and according to the settings.

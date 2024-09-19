@@ -9,12 +9,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Optional;
 
-import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSDefinitionExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -97,7 +97,7 @@ public final class GlobalTerraSelectorRetriever {
             })
             .collect(toList());
         return !terraSelectors.isEmpty()
-            ? JsonPsiUtil.stripQuotes(terraSelectors.get(terraSelectors.size() - 1).getValue().getText())
+            ? StringUtil.unquoteString(terraSelectors.get(terraSelectors.size() - 1).getValue().getText())
             : null;
     }
 
