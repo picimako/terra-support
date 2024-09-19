@@ -41,8 +41,7 @@ public class TerraScreenshotValidationLineMarkerProvider extends RelatedItemLine
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
-        if (isUsingTerra(element.getProject()) && element instanceof JSCallExpression && isScreenshotValidationCall((JSCallExpression) element)) {
-            var terraCallExpr = (JSCallExpression) element;
+        if (isUsingTerra(element.getProject()) && element instanceof JSCallExpression terraCallExpr && isScreenshotValidationCall(terraCallExpr)) {
             var nameArgument = getFirstArgumentAsStringLiteral(terraCallExpr.getArgumentList());
             if (isUsingTerraToolkit(element.getProject()) && nameArgument == null) {
                 var methodExpression = terraCallExpr.getMethodExpression();

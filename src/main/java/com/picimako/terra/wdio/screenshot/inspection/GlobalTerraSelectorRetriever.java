@@ -94,10 +94,9 @@ public final class GlobalTerraSelectorRetriever {
                         .orElse(false);
                 }
                 return false;
-            })
-            .collect(toList());
+            }).toList();
         return !terraSelectors.isEmpty()
-            ? StringUtil.unquoteString(terraSelectors.get(terraSelectors.size() - 1).getValue().getText())
+            ? StringUtil.unquoteString(terraSelectors.getLast().getValue().getText())
             : null;
     }
 

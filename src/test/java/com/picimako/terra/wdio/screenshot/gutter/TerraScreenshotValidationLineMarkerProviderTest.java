@@ -35,7 +35,7 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
         provider.collectNavigationMarkers(element, collection);
 
         assertThat(collection).hasSize(1);
-        assertThat(collection.get(0).getLineMarkerTooltip()).isEqualTo("Navigate to related screenshots");
+        assertThat(collection.getFirst().getLineMarkerTooltip()).isEqualTo("Navigate to related screenshots");
     }
 
     public void testDoesntAddGutterIconForNonExistentDefaultScreenshot() {
@@ -65,7 +65,7 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
         provider.collectNavigationMarkers(element, collection);
 
         assertThat(collection).hasSize(1);
-        assertThat(collection.get(0).getLineMarkerTooltip()).isEqualTo("Screenshot validation happens on this line");
+        assertThat(collection.getFirst().getLineMarkerTooltip()).isEqualTo("Screenshot validation happens on this line");
     }
 
     private PsiElement configureFiles(String specPath, boolean getParent, String... screenshotPaths) {

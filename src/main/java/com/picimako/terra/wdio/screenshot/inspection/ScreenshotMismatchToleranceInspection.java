@@ -91,8 +91,7 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
                 JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
                 if (misMatchToleranceProperty != null) {
                     checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
-                    if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
-                        JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
+                    if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression literal) {
                         if (!literal.isNumericLiteral())
                             registerProblemForNonNumericPropertyValue(literal, holder);
                         else checkForMismatchToleranceAboveThreshold(literal, holder);

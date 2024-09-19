@@ -22,8 +22,8 @@ class TerraScreenshotInlayHintPanelProvider {
         fun createConfigurable(): ImmediateConfigurable {
             return object : ImmediateConfigurable {
                 val screenshotInlayTypeModel =
-                    DefaultComboBoxModel(InlayType.values())
-                val selectorInlayTypeModel = DefaultComboBoxModel(InlayType.values())
+                    DefaultComboBoxModel(InlayType.entries.toTypedArray())
+                val selectorInlayTypeModel = DefaultComboBoxModel(InlayType.entries.toTypedArray())
 
                 override val mainCheckboxText: String
                     get() = TerraBundle.inlay("option.main")

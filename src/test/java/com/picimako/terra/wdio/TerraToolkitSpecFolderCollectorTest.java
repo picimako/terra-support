@@ -31,6 +31,6 @@ public class TerraToolkitSpecFolderCollectorTest extends TerraToolkitTestCase {
         List<VirtualFile> diffs = TerraResourceManager.getInstance(getProject()).specFolderCollector().collectSpecFoldersForTypeInside("diff", filesAndFoldersInWdioRoot).collect(toList());
 
         assertThat(diffs).hasSize(1);
-        assertThat(diffs.get(0).getPath()).isEqualTo("/src/tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec");
+        assertThat(diffs.getFirst().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/diff/en/chrome_huge/some-spec");
     }
 }

@@ -40,7 +40,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(TestActionEvent.createTestEvent());
@@ -64,7 +64,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(TestActionEvent.createTestEvent());

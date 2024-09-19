@@ -89,7 +89,7 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
     private TerraWdioTree wdioTree() {
         TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
         TerraWdioTree tree = new TerraWdioTree(treeModel);
-        TreeSpecNode spec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode spec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         TreeScreenshotNode screenshot = spec.getScreenshot(0);
         tree.addSelectionPath(new TreePath(new Object[]{treeModel.getRoot(), spec, screenshot}));
         return tree;

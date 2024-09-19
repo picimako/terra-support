@@ -41,7 +41,7 @@ public class CompareLatestWithReferenceScreenshotsAction extends AbstractTerraWd
         if (project!= null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
             var latests = asScreenshot(tree.getLastSelectedPathComponent()).getLatests();
             if (!latests.isEmpty()) {
-                var fileToOpen = latests.get(0);
+                var fileToOpen = latests.getFirst();
                 var fileEditorManager = FileEditorManager.getInstance(project);
                 fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
                 fileEditorManager.setSelectedEditor(fileToOpen, ReferenceToLatestScreenshotsPreview.EDITOR_TYPE_ID);

@@ -89,13 +89,9 @@ public final class JSArgumentUtil {
      */
     @Nullable
     public static Object getNumericValueOf(JSProperty property) {
-        if (property.getValue() instanceof JSLiteralExpression) {
-            var literal = (JSLiteralExpression) property.getValue();
-            if (literal.isNumericLiteral()) {
-                return literal.getValue();
-            }
-        }
-        return null;
+        return property.getValue() instanceof JSLiteralExpression literal && literal.isNumericLiteral()
+            ? literal.getValue()
+            : null;
     }
 
     private JSArgumentUtil() {
