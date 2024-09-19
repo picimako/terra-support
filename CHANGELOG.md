@@ -8,6 +8,10 @@
 - Updated the project to use the IntelliJ Platform Gradle Plugin 2.0.
 - Updated the project to use JDK 21.
 
+### Fixed
+- Screenshot name and CSS selector inlay hints are again displayed properly and according to the settings.
+Both settings are stored as application-level configuration.
+
 ## [1.8.0]
 ### Changed
 - New supported IDE version range: 2023.1.6-2024.2-EAP.

@@ -3,9 +3,9 @@
 package com.picimako.terra.wdio.screenshot.inlayhint
 
 import com.intellij.testFramework.utils.inlays.InlayHintsProviderTestCase
+import com.picimako.terra.settings.TerraApplicationState
 import com.picimako.terra.wdio.TerraResourceManager
 import com.picimako.terra.wdio.TerraToolkitManager
-import com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider.InlayType.Inline
 
 /**
  * Unit test for [TerraScreenshotInlayHintsProvider].
@@ -23,27 +23,26 @@ class TerraScreenshotInlayHintsProviderNoGlobalSelectorTest : InlayHintsProvider
     }
 
     fun testWithTestIdWithoutGlobalSelector() {
+        TerraApplicationState.getInstance().showScreenshotName = "Inline"
+        TerraApplicationState.getInstance().showCssSelector = "Inline"
         doTest("""
-describe('Terra screenshot', () => {
-    it('Test case', () => {
-        Terra.validates.screenshot('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-        Terra.validates.element('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-    });
-    Terra.it.matchesScreenshot('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-    Terra.it.validatesElement('test id');<# [screenshot:  Terra_screenshot[test_id].png] #>
-});""".trimIndent(), TerraScreenshotInlayHintsProvider.Settings(Inline, Inline))
+            describe('Terra screenshot', () => {
+                it('Test case', () => {
+                    Terra.validates.screenshot('test id');/*<# [screenshot:  Terra_screenshot[test_id].png] #>*/<# [screenshot:  Terra_screenshot[test_id].png] #>
+                    Terra.validates.element('test id');/*<# [screenshot:  Terra_screenshot[test_id].png] #>*/<# [screenshot:  Terra_screenshot[test_id].png] #>
+                });
+                Terra.it.matchesScreenshot('test id');/*<# [screenshot:  Terra_screenshot[test_id].png] #>*/<# [screenshot:  Terra_screenshot[test_id].png] #>
+                Terra.it.validatesElement('test id');/*<# [screenshot:  Terra_screenshot[test_id].png] #>*/<# [screenshot:  Terra_screenshot[test_id].png] #>
+            });""".trimIndent())
     }
 
-    private fun doTest(
-        text: String,
-        settings: TerraScreenshotInlayHintsProvider.Settings = TerraScreenshotInlayHintsProvider.Settings(
-            TerraScreenshotInlayHintsProvider.InlayType.Disabled, TerraScreenshotInlayHintsProvider.InlayType.Disabled)
-    ) {
+    private fun doTest(text: String) {
         doTestProvider(
             "test.js",
             text,
             TerraScreenshotInlayHintsProvider(),
-            settings
+            //This setting has no effect on how the hints are displayed
+            TerraScreenshotInlayHintsProvider.Settings()
         )
     }
 }
