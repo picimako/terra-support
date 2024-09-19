@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
@@ -9,12 +9,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.Optional;
 
-import com.intellij.json.psi.JsonPsiUtil;
 import com.intellij.lang.javascript.psi.JSDefinitionExpression;
 import com.intellij.lang.javascript.psi.JSProperty;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectUtil;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -94,10 +94,9 @@ public final class GlobalTerraSelectorRetriever {
                         .orElse(false);
                 }
                 return false;
-            })
-            .collect(toList());
+            }).toList();
         return !terraSelectors.isEmpty()
-            ? JsonPsiUtil.stripQuotes(terraSelectors.get(terraSelectors.size() - 1).getValue().getText())
+            ? StringUtil.unquoteString(terraSelectors.getLast().getValue().getText())
             : null;
     }
 

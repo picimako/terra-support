@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.imagepreview;
 
@@ -11,7 +11,6 @@ import java.util.function.Function;
 import javax.swing.*;
 
 import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorLocation;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
@@ -52,7 +51,7 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
                 .flatMap(spec -> Arrays.stream(VfsUtil.getChildren(spec))) //individual screenshot files
                 .filter(screenshot -> file.getName().equals(screenshot.getName()))
                 .map(screenshotToDiffMapper)
-                .collect(toList()));
+                .toList());
         }
         this.project = project;
     }
@@ -72,7 +71,7 @@ public abstract class AbstractScreenshotsPreview implements FileEditor {
     @Override
     public @Nullable VirtualFile getFile() {
         //At this point it is guaranteed that there will be at least one file to associate the editor with.
-        return screenshotDiffs.get(0).getOriginal();
+        return screenshotDiffs.getFirst().getOriginal();
     }
 
     @Override

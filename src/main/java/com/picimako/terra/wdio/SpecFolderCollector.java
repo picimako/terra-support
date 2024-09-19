@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio;
 
@@ -7,23 +7,15 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Collects spec folders based on image type.
+ *
+ * @param folderType Returns in which image type the argument folder is located: diff, latest, reference.
  */
-@RequiredArgsConstructor
-public final class SpecFolderCollector {
-
-    /**
-     * Returns in which image type the argument folder is located: diff, latest, reference.
-     */
-    @Nullable("Only by the no-op collector.")
-    @Getter
-    private final Function<VirtualFile, String> folderType;
+public record SpecFolderCollector(@Nullable("Only by the no-op collector.") Function<VirtualFile, String> folderType) {
 
     /**
      * Collect spec folders from within the provided set of files and folders (effectively everything from) the wdio

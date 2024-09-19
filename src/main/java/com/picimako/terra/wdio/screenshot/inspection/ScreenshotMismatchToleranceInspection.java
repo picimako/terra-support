@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
@@ -91,8 +91,7 @@ public class ScreenshotMismatchToleranceInspection extends TerraWdioInspectionBa
                 JSProperty misMatchToleranceProperty = getScreenshotValidationProperty(node, MIS_MATCH_TOLERANCE, MISMATCH_TOLERANCE);
                 if (misMatchToleranceProperty != null) {
                     checkForMismatchToleranceOutsideOfBoundaries(misMatchToleranceProperty, reportMismatchToleranceOutsideOfBoundaries, holder);
-                    if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression) {
-                        JSLiteralExpression literal = (JSLiteralExpression) misMatchToleranceProperty.getValue();
+                    if (misMatchToleranceProperty.getValue() instanceof JSLiteralExpression literal) {
                         if (!literal.isNumericLiteral())
                             registerProblemForNonNumericPropertyValue(literal, holder);
                         else checkForMismatchToleranceAboveThreshold(literal, holder);

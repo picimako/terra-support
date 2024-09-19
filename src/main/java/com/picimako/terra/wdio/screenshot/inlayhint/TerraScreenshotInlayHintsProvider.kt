@@ -1,14 +1,17 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inlayhint
 
-import com.intellij.codeInsight.hints.*
+import com.intellij.codeInsight.hints.ImmediateConfigurable
+import com.intellij.codeInsight.hints.InlayHintsCollector
+import com.intellij.codeInsight.hints.InlayHintsProvider
+import com.intellij.codeInsight.hints.InlayHintsSink
+import com.intellij.codeInsight.hints.SettingsKey
 import com.intellij.lang.Language
 import com.intellij.lang.javascript.JSLanguageDialect
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import com.picimako.terra.resources.TerraBundle
-import com.picimako.terra.wdio.TerraWdioPsiUtil.*
 
 /**
  * Provides inlay hints for Terra screenshot validation calls.
@@ -52,7 +55,7 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
 });"""
 
     override fun createConfigurable(settings: Settings): ImmediateConfigurable {
-        return TerraScreenshotInlayHintPanelProvider.createConfigurable(settings)
+        return TerraScreenshotInlayHintPanelProvider.createConfigurable()
     }
 
     override fun getCollectorFor(
@@ -68,12 +71,5 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
 
     override fun isLanguageSupported(language: Language): Boolean = language is JSLanguageDialect
 
-    data class Settings(
-        var showScreenshotName: InlayType = InlayType.Disabled,
-        var showCssSelector: InlayType = InlayType.Disabled
-    )
-
-    enum class InlayType(val padding: Int = 0) {
-        Disabled, Inline(2), Block(1)
-    }
+    class Settings
 }

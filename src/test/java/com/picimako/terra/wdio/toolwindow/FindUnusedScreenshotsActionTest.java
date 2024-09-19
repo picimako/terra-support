@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.toolwindow;
 
@@ -40,7 +40,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode relatedFindUnusedScreenshotSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         assertThat(relatedFindUnusedScreenshotSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(TestActionEvent.createTestEvent());
@@ -64,7 +64,7 @@ public class FindUnusedScreenshotsActionTest extends TerraToolkitTestCase {
         TerraWdioTree tree = new TerraWdioTree(treeModel);
         FindUnusedScreenshotsAction action = new FindUnusedScreenshotsAction(tree, getProject());
 
-        TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode nonRelatedSomeSpec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         assertThat(nonRelatedSomeSpec.getScreenshots().stream().noneMatch(TreeScreenshotNode::isUnused)).isTrue();
 
         action.actionPerformed(TestActionEvent.createTestEvent());

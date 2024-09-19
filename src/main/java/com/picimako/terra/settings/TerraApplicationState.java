@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.settings;
 
@@ -12,6 +12,8 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.picimako.terra.wdio.screenshot.inlayhint.InlayType;
 
 /**
  * Stores the application-level settings for this plugin.
@@ -37,6 +39,22 @@ public class TerraApplicationState implements PersistentStateComponent<TerraAppl
      * @since 0.5.0
      */
     public boolean showConfirmationBeforeScreenshotDeletion = true;
+
+    /**
+     * Whether to show screenshot name inlay hints.
+     *
+     * @see com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider
+     * @since 1.9.0
+     */
+    public String showScreenshotName = InlayType.Disabled.name();
+
+    /**
+     * Whether to show CSS selector inlay hints.
+     *
+     * @see com.picimako.terra.wdio.screenshot.inlayhint.TerraScreenshotInlayHintsProvider
+     * @since 1.9.0
+     */
+    public String showCssSelector = InlayType.Disabled.name();
 
     public TerraApplicationState() {
         wdioRootPaths = new ArrayList<>();

@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio;
 
@@ -32,7 +32,7 @@ public class TerraFunctionalTestingSpecFolderCollectorTest extends BasePlatformT
         List<VirtualFile> latests = TerraResourceManager.getInstance(getProject()).specFolderCollector().collectSpecFoldersForTypeInside("latest", filesAndFoldersInWdioRoot).collect(toList());
 
         assertThat(latests).hasSize(1);
-        assertThat(latests.get(0).getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/clinical-lowlight-theme/en/chrome_huge/CollectScreenshots-spec");
+        assertThat(latests.getFirst().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/latest/clinical-lowlight-theme/en/chrome_huge/CollectScreenshots-spec");
     }
 
     //To fix the test failure when copying package.json to the project

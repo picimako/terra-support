@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.toolwindow.action;
 
@@ -38,7 +38,7 @@ public class ShowDiffScreenshotsAction extends AbstractTerraWdioToolWindowAction
     @Override
     public void performAction(TerraWdioTree tree, @Nullable Project project) {
         if (project != null && tree != null && isScreenshot(tree.getLastSelectedPathComponent())) {
-            var fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getDiffs().get(0);
+            var fileToOpen = asScreenshot(tree.getLastSelectedPathComponent()).getDiffs().getFirst();
             var fileEditorManager = FileEditorManager.getInstance(project);
             fileEditorManager.openFile(fileToOpen, true, fileEditorManager.isFileOpen(fileToOpen));
             fileEditorManager.setSelectedEditor(fileToOpen, DiffScreenshotsPreview.EDITOR_TYPE_ID);

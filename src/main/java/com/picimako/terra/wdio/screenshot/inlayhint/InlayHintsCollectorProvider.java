@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inlayhint;
 
@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
+import com.picimako.terra.settings.TerraApplicationState;
 import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorRetriever;
 
@@ -28,6 +29,7 @@ import com.picimako.terra.wdio.screenshot.inspection.GlobalTerraSelectorRetrieve
  * <p>
  * It is implemented in Java, because the Kotlin implementation had some issues during compilation.
  */
+@SuppressWarnings("UnstableApiUsage")
 public final class InlayHintsCollectorProvider {
 
     private static final String SCREENSHOT_HINT_LABEL = "screenshot: ";
@@ -41,10 +43,10 @@ public final class InlayHintsCollectorProvider {
                     && element instanceof JSCallExpression
                     && isScreenshotValidationCall((JSCallExpression) element)) {
                     var addedInlineScreenshot = false;
-                    if (settings.getShowScreenshotName() != TerraScreenshotInlayHintsProvider.InlayType.Disabled) {
+                    if (!TerraApplicationState.getInstance().showScreenshotName.equals(InlayType.Disabled.name())) {
                         addedInlineScreenshot = addScreenshotHint((JSCallExpression) element, addedInlineScreenshot);
                     }
-                    if (settings.getShowCssSelector() != TerraScreenshotInlayHintsProvider.InlayType.Disabled) {
+                    if (!TerraApplicationState.getInstance().showCssSelector.equals(InlayType.Disabled.name())) {
                         addCSSSelectorHint((JSCallExpression) element, addedInlineScreenshot);
                     }
                 }
@@ -56,12 +58,12 @@ public final class InlayHintsCollectorProvider {
                 final var nameExpr = getFirstArgumentAsStringLiteral(element.getArgumentList());
                 final var nameResolver = TerraResourceManager.getInstance(element.getProject()).screenshotNameResolver();
                 final var screenshotName = nameResolver.resolveWithFallback(nameExpr, element.getMethodExpression());
-                switch (settings.getShowScreenshotName()) {
-                    case Inline:
+                switch (TerraApplicationState.getInstance().showScreenshotName) {
+                    case "Inline":
                         addInlineHint(element, SCREENSHOT_HINT_LABEL, screenshotName);
                         isAddedInlineScreenshot = true;
                         break;
-                    case Block:
+                    case "Block":
                         addBlockHint(element, SCREENSHOT_HINT_LABEL, screenshotName);
                         break;
                     default:
@@ -75,11 +77,11 @@ public final class InlayHintsCollectorProvider {
                     String selector = GlobalTerraSelectorRetriever.getInstance(element.getProject()).getSelector();
                     final var cssSelector = selector != null ? selector : "";
                     if (!cssSelector.isEmpty()) {
-                        switch (settings.getShowCssSelector()) {
-                            case Inline:
+                        switch (TerraApplicationState.getInstance().showCssSelector) {
+                            case "Inline":
                                 addInlineHint(element, addedInlineScreenshot ? ", " + SELECTOR_HINT_LABEL : SELECTOR_HINT_LABEL, cssSelector);
                                 break;
-                            case Block:
+                            case "Block":
                                 addBlockHint(element, SELECTOR_HINT_LABEL, cssSelector);
                                 break;
                             default:

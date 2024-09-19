@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.gutter;
 
@@ -35,7 +35,7 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
         provider.collectNavigationMarkers(element, collection);
 
         assertThat(collection).hasSize(1);
-        assertThat(collection.get(0).getLineMarkerTooltip()).isEqualTo("Navigate to related screenshots");
+        assertThat(collection.getFirst().getLineMarkerTooltip()).isEqualTo("Navigate to related screenshots");
     }
 
     public void testDoesntAddGutterIconForNonExistentDefaultScreenshot() {
@@ -65,7 +65,7 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
         provider.collectNavigationMarkers(element, collection);
 
         assertThat(collection).hasSize(1);
-        assertThat(collection.get(0).getLineMarkerTooltip()).isEqualTo("Screenshot validation happens on this line");
+        assertThat(collection.getFirst().getLineMarkerTooltip()).isEqualTo("Screenshot validation happens on this line");
     }
 
     private PsiElement configureFiles(String specPath, boolean getParent, String... screenshotPaths) {

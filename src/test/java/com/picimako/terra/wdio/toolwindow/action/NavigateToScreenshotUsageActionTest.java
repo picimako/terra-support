@@ -1,4 +1,4 @@
-//Copyright 2023 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.toolwindow.action;
 
@@ -89,7 +89,7 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
     private TerraWdioTree wdioTree() {
         TerraWdioTreeModel treeModel = new TerraWdioTreeModel(getProject());
         TerraWdioTree tree = new TerraWdioTree(treeModel);
-        TreeSpecNode spec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().get(0);
+        TreeSpecNode spec = ((TreeModelDataRoot) treeModel.getRoot()).getSpecs().getFirst();
         TreeScreenshotNode screenshot = spec.getScreenshot(0);
         tree.addSelectionPath(new TreePath(new Object[]{treeModel.getRoot(), spec, screenshot}));
         return tree;
