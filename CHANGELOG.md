@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.9.0]
+### Changed
+- New supported IDE version range: 2024.2 - 2024.3.*.
+- Updated the project to use the IntelliJ Platform Gradle Plugin 2.0.
+- Updated the project to use JDK 21.
+
 ## [1.8.0]
 ### Changed
 - New supported IDE version range: 2023.1.6-2024.2-EAP.
