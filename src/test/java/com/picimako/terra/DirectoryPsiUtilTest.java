@@ -10,7 +10,7 @@ import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 /**
  * Unit test for {@link DirectoryPsiUtil}.
  */
-public class DirectoryPsiUtilTest extends BasePlatformTestCase{
+public class DirectoryPsiUtilTest extends BasePlatformTestCase {
 
     @Override
     protected String getTestDataPath() {

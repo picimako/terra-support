@@ -36,9 +36,8 @@ dependencies {
     testImplementation(libs.junit)
     //See https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-faq.html#missing-opentest4j-dependency-in-test-framework
     testImplementation("org.opentest4j:opentest4j:1.3.0")
-    testImplementation("org.assertj:assertj-core:3.26.3")
-    testImplementation("org.mockito:mockito-core:5.12.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0") //for using static method mocking
+    testImplementation("org.assertj:assertj-core:3.27.3")
+    testImplementation("org.mockito:mockito-core:5.15.2")
 
     intellijPlatform {
         create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
@@ -105,7 +104,7 @@ intellijPlatform {
 intellijPlatformTesting {
     val runTestsInIJCommunity by intellijPlatformTesting.testIde.registering {
         type = IntelliJPlatformType.IntellijIdeaCommunity
-        version = "2024.2"
+        version = "2024.3"
         task {
             useJUnit {
                 isScanForTestClasses = false
