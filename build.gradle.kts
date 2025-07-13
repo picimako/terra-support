@@ -1,6 +1,5 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
-import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
@@ -22,6 +21,7 @@ kotlin {
 // Configure project's dependencies
 repositories {
     mavenCentral()
+
     // IntelliJ Platform Gradle Plugin Repositories Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-repositories-extension.html
     intellijPlatform {
         defaultRepositories()
@@ -35,7 +35,7 @@ dependencies {
     //Required for 'junit.framework.TestCase' referenced in 'com.intellij.testFramework.UsefulTestCase'
     testImplementation(libs.junit)
     //See https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-faq.html#missing-opentest4j-dependency-in-test-framework
-    testImplementation("org.opentest4j:opentest4j:1.3.0")
+    testImplementation(libs.opentest4j)
     testImplementation("org.assertj:assertj-core:3.27.3")
     testImplementation("org.mockito:mockito-core:5.15.2")
 
@@ -48,7 +48,6 @@ dependencies {
         // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file for plugin from JetBrains Marketplace.
         plugins(providers.gradleProperty("platformPlugins").map { it.split(',') })
 
-        instrumentationTools()
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
@@ -60,6 +59,7 @@ dependencies {
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
 intellijPlatform {
     pluginConfiguration {
+        name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
@@ -90,26 +90,13 @@ intellijPlatform {
 
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
-            untilBuild = providers.gradleProperty("pluginUntilBuild")
+//            untilBuild = providers.gradleProperty("pluginUntilBuild")
         }
     }
 
     pluginVerification {
         ides {
             recommended()
-        }
-    }
-}
-
-intellijPlatformTesting {
-    val runTestsInIJCommunity by intellijPlatformTesting.testIde.registering {
-        type = IntelliJPlatformType.IntellijIdeaCommunity
-        version = "2024.3"
-        task {
-            useJUnit {
-                isScanForTestClasses = false
-                include("**/*Test.class")
-            }
         }
     }
 }
@@ -123,5 +110,11 @@ changelog {
 tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
+    }
+
+    test {
+        useJUnit {
+            environment("NO_FS_ROOTS_ACCESS_CHECK", true)
+        }
     }
 }
