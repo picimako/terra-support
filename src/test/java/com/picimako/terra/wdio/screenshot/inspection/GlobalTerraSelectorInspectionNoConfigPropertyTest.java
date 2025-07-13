@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
@@ -23,7 +23,7 @@ public class GlobalTerraSelectorInspectionNoConfigPropertyTest extends TerraInsp
     }
 
     public void testNoGlobalSelectorInWdioConfig() {
-        myFixture.copyFileToProject("wdio.conf.js");
+        copyFileToProject("wdio.conf.js");
         doWdioSpecTest();
     }
 }

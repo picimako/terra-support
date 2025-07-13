@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.imagepreview;
 
@@ -6,7 +6,6 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.diff;
 import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.function.Function;
 
 import com.intellij.openapi.project.Project;
@@ -26,17 +25,18 @@ public class AbstractScreenshotsPreviewTest extends TerraToolkitTestCase {
     }
 
     public void testCollectsScreenshotDiffs() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
-        VirtualFile vf = myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[2].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"),
+            reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
+        var vf = copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
+        copyFilesToProject(
+            reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[2].png"),
+            diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"),
+            diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"),
+            diff("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
 
-        myFixture.copyFileToProject(diff("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
-
-        DummyScreenshotPreview preview = new DummyScreenshotPreview(getProject(), vf, "diff", ScreenshotDiff::new);
-        List<ScreenshotDiff> screenshotDiffs = preview.getScreenshotDiffs();
+        var preview = new DummyScreenshotPreview(getProject(), vf, "diff", ScreenshotDiff::new);
+        var screenshotDiffs = preview.getScreenshotDiffs();
 
         assertThat(screenshotDiffs).hasSize(2);
         assertThat(screenshotDiffs.get(0).getOriginal().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/diff/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png");
@@ -47,7 +47,10 @@ public class AbstractScreenshotsPreviewTest extends TerraToolkitTestCase {
 
     static class DummyScreenshotPreview extends AbstractScreenshotsPreview {
 
-        protected DummyScreenshotPreview(@NotNull Project project, @NotNull VirtualFile file, @NotNull String sourceFolderName, @NotNull Function<VirtualFile, ScreenshotDiff> screenshotToDiffMapper) {
+        protected DummyScreenshotPreview(@NotNull Project project,
+                                         @NotNull VirtualFile file,
+                                         @NotNull String sourceFolderName,
+                                         @NotNull Function<VirtualFile, ScreenshotDiff> screenshotToDiffMapper) {
             super(project, file, sourceFolderName, screenshotToDiffMapper);
         }
 

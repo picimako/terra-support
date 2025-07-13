@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.psi.js;
 
@@ -7,7 +7,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.intellij.lang.ecmascript6.psi.ES6ClassExpression;
 import com.intellij.lang.javascript.buildTools.JSPsiUtil;
@@ -16,7 +15,6 @@ import com.intellij.lang.javascript.psi.JSCallExpression;
 import com.intellij.lang.javascript.psi.JSExpression;
 import com.intellij.lang.javascript.psi.JSExpressionStatement;
 import org.junit.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 /**
@@ -28,25 +26,25 @@ public class JSArgumentUtilTest {
 
     @Test
     public void shouldReturnArgumentList() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        JSArgumentList argumentList = mock(JSArgumentList.class);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        var argumentList = mock(JSArgumentList.class);
         when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            assertThat(JSArgumentUtil.getArgumentListOf(element)).isSameAs(argumentList);
+            assertThat(JSArgumentUtil.getArgumentListOf(expressionStatement)).isSameAs(argumentList);
         }
     }
 
     @Test
     public void shouldNotReturnArgumentList() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            assertThat(JSArgumentUtil.getArgumentListOf(element)).isNull();
+            assertThat(JSArgumentUtil.getArgumentListOf(expressionStatement)).isNull();
         }
     }
 
@@ -54,37 +52,37 @@ public class JSArgumentUtilTest {
 
     @Test
     public void shouldReturnArguments() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        JSArgumentList argumentList = mock(JSArgumentList.class);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        var argumentList = mock(JSArgumentList.class);
         when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
         when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class), mock(JSExpression.class)});
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            assertThat(JSArgumentUtil.getArgumentsOf(element)).hasSize(2);
+            assertThat(JSArgumentUtil.getArgumentsOf(expressionStatement)).hasSize(2);
         }
     }
 
     @Test
     public void shouldReturnEmptyArgumentsWhenThereIsNoCallExpression() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(null);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(null);
 
-            assertThat(JSArgumentUtil.getArgumentsOf(element)).isEmpty();
+            assertThat(JSArgumentUtil.getArgumentsOf(expressionStatement)).isEmpty();
         }
     }
 
     @Test
     public void shouldReturnEmptyArgumentsWhenThereIsNoArgumentList() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
         when(jsCallExpression.getArgumentList()).thenReturn(null);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            assertThat(JSArgumentUtil.getArgumentsOf(element)).isEmpty();
+            assertThat(JSArgumentUtil.getArgumentsOf(expressionStatement)).isEmpty();
         }
     }
 
@@ -92,42 +90,42 @@ public class JSArgumentUtilTest {
 
     @Test
     public void shouldRunLogicOnArgumentList() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        JSArgumentList argumentList = mock(JSArgumentList.class);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        var argumentList = mock(JSArgumentList.class);
         when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
         when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class), mock(JSExpression.class)});
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            List<String> aList = new ArrayList<>();
-            JSArgumentUtil.doWithinArgumentListOf(element, jsArgumentList -> aList.add("Executed logic."));
+            var aList = new ArrayList<>();
+            JSArgumentUtil.doWithinArgumentListOf(expressionStatement, jsArgumentList -> aList.add("Executed logic."));
             assertThat(aList).hasSize(1);
         }
     }
 
     @Test
     public void shouldNotRunLogicOnArgumentListWhenThereIsNoCallExpression() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(null);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(null);
 
-            List<String> aList = new ArrayList<>();
-            JSArgumentUtil.doWithinArgumentListOf(element, jsArgumentList -> aList.add("Executed logic."));
+            var aList = new ArrayList<>();
+            JSArgumentUtil.doWithinArgumentListOf(expressionStatement, jsArgumentList -> aList.add("Executed logic."));
             assertThat(aList).isEmpty();
         }
     }
 
     @Test
     public void shouldNotRunLogicOnArgumentListWhenThereIsNoArgumentList() {
-        JSExpressionStatement element = mock(JSExpressionStatement.class);
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        var expressionStatement = mock(JSExpressionStatement.class);
+        var jsCallExpression = mock(JSCallExpression.class);
         when(jsCallExpression.getArgumentList()).thenReturn(null);
-        try (MockedStatic<JSPsiUtil> util = Mockito.mockStatic(JSPsiUtil.class)) {
-            util.when(() -> JSPsiUtil.getCallExpression(element)).thenReturn(jsCallExpression);
+        try (var util = Mockito.mockStatic(JSPsiUtil.class)) {
+            util.when(() -> JSPsiUtil.getCallExpression(expressionStatement)).thenReturn(jsCallExpression);
 
-            List<String> aList = new ArrayList<>();
-            JSArgumentUtil.doWithinArgumentListOf(element, jsArgumentList -> aList.add("Executed logic."));
+            var aList = new ArrayList<>();
+            JSArgumentUtil.doWithinArgumentListOf(expressionStatement, jsArgumentList -> aList.add("Executed logic."));
             assertThat(aList).isEmpty();
         }
     }
@@ -136,12 +134,12 @@ public class JSArgumentUtilTest {
 
     @Test
     public void shouldGetNthArgument() {
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        JSArgumentList argumentList = mock(JSArgumentList.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        var argumentList = mock(JSArgumentList.class);
         when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
         when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class), mock(ES6ClassExpression.class)});
 
-        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+        var nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
 
         assertThat(nthArgument).isInstanceOf(ES6ClassExpression.class);
     }
@@ -153,22 +151,22 @@ public class JSArgumentUtilTest {
 
     @Test
     public void shouldNotGetNthArgumentForNullArgumentList() {
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
+        var jsCallExpression = mock(JSCallExpression.class);
         when(jsCallExpression.getArgumentList()).thenReturn(null);
 
-        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+        var nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
 
         assertThat(nthArgument).isNull();
     }
 
     @Test
     public void shouldNotGetNthArgumentForLessThanTwoArguments() {
-        JSCallExpression jsCallExpression = mock(JSCallExpression.class);
-        JSArgumentList argumentList = mock(JSArgumentList.class);
+        var jsCallExpression = mock(JSCallExpression.class);
+        var argumentList = mock(JSArgumentList.class);
         when(jsCallExpression.getArgumentList()).thenReturn(argumentList);
         when(argumentList.getArguments()).thenReturn(new JSExpression[]{mock(JSExpression.class)});
 
-        JSExpression nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
+        var nthArgument = JSArgumentUtil.getNthArgumentOfMoreThanOne(jsCallExpression, 2);
 
         assertThat(nthArgument).isNull();
     }

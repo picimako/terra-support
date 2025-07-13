@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 <warning descr="Multiple Terra.describeViewports blocks with the same set of viewports are specified in this file. They can be merged into a single describeViewports block.">Terra.describeViewports</warning>('Another name', ['tiny','huge'], () => {
     describe('mathes something else again', () => {

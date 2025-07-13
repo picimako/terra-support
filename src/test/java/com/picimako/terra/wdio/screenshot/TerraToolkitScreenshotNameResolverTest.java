@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot;
 
@@ -17,7 +17,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     //resolveName
 
     public void testResolveName() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -28,7 +28,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveNameToEmptyStringIfNoParentDescribeCall() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 {
                     Terra.it.matchesScreenshot('with name<caret>', { selector: '#selector' });
@@ -37,7 +37,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe(() => {
@@ -50,7 +50,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     //resolveName with partial test id
 
     public void testDefaultScreenshotPartialNameWithTestId() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -61,7 +61,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolvePartialNameWithTestId() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -72,7 +72,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolvePartialNameWithMultipleTestIds() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -83,7 +83,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveFullNameWithNonMatchingPartialTestId() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -96,7 +96,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     //resolveDefaultName
 
     public void testResolveDefaultName() {
-        JSExpression element = configureFileForJSExpression(
+        var element = configureFileForJSExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -107,7 +107,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveDefaultNameForNonDefaultValidation() {
-        JSExpression element = configureFileForJSExpression(
+        var element = configureFileForJSExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -118,7 +118,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveDefaultNameToEmptyStringIfNoParentDescribeCall() {
-        JSExpression element = configureFileForJSExpression(
+        var element = configureFileForJSExpression(
             """
                 {
                     Terra.it.matchesScreen<caret>shot({ selector: '#selector' });
@@ -128,7 +128,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveDefaultNameToEmptyStringIfParentDescribeCallHasNoNameParameter() {
-        JSExpression element = configureFileForJSExpression(
+        var element = configureFileForJSExpression(
             """
                 describe('outer describe', () => {
                     describe(() => {
@@ -141,7 +141,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     //resolveWithFallback
 
     public void testResolveByLiteralNoFallback() {
-        JSLiteralExpression element = configureFileForJSLiteralExpression(
+        var element = configureFileForJSLiteralExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {
@@ -152,7 +152,7 @@ public class TerraToolkitScreenshotNameResolverTest extends BasePlatformTestCase
     }
 
     public void testResolveByMethodExpressionFallback() {
-        JSExpression element = configureFileForJSExpression(
+        var element = configureFileForJSExpression(
             """
                 describe('outer describe', () => {
                     describe('terra screenshot', () => {

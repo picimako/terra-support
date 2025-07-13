@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.reference;
 
@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.ResolveResult;
 
@@ -132,12 +131,13 @@ public class TerraScreenshotReferenceTest extends TerraToolkitTestCase {
 
     public void testSuggestionsAreSortedAlphabetically() {
         myFixture.configureByFile("tests/wdio/Alphabetical-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/Alphabetical-spec/alpha[betical].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/Alphabetical-spec/alpha[betical].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_enormous/Alphabetical-spec/alpha[betical].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/Alphabetical-spec/alpha[betical].png"),
+            reference("/en/chrome_medium/Alphabetical-spec/alpha[betical].png"),
+            reference("/en/chrome_enormous/Alphabetical-spec/alpha[betical].png"));
 
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        ResolveResult[] resolveResults = ((PsiPolyVariantReference) element.getReferences()[0]).multiResolve(false);
+        var element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+        var resolveResults = ((PsiPolyVariantReference) element.getReferences()[0]).multiResolve(false);
 
         assertThat(resolveResults)
             .extracting(result -> (TerraScreenshotPsiFile) result.getElement())
@@ -150,13 +150,14 @@ public class TerraScreenshotReferenceTest extends TerraToolkitTestCase {
 
     private void validateReferencesForSourceFile(String specName) {
         myFixture.configureByFile("tests/wdio/" + specName + "-spec.js");
-        myFixture.copyFileToProject(reference("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
-        myFixture.copyFileToProject(latest("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"),
+            reference("/en/chrome_medium/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"),
+            diff("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"),
+            latest("/en/chrome_huge/" + specName + "-spec/terra-_screenshot--[with-_-replaced-_-characters_-].png"));
 
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
-        ResolveResult[] resolveResults = ((PsiPolyVariantReference) element.getReferences()[0]).multiResolve(false);
+        var element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+        var resolveResults = ((PsiPolyVariantReference) element.getReferences()[0]).multiResolve(false);
 
         assertThat(resolveResults).hasSize(2);
         assertThat(resolvedFilePaths(specName)).containsExactlyInAnyOrder(getPath(resolveResults[0]), getPath(resolveResults[1]));
@@ -180,9 +181,9 @@ public class TerraScreenshotReferenceTest extends TerraToolkitTestCase {
 
     private TerraScreenshotPsiFile configureTestIdOrSingleReferenceFiles(String specPath, String screenshotPath) {
         myFixture.configureByFile(specPath);
-        myFixture.copyFileToProject(screenshotPath);
+        copyFileToProject(screenshotPath);
 
-        PsiElement element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
+        var element = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         return (TerraScreenshotPsiFile) element.getReferences()[0].resolve();
     }
 }

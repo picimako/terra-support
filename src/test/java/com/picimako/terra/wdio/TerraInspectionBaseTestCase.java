@@ -1,8 +1,9 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -80,5 +81,15 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
         myFixture.enableInspections(inspection == null ? getInspection() : inspection);
         myFixture.configureByFile(testDataFileName);
         myFixture.testHighlighting(true, false, false);
+    }
+
+    protected VirtualFile copyFileToProject(String sourceFilePath) {
+        return myFixture.copyFileToProject(sourceFilePath);
+    }
+
+    protected void copyFilesToProject(String... sourceFilePaths) {
+        for (String path : sourceFilePaths) {
+            myFixture.copyFileToProject(path);
+        }
     }
 }

@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.screenshot.inspection;
 
@@ -27,12 +27,14 @@ public class MissingScreenshotInspectionTest extends TerraToolkitInspectionTestC
     }
 
     public void testMissingScreenshots() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(latest("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[single].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/testimage[default].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            reference("/en/chrome_medium/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            diff("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            latest("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[single].png"),
+            reference("/en/chrome_huge/MissingScreenshots-spec/testimage[default].png"));
+
         doWdioSpecTest("tests/wdio/");
     }
 }

@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.wdio.imagepreview;
 
@@ -13,7 +13,6 @@ import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -51,9 +50,8 @@ public class DiffScreenshotsFileEditorProviderTest {
     }
 
     private void validateFileAcceptance(boolean isFileOfTypeMockResult, boolean isDiffScreenshotMockResult, boolean expectedResult) {
-        try (MockedStatic<FileTypeRegistry> registry = Mockito.mockStatic(FileTypeRegistry.class);
-             MockedStatic<TerraWdioFolders> folders = Mockito.mockStatic(TerraWdioFolders.class)) {
-            FileTypeRegistry fileTypeRegistry = mock(FileTypeRegistry.class);
+        try (var registry = Mockito.mockStatic(FileTypeRegistry.class); var folders = Mockito.mockStatic(TerraWdioFolders.class)) {
+            var fileTypeRegistry = mock(FileTypeRegistry.class);
             registry.when(FileTypeRegistry::getInstance).thenReturn(fileTypeRegistry);
             when(fileTypeRegistry.isFileOfType(file, ImageFileType.INSTANCE)).thenReturn(isFileOfTypeMockResult);
             folders.when(() -> TerraWdioFolders.isDiffScreenshot(file, project)).thenReturn(isDiffScreenshotMockResult);

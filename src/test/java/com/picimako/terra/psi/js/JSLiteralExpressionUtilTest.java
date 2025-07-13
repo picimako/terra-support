@@ -1,4 +1,4 @@
-//Copyright 2024 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+//Copyright 2025 Tamás Balog. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 
 package com.picimako.terra.psi.js;
 
@@ -19,7 +19,7 @@ public class JSLiteralExpressionUtilTest {
     
     @Test
     public void shouldReturnTrueWhenElementIsStringLiteral() {
-        JSLiteralExpression jsLiteralExpression = mock(JSLiteralExpression.class);
+        var jsLiteralExpression = mock(JSLiteralExpression.class);
         when(jsLiteralExpression.isStringLiteral()).thenReturn(true);
 
         assertThat(JSLiteralExpressionUtil.isJSStringLiteral(jsLiteralExpression)).isTrue();
@@ -27,7 +27,7 @@ public class JSLiteralExpressionUtilTest {
 
     @Test
     public void shouldReturnFalseWhenElementIsNotLiteralExpression() {
-        JSFile notJSLiteralExpression = mock(JSFile.class);
+        var notJSLiteralExpression = mock(JSFile.class);
 
         assertThat(JSLiteralExpressionUtil.isJSStringLiteral(notJSLiteralExpression)).isFalse();
     }
@@ -36,7 +36,7 @@ public class JSLiteralExpressionUtilTest {
 
     @Test
     public void shouldReturnStringValue() {
-        JSLiteralExpression jsLiteralExpression = mock(JSLiteralExpression.class);
+        var jsLiteralExpression = mock(JSLiteralExpression.class);
         when(jsLiteralExpression.getStringValue()).thenReturn("js literal");
 
         assertThat(JSLiteralExpressionUtil.getStringValue(jsLiteralExpression)).isEqualTo("js literal");
@@ -44,7 +44,7 @@ public class JSLiteralExpressionUtilTest {
 
     @Test
     public void shouldReturnNullForNonJSLiteral() {
-        JSFile notJSLiteralExpression = mock(JSFile.class);
+        var notJSLiteralExpression = mock(JSFile.class);
 
         assertThat(JSLiteralExpressionUtil.getStringValue(notJSLiteralExpression)).isNull();
     }
