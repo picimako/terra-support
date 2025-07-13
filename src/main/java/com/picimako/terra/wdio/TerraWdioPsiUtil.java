@@ -6,7 +6,6 @@ import static com.intellij.lang.javascript.buildTools.JSPsiUtil.getCallExpressio
 import static com.picimako.terra.psi.js.JSArgumentUtil.getArgumentsOf;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.getStringValue;
 import static com.picimako.terra.psi.js.JSLiteralExpressionUtil.isJSStringLiteral;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.Arrays;
@@ -153,7 +152,7 @@ public final class TerraWdioPsiUtil {
      */
     @NotNull
     public static List<String> getViewports(JSExpression[] viewports) {
-        return Arrays.stream(viewports).map(JSLiteralExpressionUtil::getStringValue).filter(Objects::nonNull).collect(toList());
+        return Arrays.stream(viewports).map(JSLiteralExpressionUtil::getStringValue).filter(Objects::nonNull).toList();
     }
 
     /**

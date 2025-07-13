@@ -5,8 +5,8 @@ package com.picimako.terra.wdio.toolwindow;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 
+import com.picimako.terra.TerraSupportTestBase;
 import com.picimako.terra.wdio.TerraResourceManager;
 import com.picimako.terra.wdio.TerraToolkitManager;
 import com.picimako.terra.wdio.TerraWdioFolders;
@@ -14,7 +14,7 @@ import com.picimako.terra.wdio.TerraWdioFolders;
 /**
  * Unit test for {@link TerraWdioToolWindowFactory}.
  */
-public class TerraWdioToolWindowFactoryTest extends BasePlatformTestCase {
+public class TerraWdioToolWindowFactoryTest extends TerraSupportTestBase {
 
     @Override
     protected String getTestDataPath() {
@@ -27,7 +27,7 @@ public class TerraWdioToolWindowFactoryTest extends BasePlatformTestCase {
 
     public void testAvailableAndShouldConfigureWdioTestRootPath() {
         TerraResourceManager.getInstance(getProject(), TerraToolkitManager.class);
-        myFixture.copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
+        copyFileToProject("tests/wdio/CollectScreenshots-spec.js");
 
         assertThat(new TerraWdioToolWindowFactory().shouldBeAvailable(getProject())).isTrue();
         assertThat(TerraWdioFolders.getWdioTestRootPath()).isEqualTo("/src/tests/wdio");

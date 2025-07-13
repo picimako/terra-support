@@ -12,7 +12,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -29,7 +28,7 @@ public class TerraWdioFoldersTestRootNegativeCasesTest {
 
     @Test
     public void shouldReturnNullRootWhenProjectDirectoryNeverExisted() {
-        try (MockedStatic<ProjectUtil> projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
+        try (var projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
             projectUtil.when(() -> ProjectUtil.guessProjectDir(project)).thenReturn(null);
 
             assertThat(TerraWdioFolders.getTestRoot(project, "wdio")).isNull();
@@ -39,7 +38,7 @@ public class TerraWdioFoldersTestRootNegativeCasesTest {
     @Test
     public void shouldReturnNullRootWhenProjectDirectoryDoesNotExist() {
         VirtualFile projectDirectory = mock(VirtualFile.class);
-        try (MockedStatic<ProjectUtil> projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
+        try (var projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
             projectUtil.when(() -> ProjectUtil.guessProjectDir(project)).thenReturn(projectDirectory);
 
             assertThat(TerraWdioFolders.getTestRoot(project, "wdio")).isNull();
@@ -50,7 +49,7 @@ public class TerraWdioFoldersTestRootNegativeCasesTest {
     public void shouldReturnNullWhenNoTestTypeSpecificTestRootExists() {
         VirtualFile projectDirectory = mock(VirtualFile.class);
         VirtualFile testsRoot = mock(VirtualFile.class);
-        try (MockedStatic<ProjectUtil> projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
+        try (var projectUtil = Mockito.mockStatic(ProjectUtil.class)) {
             projectUtil.when(() -> ProjectUtil.guessProjectDir(project)).thenReturn(projectDirectory);
             when(projectDirectory.exists()).thenReturn(true);
             when(projectDirectory.findChild("tests")).thenReturn(testsRoot);

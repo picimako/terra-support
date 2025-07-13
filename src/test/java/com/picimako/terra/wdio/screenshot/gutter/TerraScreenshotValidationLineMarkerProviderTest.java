@@ -6,7 +6,6 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.lang.javascript.psi.JSCallExpression;
@@ -28,9 +27,9 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
     }
 
     public void testAddsGutterIconForExistingDefaultScreenshots() {
-        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false,
+        var element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false,
             reference("/en/chrome_huge/ScreenshotLineMarkersDefault-spec/terra_screenshot[default].png"));
-        List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
+        var collection = new ArrayList<RelatedItemLineMarkerInfo<?>>();
 
         provider.collectNavigationMarkers(element, collection);
 
@@ -39,8 +38,8 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
     }
 
     public void testDoesntAddGutterIconForNonExistentDefaultScreenshot() {
-        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false);
-        List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
+        var element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", false);
+        var collection = new ArrayList<RelatedItemLineMarkerInfo<?>>();
 
         provider.collectNavigationMarkers(element, collection);
 
@@ -48,8 +47,8 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
     }
 
     public void testDoesntAddGutterIconForParentJSExpression() {
-        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", true);
-        List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
+        var element = configureFiles("tests/wdio/ScreenshotLineMarkersDefault-spec.js", true);
+        var collection = new ArrayList<RelatedItemLineMarkerInfo<?>>();
 
         provider.collectNavigationMarkers(element, collection);
 
@@ -57,10 +56,10 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
     }
 
     public void testAddsEmptyGutterIconForNonDefaultScreenshots() {
-        PsiElement element = configureFiles("tests/wdio/ScreenshotLineMarkersNonDefault-spec.js", false,
+        var element = configureFiles("tests/wdio/ScreenshotLineMarkersNonDefault-spec.js", false,
             reference("/en/chrome_huge/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"),
             reference("/en/chrome_medium/ScreenshotLineMarkersNonDefault-spec/terra_screenshot[nondefault].png"));
-        List<RelatedItemLineMarkerInfo<?>> collection = new ArrayList<>();
+        var collection = new ArrayList<RelatedItemLineMarkerInfo<?>>();
 
         provider.collectNavigationMarkers(element, collection);
 
@@ -71,9 +70,9 @@ public class TerraScreenshotValidationLineMarkerProviderTest extends TerraToolki
     private PsiElement configureFiles(String specPath, boolean getParent, String... screenshotPaths) {
         myFixture.configureByFile(specPath);
         for (String path : screenshotPaths) {
-            myFixture.copyFileToProject(path);
+            copyFileToProject(path);
         }
-        PsiElement element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSCallExpression.class);
+        var element = PsiTreeUtil.getParentOfType(myFixture.getFile().findElementAt(myFixture.getCaretOffset()), JSCallExpression.class);
         return getParent ? element.getParent() : element;
     }
 }

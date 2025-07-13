@@ -5,7 +5,6 @@ package com.picimako.terra.wdio.screenshot.inspection;
 import static com.picimako.terra.wdio.WdioConfUtil.SELECTOR_PROPERTY_NAME;
 import static com.picimako.terra.wdio.WdioConfUtil.TERRA_PROPERTY_NAME;
 import static com.picimako.terra.wdio.WdioConfUtil.WDIO_CONF_JS_FILE_NAME;
-import static java.util.stream.Collectors.toList;
 
 import java.util.Optional;
 

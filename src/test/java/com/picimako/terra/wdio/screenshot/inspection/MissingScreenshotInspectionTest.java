@@ -27,12 +27,14 @@ public class MissingScreenshotInspectionTest extends TerraToolkitInspectionTestC
     }
 
     public void testMissingScreenshots() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(latest("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[single].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/MissingScreenshots-spec/testimage[default].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            reference("/en/chrome_medium/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            diff("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            latest("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[nondefault].png"),
+            reference("/en/chrome_huge/MissingScreenshots-spec/terra_screenshot[single].png"),
+            reference("/en/chrome_huge/MissingScreenshots-spec/testimage[default].png"));
+
         doWdioSpecTest("tests/wdio/");
     }
 }

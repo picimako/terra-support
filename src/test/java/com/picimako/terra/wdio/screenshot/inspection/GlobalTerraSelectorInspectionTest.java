@@ -23,7 +23,7 @@ public class GlobalTerraSelectorInspectionTest extends TerraToolkitInspectionTes
     }
 
     public void testGlobalSelector() {
-        myFixture.copyFileToProject("wdio.conf.js");
+        copyFileToProject("wdio.conf.js");
         doWdioSpecTest("globalTerraSelectorSpecs/");
     }
 

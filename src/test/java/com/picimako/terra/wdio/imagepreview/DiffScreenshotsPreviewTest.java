@@ -6,10 +6,6 @@ import static com.picimako.terra.wdio.ScreenshotTypeHelper.diff;
 import static com.picimako.terra.wdio.ScreenshotTypeHelper.reference;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
-
-import com.intellij.openapi.vfs.VirtualFile;
-
 import com.picimako.terra.TerraToolkitTestCase;
 
 /**
@@ -23,17 +19,18 @@ public class DiffScreenshotsPreviewTest extends TerraToolkitTestCase {
     }
 
     public void testCollectsScreenshotDiffs() {
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
-        VirtualFile vf = myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[2].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"));
-        myFixture.copyFileToProject(diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
+        copyFilesToProject(
+            reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"),
+            reference("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"));
+        var vf = copyFileToProject(reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
+        copyFilesToProject(
+            reference("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[2].png"),
+            diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png"),
+            diff("/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[2].png"),
+            diff("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
 
-        myFixture.copyFileToProject(diff("/en/chrome_medium/ScreenshotPreview-spec/screenshot_preview[1].png"));
-
-        DiffScreenshotsPreview preview = new DiffScreenshotsPreview(getProject(), vf);
-        List<ScreenshotDiff> screenshotDiffs = preview.getScreenshotDiffs();
+        var preview = new DiffScreenshotsPreview(getProject(), vf);
+        var screenshotDiffs = preview.getScreenshotDiffs();
 
         assertThat(screenshotDiffs).hasSize(2);
         assertThat(screenshotDiffs.get(0).getOriginal().getPath()).isEqualTo("/src/tests/wdio/__snapshots__/diff/en/chrome_huge/ScreenshotPreview-spec/screenshot_preview[1].png");

@@ -2,8 +2,6 @@
 
 package com.picimako.terra.wdio.imagepreview;
 
-import static java.util.stream.Collectors.toList;
-
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.List;

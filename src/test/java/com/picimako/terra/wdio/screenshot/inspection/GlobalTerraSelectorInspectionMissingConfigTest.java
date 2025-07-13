@@ -23,7 +23,7 @@ public class GlobalTerraSelectorInspectionMissingConfigTest extends TerraInspect
     }
 
     public void testNoGlobalSelectorInWdioConfig() {
-        myFixture.copyFileToProject("wdio.conf.js");
+        copyFileToProject("wdio.conf.js");
         doWdioSpecTest();
     }
 }

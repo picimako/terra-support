@@ -7,6 +7,7 @@ import static com.picimako.terra.JavaScriptTestFileSupport.FILE_WITH_IMPORT;
 import static com.picimako.terra.JavaScriptTestFileSupport.createJavaScriptFileFromText;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import com.google.gson.Gson;
@@ -15,8 +16,6 @@ import com.intellij.psi.xml.XmlToken;
 import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.util.ReflectionUtil;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import com.picimako.terra.psi.fs.FileSystemUtil;
 import com.picimako.terra.psi.js.ES6ImportUtil;
@@ -77,8 +76,7 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
         when(components.findComponentByName("UnknownTerraComponent")).thenReturn(null);
         setProviderDocumentationComponents(components);
 
-        try (MockedStatic<ES6ImportUtil> importUtil = Mockito.mockStatic(ES6ImportUtil.class);
-             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class)) {
+        try (var importUtil = mockStatic(ES6ImportUtil.class); var fileSystemUtil = mockStatic(FileSystemUtil.class)) {
 
             importUtil.when(() -> ES6ImportUtil.importPathForBaseComponent(originalElement)).thenReturn("terra-unknown-component");
             fileSystemUtil.when(() -> FileSystemUtil.filePathOf(element)).thenReturn("C:\\projects\\plugindev\\somefilename.js");
@@ -95,8 +93,7 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
         when(service.getDocs()).thenReturn(components);
 
         String documentationHtml;
-        try (MockedStatic<ES6ImportUtil> importUtil = Mockito.mockStatic(ES6ImportUtil.class);
-             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class)) {
+        try (var importUtil = mockStatic(ES6ImportUtil.class); var fileSystemUtil = mockStatic(FileSystemUtil.class)) {
 
             importUtil.when(() -> ES6ImportUtil.importPathForBaseComponent(originalElement)).thenReturn("terra-responsive-element");
             fileSystemUtil.when(() -> FileSystemUtil.filePathOf(element)).thenReturn("C:\\projects\\plugindev\\somefilename.js");
@@ -116,8 +113,7 @@ public class TerraUIComponentDocumentationUrlProviderTest extends BasePlatformTe
         setProviderDocumentationComponents(components);
 
         String documentationHtml;
-        try (MockedStatic<ES6ImportUtil> importUtil = Mockito.mockStatic(ES6ImportUtil.class);
-             MockedStatic<FileSystemUtil> fileSystemUtil = Mockito.mockStatic(FileSystemUtil.class)) {
+        try (var importUtil = mockStatic(ES6ImportUtil.class); var fileSystemUtil = mockStatic(FileSystemUtil.class)) {
 
             importUtil.when(() -> ES6ImportUtil.importPathForBaseComponent(originalElement)).thenReturn("terra-responsive-element");
             fileSystemUtil.when(() -> FileSystemUtil.filePathOf(element)).thenReturn("C:\\projects\\plugindev\\somefilename.js");

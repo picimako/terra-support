@@ -3,6 +3,7 @@
 package com.picimako.terra.wdio;
 
 import com.intellij.codeInspection.InspectionProfileEntry;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -80,5 +81,15 @@ public abstract class TerraInspectionBaseTestCase extends BasePlatformTestCase {
         myFixture.enableInspections(inspection == null ? getInspection() : inspection);
         myFixture.configureByFile(testDataFileName);
         myFixture.testHighlighting(true, false, false);
+    }
+
+    protected VirtualFile copyFileToProject(String sourceFilePath) {
+        return myFixture.copyFileToProject(sourceFilePath);
+    }
+
+    protected void copyFilesToProject(String... sourceFilePaths) {
+        for (String path : sourceFilePaths) {
+            myFixture.copyFileToProject(path);
+        }
     }
 }

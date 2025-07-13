@@ -4,6 +4,7 @@ package com.picimako.terra.wdio.imagepreview;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import com.intellij.openapi.fileTypes.FileTypeRegistry;
@@ -13,8 +14,6 @@ import org.intellij.images.fileTypes.impl.ImageFileType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.picimako.terra.wdio.TerraWdioFolders;
@@ -56,11 +55,11 @@ public class ReferenceToLatestScreenshotsFileEditorProviderTest {
     }
 
     private void validateFileAcceptance(boolean isFileOfTypeMockResult, boolean isLatestScreenshotMockResult, boolean isReferenceScreenshotMockResult, boolean expectedResult) {
-        try (MockedStatic<FileTypeRegistry> registry = Mockito.mockStatic(FileTypeRegistry.class);
-             MockedStatic<TerraWdioFolders> folders = Mockito.mockStatic(TerraWdioFolders.class)) {
-            FileTypeRegistry fileTypeRegistry = mock(FileTypeRegistry.class);
+        try (var registry = mockStatic(FileTypeRegistry.class); var folders = mockStatic(TerraWdioFolders.class)) {
+            var fileTypeRegistry = mock(FileTypeRegistry.class);
             registry.when(FileTypeRegistry::getInstance).thenReturn(fileTypeRegistry);
             when(fileTypeRegistry.isFileOfType(file, ImageFileType.INSTANCE)).thenReturn(isFileOfTypeMockResult);
+
             folders.when(() -> TerraWdioFolders.isLatestScreenshot(file, project)).thenReturn(isLatestScreenshotMockResult);
             folders.when(() -> TerraWdioFolders.isReferenceScreenshot(file, project)).thenReturn(isReferenceScreenshotMockResult);
 

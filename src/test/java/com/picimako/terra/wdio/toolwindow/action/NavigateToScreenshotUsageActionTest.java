@@ -34,10 +34,10 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
     }
 
     public void testNavigatesToDefaultScreenshotValidation() {
-        PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
-        PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png")));
+        var specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
+        var screenshot = PsiManager.getInstance(getProject()).findFile(copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[default].png")));
 
-        NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction();
+        var action = new NavigateToScreenshotUsageAction();
         action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
@@ -45,10 +45,10 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
     }
 
     public void testNavigatesToNonDefaultScreenshotValidation() {
-        PsiFile specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
-        PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[non-default].png")));
+        var specFile = myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
+        var screenshot = PsiManager.getInstance(getProject()).findFile(copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[non-default].png")));
 
-        NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction();
+        var action = new NavigateToScreenshotUsageAction();
         action.actionPerformed(doTestActionEvent(screenshot));
 
         assertThat(FileEditorManager.getInstance(getProject()).isFileOpen(specFile.getVirtualFile())).isTrue();
@@ -57,9 +57,9 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
 
     public void testShowDialogOfNoValidationLinkedToTheScreenshot() {
         myFixture.configureByFile("tests/wdio/NavigateToScreenshotUsage-spec.js");
-        PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[not-referenced].png")));
+        var screenshot = PsiManager.getInstance(getProject()).findFile(copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[not-referenced].png")));
 
-        NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction();
+        var action = new NavigateToScreenshotUsageAction();
         assertThatExceptionOfType(RuntimeException.class)
             .isThrownBy(() -> action.actionPerformed(doTestActionEvent(screenshot)))
             .withMessage("There is no validation linked to this screenshot.\n" +
@@ -67,9 +67,9 @@ public class NavigateToScreenshotUsageActionTest extends TerraToolkitTestCase {
     }
 
     public void testShowNoSpecFileToNavigateToDialog() {
-        PsiFile screenshot = PsiManager.getInstance(getProject()).findFile(myFixture.copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[not-referenced].png")));
+        var screenshot = PsiManager.getInstance(getProject()).findFile(copyFileToProject(reference("/en/chrome_huge/NavigateToScreenshotUsage-spec/terra_screenshot[not-referenced].png")));
 
-        NavigateToScreenshotUsageAction action = new NavigateToScreenshotUsageAction();
+        var action = new NavigateToScreenshotUsageAction();
 
         assertThat(FileEditorManager.getInstance(getProject()).hasOpenFiles()).isFalse();
         assertThatExceptionOfType(RuntimeException.class)

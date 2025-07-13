@@ -23,12 +23,12 @@ public class DuplicateScreenshotNameInspectionTest extends TerraFunctionalTestin
     }
 
     public void testDuplicateScreenshotName() {
-        myFixture.copyFileToProject("package.json");
+        copyFileToProject("package.json");
         doWdioSpecTest();
     }
 
     public void testTriplicateScreenshotName() {
-        myFixture.copyFileToProject("package.json");
+        copyFileToProject("package.json");
         doWdioSpecTest();
     }
 }
