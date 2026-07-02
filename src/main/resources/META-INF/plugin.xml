@@ -101,7 +101,7 @@
                     class="com.picimako.terra.wdio.projectview.action.NavigateToScreenshotUsageProjectViewAction"
                     text="Navigate to Screenshot Usage"
                     description="Navigates to the Terra call validating this screenshot"
-                    icon="org.intellij.images.ImagesIcons.ImagesFileType">
+                    icon="AllIcons.FileTypes.Image">
                 <keyboard-shortcut first-keystroke="control B" keymap="$default"/>
             </action>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="FindUsages"/>
