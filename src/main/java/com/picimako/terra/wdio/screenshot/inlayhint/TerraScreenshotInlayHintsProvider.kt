@@ -43,7 +43,7 @@ class TerraScreenshotInlayHintsProvider : InlayHintsProvider<TerraScreenshotInla
     override val name: String
         get() = TerraBundle.inlay("type.title")
 
-    override val previewText: String?
+    override val previewText: String
         get() =
             """describe('Terra screenshot', () => {
     it('Test case', () => {
