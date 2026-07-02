@@ -3,6 +3,13 @@
 [![Terra Support](https://img.shields.io/jetbrains/plugin/v/15430-terra-support)](https://plugins.jetbrains.com/plugin/15430-terra-support)
 ![](https://img.shields.io/badge/since-v2021.3-blue)
 
+> [!IMPORTANT]
+> The development of Terra Support is now discontinued.
+> The related Terra libraries have been archived and no replacements seem to exist.
+> 
+> The IDE version compatibility range is left open upwards, so as long as no API- or binary-incompatible changes
+> are introduced in the IntelliJ Platform, the plugin will continue to work.
+
 <!-- Plugin description -->
 This plugin provides integration to Cerner's various Terra libraries, especially with their test automation elements.
 
