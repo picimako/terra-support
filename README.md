@@ -40,10 +40,6 @@ The documents below provide more details about the various features:
 
 There are also various customization options for the plugin which you can find on its dedicated [Plugin Settings page](docs/terra_settings.md).
 
-## Developer documentation
-
-To get started with the development of this project you can find some details in the [dev docs](docs/devdocs.md).
-
 ## Cerner Terra resources
 
 - Terra Toolkit: [GitHub repository](https://github.com/cerner/terra-toolkit)
