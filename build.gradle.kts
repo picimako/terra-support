@@ -3,11 +3,11 @@ import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
-    id("java") // Java support
-    alias(libs.plugins.kotlin) // Kotlin support
-    alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
-    alias(libs.plugins.changelog) // Gradle Changelog Plugin
-    alias(libs.plugins.lombok) // Lombok
+    id("java")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.intelliJPlatform)
+    alias(libs.plugins.changelog)
+    alias(libs.plugins.lombok)
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -34,10 +34,8 @@ dependencies {
 
     //Required for 'junit.framework.TestCase' referenced in 'com.intellij.testFramework.UsefulTestCase'
     testImplementation(libs.junit)
-    //See https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-faq.html#missing-opentest4j-dependency-in-test-framework
-    testImplementation(libs.opentest4j)
-    testImplementation("org.assertj:assertj-core:3.27.3")
-    testImplementation("org.mockito:mockito-core:5.15.2")
+    testImplementation("org.assertj:assertj-core:3.27.7")
+    testImplementation("org.mockito:mockito-core:5.23.0")
 
     intellijPlatform {
         create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
@@ -51,8 +49,6 @@ dependencies {
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
-        //Required for 'LightJavaCodeInsightFixtureTestCase5'
-//        testFramework(TestFrameworkType.Plugin.Java)
     }
 }
 
@@ -90,7 +86,6 @@ intellijPlatform {
 
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
-//            untilBuild = providers.gradleProperty("pluginUntilBuild")
         }
     }
 

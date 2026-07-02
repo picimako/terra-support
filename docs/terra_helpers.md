@@ -318,25 +318,6 @@ Terra.it.matchesScreenshot({ selector: '#root' });
 Terra.it.validatesElement({ selector: '#root' });
 ```
 
-## Quick Documentation
-
-### Terra WDIO helpers and functions
-
-![](https://img.shields.io/badge/since-0.1.0-blue) [![](https://img.shields.io/badge/implementation-TerraWdioDocumentationProvider-blue)](../src/main/java/com/picimako/terra/documentation/TerraWdioDocumentationProvider.java)
-
-There are a few external documentations on GitHub that are useful for Terra wdio testing. The follow ones are provided to users:
-- [Webdriver.io Utility Developer's Guide](https://github.com/cerner/terra-toolkit-boneyard/blob/main/docs/Wdio_Utility.md)
-- [Terra Functional Testing](https://engineering.cerner.com/terra-ui/dev_tools/cerner/terra-functional-testing/about)
-- [Axe Accessibility Rule Descriptions](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)
-
-To make them easily available, they are included in the Quick Documentation popup of each Terra object and function name that are related to wdio testing.
-
-![terra-wdio-quick-documentation-single](assets/terra-wdio-quick-documentation-single.png)
-
-When there are multiple documentations e.g. for `validatesElement()` that include both screenshot validation and accessibility testing, multiple relevant links are displayed:
-
-![terra-wdio-quick-documentation-multiple](assets/terra-wdio-quick-documentation-multiple.png)
-
 ## Line markers / Gutter icons
 
 ![](https://img.shields.io/badge/since-0.4.0-blue) [![](https://img.shields.io/badge/implementation-TerraScreenshotValidationLineMarkerProvider-blue)](../src/main/java/com/picimako/terra/wdio/screenshot/gutter/TerraScreenshotValidationLineMarkerProvider.java)
