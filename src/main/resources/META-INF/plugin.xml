@@ -1,5 +1,6 @@
 <!--https://jetbrains.org/intellij/sdk/docs/basics/plugin_structure/dynamic_plugins.html-->
 <idea-plugin require-restart="true">
+    <!--suppress PluginXmlValidity -->
     <name>Terra Support</name>
     <id>terra.support</id>
     <vendor url="https://github.com/picimako/terra-support">Tamas Balog</vendor>
