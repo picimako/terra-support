@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.12.0]
+### Changed
+- New supported IDE version range: 2025.2.+.
+- Dependency updates.
+
 ## [1.11.0]
 ### Changed
 - New supported IDE version range: 2025.1.+.
